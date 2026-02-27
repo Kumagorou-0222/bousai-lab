@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在宅避難ラボ｜大家さんと一緒に学ぶ防災</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Kaisei+Decol:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF6B00;
+    --yellow: #FFD000;
+    --light-orange: #FFF3E0;
+    --dark: #1A1A1A;
+    --text: #333;
+    --white: #FFFFFF;
+    --gray: #F5F5F5;
+    --shadow: 0 4px 20px rgba(255,107,0,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: var(--white);
+    border-bottom: 3px solid var(--yellow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--orange);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    line-height: 1.2;
+  }
+
+  .logo-main {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  .logo-sub {
+    font-size: 10px;
+    color: #888;
+  }
+
+  nav {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  nav a:hover {
+    background: var(--light-orange);
+    color: var(--orange);
+  }
+
+  nav a.active {
+    background: var(--orange);
+    color: white;
+  }
+
+  .nav-rakuten {
+    background: var(--yellow);
+    color: var(--dark) !important;
+    border-radius: 8px;
+  }
+
+  .nav-rakuten:hover {
+    background: var(--orange) !important;
+    color: white !important;
+  }
+
+  /* ===== PAGE SECTIONS ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--orange) 0%, #FF9500 50%, var(--yellow) 100%);
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hero-emoji {
+    font-size: 72px;
+    margin-bottom: 16px;
+    display: block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .hero h1 {
+    font-family: 'Kaisei Decol', serif;
+    font-size: clamp(24px, 5vw, 42px);
+    color: white;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.9);
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.7;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: var(--orange);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin-bottom: 16px;
+  }
+
+  /* ===== CARD GRID ===== */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 20px;
+  }
+
+  .section-title {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 28px;
+    color: var(--dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), transparent);
+    border-radius: 2px;
+  }
+
+  .section-desc {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 15px;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    border-color: var(--orange);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(255,107,0,0.2);
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--orange), #FF9500);
+    padding: 24px;
+    text-align: center;
+    font-size: 48px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: var(--dark);
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* ===== INFO PAGE ===== */
+  .content-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .page-hero {
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+  }
+
+  .page-hero .emoji {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .page-hero h2 {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .page-hero p {
+    font-size: 15px;
+    opacity: 0.9;
+    line-height: 1.7;
+  }
+
+  .info-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--orange);
+  }
+
+  .info-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-card p, .info-card li {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .info-card ul, .info-card ol {
+    padding-left: 20px;
+  }
+
+  .info-card li {
+    margin-bottom: 6px;
+  }
+
+  .policy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .policy-item {
+    background: var(--light-orange);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .policy-item .org {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .policy-item p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+
+  .comparison-table th {
+    background: var(--orange);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+  }
+
+  .comparison-table th:first-child { border-radius: 8px 0 0 0; }
+  .comparison-table th:last-child { border-radius: 0 8px 0 0; }
+
+  .comparison-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .comparison-table tr:nth-child(even) td { background: var(--gray); }
+
+  .check { color: #22C55E; font-weight: 700; }
+  .cross { color: #EF4444; font-weight: 700; }
+  .warn { color: var(--orange); font-weight: 700; }
+
+  .condition-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .cond-ok, .cond-ng {
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .cond-ok { background: #F0FDF4; border: 2px solid #22C55E; }
+  .cond-ng { background: #FEF2F2; border: 2px solid #EF4444; }
+
+  .cond-ok h4 { color: #16A34A; font-size: 14px; margin-bottom: 8px; }
+  .cond-ng h4 { color: #DC2626; font-size: 14px; margin-bottom: 8px; }
+
+  .cond-ok li, .cond-ng li {
+    font-size: 13px;
+    list-style: none;
+    padding: 2px 0;
+  }
+
+  .cond-ok li::before { content: '✅ '; }
+  .cond-ng li::before { content: '❌ '; }
+
+  /* ===== GOODS PAGE ===== */
+  .category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+
+  .cat-btn {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text);
+  }
+
+  .cat-btn:hover, .cat-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+  }
+
+  .goods-category {
+    margin-bottom: 40px;
+  }
+
+  .goods-category h3 {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 20px;
+    color: var(--dark);
+    margin-bottom: 16px;
+    padding: 10px 16px;
+    background: var(--light-orange);
+    border-radius: 10px;
+    border-left: 4px solid var(--orange);
+  }
+
+  .goods-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  .goods-item {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .goods-item:hover {
+    border-color: var(--orange);
+  }
+
+  .goods-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--dark);
+  }
+
+  .goods-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* ===== RAKUTEN BANNER ===== */
+  .rakuten-banner {
+    background: linear-gradient(135deg, #BF0000, #E60000);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    margin: 40px 0;
+    color: white;
+  }
+
+  .rakuten-banner h3 {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .rakuten-banner p {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+
+  .rakuten-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--yellow);
+    color: #BF0000;
+    font-weight: 900;
+    font-size: 16px;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  .rakuten-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  /* ===== ABOUT PAGE ===== */
+  .about-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+
+  .about-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .about-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    flex-shrink: 0;
+  }
+
+  .about-profile h3 {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .about-profile p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* ===== QUIZ ===== */
+  .quiz-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .quiz-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+
+  .quiz-question {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: var(--dark);
+  }
+
+  .quiz-options {
+    display: grid;
+    gap: 10px;
+  }
+
+  .quiz-option {
+    background: var(--gray);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.2s;
+    text-align: left;
+  }
+
+  .quiz-option:hover { background: var(--light-orange); border-color: var(--orange); }
+  .quiz-option.correct { background: #F0FDF4; border-color: #22C55E; color: #16A34A; }
+  .quiz-option.wrong { background: #FEF2F2; border-color: #EF4444; color: #DC2626; }
+
+  .quiz-result {
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    display: none;
+    line-height: 1.7;
+  }
+
+  .quiz-result.show { display: block; }
+  .quiz-result.correct-result { background: #F0FDF4; color: #16A34A; }
+  .quiz-result.wrong-result { background: #FEF2F2; color: #DC2626; }
+
+  .quiz-score {
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    color: white;
+    display: none;
+  }
+
+  .quiz-score.show { display: block; }
+  .quiz-score h3 { font-size: 24px; margin-bottom: 10px; }
+  .quiz-score .score-num { font-size: 56px; font-weight: 900; }
+
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .btn-primary:hover { background: #e05d00; transform: scale(1.03); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 13px;
+    margin-top: 60px;
+  }
+
+  footer a { color: var(--yellow); text-decoration: none; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    nav { width: 100%; }
+    .condition-list { grid-template-columns: 1fr; }
+    .logo-main { font-size: 15px; }
+  }
+
+  /* ===== HIGHLIGHT BOX ===== */
+  .highlight {
+    background: var(--light-orange);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    border-left: 4px solid var(--yellow);
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 50px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#" onclick="showPage('home')">
+      <div class="logo-icon">🏠</div>
+      <div class="logo-text">
+        <div class="logo-main">在宅避難ラボ</div>
+        <div class="logo-sub">大家さんと一緒に学ぶ防災</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#" onclick="showPage('home')" class="active" id="nav-home">🏠 ホーム</a>
+      <a href="#" onclick="showPage('zaitaku')" id="nav-zaitaku">🏡 在宅避難とは</a>
+      <a href="#" onclick="showPage('earthquake')" id="nav-earthquake">🌋 地震</a>
+      <a href="#" onclick="showPage('rain')" id="nav-rain">🌧️ 大雨・台風</a>
+      <a href="#" onclick="showPage('goods')" id="nav-goods">🛒 防災グッズ</a>
+      <a href="#" onclick="showPage('quiz')" id="nav-quiz">🎯 クイズ</a>
+      <a href="#" onclick="showPage('about')" id="nav-about">👤 大家さんについて</a>
+      <a href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank" class="nav-rakuten">🛍️ 楽天ルーム</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HOME PAGE ============ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <span class="hero-emoji">🏠</span>
+    <div class="hero-badge">🏢 武蔵野市の大家さんが作った防災サイト</div>
+    <h1>在宅避難ラボ<br>大家さんと一緒に学ぶ防災</h1>
+    <p>「避難所に行く」だけが避難じゃない！<br>自分の家を最強の避難場所にしよう🔥</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📚 コンテンツ一覧</div>
+    <p class="section-desc">小学生でもわかるように、でも大人も役立つ！在宅避難のための防災知識をまとめました。</p>
+
+    <div class="card-grid">
+      <div class="card" onclick="showPage('zaitaku')">
+        <div class="card-header">🏡</div>
+        <div class="card-body">
+          <div class="card-title">在宅避難とは？</div>
+          <div class="card-desc">なぜ自宅が最強の避難場所なのか。国・東京都・武蔵野市の方針も紹介！</div>
+        </div>
+      </div>
+      <div class="card" onclick="showPage('earthquake')">
+        <div class="card-header">🌋</div>
+        <div class="card-body">
+          <div class="card-title">地震のときどうする？</div>
+          <div class="card-desc">揺れたときの行動、場所別の対応方法をわかりやすく解説します。</div>
+        </div>
+      </div>
+      <div class="card" onclick="showPage('rain')">
+        <div class="card-header">🌧️</div>
+        <div class="card-body">
+          <div class="card-title">大雨・台風への備え</div>
+          <div class="card-desc">台風が来る前に何をすればいい？危険なサインと安全な行動を学ぼう。</div>
+        </div>
+      </div>
+      <div class="card" onclick="showPage('goods')">
+        <div class="card-header">🛒</div>
+        <div class="card-body">
+          <div class="card-title">防災グッズ完全ガイド</div>
+          <div class="card-desc">大家さんが厳選した10カテゴリの防災グッズ。楽天で購入できます！</div>
+        </div>
+      </div>
+      <div class="card" onclick="showPage('quiz')">
+        <div class="card-header">🎯</div>
+        <div class="card-body">
+          <div class="card-title">防災クイズに挑戦！</div>
+          <div class="card-desc">楽しみながら防災知識を確認。全問正解を目指そう！</div>
+        </div>
+      </div>
+      <div class="card" onclick="showPage('about')">
+        <div class="card-header">🏢</div>
+        <div class="card-body">
+          <div class="card-title">大家さんについて</div>
+          <div class="card-desc">このサイトを作った武蔵野市の大家さんの自己紹介です。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rakuten-banner" style="margin-top:50px">
+      <h3>🛍️ 大家さんが選んだ防災グッズ</h3>
+      <p>実際に使えるものだけをピックアップ。楽天市場でカンタンに購入できます！</p>
+      <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank">
+        🛍️ 楽天ルームで見る
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 在宅避難 PAGE ============ -->
+<div class="page" id="page-zaitaku">
+  <div class="content-page">
+    <div class="page-hero">
+      <span class="emoji">🏡</span>
+      <h2>在宅避難とは？</h2>
+      <p>「避難 = 避難所に行く」じゃない！<br>自宅が安全なら、家にいることが最善の避難なんです。</p>
+    </div>
+
+    <div class="info-card">
+      <h3>🏛️ 国・東京都・武蔵野市の方針</h3>
+      <p>実は、国・東京都・武蔵野市はそろって<strong>「自宅が安全なら在宅避難を」</strong>と呼びかけています。</p>
+      <div class="policy-grid">
+        <div class="policy-item">
+          <div class="org">🏛️ 国（内閣府）</div>
+          <p>自宅が安全な場合は避難所に来ず在宅避難することを推奨。2024年12月に「在宅避難者支援の手引き」を改定し、在宅避難者にも食料・物資が届く体制を整備。</p>
+        </div>
+        <div class="policy-item">
+          <div class="org">🗼 東京都</div>
+          <p>都民の約900万人がマンション等に居住。耐震基準を満たしたマンションでは在宅避難が基本という方針。在宅避難できるマンションへの支援事業も実施。</p>
+        </div>
+        <div class="policy-item">
+          <div class="org">🌿 武蔵野市</div>
+          <p>在宅避難を推奨。自宅が安全なら避難所へ行かず、自宅での生活継続を呼びかけている。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>😰 避難所のリアルな話</h3>
+      <p>実は避難所は、思ったよりも大変な場所です。正直に伝えます。</p>
+      <div style="overflow-x:auto; margin-top:16px;">
+        <table class="comparison-table">
+          <tr><th>避難所の現実</th><th>内容</th></tr>
+          <tr><td>🏠 1人あたりのスペース</td><td><strong>約1.65㎡</strong>（畳1枚分！）</td></tr>
+          <tr><td>🔊 プライバシー</td><td>隣の会話が筒抜け、カーテンもない</td></tr>
+          <tr><td>📋 共同ルール</td><td>食事・消灯時間が決まっている</td></tr>
+          <tr><td>😷 感染症リスク</td><td>大勢が集まり風邪・感染症が広がりやすい</td></tr>
+          <tr><td>👶 子供・ペット</td><td>泣き声・鳴き声で周囲に気を使う…</td></tr>
+          <tr><td>😴 睡眠</td><td>体育館の硬い床での雑魚寝が基本</td></tr>
+          <tr><td>🚽 トイレ</td><td>50人に1個が目安。長蛇の列も</td></tr>
+        </table>
+      </div>
+      <div class="highlight">
+        💡 <strong>だから「在宅避難」が注目されています！</strong><br>
+        自宅が安全なのに避難所に行くと、スペースも食料も限られてしまいます。在宅避難なら自分のペースで、家族だけの空間で過ごせます。
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>🏡 在宅避難のメリット</h3>
+      <ul style="list-style:none; padding:0;">
+        <li style="padding:8px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>気を使わなくていい</strong> → 自分のペースで生活できる</li>
+        <li style="padding:8px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>慣れた環境</strong> → ストレスが少なく体調を崩しにくい</li>
+        <li style="padding:8px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>プライバシーが守られる</strong> → 家族だけの空間</li>
+        <li style="padding:8px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>子供・高齢者・ペットに優しい</strong> → 避難所では特に負担が大きい</li>
+        <li style="padding:8px 0;">✅ <strong>在宅でも支援物資を受け取れる</strong> → 避難所で食料・水の受け取りが可能</li>
+      </ul>
+    </div>
+
+    <div class="info-card">
+      <h3>⚠️ 在宅避難できる条件（重要！）</h3>
+      <p>ただし、在宅避難ができるのは条件が整っているときだけです。</p>
+      <div class="condition-list">
+        <div class="cond-ok">
+          <h4>✅ 在宅避難OK</h4>
+          <ul>
+            <li>自宅が倒壊していない</li>
+            <li>火災・浸水の危険がない</li>
+            <li>耐震基準を満たしている</li>
+            <li>3日分以上の備蓄がある</li>
+          </ul>
+        </div>
+        <div class="cond-ng">
+          <h4>❌ 避難所に行くべき</h4>
+          <ul>
+            <li>建物が傾いている</li>
+            <li>火事・浸水の危険がある</li>
+            <li>旧耐震基準の古い建物</li>
+            <li>備蓄が全くない</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="rakuten-banner">
+      <h3>🛒 在宅避難グッズを揃えよう！</h3>
+      <p>大家さんが選んだ防災グッズを楽天ルームでまとめて紹介しています。</p>
+      <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank">🛍️ 楽天ルームで見る</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EARTHQUAKE PAGE ============ -->
+<div class="page" id="page-earthquake">
+  <div class="content-page">
+    <div class="page-hero">
+      <span class="emoji">🌋</span>
+      <h2>地震のときどうする？</h2>
+      <p>地震はいつ、どこでも起こります。<br>正しい知識で、自分と家族を守ろう！</p>
+    </div>
+
+    <div class="info-card">
+      <h3>🔔 揺れたらまずこれ！</h3>
+      <ol style="padding-left:20px; line-height:2;">
+        <li><strong>頭を守る</strong> → クッションや座布団で頭を保護</li>
+        <li><strong>火を消す</strong> → 揺れが収まってから（無理しない）</li>
+        <li><strong>出口を確保</strong> → ドアを開けて逃げ道を作る</li>
+        <li><strong>外に出ない</strong> → 落下物が危険！揺れが収まるまで待つ</li>
+        <li><strong>情報収集</strong> → ラジオ・スマホでNHKをチェック</li>
+      </ol>
+    </div>
+
+    <div class="info-card">
+      <h3>🏠 場所別の対応方法</h3>
+      <div style="display:grid; gap:12px; margin-top:12px;">
+        <div class="highlight">
+          <strong>🛋️ 家の中にいるとき</strong><br>
+          テーブルの下に隠れる。テーブルがなければ頭を抱えて低い姿勢で。窓やガラスから離れること！
+        </div>
+        <div class="highlight">
+          <strong>🛁 お風呂・トイレにいるとき</strong><br>
+          ドアを先に開けてから身を守る。ドアが歪むと出られなくなることがある。
+        </div>
+        <div class="highlight">
+          <strong>🏪 外にいるとき</strong><br>
+          建物から離れ、カバンや手で頭を守る。ブロック塀・電柱から距離を取る。
+        </div>
+        <div class="highlight">
+          <strong>🚃 電車・バスにいるとき</strong><br>
+          つり革や手すりをしっかり持つ。急ブレーキに備えて前のめりにならない。
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>🏢 マンション住まいの注意点</h3>
+      <ul>
+        <li style="margin-bottom:10px">エレベーターは使わない → 閉じ込め事故が起こりやすい</li>
+        <li style="margin-bottom:10px">揺れが収まるまで外に出ない → 外壁の落下物が危険</li>
+        <li style="margin-bottom:10px">断水に備えてお風呂に水を溜めておく</li>
+        <li style="margin-bottom:10px">排水管が破損している可能性 → トイレを流す前に管理組合に確認</li>
+        <li>自宅が安全なら<strong>在宅避難が基本！</strong></li>
+      </ul>
+    </div>
+
+    <div class="rakuten-banner">
+      <h3>🌋 地震に備えた防災グッズを揃えよう</h3>
+      <p>耐震グッズ・家具固定ベルト・ガラス飛散防止フィルムなど揃っています！</p>
+      <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank">🛍️ 楽天ルームで見る</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ RAIN PAGE ============ -->
+<div class="page" id="page-rain">
+  <div class="content-page">
+    <div class="page-hero">
+      <span class="emoji">🌧️</span>
+      <h2>大雨・台風への備え</h2>
+      <p>台風は来る前から準備できる！<br>正しい行動で命を守ろう。</p>
+    </div>
+
+    <div class="info-card">
+      <h3>📅 台風が来る前にやること</h3>
+      <ol style="padding-left:20px; line-height:2.2;">
+        <li>ハザードマップで自宅の危険度を確認</li>
+        <li>非常持ち出し袋の中身を確認・補充</li>
+        <li>窓のシャッター・雨戸を閉める準備</li>
+        <li>排水口の落ち葉・ゴミを清掃</li>
+        <li>スマホの充電を満タンに</li>
+        <li>食料・飲料水の在庫確認</li>
+        <li>避難場所・避難ルートを家族で確認</li>
+      </ol>
+    </div>
+
+    <div class="info-card">
+      <h3>🚨 警戒レベルと行動の目安</h3>
+      <div style="overflow-x:auto; margin-top:12px;">
+        <table class="comparison-table">
+          <tr><th>警戒レベル</th><th>状況</th><th>取るべき行動</th></tr>
+          <tr><td><span class="tag" style="background:#FFD000;color:#333">レベル1</span></td><td>大雨注意報など</td><td>ハザードマップを確認</td></tr>
+          <tr><td><span class="tag" style="background:#FF9500">レベル2</span></td><td>大雨・洪水警報</td><td>避難の準備を開始</td></tr>
+          <tr><td><span class="tag" style="background:#FF6B00">レベル3</span></td><td>高齢者等避難</td><td>高齢者・障がい者は避難</td></tr>
+          <tr><td><span class="tag" style="background:#EF4444">レベル4</span></td><td>避難指示</td><td><strong>全員今すぐ避難！</strong></td></tr>
+          <tr><td><span class="tag" style="background:#7F1D1D">レベル5</span></td><td>緊急安全確保</td><td>命を守る最善の行動を</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>🏠 武蔵野市の大雨リスク</h3>
+      <p>武蔵野市は大きな河川や急な坂がないため、比較的水害リスクは低めです。ただし：</p>
+      <ul style="padding-left:20px; margin-top:12px; line-height:2;">
+        <li>内水氾濫（下水があふれる）の可能性あり</li>
+        <li>近隣の多摩川・神田川の増水に注意</li>
+        <li>地盤が弱い地域での土砂崩れに注意</li>
+      </ul>
+      <div class="highlight" style="margin-top:16px;">
+        💡 <strong>武蔵野市ハザードマップを必ず確認しましょう！</strong><br>
+        市のウェブサイトから自宅周辺のリスクを確認できます。
+      </div>
+    </div>
+
+    <div class="rakuten-banner">
+      <h3>🌧️ 台風・大雨に備えた防災グッズ</h3>
+      <p>防水バッグ・ブルーシート・防水テープなど揃っています！</p>
+      <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank">🛍️ 楽天ルームで見る</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ GOODS PAGE ============ -->
+<div class="page" id="page-goods">
+  <div class="section">
+    <div class="page-hero" style="border-radius:20px; padding:40px; text-align:center; background:linear-gradient(135deg,var(--orange),var(--yellow)); color:white; margin-bottom:30px;">
+      <span style="font-size:56px;display:block;margin-bottom:16px;">🛒</span>
+      <h2 style="font-family:'Kaisei Decol',serif;font-size:28px;margin-bottom:10px;color:white;">防災グッズ完全ガイド</h2>
+      <p style="font-size:15px;opacity:0.9;">大家さんが厳選した10カテゴリ。すべて楽天市場で購入できます！</p>
+    </div>
+
+    <div class="rakuten-banner" style="margin-bottom:30px;">
+      <h3>🛍️ 楽天ルームでまとめて見る</h3>
+      <p>ここで紹介したグッズはすべて楽天ルームにまとめています！</p>
+      <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank">🛍️ 楽天ルームを開く</a>
+    </div>
+
+    <div class="goods-category">
+      <h3>🎒 1. 避難袋・バッグ</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">防災リュック 単品（30L前後）</div><div class="goods-desc">避難時に両手が使えるリュック型。30L前後が家族1人分の目安です。</div></div>
+        <div class="goods-item"><div class="goods-name">防災セット 一人用</div><div class="goods-desc">必要なグッズがすべて入ったオールインワンセット。これ1つで基本の備えが完成。</div></div>
+        <div class="goods-item"><div class="goods-name">防災セット 二人用・家族用</div><div class="goods-desc">2人〜家族分をまとめて備えたい方に。中身を確認して足りないものを追加しましょう。</div></div>
+        <div class="goods-item"><div class="goods-name">防水バッグ・ドライバッグ</div><div class="goods-desc">大雨・水害時でも中身を濡らさない防水仕様。避難袋の中袋としても活躍。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>🍙 2. 非常食・飲料水</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">アルファ米 5年保存</div><div class="goods-desc">お湯または水を注ぐだけで食べられるご飯。5年保存可能で備蓄の基本。</div></div>
+        <div class="goods-item"><div class="goods-name">保存水 2L 5年保存</div><div class="goods-desc">最低でも1人1日3Lが目安。重いので自宅備蓄用に箱買いがおすすめ。</div></div>
+        <div class="goods-item"><div class="goods-name">缶詰 おかず セット</div><div class="goods-desc">パンや肉・魚の缶詰セット。そのまま食べられて栄養補給に。</div></div>
+        <div class="goods-item"><div class="goods-name">折りたたみウォータータンク</div><div class="goods-desc">給水所から水を運ぶのに必須。折りたためてかさばらない。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>💡 3. 照明・電源</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">防災ランタン LED 充電式</div><div class="goods-desc">停電時の室内照明に。充電式＋乾電池両対応が理想的。</div></div>
+        <div class="goods-item"><div class="goods-name">ヘッドライト 防災</div><div class="goods-desc">両手が使えるヘッドライトは避難時に特に便利。</div></div>
+        <div class="goods-item"><div class="goods-name">モバイルバッテリー 大容量</div><div class="goods-desc">スマホの充電切れは情報難民に直結。20,000mAh以上がおすすめ。</div></div>
+        <div class="goods-item"><div class="goods-name">ソーラー充電器 折りたたみ</div><div class="goods-desc">停電が長期化した場合でも太陽光で充電可能。ポータブル電源との併用が◎。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>🔋 4. ポータブル電源</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">ポータブル電源 小型 400Wh以下</div><div class="goods-desc">スマホ・ランタン・小型家電に対応。軽量で使いやすいサイズ。</div></div>
+        <div class="goods-item"><div class="goods-name">ポータブル電源 中型 400〜1000Wh</div><div class="goods-desc">冷蔵庫・電気毛布・医療機器にも対応。在宅避難の主力電源として最適。</div></div>
+        <div class="goods-item"><div class="goods-name">ポータブル電源 大型 1000Wh以上</div><div class="goods-desc">エアコン・IH調理器も動かせる大容量。長期停電に備えるならこのクラス。</div></div>
+        <div class="goods-item"><div class="goods-name">ソーラーパネル 対応品</div><div class="goods-desc">電源と組み合わせることで半永久的に電力確保。晴天なら1日で充電可能。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>🔥 5. カセットガス対応グッズ</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">カセットコンロ 防災</div><div class="goods-desc">ガスが止まっても調理できる必需品。コンパクトなものを1台は備えておきたい。</div></div>
+        <div class="goods-item"><div class="goods-name">カセットガス発電機</div><div class="goods-desc">カセットボンベで発電できる小型発電機。停電時の強い味方。屋外使用が基本。</div></div>
+        <div class="goods-item"><div class="goods-name">カセットガスストーブ 暖房</div><div class="goods-desc">停電・ガス停止時の暖房に。必ず換気しながら使用してください。</div></div>
+        <div class="goods-item"><div class="goods-name">カセットガス 12本セット</div><div class="goods-desc">コンロ・ストーブ・発電機すべてに使える。最低1ケースの備蓄を推奨。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>🚰 6. 衛生・トイレ</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">簡易トイレ 50回分以上</div><div class="goods-desc">断水・下水管破損時に必須。マンション高層階では特に重要な備え。</div></div>
+        <div class="goods-item"><div class="goods-name">除菌ウェットティッシュ 大容量</div><div class="goods-desc">断水時の手洗い代替に。食事前・トイレ後に大活躍。</div></div>
+        <div class="goods-item"><div class="goods-name">消毒液 アルコール</div><div class="goods-desc">感染症予防に。傷口の消毒にも使えるタイプが便利。</div></div>
+        <div class="goods-item"><div class="goods-name">ポリ袋 大容量セット</div><div class="goods-desc">簡易トイレ・防水・ゴミ袋と多用途。45L・70Lを各1箱備蓄推奨。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>🩹 7. 救急・医療</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">救急セット 防災用</div><div class="goods-desc">絆創膏・包帯・ハサミ・ピンセットなど基本セット。避難袋に1つ必ず入れておきたい。</div></div>
+        <div class="goods-item"><div class="goods-name">使い捨て手袋 ニトリル</div><div class="goods-desc">救急処置時の感染予防に。ラテックスアレルギーの方にも安心なニトリル製を。</div></div>
+        <div class="goods-item"><div class="goods-name">体温計 非接触型</div><div class="goods-desc">避難所での体調管理に。非接触型は衛生的で複数人に使いやすい。</div></div>
+        <div class="goods-item"><div class="goods-name">常備薬ケース・ピルケース</div><div class="goods-desc">持病の薬や市販薬を整理して保管。避難時にすぐ持ち出せるようにしておく。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>📻 8. 情報収集</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">防災ラジオ 手回し充電</div><div class="goods-desc">停電・電池切れでも手回しで使えるラジオ。AM/FM/ワンセグ対応が理想的。</div></div>
+        <div class="goods-item"><div class="goods-name">防災ラジオ ソーラー充電対応</div><div class="goods-desc">太陽光でも充電可能。長期避難時の情報収集に欠かせない。</div></div>
+        <div class="goods-item"><div class="goods-name">ホイッスル 防災用</div><div class="goods-desc">声が出なくなったときに居場所を知らせる。避難袋のジッパーに付けておくと◎。</div></div>
+        <div class="goods-item"><div class="goods-name">エネループ 単3・単4セット</div><div class="goods-desc">繰り返し使える充電池。ラジオ・懐中電灯・ヘッドライトに対応。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>🛏️ 9. 在宅避難・快適グッズ</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">電動インフレータブルベッド</div><div class="goods-desc">ボタン1つで膨らむ簡易ベッド。床の硬さや冷気を遮断し、体への負担を大幅軽減。</div></div>
+        <div class="goods-item"><div class="goods-name">寝袋 封筒型 コンパクト</div><div class="goods-desc">毛布代わりに使える寝袋。封筒型は寝返りが打ちやすく在宅避難に最適。</div></div>
+        <div class="goods-item"><div class="goods-name">電気毛布 省エネ</div><div class="goods-desc">ポータブル電源との組み合わせで暖房いらずの就寝環境を実現。</div></div>
+        <div class="goods-item"><div class="goods-name">室内用 簡易テント</div><div class="goods-desc">室内に設置するプライバシーテント。断熱・保温効果もあり快適性が格段に上がる。</div></div>
+      </div>
+    </div>
+
+    <div class="goods-category">
+      <h3>🏠 10. 住まいの備え</h3>
+      <div class="goods-grid">
+        <div class="goods-item"><div class="goods-name">家具転倒防止ベルト</div><div class="goods-desc">地震時に家具が倒れて逃げ道を塞ぐのを防ぐ。本棚・冷蔵庫・テレビ台に設置を。</div></div>
+        <div class="goods-item"><div class="goods-name">ガラス飛散防止フィルム</div><div class="goods-desc">地震でガラスが割れても飛散しにくくなる。窓・食器棚に貼るだけで効果的。</div></div>
+        <div class="goods-item"><div class="goods-name">耐震マット 家電用</div><div class="goods-desc">冷蔵庫・テレビ・電子レンジの下に敷くだけで転倒を抑制。賃貸でも使いやすい。</div></div>
+        <div class="goods-item"><div class="goods-name">安全靴 スニーカータイプ</div><div class="goods-desc">災害後の室内は割れたガラスや釘が危険。避難袋の近くに1足置いておこう。</div></div>
+      </div>
+    </div>
+
+    <div class="rakuten-banner">
+      <h3>🛍️ 楽天ルームでまとめて購入</h3>
+      <p>ここで紹介したグッズはすべて楽天ルームからご購入いただけます！</p>
+      <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank">🛍️ 楽天ルームを開く</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ QUIZ PAGE ============ -->
+<div class="page" id="page-quiz">
+  <div class="quiz-container">
+    <div class="page-hero" style="border-radius:20px;padding:40px;text-align:center;background:linear-gradient(135deg,var(--orange),var(--yellow));color:white;margin-bottom:30px;">
+      <span style="font-size:56px;display:block;margin-bottom:16px;">🎯</span>
+      <h2 style="font-family:'Kaisei Decol',serif;font-size:28px;color:white;margin-bottom:10px;">防災クイズに挑戦！</h2>
+      <p style="font-size:15px;opacity:0.9;">全5問。楽しみながら防災知識を確認しよう！</p>
+    </div>
+
+    <div id="quiz-area"></div>
+    <div class="quiz-score" id="quiz-score">
+      <h3>🎉 クイズ完了！</h3>
+      <div class="score-num" id="score-display">0/5</div>
+      <p style="font-size:16px;margin:10px 0;">点</p>
+      <p id="score-message" style="font-size:15px;margin-bottom:20px;"></p>
+      <button class="btn-primary" onclick="restartQuiz()">🔄 もう一度チャレンジ！</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ABOUT PAGE ============ -->
+<div class="page" id="page-about">
+  <div class="content-page">
+    <div class="page-hero">
+      <span class="emoji">🏢</span>
+      <h2>大家さんについて</h2>
+      <p>このサイトを作った武蔵野市の大家さんの自己紹介です。</p>
+    </div>
+
+    <div class="about-card">
+      <div class="about-profile">
+        <div class="about-avatar">🐻</div>
+        <div>
+          <h3>くまごろう（武蔵野市の大家さん）</h3>
+          <p>武蔵野市でマンションを経営する大家さんです。<br>入居者の皆さんに安心して暮らしてほしいという思いから、このサイトを作りました。</p>
+        </div>
+      </div>
+      <div class="highlight">
+        💡 <strong>なぜ防災サイトを作ったか</strong><br>
+        マンションオーナーとして、地震や台風が起きたときに入居者の皆さんがどうすれば安全でいられるかをずっと考えてきました。「避難所に行く」だけでなく「自宅で安全に過ごす」ための知識をみんなに知ってほしいと思い、このサイトを立ち上げました。
+      </div>
+    </div>
+
+    <div class="about-card">
+      <h3 style="font-family:'Kaisei Decol',serif;font-size:20px;margin-bottom:16px;">🏢 マンションオーナー視点の防災</h3>
+      <p style="line-height:1.8;font-size:14px;">
+        マンションは適切に管理・維持されていれば、木造の一戸建てよりも地震に強い建物です。
+        特に新耐震基準（1981年以降）・2000年基準に対応した建物は、震度6強でも倒壊しないよう設計されています。
+      </p>
+      <div class="highlight" style="margin-top:16px;">
+        だからこそ、<strong>マンション住まいの方の在宅避難はとても有効</strong>です！
+        自分の部屋が安全なら、わざわざ不便な避難所に行く必要はありません。
+        その代わり、しっかりとした備蓄と準備が必要です。
+      </div>
+    </div>
+
+    <div class="about-card">
+      <h3 style="font-family:'Kaisei Decol',serif;font-size:20px;margin-bottom:16px;">🛒 楽天ルームについて</h3>
+      <p style="line-height:1.8;font-size:14px;">実際に役立つと思う防災グッズを厳選して楽天ルームにまとめています。このサイトで紹介したグッズはすべて楽天市場でご購入いただけます。</p>
+      <div style="text-align:center;margin-top:20px;">
+        <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank" style="display:inline-flex;">
+          🛍️ 楽天ルームを見る
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 在宅避難ラボ｜大家さんと一緒に学ぶ防災</p>
+  <p style="margin-top:8px;">武蔵野市 くまごろう</p>
+</footer>
+
+<script>
+// ===== NAVIGATION =====
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  const navEl = document.getElementById('nav-' + pageId);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== QUIZ =====
+const questions = [
+  {
+    q: '地震が起きたとき、まず最初にすべきことは？',
+    options: ['すぐに外に飛び出す', '頭を守って低い姿勢になる', '火を消しに行く', '大声で助けを呼ぶ'],
+    answer: 1,
+    explain: '正解！まず頭を守ることが大切です。揺れている最中は外に出ると落下物が危険です。火は揺れが収まってから消しましょう。'
+  },
+  {
+    q: '在宅避難できる条件として正しいのはどれ？',
+    options: ['建物が傾いているが壊れていない', 'ライフラインが完全に停止している', '自宅に倒壊・浸水の危険がない', '避難所が遠くて行けない'],
+    answer: 2,
+    explain: '正解！在宅避難は「自宅が安全」なことが大前提。建物が傾いているときは避難所へ行きましょう。'
+  },
+  {
+    q: '非常食・飲料水の備蓄量として推奨されているのは？',
+    options: ['1日分', '2日分', '最低3日分（理想は7日分）', '10日分'],
+    answer: 2,
+    explain: '正解！国・東京都とも「最低3日分、できれば7日分」を推奨しています。ライフラインの復旧には時間がかかります。'
+  },
+  {
+    q: '停電が長引いた場合、最も頼りになる電源は？',
+    options: ['乾電池だけで対応', 'ポータブル電源＋ソーラーパネル', 'スマホのモバイルバッテリーのみ', 'ろうそくで代用'],
+    answer: 1,
+    explain: '正解！ポータブル電源＋ソーラーパネルの組み合わせは、長期停電でも電力を確保できる最強の備えです。'
+  },
+  {
+    q: '避難所での1人あたりの生活スペースはどのくらい？',
+    options: ['約10㎡（6畳相当）', '約5㎡（3畳相当）', '約3㎡（2畳相当）', '約1.65㎡（畳1枚相当）'],
+    answer: 3,
+    explain: '正解！避難所での1人あたりのスペースは畳1枚分（約1.65㎡）です。だからこそ、自宅が安全なら在宅避難がおすすめなんです。'
+  }
+];
+
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function renderQuiz() {
+  const area = document.getElementById('quiz-area');
+  if (currentQ >= questions.length) {
+    area.style.display = 'none';
+    const scoreEl = document.getElementById('quiz-score');
+    scoreEl.classList.add('show');
+    document.getElementById('score-display').textContent = score + '/' + questions.length;
+    const msgs = ['もう少し！また挑戦してみよう🔥', 'なかなか良い！復習して完璧を目指そう💪', '素晴らしい！防災マスターだ🏆'];
+    const msg = score <= 2 ? msgs[0] : score <= 4 ? msgs[1] : msgs[2];
+    document.getElementById('score-message').textContent = msg;
+    return;
+  }
+  const q = questions[currentQ];
+  answered = false;
+  area.innerHTML = `
+    <div class="quiz-card">
+      <div style="font-size:13px;color:#888;margin-bottom:12px;">問題 ${currentQ+1} / ${questions.length}</div>
+      <div class="quiz-question">${q.q}</div>
+      <div class="quiz-options">
+        ${q.options.map((opt, i) => `<button class="quiz-option" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}. ${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-result" id="quiz-result"></div>
+      <div style="text-align:right;margin-top:16px;">
+        <button class="btn-primary" id="next-btn" style="display:none;" onclick="nextQuestion()">次の問題 →</button>
+      </div>
+    </div>
+  `;
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const options = document.querySelectorAll('.quiz-option');
+  options.forEach((opt, i) => {
+    if (i === q.answer) opt.classList.add('correct');
+    else if (i === idx) opt.classList.add('wrong');
+  });
+  const result = document.getElementById('quiz-result');
+  result.classList.add('show');
+  if (idx === q.answer) {
+    score++;
+    result.classList.add('correct-result');
+    result.innerHTML = '⭕ 正解！ ' + q.explain;
+  } else {
+    result.classList.add('wrong-result');
+    result.innerHTML = '❌ 不正解… ' + q.explain;
+  }
+  document.getElementById('next-btn').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  currentQ++;
+  renderQuiz();
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  score = 0;
+  document.getElementById('quiz-score').classList.remove('show');
+  document.getElementById('quiz-area').style.display = 'block';
+  renderQuiz();
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
