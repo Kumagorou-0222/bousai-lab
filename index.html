@@ -925,6 +925,64 @@
   .ref-section h4 { font-size: 14px; color: #475569; margin-bottom: 12px; }
   .ref-section a { color: #3B82F6; text-decoration: none; display: block; margin: 4px 0; }
   .ref-section a:hover { text-decoration: underline; }
+
+  /* ===== details/summary アコーディオン ===== */
+  details { margin-bottom: 4px; }
+  .details-toggle {
+    cursor: pointer;
+    background: var(--light-orange);
+    border: 1.5px solid #FFD08A;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--orange);
+    list-style: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+  .details-toggle::-webkit-details-marker { display: none; }
+  .details-toggle::before { content: '▶ '; font-size: 11px; }
+  details[open] .details-toggle::before { content: '▼ '; }
+  .details-toggle:hover { background: #FFD08A; }
+  details[open] .details-toggle { border-radius: 10px 10px 0 0; }
+  .details-body {
+    background: var(--gray);
+    border: 1.5px solid #FFD08A;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 16px;
+  }
+
+  /* ===== スフィア基準 比較カード ===== */
+  .sphere-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .sphere-jp {
+    background: #FEF2F2;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    border: 2px solid #FECACA;
+  }
+  .sphere-intl {
+    background: #F0FDF4;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    border: 2px solid #BBF7D0;
+  }
+  .sphere-label-jp  { font-weight: 700; color: #DC2626; font-size: 13px; margin: 6px 0 2px; }
+  .sphere-label-intl{ font-weight: 700; color: #16A34A; font-size: 13px; margin: 6px 0 2px; }
+  .sphere-num-jp  { font-size: 24px; font-weight: 900; color: #DC2626; }
+  .sphere-num-intl{ font-size: 24px; font-weight: 900; color: #16A34A; }
+  .sphere-sub { font-size: 12px; color: #888; }
 </style>
 </head>
 <body>
@@ -1064,21 +1122,60 @@
     </div>
 
     <div class="info-card red">
-      <h3>😰 避難所のリアルな話</h3>
-      <p>実は避難所は、思ったよりも大変な場所です。正直に伝えます。</p>
-      <div style="overflow-x:auto; margin-top:16px;">
-        <table class="comparison-table">
-          <tr><th>避難所の現実</th><th>内容</th></tr>
-          <tr><td>🏠 1人あたりのスペース</td><td><strong>約1.65㎡</strong>（畳1枚分！）</td></tr>
-          <tr><td>🔊 プライバシー</td><td>隣の会話が筒抜け、カーテンもない</td></tr>
-          <tr><td>📋 共同ルール</td><td>食事・消灯時間が決まっている</td></tr>
-          <tr><td>😷 感染症リスク</td><td>大勢が集まり風邪・感染症が広がりやすい</td></tr>
-          <tr><td>👶 子供・ペット</td><td>泣き声・鳴き声で周囲に気を使う…</td></tr>
-          <tr><td>😴 睡眠</td><td>体育館の硬い床での雑魚寝が基本</td></tr>
-          <tr><td>🚽 トイレ</td><td>50人に1個が目安。長蛇の列も</td></tr>
-        </table>
+      <h3>😰 避難所って、実はどんなところ？</h3>
+
+      <!-- だれでもわかるシンプル説明 -->
+      <div class="callout warn" style="margin-bottom:18px;">
+        <span class="callout-icon">🏫</span>
+        <div>
+          <strong>避難所 = 学校の体育館に、みんなで泊まる場所</strong><br>
+          一人ひとりに使えるスペースは<strong>たたみ1枚分（1.65㎡）</strong>だけ。トイレは50人に1つが目安です。
+        </div>
       </div>
-      <div class="callout tip" style="margin-top:14px;">
+
+      <!-- 日本 vs スフィア基準 ビジュアル比較 -->
+      <div class="sphere-compare">
+        <div class="sphere-jp">
+          <div style="font-size:36px;">😓</div>
+          <div class="sphere-label-jp">日本の避難所</div>
+          <div class="sphere-num-jp">1.65㎡</div>
+          <div class="sphere-sub">たたみ1枚分</div>
+        </div>
+        <div class="sphere-intl">
+          <div style="font-size:36px;">🌍</div>
+          <div class="sphere-label-intl">国際基準（スフィア）</div>
+          <div class="sphere-num-intl">3.5㎡</div>
+          <div class="sphere-sub">たたみ2枚以上</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:#DC2626;font-weight:700;text-align:center;margin-top:-8px;margin-bottom:18px;">⚠️ 日本は国際基準の半分以下しか確保できていません</p>
+
+      <!-- もっと詳しく見たい人向け（details/summary） -->
+      <details style="margin-bottom:14px;">
+        <summary class="details-toggle">📋 避難所の実態と国際基準を比べてみる</summary>
+        <div class="details-body">
+          <div style="overflow-x:auto;">
+            <table class="comparison-table">
+              <tr><th>項目</th><th>😓 日本の避難所</th><th>🌍 スフィア基準（国際標準）</th></tr>
+              <tr><td>🏠 1人のスペース</td><td><strong>約1.65㎡</strong>（たたみ1枚）</td><td><strong>3.5㎡</strong>以上（たたみ2枚超）</td></tr>
+              <tr><td>🚽 トイレの数</td><td>50人に1つが目安</td><td>最大 <strong>20人に1つ</strong></td></tr>
+              <tr><td>😴 寝る場所</td><td>体育館の硬い床に雑魚寝</td><td>床から離れた寝床を推奨</td></tr>
+              <tr><td>🔊 プライバシー</td><td>カーテンもなく会話が筒抜け</td><td>仕切り等でプライバシーを確保</td></tr>
+              <tr><td>😷 感染症対策</td><td>大勢が密集しやすい</td><td>適切な換気・間隔を規定</td></tr>
+              <tr><td>👶 子供・要配慮者</td><td>泣き声・鳴き声で周囲に気を使う</td><td>要配慮者への個別対応を規定</td></tr>
+            </table>
+          </div>
+          <div class="callout warn" style="margin-top:14px;">
+            <span class="callout-icon">🌍</span>
+            <div>
+              <strong>スフィア基準（Sphere Standards）とは？</strong><br>
+              国際NGOや国連機関が1997年に定めた「災害・紛争時の被災者支援の最低基準」です。難民キャンプや被災地支援で世界共通のルールとして使われています。日本の避難所は、この国際基準を大幅に下回っているのが現状で、改善に向けた議論が続いています。
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <div class="callout tip" style="margin-top:4px;">
         <span class="callout-icon">💡</span>
         <div><strong>だから「在宅避難」が注目されています！</strong><br>
         自宅が安全なのに避難所に行くと、スペースも食料も限られてしまいます。在宅避難なら自分のペースで、家族だけの空間で過ごせます。</div>
@@ -1087,6 +1184,7 @@
         <span>📚 出典：</span>
         <a class="source-badge" href="https://www.bousai.go.jp/taisaku/hinanjo/pdf/hinanjo_guideline.pdf" target="_blank">📋 内閣府 避難所運営ガイドライン</a>
         <a class="source-badge" href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/1044377/1044390.html" target="_blank">🌿 武蔵野市 避難所について</a>
+        <a class="source-badge" href="https://www.spherestandards.org/handbook/" target="_blank">🌍 スフィア・ハンドブック</a>
       </div>
     </div>
 
