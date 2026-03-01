@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bousai-lab.vercel.app/sitemap.xml
