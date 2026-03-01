@@ -719,6 +719,7 @@
       <a href="#" onclick="showPage('earthquake')" id="nav-earthquake">🌋 地震</a>
       <a href="#" onclick="showPage('rain')" id="nav-rain">🌧️ 大雨・台風</a>
       <a href="#" onclick="showPage('goods')" id="nav-goods">🛒 防災グッズ</a>
+      <a href="#" onclick="showPage('shelter')" id="nav-shelter">🏫 避難所</a>
       <a href="#" onclick="showPage('quiz')" id="nav-quiz">🎯 クイズ</a>
       <a href="#" onclick="showPage('about')" id="nav-about">👤 大家さんについて</a>
       <a href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank" class="nav-rakuten">🛍️ 楽天ルーム</a>
@@ -766,6 +767,13 @@
         <div class="card-body">
           <div class="card-title">防災グッズ完全ガイド</div>
           <div class="card-desc">大家さんが厳選した10カテゴリの防災グッズ。楽天で購入できます！</div>
+        </div>
+      </div>
+      <div class="card" onclick="showPage('shelter')">
+        <div class="card-header">🏫</div>
+        <div class="card-body">
+          <div class="card-title">武蔵野市の避難所一覧</div>
+          <div class="card-desc">一時集合場所・避難所20か所の住所・担当地域と、浸水リスクマップへのリンク。</div>
         </div>
       </div>
       <div class="card" onclick="showPage('quiz')">
@@ -986,15 +994,27 @@
 
     <div class="info-card">
       <h3>🏠 武蔵野市の大雨リスク</h3>
-      <p>武蔵野市は大きな河川や急な坂がないため、比較的水害リスクは低めです。ただし：</p>
-      <ul style="padding-left:20px; margin-top:12px; line-height:2;">
-        <li>内水氾濫（下水があふれる）の可能性あり</li>
-        <li>近隣の多摩川・神田川の増水に注意</li>
-        <li>地盤が弱い地域での土砂崩れに注意</li>
-      </ul>
-      <div class="highlight" style="margin-top:16px;">
-        💡 <strong>武蔵野市ハザードマップを必ず確認しましょう！</strong><br>
-        市のウェブサイトから自宅周辺のリスクを確認できます。
+      <p>武蔵野市は大きな河川や急な坂がないため、外水氾濫（川の氾濫）リスクは比較的低めです。しかし<strong>過去に浸水被害が起きています</strong>。主なリスクは：</p>
+      <div style="display:grid;gap:10px;margin-top:14px;">
+        <div class="highlight" style="border-left-color:#EF4444;background:#FEF2F2;">
+          ⚠️ <strong>内水氾濫（最大のリスク）</strong><br>
+          大雨で下水処理が追いつかず、道路・建物に水が溢れる。武蔵野市では過去に千川周辺などで発生。川沿いでなくても浸水することがある。
+        </div>
+        <div class="highlight">
+          🌊 <strong>近隣河川の増水</strong><br>
+          神田川・善福寺川・玉川上水など近隣の河川が増水した場合、低地での浸水リスクが上昇する。
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <a href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/saigai_taisei_hinan/1005950.html"
+           target="_blank"
+           style="display:inline-flex;align-items:center;gap:8px;background:#3B82F6;color:white;padding:10px 20px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;">
+          🗺️ 武蔵野市 浸水ハザードマップを確認する
+        </a>
+      </div>
+      <div class="highlight" style="margin-top:14px;">
+        💡 <strong>自分の家のリスクを確認しよう</strong><br>
+        武蔵野市の浸水ハザードマップで自宅周辺の浸水想定深さを確認できます（令和6年7月更新版）。
       </div>
     </div>
 
@@ -1125,6 +1145,94 @@
       <h3>🛍️ 楽天ルームでまとめて購入</h3>
       <p>ここで紹介したグッズはすべて楽天ルームからご購入いただけます！</p>
       <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank">🛍️ 楽天ルームを開く</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SHELTER PAGE ============ -->
+<div class="page" id="page-shelter">
+  <div class="content-page" style="max-width:960px;">
+    <div class="page-hero">
+      <span class="emoji">🏫</span>
+      <h2>武蔵野市の避難所一覧</h2>
+      <p>一時集合場所・避難所は市立小中学校18校＋都立高校2校の計20か所です。<br>区割りはあくまでも目安です。<strong>どの避難所でも受け入れは可能</strong>です。</p>
+    </div>
+
+    <!-- 浸水ハザードマップ -->
+    <div class="info-card" style="border-left-color:#3B82F6;">
+      <h3>🗺️ 武蔵野市 浸水ハザードマップ</h3>
+      <p>武蔵野市には大きな川はありませんが、<strong>内水氾濫（下水があふれる）</strong>のリスクがあります。大雨の際は特に千川周辺や低地で浸水が起きやすく、過去にも被害が発生しています。</p>
+      <div class="highlight" style="margin-top:14px; border-left-color:#3B82F6; background:#EFF6FF;">
+        💡 <strong>内水氾濫とは？</strong><br>
+        川が氾濫するのではなく、大雨で下水処理が追いつかず、道路や建物に水が溢れ出す現象。武蔵野市ではこちらのリスクに注意が必要です。
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
+        <a href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/saigai_taisei_hinan/1005950.html"
+           target="_blank"
+           style="display:inline-flex;align-items:center;gap:8px;background:#3B82F6;color:white;padding:10px 20px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;">
+          🗺️ 武蔵野市 浸水ハザードマップを見る
+        </a>
+        <a href="https://disaportal.gsi.go.jp/hazardmap/maps/index.html?query=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%AD%A6%E8%94%B5%E9%87%8E%E5%B8%82"
+           target="_blank"
+           style="display:inline-flex;align-items:center;gap:8px;background:#6B7280;color:white;padding:10px 20px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;">
+          🌐 国土交通省 重ねるハザードマップ
+        </a>
+      </div>
+      <p style="font-size:12px;color:#888;margin-top:10px;">お問い合わせ：武蔵野市役所 防災課 ☎ 0422-60-1821</p>
+    </div>
+
+    <!-- 避難所一覧テーブル -->
+    <div class="info-card">
+      <h3>🏫 一時集合場所・避難所一覧（20か所）</h3>
+      <p style="font-size:13px;color:#666;margin-bottom:16px;">※一時集合場所は<strong>校庭</strong>、避難所は<strong>体育館等</strong>が使用されます。</p>
+      <div style="overflow-x:auto;">
+        <table class="comparison-table" style="min-width:600px;">
+          <tr>
+            <th style="width:40px;">記号</th>
+            <th style="width:130px;">避難所名</th>
+            <th style="width:200px;">所在地</th>
+            <th>対象居住地域（目安）</th>
+          </tr>
+          <tr><td style="text-align:center;font-weight:700;">①</td><td>第一小学校</td><td>吉祥寺本町4丁目17番16号</td><td>吉祥寺本町2丁目1番〜20番　吉祥寺本町2丁目24番〜34番　吉祥寺本町4丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">②</td><td>第二小学校</td><td>境4丁目2番15号</td><td>関前5丁目　境2丁目1番〜5番　境4丁目1番〜11番</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">③</td><td>第三小学校</td><td>吉祥寺南町2丁目35番9号</td><td>吉祥寺南町1丁目〜5丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">④</td><td>第四小学校</td><td>吉祥寺北町2丁目4番5号</td><td>吉祥寺北町1丁目〜2丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑤</td><td>第五小学校</td><td>関前3丁目2番20号</td><td>西久保2丁目〜3丁目　関前3丁目2番〜3番</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑥</td><td>大野田小学校</td><td>吉祥寺北町4丁目11番37号</td><td>吉祥寺北町3丁目1番〜9番　吉祥寺北町4丁目　緑町1丁目1番〜3番　緑町2丁目1番〜3番</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑦</td><td>境南小学校</td><td>境南町2丁目27番27号</td><td>境南町1丁目〜5丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑧</td><td>本宿小学校</td><td>吉祥寺東町4丁目1番9号</td><td>吉祥寺東町3丁目〜4丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑨</td><td>千川小学校</td><td>八幡町3丁目5番25号</td><td>緑町1丁目4番〜8番　八幡町1丁目　八幡町3丁目〜4丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑩</td><td>井之頭小学校</td><td>吉祥寺本町3丁目27番19号</td><td>御殿山1丁目〜2丁目　吉祥寺本町2丁目21番〜23番　吉祥寺本町2丁目35番　吉祥寺本町3丁目　中町1丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑪</td><td>関前南小学校</td><td>関前3丁目37番26号</td><td>関前2丁目〜3丁目1番　関前3丁目4番〜41番　関前4丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑫</td><td>桜野小学校</td><td>桜堤1丁目8番19号</td><td>桜堤2丁目〜3丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑬</td><td>第一中学校</td><td>中町3丁目9番5号</td><td>中町2丁目〜3丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑭</td><td>第二中学校</td><td>桜堤1丁目7番31号</td><td>境5丁目　桜堤1丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑮</td><td>第三中学校</td><td>吉祥寺東町1丁目23番8号</td><td>吉祥寺東町1丁目〜2丁目　吉祥寺本町1丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑯</td><td>第四中学校</td><td>吉祥寺北町5丁目11番41号</td><td>吉祥寺北町3丁目10番〜17番　吉祥寺北町5丁目　緑町3丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑰</td><td>第五中学校</td><td>関前2丁目10番20号</td><td>西久保1丁目　関前1丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑱</td><td>第六中学校</td><td>境3丁目20番10号</td><td>境1丁目　境3丁目</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑲</td><td>都立武蔵高校</td><td>境4丁目13番28号</td><td>境2丁目6番〜27番　境4丁目12番〜16番</td></tr>
+          <tr><td style="text-align:center;font-weight:700;">⑳</td><td>都立武蔵野北高校</td><td>八幡町2丁目3番10号</td><td>緑町2丁目4番〜6番　八幡町2丁目</td></tr>
+        </table>
+      </div>
+      <p style="font-size:12px;color:#888;margin-top:12px;">出典：武蔵野市 一時集合場所・避難所一覧</p>
+    </div>
+
+    <!-- 避難所に関する注意事項 -->
+    <div class="info-card">
+      <h3>⚠️ 避難所を使うときの注意</h3>
+      <ul style="padding-left:0;list-style:none;">
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">🏫 <strong>一時集合場所（校庭）</strong>：地震直後に近隣の人が集まり安否確認・情報共有をする場所</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">🏠 <strong>避難所（体育館等）</strong>：家が危険な場合に泊まれる場所。在宅避難できるなら使わなくてOK</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">📋 <strong>区割りは目安</strong>：どの避難所でも受け入れ可能。近い場所に行けばよい</li>
+        <li style="padding:8px 0;">📞 <strong>最新情報は市に確認</strong>：武蔵野市役所 危機管理課 ☎ 0422-60-1853</li>
+      </ul>
+    </div>
+
+    <div class="rakuten-banner">
+      <h3>🏠 自宅を最強の避難場所に！</h3>
+      <p>避難所は混雑・不便・感染症リスクがあります。できるだけ在宅避難できるよう備えを整えましょう。</p>
+      <a class="rakuten-btn" href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank">🛍️ 防災グッズを楽天ルームで見る</a>
     </div>
   </div>
 </div>
