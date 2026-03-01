@@ -699,6 +699,120 @@
     margin-right: 6px;
     vertical-align: middle;
   }
+
+  /* ===== 出典バッジ ===== */
+  .source-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #F0F9FF;
+    color: #0369A1;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 1px solid #BAE6FD;
+    transition: all 0.2s;
+    vertical-align: middle;
+    margin: 2px;
+  }
+  .source-badge:hover { background: #0369A1; color: white; border-color: #0369A1; }
+
+  .source-box {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 12px;
+    color: #64748B;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .source-box span { font-weight: 700; color: #475569; }
+
+  /* ===== カラフルカード ===== */
+  .info-card.blue  { border-left-color: #3B82F6; }
+  .info-card.green { border-left-color: #22C55E; }
+  .info-card.red   { border-left-color: #EF4444; }
+  .info-card.purple{ border-left-color: #A855F7; }
+  .info-card.teal  { border-left-color: #14B8A6; }
+
+  .callout {
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .callout.info    { background: #EFF6FF; border: 1.5px solid #BFDBFE; }
+  .callout.warn    { background: #FEF2F2; border: 1.5px solid #FECACA; }
+  .callout.success { background: #F0FDF4; border: 1.5px solid #BBF7D0; }
+  .callout.tip     { background: #FFF7ED; border: 1.5px solid #FED7AA; }
+
+  /* ===== ステップリスト ===== */
+  .step-list { list-style: none; padding: 0; display: grid; gap: 10px; margin-top: 10px; }
+  .step-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--gray);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .step-num {
+    background: var(--orange);
+    color: white;
+    font-weight: 900;
+    font-size: 13px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ===== カード内バッジグリッド ===== */
+  .badge-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .badge-item {
+    background: var(--light-orange);
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    border: 1.5px solid #FFD08A;
+  }
+
+  /* ===== フッター参考文献 ===== */
+  .ref-section {
+    background: #F8FAFC;
+    border-top: 2px solid #E2E8F0;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #64748B;
+    margin-top: 40px;
+  }
+  .ref-section h4 { font-size: 14px; color: #475569; margin-bottom: 12px; }
+  .ref-section a { color: #3B82F6; text-decoration: none; display: block; margin: 4px 0; }
+  .ref-section a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -811,7 +925,7 @@
       <p>「避難 = 避難所に行く」じゃない！<br>自宅が安全なら、家にいることが最善の避難なんです。</p>
     </div>
 
-    <div class="info-card">
+    <div class="info-card green">
       <h3>🏛️ 国・東京都・武蔵野市の方針</h3>
       <p>実は、国・東京都・武蔵野市はそろって<strong>「自宅が安全なら在宅避難を」</strong>と呼びかけています。</p>
       <div class="policy-grid">
@@ -828,9 +942,15 @@
           <p>在宅避難を推奨。自宅が安全なら避難所へ行かず、自宅での生活継続を呼びかけている。</p>
         </div>
       </div>
+      <div class="source-box">
+        <span>📚 出典：</span>
+        <a class="source-badge" href="https://www.bousai.go.jp/taisaku/hinanjo/zaitaku.html" target="_blank">🏛️ 内閣府 在宅避難の手引き</a>
+        <a class="source-badge" href="https://www.metro.tokyo.lg.jp/tosei/hodohappyo/press/2022/03/28/11.html" target="_blank">🗼 東京都 マンション在宅避難</a>
+        <a class="source-badge" href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/saigai_taisei_hinan/index.html" target="_blank">🌿 武蔵野市 災害時の避難</a>
+      </div>
     </div>
 
-    <div class="info-card">
+    <div class="info-card red">
       <h3>😰 避難所のリアルな話</h3>
       <p>実は避難所は、思ったよりも大変な場所です。正直に伝えます。</p>
       <div style="overflow-x:auto; margin-top:16px;">
@@ -845,9 +965,15 @@
           <tr><td>🚽 トイレ</td><td>50人に1個が目安。長蛇の列も</td></tr>
         </table>
       </div>
-      <div class="highlight">
-        💡 <strong>だから「在宅避難」が注目されています！</strong><br>
-        自宅が安全なのに避難所に行くと、スペースも食料も限られてしまいます。在宅避難なら自分のペースで、家族だけの空間で過ごせます。
+      <div class="callout tip" style="margin-top:14px;">
+        <span class="callout-icon">💡</span>
+        <div><strong>だから「在宅避難」が注目されています！</strong><br>
+        自宅が安全なのに避難所に行くと、スペースも食料も限られてしまいます。在宅避難なら自分のペースで、家族だけの空間で過ごせます。</div>
+      </div>
+      <div class="source-box">
+        <span>📚 出典：</span>
+        <a class="source-badge" href="https://www.bousai.go.jp/taisaku/hinanjo/pdf/hinanjo_guideline.pdf" target="_blank">📋 内閣府 避難所運営ガイドライン</a>
+        <a class="source-badge" href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/1044377/1044390.html" target="_blank">🌿 武蔵野市 避難所について</a>
       </div>
     </div>
 
@@ -904,15 +1030,20 @@
       <p>地震はいつ、どこでも起こります。<br>正しい知識で、自分と家族を守ろう！</p>
     </div>
 
-    <div class="info-card">
+    <div class="info-card green">
       <h3>🔔 揺れたらまずこれ！</h3>
-      <ol style="padding-left:20px; line-height:2;">
-        <li><strong>頭を守る</strong> → クッションや座布団で頭を保護</li>
-        <li><strong>火を消す</strong> → 揺れが収まってから（無理しない）</li>
-        <li><strong>出口を確保</strong> → ドアを開けて逃げ道を作る</li>
-        <li><strong>外に出ない</strong> → 落下物が危険！揺れが収まるまで待つ</li>
-        <li><strong>情報収集</strong> → ラジオ・スマホでNHKをチェック</li>
-      </ol>
+      <ul class="step-list">
+        <li><span class="step-num">1</span><div><strong>頭を守る</strong><br><span style="font-size:13px;color:#666;">クッションや座布団で頭を保護。テーブルの下に隠れる</span></div></li>
+        <li><span class="step-num">2</span><div><strong>火を消す</strong><br><span style="font-size:13px;color:#666;">揺れが収まってから（揺れている最中は無理しない）</span></div></li>
+        <li><span class="step-num">3</span><div><strong>出口を確保</strong><br><span style="font-size:13px;color:#666;">ドアを開けて逃げ道を作る。ドアが歪むと出られなくなる</span></div></li>
+        <li><span class="step-num">4</span><div><strong>外に出ない</strong><br><span style="font-size:13px;color:#666;">落下物が危険！揺れが収まるまで建物内で待機</span></div></li>
+        <li><span class="step-num">5</span><div><strong>情報収集</strong><br><span style="font-size:13px;color:#666;">ラジオ・スマホでNHKをチェック。デマに注意</span></div></li>
+      </ul>
+      <div class="source-box">
+        <span>📚 出典：</span>
+        <a class="source-badge" href="https://www.bousai.go.jp/kyoiku/keihatsu/pdf/jishin_bosai.pdf" target="_blank">🏛️ 内閣府 地震防災マニュアル</a>
+        <a class="source-badge" href="https://www.fdma.go.jp/publication/pamphlet/pdf/jishin.pdf" target="_blank">🚒 消防庁 地震への備え</a>
+      </div>
     </div>
 
     <div class="info-card">
@@ -965,20 +1096,25 @@
       <p>台風は来る前から準備できる！<br>正しい行動で命を守ろう。</p>
     </div>
 
-    <div class="info-card">
+    <div class="info-card blue">
       <h3>📅 台風が来る前にやること</h3>
-      <ol style="padding-left:20px; line-height:2.2;">
-        <li>ハザードマップで自宅の危険度を確認</li>
-        <li>非常持ち出し袋の中身を確認・補充</li>
-        <li>窓のシャッター・雨戸を閉める準備</li>
-        <li>排水口の落ち葉・ゴミを清掃</li>
-        <li>スマホの充電を満タンに</li>
-        <li>食料・飲料水の在庫確認</li>
-        <li>避難場所・避難ルートを家族で確認</li>
-      </ol>
+      <ul class="step-list">
+        <li><span class="step-num">1</span><div><strong>ハザードマップで自宅の危険度を確認</strong><br><span style="font-size:13px;color:#666;">武蔵野市の浸水リスクを事前にチェック</span></div></li>
+        <li><span class="step-num">2</span><div><strong>非常持ち出し袋の中身を確認・補充</strong><br><span style="font-size:13px;color:#666;">食料・水・薬・充電器など</span></div></li>
+        <li><span class="step-num">3</span><div><strong>窓のシャッター・雨戸を閉める準備</strong><br><span style="font-size:13px;color:#666;">飛来物でガラスが割れるのを防ぐ</span></div></li>
+        <li><span class="step-num">4</span><div><strong>排水口の落ち葉・ゴミを清掃</strong><br><span style="font-size:13px;color:#666;">詰まりを防いで内水氾濫リスクを減らす</span></div></li>
+        <li><span class="step-num">5</span><div><strong>スマホの充電を満タンに</strong><br><span style="font-size:13px;color:#666;">停電に備えてモバイルバッテリーも充電</span></div></li>
+        <li><span class="step-num">6</span><div><strong>食料・飲料水の在庫確認</strong><br><span style="font-size:13px;color:#666;">最低3日分・理想7日分</span></div></li>
+        <li><span class="step-num">7</span><div><strong>避難場所・避難ルートを家族で確認</strong><br><span style="font-size:13px;color:#666;">担当の避難所と集合場所を決めておく</span></div></li>
+      </ul>
+      <div class="source-box">
+        <span>📚 出典：</span>
+        <a class="source-badge" href="https://www.bousai.go.jp/typhoon/" target="_blank">🏛️ 内閣府 台風への備え</a>
+        <a class="source-badge" href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/index.html" target="_blank">🌿 武蔵野市 防災・安全</a>
+      </div>
     </div>
 
-    <div class="info-card">
+    <div class="info-card purple">
       <h3>🚨 警戒レベルと行動の目安</h3>
       <div style="overflow-x:auto; margin-top:12px;">
         <table class="comparison-table">
@@ -989,6 +1125,15 @@
           <tr><td><span class="tag" style="background:#EF4444">レベル4</span></td><td>避難指示</td><td><strong>全員今すぐ避難！</strong></td></tr>
           <tr><td><span class="tag" style="background:#7F1D1D">レベル5</span></td><td>緊急安全確保</td><td>命を守る最善の行動を</td></tr>
         </table>
+      </div>
+      <div class="callout warn" style="margin-top:12px;">
+        <span class="callout-icon">⚠️</span>
+        <div>レベル4「避難指示」が出たら<strong>迷わず避難</strong>してください。レベル5は「すでに災害が発生している」危険な状況です。</div>
+      </div>
+      <div class="source-box">
+        <span>📚 出典：</span>
+        <a class="source-badge" href="https://www.bousai.go.jp/oukyu/hinankankoku/h30_hinankankoku_guideline/pdf/170613_new_hinankankoku_2.pdf" target="_blank">🏛️ 内閣府 避難情報に関するガイドライン</a>
+        <a class="source-badge" href="https://www.jma.go.jp/jma/kishou/know/bosai/alertlevel.html" target="_blank">🌤️ 気象庁 避難警戒レベル</a>
       </div>
     </div>
 
@@ -1303,6 +1448,20 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- 参考文献セクション -->
+<div class="ref-section">
+  <h4>📚 参考文献・出典一覧</h4>
+  <a href="https://www.bousai.go.jp/taisaku/hinanjo/zaitaku.html" target="_blank">内閣府「在宅避難者支援の手引き」</a>
+  <a href="https://www.bousai.go.jp/oukyu/hinankankoku/h30_hinankankoku_guideline/pdf/170613_new_hinankankoku_2.pdf" target="_blank">内閣府「避難情報に関するガイドライン」</a>
+  <a href="https://www.metro.tokyo.lg.jp/tosei/hodohappyo/press/2022/03/28/11.html" target="_blank">東京都「マンション居住者の在宅避難」</a>
+  <a href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/saigai_taisei_hinan/index.html" target="_blank">武蔵野市「災害時の体制・避難場所」</a>
+  <a href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/saigai_taisei_hinan/1005950.html" target="_blank">武蔵野市「防災情報マップ・浸水ハザードマップ」（令和6年7月更新）</a>
+  <a href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/1044377/1044390.html" target="_blank">武蔵野市「一時集合場所・避難所・帰宅困難者一時滞在施設」</a>
+  <a href="https://www.jma.go.jp/jma/kishou/know/bosai/alertlevel.html" target="_blank">気象庁「警戒レベルと避難情報」</a>
+  <a href="https://disaportal.gsi.go.jp/" target="_blank">国土交通省「重ねるハザードマップ」</a>
+  <p style="margin-top:12px;">※掲載情報は作成時点のものです。最新情報は各機関の公式ページでご確認ください。</p>
 </div>
 
 <!-- FOOTER -->
