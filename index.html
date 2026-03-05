@@ -983,6 +983,10 @@
   .sphere-num-jp  { font-size: 24px; font-weight: 900; color: #DC2626; }
   .sphere-num-intl{ font-size: 24px; font-weight: 900; color: #16A34A; }
   .sphere-sub { font-size: 12px; color: #888; }
+
+  /* ふりがな：非表示 */
+  ruby { display: inline; }
+  ruby rt { display: none; }
 </style>
 </head>
 <body>
@@ -999,13 +1003,13 @@
     </a>
     <nav>
       <a href="#" onclick="showPage('home')" class="active" id="nav-home">🏠 ホーム</a>
-      <a href="#" onclick="showPage('zaitaku')" id="nav-zaitaku">🏡 在宅避難とは</a>
-      <a href="#" onclick="showPage('earthquake')" id="nav-earthquake">🌋 地震</a>
-      <a href="#" onclick="showPage('rain')" id="nav-rain">🌧️ 大雨・台風</a>
-      <a href="#" onclick="showPage('goods')" id="nav-goods">🛒 防災グッズ</a>
-      <a href="#" onclick="showPage('shelter')" id="nav-shelter">🏫 避難所</a>
+      <a href="#" onclick="showPage('zaitaku')" id="nav-zaitaku">🏡 <ruby>在宅避難<rt>ざいたくひなん</rt></ruby>とは</a>
+      <a href="#" onclick="showPage('earthquake')" id="nav-earthquake">🌋 <ruby>地震<rt>じしん</rt></ruby></a>
+      <a href="#" onclick="showPage('rain')" id="nav-rain">🌧️ <ruby>大雨<rt>おおあめ</rt></ruby>・<ruby>台風<rt>たいふう</rt></ruby></a>
+      <a href="#" onclick="showPage('goods')" id="nav-goods">🛒 <ruby>防災<rt>ぼうさい</rt></ruby>グッズ</a>
+      <a href="#" onclick="showPage('shelter')" id="nav-shelter">🏫 <ruby>避難所<rt>ひなんじょ</rt></ruby></a>
       <a href="#" onclick="showPage('quiz')" id="nav-quiz">🎯 クイズ</a>
-      <a href="#" onclick="showPage('about')" id="nav-about">👤 大家さんについて</a>
+      <a href="#" onclick="showPage('about')" id="nav-about">👤 <ruby>大家<rt>おおや</rt></ruby>さんについて</a>
       <a href="https://room.rakuten.co.jp/room_e510207d9c/items" target="_blank" class="nav-rakuten">🛍️ 楽天ルーム</a>
     </nav>
   </div>
@@ -1018,40 +1022,40 @@
     <span class="hero-emoji">🏠</span>
     <div class="hero-badge">🏢 武蔵野市の大家さんが作った防災サイト</div>
     <h1>在宅避難ラボ｜武蔵野市の防災・避難所・防災グッズ情報</h1>
-    <p>「避難所に行く」だけが避難じゃない！<br>自分の家を最強の避難場所にしよう🔥</p>
+    <p>「避難所に行く」だけが避難じゃない！<br>自分のおうちを最強の避難場所にしよう🔥</p>
   </div>
 
   <div class="section">
     <div class="section-title">📚 コンテンツ一覧</div>
-    <p class="section-desc">まずはカンタンな説明から。「もっと詳しく」で大人向けの情報も読めます。知れば知るほど、今すぐ備えたくなりますよ。</p>
+    <p class="section-desc">わかりやすく書いています。「もっと詳しく」ボタンを押すと、出典付きの正確な情報も読めます。知れば知るほど、今すぐ備えたくなりますよ。</p>
 
     <div class="card-grid">
       <div class="card" onclick="showPage('zaitaku')">
         <div class="card-header">🏡</div>
         <div class="card-body">
           <div class="card-title">在宅避難とは？</div>
-          <div class="card-desc">なぜ自宅が最強の避難場所なのか。国・東京都・武蔵野市の方針も紹介！</div>
+          <div class="card-desc">なぜおうちが最強の避難場所なのか。国・東京都・武蔵野市の方針もわかりやすく紹介！</div>
         </div>
       </div>
       <div class="card" onclick="showPage('earthquake')">
         <div class="card-header">🌋</div>
         <div class="card-body">
           <div class="card-title">地震のときどうする？</div>
-          <div class="card-desc">揺れたときの行動、場所別の対応方法をわかりやすく解説します。</div>
+          <div class="card-desc">揺れたときに体が動くよう、今のうちに覚えておこう。場所別の行動もわかりやすく解説。</div>
         </div>
       </div>
       <div class="card" onclick="showPage('rain')">
         <div class="card-header">🌧️</div>
         <div class="card-body">
           <div class="card-title">大雨・台風への備え</div>
-          <div class="card-desc">台風が来る前に何をすればいい？危険なサインと安全な行動を学ぼう。</div>
+          <div class="card-desc">台風は数日前から準備できる！危険なサインと、いつ・何をすればいいかを学ぼう。</div>
         </div>
       </div>
       <div class="card" onclick="showPage('goods')">
         <div class="card-header">🛒</div>
         <div class="card-body">
           <div class="card-title">防災グッズ完全ガイド</div>
-          <div class="card-desc">大家さんが厳選した10カテゴリの防災グッズ。楽天で購入できます！</div>
+          <div class="card-desc">大家さんが厳選した10カテゴリの防災グッズ。楽天でカンタンに購入できます！</div>
         </div>
       </div>
       <div class="card" onclick="showPage('shelter')">
@@ -1065,7 +1069,7 @@
         <div class="card-header">🎯</div>
         <div class="card-body">
           <div class="card-title">防災クイズに挑戦！</div>
-          <div class="card-desc">楽しみながら防災知識を確認。全問正解を目指そう！</div>
+          <div class="card-desc">楽しみながら防災の知識を確認。全問正解を目指そう！</div>
         </div>
       </div>
       <div class="card" onclick="showPage('about')">
@@ -1092,34 +1096,43 @@
   <div class="content-page">
     <div class="page-hero">
       <span class="emoji">🏡</span>
-      <h2>在宅避難とは？</h2>
-      <p>「避難所に行けば安心」は、実は大きな誤解。<br>避難所の現実を知ると、<strong style="color:#FFD08A;">自宅の準備が最優先</strong>だとわかります。</p>
+      <h2><ruby>在宅避難<rt>ざいたくひなん</rt></ruby>とは？</h2>
+      <p>おうちが安全なら、<strong style="color:#FFD08A;">おうちにいることが一番！</strong><br>
+      学校の体育館（<ruby>避難所<rt>ひなんじょ</rt></ruby>）は、思っているよりずっと不便な場所なんです。</p>
     </div>
 
     <div class="info-card green">
-      <h3>🏛️ 国も都も「自宅にいていい」と言っている</h3>
+      <h3>🏛️ 国も都も「おうちにいていい」と言っている</h3>
       <div class="callout success" style="margin-bottom:16px;">
         <span class="callout-icon">✅</span>
         <div>
-          <strong>「備えがあるなら、避難所に来るな」が最新の方針です</strong><br>
-          2024年12月、内閣府がルールを改定。自宅が安全で備蓄があれば、家にいるのが正解。
+          <strong>「自宅が安全なら、<ruby>避難所<rt>ひなんじょ</rt></ruby>より在宅避難を」が最新の方針です</strong><br>
+          おうちが安全で、食べ物と水の備えがあれば、わざわざ避難所に行かなくていいんです。
         </div>
       </div>
+      <p style="font-size:14px;line-height:1.9;margin-bottom:14px;">
+        2024年12月、国（<ruby>内閣府<rt>ないかくふ</rt></ruby>）がルールを見直しました。<br>
+        「おうちが安全なら、避難所には来なくていい」という方向にかわったんです。<br>
+        東京都も武蔵野市も、同じことを言っています。
+      </p>
       <details>
-        <summary class="details-toggle">🏛️ 国・東京都・武蔵野市の具体的な方針を見る</summary>
+        <summary class="details-toggle">🏛️ 国・東京都・武蔵野市の具体的な方針を見る（出典付き）</summary>
         <div class="details-body">
           <div class="policy-grid">
             <div class="policy-item">
               <div class="org">🏛️ 国（内閣府）</div>
-              <p>自宅が安全な場合は避難所に来ず在宅避難することを推奨。2024年12月に「在宅避難者支援の手引き」を改定し、在宅避難者にも食料・物資が届く体制を整備。</p>
+              <p>「住家が安全で生活が可能な状態にある場合、また当面の食料・飲料水等を確保できている場合には、避難所への避難は不要」と明記。2024年12月に避難所運営ガイドラインを改定し、在宅避難者にも食料・物資が届く仕組みを整備。</p>
+              <p style="font-size:12px;color:#888;">出典：内閣府「在宅・車中泊避難者等の支援の手引き」（令和6年6月）／避難所運営ガイドライン（令和6年12月改定）</p>
             </div>
             <div class="policy-item">
               <div class="org">🗼 東京都</div>
-              <p>都民の約900万人がマンション等に居住。耐震基準を満たしたマンションでは在宅避難が基本という方針。在宅避難できるマンションへの支援事業も実施。</p>
+              <p>都民の約900万人がマンション等に居住。耐震基準を満たしたマンションでは「できる限り避難所に行かず、自宅にとどまり身を守る」よう要請。地域防災計画（震災編）に在宅避難の考え方を初めて明記（2023年修正）。</p>
+              <p style="font-size:12px;color:#888;">出典：東京都地域防災計画（令和5年修正）／東京新聞 2023年5月報道</p>
             </div>
             <div class="policy-item">
               <div class="org">🌿 武蔵野市</div>
-              <p>在宅避難を推奨。自宅が安全なら避難所へ行かず、自宅での生活継続を呼びかけている。</p>
+              <p>「自宅が安全なら避難所へ行かず、自宅での生活継続を」と呼びかけ。在宅避難を推奨する方針を公式に掲げている。</p>
+              <p style="font-size:12px;color:#888;">出典：武蔵野市防災安全センターウェブサイト</p>
             </div>
           </div>
         </div>
@@ -1133,16 +1146,20 @@
     </div>
 
     <div class="info-card red">
-      <h3>😰 避難所って、実はどんなところ？</h3>
+      <h3>😰 <ruby>避難所<rt>ひなんじょ</rt></ruby>って、<ruby>実<rt>じつ</rt></ruby>はどんなところ？</h3>
 
-      <p style="font-size:14px;line-height:1.8;margin-bottom:14px;">「避難所に行けばなんとかなる」と思っていませんか？<br>実際に被災した人の声は、想像とまったく違います。</p>
+      <p style="font-size:14px;line-height:1.9;margin-bottom:14px;">
+        「避難所に行けばなんとかなる」…実は、そうじゃないんです。<br>
+        実際に被災した人たちが口をそろえて言うのは、「想像よりずっとつらかった」という言葉。
+      </p>
 
       <!-- だれでもわかるシンプル説明 -->
       <div class="callout warn" style="margin-bottom:18px;">
         <span class="callout-icon">🏫</span>
         <div>
-          <strong>避難所 = 学校の体育館に、見知らぬ人と何日も過ごす場所</strong><br>
-          一人ひとりに使えるスペースは<strong>たたみ1枚分（1.65㎡）</strong>だけ。トイレは50人に1つが目安、プライバシーはほぼゼロです。
+          <strong>避難所 = 学校の体育館に、知らない人と何日も過ごす場所</strong><br>
+          一人が使えるスペースは<strong>たたみ1枚分（1.65㎡）</strong>だけ。<br>
+          トイレは50人に1つ。カーテンもなくてプライバシーはほぼゼロ。
         </div>
       </div>
 
@@ -1161,7 +1178,7 @@
           <div class="sphere-sub">たたみ2枚以上</div>
         </div>
       </div>
-      <p style="font-size:13px;color:#DC2626;font-weight:700;text-align:center;margin-top:-8px;margin-bottom:18px;">⚠️ 日本は国際基準の半分以下。難民キャンプ以下の環境というデータもあります。</p>
+      <p style="font-size:13px;color:#DC2626;font-weight:700;text-align:center;margin-top:-8px;margin-bottom:18px;">⚠️ 日本の避難所は国際基準の半分以下の広さ。難民キャンプより狭いというデータもあります。</p>
 
       <!-- もっと詳しく見たい人向け（details/summary） -->
       <details style="margin-bottom:14px;">
@@ -1190,8 +1207,10 @@
 
       <div class="callout tip" style="margin-top:4px;">
         <span class="callout-icon">💡</span>
-        <div><strong>だから今、「在宅避難」が正解とされています</strong><br>
-        自宅が安全で備蓄があれば、家にいる方がずっと快適で安全。避難所の過酷な環境とは雲泥の差です。準備した人だけが、この選択肢を使えます。</div>
+        <div><strong>だから「在宅避難」が正解なんです</strong><br>
+        おうちが安全で、食べ物・水の備えがあれば、家にいる方がずっと快適で安全。<br>
+        でも「備えた人だけ」がこの選択肢を使えます。備えていない人は、避難所に行くしかない。
+        </div>
       </div>
       <div class="source-box">
         <span>📚 出典：</span>
@@ -1202,44 +1221,50 @@
     </div>
 
     <div class="info-card green">
-      <h3>🏡 準備した人だけが得られる「在宅避難」の安心感</h3>
-      <p style="font-size:14px;line-height:1.8;margin-bottom:14px;">防災グッズを揃えて在宅避難できる状態にした人は、口を揃えて言います。<strong>「備えてよかった。自宅にいられてよかった」</strong>と。</p>
+      <h3>🏡 おうちにいると、こんなにいいことがある！</h3>
+      <p style="font-size:14px;line-height:1.9;margin-bottom:14px;">
+        防災グッズを揃えて在宅避難できるようにした人は、みんなこう言います。<br>
+        <strong>「備えておいてよかった。おうちにいられてよかった」</strong>
+      </p>
       <ul style="list-style:none; padding:0;">
-        <li style="padding:10px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>自分のベッドで眠れる</strong> → 体育館の硬い床と雑魚寝とは大違い</li>
-        <li style="padding:10px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>家族だけの空間</strong> → プライバシーが守られ、精神的に安定できる</li>
-        <li style="padding:10px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>子供・高齢者・ペットがいても安心</strong> → 避難所では特に負担が大きい</li>
-        <li style="padding:10px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>感染症リスクゼロ</strong> → 大勢が密集する避難所での集団感染を避けられる</li>
-        <li style="padding:10px 0;">✅ <strong>在宅でも支援物資を受け取れる</strong> → 2024年改定で在宅避難者にも食料が届く</li>
+        <li style="padding:10px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>自分のベッドで眠れる</strong> → 体育館の固い床で雑魚寝しなくていい</li>
+        <li style="padding:10px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>家族だけのプライベートな空間</strong> → 知らない人に囲まれてストレスがたまらない</li>
+        <li style="padding:10px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>子ども・お年寄り・ペットも一緒にいられる</strong> → 避難所では特につらい思いをする人たちが安心</li>
+        <li style="padding:10px 0; border-bottom:1px solid #f0f0f0;">✅ <strong>かぜやウイルスをもらうリスクがない</strong> → 大勢が密集する避難所では感染症が広がりやすい</li>
+        <li style="padding:10px 0;">✅ <strong>おうちにいながら食料・支援物資が届く</strong> → 2024年のルール改定で、在宅の人にも物資が届く仕組みになった</li>
       </ul>
     </div>
 
     <div class="info-card">
-      <h3>⚠️ 在宅避難できる条件（重要！）</h3>
-      <p style="font-size:14px;line-height:1.8;margin-bottom:14px;">在宅避難には条件があります。でも、ほとんどの人はこの条件を<strong>今から整えられます。</strong></p>
+      <h3>⚠️ おうちにいていい？チェックリスト</h3>
+      <p style="font-size:14px;line-height:1.9;margin-bottom:14px;">
+        おうちが安全で、食べ物・水の備えがあれば、おうちにいていいんです！<br>
+        でも、こんな時は避難所へ行きましょう。
+      </p>
       <div class="condition-list">
         <div class="cond-ok">
-          <h4>✅ 在宅避難OK</h4>
+          <h4>✅ おうちにいていい</h4>
           <ul>
-            <li>自宅が倒壊していない</li>
-            <li>火災・浸水の危険がない</li>
-            <li>耐震基準を満たしている</li>
-            <li>3日分以上の備蓄がある</li>
+            <li>おうちがこわれていない</li>
+            <li>火事・浸水のキケンがない</li>
+            <li>耐震基準を満たした建物（1981年以降の建物が目安）</li>
+            <li>3日分以上の食べ物・水がある</li>
           </ul>
         </div>
         <div class="cond-ng">
-          <h4>❌ 避難所に行くべき</h4>
+          <h4>❌ 避難所へ行こう</h4>
           <ul>
-            <li>建物が傾いている</li>
-            <li>火事・浸水の危険がある</li>
-            <li>旧耐震基準の古い建物</li>
-            <li>備蓄が全くない</li>
+            <li>建物が傾いている・ひびが入っている</li>
+            <li>火事・浸水のキケンがある</li>
+            <li>古い建物（1981年より前に建てられた）</li>
+            <li>食べ物・水の備えがない</li>
           </ul>
         </div>
       </div>
       <div class="callout success" style="margin-top:16px;">
         <span class="callout-icon">🏆</span>
         <div>
-          <strong>防災グッズさえ揃えれば、ほとんどの人が在宅避難できます！</strong><br>
+          <strong>防災グッズさえ揃えれば、ほとんどの人がおうちにいられます！</strong><br>
           耐震基準を満たした建物に住んでいれば、あとは備蓄だけ。今すぐ始められます。
         </div>
       </div>
@@ -1259,16 +1284,17 @@
     <div class="page-hero">
       <span class="emoji">🌋</span>
       <h2>地震のときどうする？</h2>
-      <p>東京は今後30年以内に大地震が来る確率が<strong style="color:#FFD08A;">70%以上</strong>。<br>でも正しい準備があれば、慌てずに対応できます。</p>
+      <p>東京には、今後30年以内に大きな地震が来る確率が<strong style="color:#FFD08A;">70%以上</strong>！<br>
+      今のうちに「どうすればいいか」を知っておけば、いざというとき体が動きます。</p>
     </div>
 
     <div class="info-card green">
-      <h3>🔔 揺れたら、まず何をする？</h3>
+      <h3>🔔 揺れたら、まず3つ！</h3>
       <div class="callout warn" style="margin-bottom:16px;">
         <span class="callout-icon">🌋</span>
         <div>
           <strong>地震が来た瞬間、人はパニックになります</strong><br>
-          だからこそ「体が自然に動く」まで、今のうちに覚えておくことが命を守ります。
+          だから今のうちに「体が自然に動く」くらい覚えておきましょう。それが命を守ります。
         </div>
       </div>
       <!-- 子供でもわかる3ステップ -->
@@ -1315,10 +1341,13 @@
     </div>
 
     <div class="info-card red">
-      <h3>🏢 マンション住まいが直面する「地震後の現実」</h3>
-      <p style="font-size:14px;line-height:1.8;margin-bottom:14px;">地震のとき、マンションは特有の問題が起きます。知らないと、揺れが収まった後に本当の苦労が始まります。</p>
+      <h3>🏢 マンションに住んでいる人へ：地震の後に起きること</h3>
+      <p style="font-size:14px;line-height:1.9;margin-bottom:14px;">
+        地震で揺れが収まった後、マンションでは特有の問題が起きます。<br>
+        知らないと「揺れは大丈夫だったのに、その後が大変だった」ということになります。
+      </p>
       <details>
-        <summary class="details-toggle">⚠️ 地震後にマンションで起こること</summary>
+        <summary class="details-toggle">⚠️ 地震後にマンションで起こること（詳しく）</summary>
         <div class="details-body">
           <div style="display:grid;gap:10px;">
             <div class="highlight" style="border-left-color:#EF4444;background:#FEF2F2;">
@@ -1363,16 +1392,17 @@
     <div class="page-hero">
       <span class="emoji">🌧️</span>
       <h2>大雨・台風への備え</h2>
-      <p>武蔵野市でも過去に浸水被害が起きています。<br>台風は数日前から予測できる。<strong style="color:#FFD08A;">準備の時間があるうちに動こう。</strong></p>
+      <p>台風は地震と違って、<strong style="color:#FFD08A;">数日前から準備できる</strong>！<br>
+      武蔵野市でも過去に浸水被害が起きています。来てから慌てないために、今のうちに準備しよう。</p>
     </div>
 
     <div class="info-card blue">
-      <h3>📅 台風が来る前にやること</h3>
+      <h3>📅 台風が来る前にやること（チェックリスト）</h3>
       <div class="callout info" style="margin-bottom:16px;">
         <span class="callout-icon">⏰</span>
         <div>
           <strong>台風は「事前に準備できる」数少ない災害です</strong><br>
-          地震と違って数日前から予測できます。気象情報が出たら、すぐ行動を始めましょう。
+          天気予報に台風が出たら、すぐに動き始めましょう。当日では遅いんです。
         </div>
       </div>
       <ul class="step-list">
@@ -1392,7 +1422,7 @@
     </div>
 
     <div class="info-card purple">
-      <h3>🚨 警戒レベルと行動の目安</h3>
+      <h3>🚨 警戒レベルって何？どうすればいい？</h3>
       <div style="overflow-x:auto; margin-top:12px;">
         <table class="comparison-table">
           <tr><th>警戒レベル</th><th>状況</th><th>取るべき行動</th></tr>
@@ -1405,7 +1435,10 @@
       </div>
       <div class="callout warn" style="margin-top:12px;">
         <span class="callout-icon">⚠️</span>
-        <div>レベル4「避難指示」が出たら<strong>迷わず避難</strong>してください。レベル5は「すでに災害が発生している」危険な状況です。</div>
+        <div>
+          レベル4「避難指示」が出たら<strong>迷わず避難！</strong><br>
+          レベル5は「もう災害が起きている」状況。そこまで待ってはいけません。
+        </div>
       </div>
       <div class="source-box">
         <span>📚 出典：</span>
@@ -1415,12 +1448,12 @@
     </div>
 
     <div class="info-card red">
-      <h3>🌊 武蔵野市の大雨リスク — 「うちは川がないから大丈夫」は危険</h3>
+      <h3>🌊 「うちは川がないから大丈夫」は危険！</h3>
       <div class="callout warn" style="margin-bottom:16px;">
         <span class="callout-icon">⚠️</span>
         <div>
-          <strong>川がなくても浸水します。それが「内水氾濫」</strong><br>
-          大雨で下水処理が追いつかず、道路や建物の中に水が逆流してくる現象。武蔵野市でも実際に発生しています。
+          <strong>川がなくても、浸水することがあります</strong><br>
+          大雨で下水がいっぱいになって、道路や建物に水があふれ出す「<ruby>内水氾濫<rt>ないすいはんらん</rt></ruby>」という現象です。武蔵野市でも実際に起きています。
         </div>
       </div>
       <details>
@@ -1448,8 +1481,8 @@
       <div class="callout success" style="margin-top:14px;">
         <span class="callout-icon">✅</span>
         <div>
-          <strong>まずハザードマップで自宅のリスクを確認しましょう</strong><br>
-          リスクが低い地域なら在宅避難が有力。高い地域なら早めの避難準備が必要です。
+          <strong>まずハザードマップでおうちのリスクを確認しましょう</strong><br>
+          リスクが低い地域ならおうちにいるのが有力。高い地域なら早めに避難の準備を。
         </div>
       </div>
     </div>
@@ -1468,11 +1501,11 @@
     <div class="page-hero" style="border-radius:20px; padding:40px; text-align:center; background:linear-gradient(135deg,var(--orange),var(--yellow)); color:white; margin-bottom:30px;">
       <span style="font-size:56px;display:block;margin-bottom:16px;">🛒</span>
       <h2 style="font-family:'Kaisei Decol',serif;font-size:28px;margin-bottom:10px;color:white;">防災グッズ完全ガイド</h2>
-      <p style="font-size:15px;opacity:0.9;">避難所は過酷。でも備えれば自宅が最強の避難場所になります。<br>大家さんが厳選した10カテゴリで今すぐ準備できます！</p>
+      <p style="font-size:15px;opacity:0.9;">おうちにいるための備え、全部ここにあります。<br>大家さんが厳選した10カテゴリで、今すぐ準備できます！</p>
     </div>
 
     <div class="info-card red" style="margin-bottom:24px;">
-      <h3>😨 「何も準備していない」状態で災害が来たら…</h3>
+      <h3>😨 もし今、何も準備していない状態で災害が来たら？</h3>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px;">
         <div class="highlight" style="border-left-color:#EF4444;background:#FEF2F2;text-align:center;">
           <div style="font-size:28px;">💧</div>
@@ -1498,8 +1531,8 @@
       <div class="callout success" style="margin-top:16px;">
         <span class="callout-icon">✅</span>
         <div>
-          <strong>グッズを揃えるだけで、全部解決します</strong><br>
-          備蓄水・非常食・ポータブル電源・簡易トイレ。これさえあれば自宅で数日間、快適に過ごせます。
+          <strong>グッズを揃えるだけで、全部解決します！</strong><br>
+          水・食べ物・ポータブル電源・簡易トイレ。これさえあれば、おうちで数日間、安心して過ごせます。
         </div>
       </div>
     </div>
@@ -1511,7 +1544,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>🎒 1. 避難袋・バッグ</h3>
+      <h3>🎒 1. <ruby>避難袋<rt>ひなんぶくろ</rt></ruby>・バッグ</h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">防災リュック 単品（30L前後）</div><div class="goods-desc">避難時に両手が使えるリュック型。30L前後が家族1人分の目安です。</div></div>
         <div class="goods-item"><div class="goods-name">防災セット 一人用</div><div class="goods-desc">必要なグッズがすべて入ったオールインワンセット。これ1つで基本の備えが完成。</div></div>
@@ -1521,7 +1554,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>🍙 2. 非常食・飲料水</h3>
+      <h3>🍙 2. <ruby>非常食<rt>ひじょうしょく</rt></ruby>・<ruby>飲料水<rt>いんりょうすい</rt></ruby></h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">アルファ米 5年保存</div><div class="goods-desc">お湯または水を注ぐだけで食べられるご飯。5年保存可能で備蓄の基本。</div></div>
         <div class="goods-item"><div class="goods-name">保存水 2L 5年保存</div><div class="goods-desc">最低でも1人1日3Lが目安。重いので自宅備蓄用に箱買いがおすすめ。</div></div>
@@ -1531,7 +1564,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>💡 3. 照明・電源</h3>
+      <h3>💡 3. <ruby>照明<rt>しょうめい</rt></ruby>・<ruby>電源<rt>でんげん</rt></ruby></h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">防災ランタン LED 充電式</div><div class="goods-desc">停電時の室内照明に。充電式＋乾電池両対応が理想的。</div></div>
         <div class="goods-item"><div class="goods-name">ヘッドライト 防災</div><div class="goods-desc">両手が使えるヘッドライトは避難時に特に便利。</div></div>
@@ -1541,7 +1574,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>🔋 4. ポータブル電源</h3>
+      <h3>🔋 4. ポータブル<ruby>電源<rt>でんげん</rt></ruby></h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">ポータブル電源 小型 400Wh以下</div><div class="goods-desc">スマホ・ランタン・小型家電に対応。軽量で使いやすいサイズ。</div></div>
         <div class="goods-item"><div class="goods-name">ポータブル電源 中型 400〜1000Wh</div><div class="goods-desc">冷蔵庫・電気毛布・医療機器にも対応。在宅避難の主力電源として最適。</div></div>
@@ -1640,7 +1673,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>🚰 6. 衛生・トイレ</h3>
+      <h3>🚰 6. <ruby>衛生<rt>えいせい</rt></ruby>・トイレ</h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">簡易トイレ 50回分以上</div><div class="goods-desc">断水・下水管破損時に必須。マンション高層階では特に重要な備え。</div></div>
         <div class="goods-item"><div class="goods-name">除菌ウェットティッシュ 大容量</div><div class="goods-desc">断水時の手洗い代替に。食事前・トイレ後に大活躍。</div></div>
@@ -1650,7 +1683,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>🩹 7. 救急・医療</h3>
+      <h3>🩹 7. <ruby>救急<rt>きゅうきゅう</rt></ruby>・<ruby>医療<rt>いりょう</rt></ruby></h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">救急セット 防災用</div><div class="goods-desc">絆創膏・包帯・ハサミ・ピンセットなど基本セット。避難袋に1つ必ず入れておきたい。</div></div>
         <div class="goods-item"><div class="goods-name">使い捨て手袋 ニトリル</div><div class="goods-desc">救急処置時の感染予防に。ラテックスアレルギーの方にも安心なニトリル製を。</div></div>
@@ -1660,7 +1693,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>📻 8. 情報収集</h3>
+      <h3>📻 8. <ruby>情報収集<rt>じょうほうしゅうしゅう</rt></ruby></h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">防災ラジオ 手回し充電</div><div class="goods-desc">停電・電池切れでも手回しで使えるラジオ。AM/FM/ワンセグ対応が理想的。</div></div>
         <div class="goods-item"><div class="goods-name">防災ラジオ ソーラー充電対応</div><div class="goods-desc">太陽光でも充電可能。長期避難時の情報収集に欠かせない。</div></div>
@@ -1670,7 +1703,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>🛏️ 9. 在宅避難・快適グッズ</h3>
+      <h3>🛏️ 9. <ruby>在宅避難<rt>ざいたくひなん</rt></ruby>・<ruby>快適<rt>かいてき</rt></ruby>グッズ</h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">電動インフレータブルベッド</div><div class="goods-desc">ボタン1つで膨らむ簡易ベッド。床の硬さや冷気を遮断し、体への負担を大幅軽減。</div></div>
         <div class="goods-item"><div class="goods-name">寝袋 封筒型 コンパクト</div><div class="goods-desc">毛布代わりに使える寝袋。封筒型は寝返りが打ちやすく在宅避難に最適。</div></div>
@@ -1680,7 +1713,7 @@
     </div>
 
     <div class="goods-category">
-      <h3>🏠 10. 住まいの備え</h3>
+      <h3>🏠 10. <ruby>住<rt>す</rt></ruby>まいの<ruby>備<rt>そな</rt></ruby>え</h3>
       <div class="goods-grid">
         <div class="goods-item"><div class="goods-name">家具転倒防止ベルト</div><div class="goods-desc">地震時に家具が倒れて逃げ道を塞ぐのを防ぐ。本棚・冷蔵庫・テレビ台に設置を。</div></div>
         <div class="goods-item"><div class="goods-name">ガラス飛散防止フィルム</div><div class="goods-desc">地震でガラスが割れても飛散しにくくなる。窓・食器棚に貼るだけで効果的。</div></div>
@@ -1703,16 +1736,19 @@
     <div class="page-hero">
       <span class="emoji">🏫</span>
       <h2>武蔵野市の避難所一覧</h2>
-      <p>一時集合場所・避難所は市立小中学校18校＋都立高校2校の計20か所です。<br>区割りはあくまでも目安です。<strong>どの避難所でも受け入れは可能</strong>です。</p>
+      <p>市内の小中学校18校＋都立高校2校、合計20か所が避難所になります。<br>
+      「自分の担当の学校じゃないといけない」ということはありません。<strong>どの避難所でも受け入れてもらえます。</strong></p>
     </div>
 
     <!-- 浸水ハザードマップ -->
     <div class="info-card" style="border-left-color:#3B82F6;">
       <h3>🗺️ 武蔵野市 浸水ハザードマップ</h3>
-      <p>武蔵野市には大きな川はありませんが、<strong>内水氾濫（下水があふれる）</strong>のリスクがあります。大雨の際は特に千川周辺や低地で浸水が起きやすく、過去にも被害が発生しています。</p>
+      <p>武蔵野市には大きな川はありませんが、大雨で水があふれる「<strong>内水氾濫</strong>」のリスクがあります。<br>
+      特に千川周辺や低い場所では浸水が起きやすく、過去にも被害が発生しています。</p>
       <div class="highlight" style="margin-top:14px; border-left-color:#3B82F6; background:#EFF6FF;">
-        💡 <strong>内水氾濫とは？</strong><br>
-        川が氾濫するのではなく、大雨で下水処理が追いつかず、道路や建物に水が溢れ出す現象。武蔵野市ではこちらのリスクに注意が必要です。
+        💡 <strong>内水氾濫（ないすいはんらん）とは？</strong><br>
+        川が氾濫するのではなく、大雨で下水処理が追いつかず、道路や建物に水があふれ出す現象です。
+        「川が近くにないから安全」とは言えないんです。
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
         <a href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/saigai_taisei_hinan/1005950.html"
@@ -1768,11 +1804,11 @@
 
     <!-- 避難所に関する注意事項 -->
     <div class="info-card">
-      <h3>⚠️ 避難所を使うときの注意</h3>
+      <h3>⚠️ 避難所を使うときに知っておいてほしいこと</h3>
       <ul style="padding-left:0;list-style:none;">
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">🏫 <strong>一時集合場所（校庭）</strong>：地震直後に近隣の人が集まり安否確認・情報共有をする場所</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">🏠 <strong>避難所（体育館等）</strong>：家が危険な場合に泊まれる場所。在宅避難できるなら使わなくてOK</li>
-        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">📋 <strong>区割りは目安</strong>：どの避難所でも受け入れ可能。近い場所に行けばよい</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">🏫 <strong>一時集合場所（校庭）</strong>：地震の直後に近所の人が集まって、みんなが無事かどうか確認する場所</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">🏠 <strong>避難所（体育館など）</strong>：おうちに住めなくなった人が泊まれる場所。おうちが安全なら使わなくてOK</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;">📋 <strong>担当地域は目安</strong>：どこの避難所にいっても受け入れてもらえます。一番近い場所に行けばOK</li>
         <li style="padding:8px 0;">📞 <strong>最新情報は市に確認</strong>：武蔵野市役所 危機管理課 ☎ 0422-60-1853</li>
       </ul>
     </div>
@@ -1791,7 +1827,7 @@
     <div class="page-hero" style="border-radius:20px;padding:40px;text-align:center;background:linear-gradient(135deg,var(--orange),var(--yellow));color:white;margin-bottom:30px;">
       <span style="font-size:56px;display:block;margin-bottom:16px;">🎯</span>
       <h2 style="font-family:'Kaisei Decol',serif;font-size:28px;color:white;margin-bottom:10px;">防災クイズに挑戦！</h2>
-      <p style="font-size:15px;opacity:0.9;">全5問。楽しみながら防災知識を確認しよう！</p>
+      <p style="font-size:15px;opacity:0.9;">全5問。楽しみながら防災の知識を確認しよう！全問正解を目指せ！</p>
     </div>
 
     <div id="quiz-area"></div>
@@ -1819,24 +1855,25 @@
         <div class="about-avatar">🐻</div>
         <div>
           <h3>くまごろう（武蔵野市の大家さん）</h3>
-          <p>武蔵野市でマンションを経営する大家さんです。<br>入居者の皆さんに安心して暮らしてほしいという思いから、このサイトを作りました。</p>
+          <p>武蔵野市でマンションを経営する大家さんです。<br>住んでいる方みんなに、安心して暮らしてほしいという思いから、このサイトを作りました。</p>
         </div>
       </div>
       <div class="highlight">
         💡 <strong>なぜ防災サイトを作ったか</strong><br>
-        マンションオーナーとして、地震や台風が起きたときに入居者の皆さんがどうすれば安全でいられるかをずっと考えてきました。「避難所に行く」だけでなく「自宅で安全に過ごす」ための知識をみんなに知ってほしいと思い、このサイトを立ち上げました。
+        マンションのオーナーとして、「地震や台風が来たとき、住んでいる方たちはどうすれば安全でいられるか」をずっと考えてきました。<br>
+        「避難所に行く」だけが答えじゃない。「おうちで安全に過ごす」という選択肢をもっと多くの人に知ってほしくて、このサイトを作りました。
       </div>
     </div>
 
     <div class="about-card">
       <h3 style="font-family:'Kaisei Decol',serif;font-size:20px;margin-bottom:16px;">🏢 マンションオーナー視点の防災</h3>
-      <p style="line-height:1.8;font-size:14px;">
-        マンションは適切に管理・維持されていれば、木造の一戸建てよりも地震に強い建物です。
-        特に新耐震基準（1981年以降）・2000年基準に対応した建物は、震度6強でも倒壊しないよう設計されています。
+      <p style="line-height:1.9;font-size:14px;">
+        きちんと管理されたマンションは、木造の一戸建てよりも地震に強い建物です。<br>
+        1981年以降に建てられた建物（新耐震基準）は、震度6強でも倒壊しないよう設計されています。
       </p>
       <div class="highlight" style="margin-top:16px;">
-        だからこそ、<strong>マンション住まいの方の在宅避難はとても有効</strong>です！
-        自分の部屋が安全なら、わざわざ不便な避難所に行く必要はありません。
+        だからこそ、<strong>マンション住まいの方の在宅避難はとても有効</strong>なんです！<br>
+        自分の部屋が安全なら、わざわざ不便な避難所に行く必要はありません。<br>
         その代わり、しっかりとした備蓄と準備が必要です。
       </div>
     </div>
@@ -1989,6 +2026,9 @@ function restartQuiz() {
 }
 
 renderQuiz();
+
 </script>
+
+
 </body>
 </html>
