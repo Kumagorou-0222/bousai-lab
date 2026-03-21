@@ -1063,11 +1063,9 @@
 
   /* こどもモードON：ふりがな表示 */
   body.kids-mode ruby rt {
-    display: block;
-    font-size: 0.52em;
-    line-height: 1.1;
+    display: revert;
+    font-size: 0.6em;
     color: #CC4400;
-    text-align: center;
     font-weight: 400;
   }
   /* こどもモードON：文字を大きく・行間を広く */
@@ -2333,7 +2331,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const a_id = '5428468', p_id = '54', pc_id = '54', pl_id = '616';
   // 楽天へのリンクをもしも経由に変換
   document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('a[href*="rakuten.co.jp"], a[href*="rakuten.com"]').forEach(function(el) {
+    // room.rakuten.co.jp はアフィリエイト非対応のため除外し直リンクにする
+    document.querySelectorAll('a[href*="rakuten.co.jp"]:not([href*="room.rakuten.co.jp"]), a[href*="rakuten.com"]').forEach(function(el) {
       const orig = el.href;
       el.href = 'https://af.moshimo.com/af/c/click?a_id=' + a_id + '&p_id=' + p_id + '&pc_id=' + pc_id + '&pl_id=' + pl_id + '&url=' + encodeURIComponent(orig);
       el.setAttribute('rel', 'nofollow');
