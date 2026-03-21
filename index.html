@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ===== SEO基本設定 ===== -->
-<title>在宅避難ラボ｜武蔵野市の防災・避難所・防災（ぼうさい）グッズ完全ガイド</title>
-<meta name="description" content="武蔵野市在住の大家さんが作った防災サイト。在宅避難の方法、武蔵野市の避難所一覧（20か所）・浸水ハザードマップ、防災（ぼうさい）グッズ完全ガイドを掲載。マンション住まいの方に特におすすめ。">
+<title>在宅避難ラボ｜武蔵野市の防災・避難所・防災グッズ完全ガイド</title>
+<meta name="description" content="武蔵野市在住の大家さんが作った防災サイト。在宅避難の方法、武蔵野市の避難所一覧（20か所）・浸水ハザードマップ、防災グッズ完全ガイドを掲載。マンション住まいの方に特におすすめ。">
 <meta name="keywords" content="在宅避難,武蔵野市,防災,避難所,ハザードマップ,防災グッズ,マンション防災,内水氾濫,カセットガス,ポータブル電源,備蓄,大家さん">
 <meta name="author" content="くまごろう（武蔵野市の大家さん）">
 <meta name="robots" content="index, follow">
@@ -36,15 +36,19 @@
 <!-- ===== Open Graph（SNSシェア用） ===== -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bousai-lab.vercel.app/">
-<meta property="og:title" content="在宅避難ラボ｜武蔵野市の防災・避難所・防災（ぼうさい）グッズ完全ガイド">
+<meta property="og:title" content="在宅避難ラボ｜武蔵野市の防災・避難所・防災グッズ完全ガイド">
 <meta property="og:description" content="武蔵野市在住の大家さんが作った防災サイト。避難所一覧・浸水ハザードマップ・防災グッズガイドを掲載。在宅避難で自宅を最強の避難場所にしよう！">
 <meta property="og:site_name" content="在宅避難ラボ">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://bousai-lab.vercel.app/ogp.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 <!-- ===== Twitter Card ===== -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在宅避難ラボ｜武蔵野市の防災・避難所・防災（ぼうさい）グッズ完全ガイド">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="在宅避難ラボ｜武蔵野市の防災・避難所・防災グッズ完全ガイド">
 <meta name="twitter:description" content="武蔵野市在住の大家さんが作った防災サイト。避難所一覧・浸水ハザードマップ・防災グッズガイドを掲載。">
+<meta name="twitter:image" content="https://bousai-lab.vercel.app/ogp.svg">
 
 <!-- ===== 構造化データ（JSON-LD） ===== -->
 <script type="application/ld+json">
@@ -58,6 +62,8 @@
       "name": "在宅避難ラボ",
       "description": "武蔵野市在住の大家さんが作った防災・在宅避難の情報サイト",
       "inLanguage": "ja",
+      "datePublished": "2024-06-01",
+      "dateModified": "2025-03-21",
       "publisher": {
         "@type": "Person",
         "name": "くまごろう",
@@ -133,6 +139,8 @@
 }
 </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Kaisei+Decol:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1085,6 +1093,77 @@
   /* こどもモードのみ表示する要素 */
   .kids-only { display: none; }
   body.kids-mode .kids-only { display: block; }
+
+  /* ===== 最新防災ニュース欄 ===== */
+  .news-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--orange);
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+  .news-header {
+    font-family: 'Kaisei Decol', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .news-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .news-date {
+    background: var(--orange);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 50px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .news-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .news-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--gray);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 50px;
+    transition: all 0.2s;
+    border: 1.5px solid #e0e0e0;
+  }
+  .news-link-btn:hover {
+    background: var(--light-orange);
+    border-color: var(--orange);
+    color: var(--orange);
+  }
 </style>
 </head>
 <body>
@@ -1127,6 +1206,33 @@
   </div>
 
   <div class="section">
+
+    <!-- ===== 最新防災ニュース欄 ===== -->
+    <div class="news-section">
+      <div class="news-header">📡 最新の<ruby>防災<rt>ぼうさい</rt></ruby>情報・お知らせ</div>
+      <div class="news-list">
+        <!-- 新しいお知らせを上に追加してください -->
+        <div class="news-item">
+          <span class="news-date">2025.03.21</span>
+          <span class="news-text">🧒 こどもモード（ふりがな表示）を追加しました。右下のボタンでON/OFFできます！</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2024.12.10</span>
+          <span class="news-text">📋 内閣府が<ruby>在宅避難<rt>ざいたくひなん</rt></ruby>ガイドラインを改定。<ruby>在宅避難<rt>ざいたくひなん</rt></ruby>者にも<ruby>支援物資<rt>しえんぶっし</rt></ruby>が届く仕組みに</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2024.09.01</span>
+          <span class="news-text">🌧️ 令和6年能登半島豪雨を受け、<ruby>内水氾濫<rt>ないすいはんらん</rt></ruby>のリスク解説を更新しました</span>
+        </div>
+      </div>
+      <div class="news-links">
+        <a href="https://www.jma.go.jp/bosai/warning/#area_type=offices&area_code=130000" target="_blank" rel="noopener" class="news-link-btn">🌦️ 気象庁 東京の警報・注意報</a>
+        <a href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/index.html" target="_blank" rel="noopener" class="news-link-btn">🌿 <ruby>武蔵野市<rt>むさしのし</rt></ruby> 防災情報</a>
+        <a href="https://www3.nhk.or.jp/news/saigai/" target="_blank" rel="noopener" class="news-link-btn">📺 NHK 防災・減災</a>
+        <a href="https://weathernews.jp/s/topics/saigai/" target="_blank" rel="noopener" class="news-link-btn">⛅ ウェザーニュース 災害情報</a>
+      </div>
+    </div>
+
     <div class="section-title">📚 コンテンツ一覧</div>
     <p class="section-desc">まずはカンタンな説明から。「もっと詳しく」でくわしい情報も読めるよ！知れば知るほど、今すぐじゅんびしたくなるかも！？</p>
 
