@@ -140,7 +140,6 @@ export default async function ArticlePage({ params }: Props) {
                     {faq.question}
                   </summary>
                   <p style={{ marginTop: 12, fontSize: 14, lineHeight: 1.8, color: '#555', paddingLeft: 28 }}>
-                    <span style={{ color: '#16A34A', fontWeight: 900, marginRight: 8 }}>A</span>
                     {faq.answer}
                   </p>
                 </details>
