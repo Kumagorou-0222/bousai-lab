@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import { getAllSlugs, getArticleBySlug, getRelatedArticles, CATEGORY_MAP } from '@/lib/articles'
 import Breadcrumb from '@/components/Breadcrumb'
@@ -122,7 +123,7 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* 記事本文 */}
         <article className="prose-bousai">
-          <MDXRemote source={article.content} />
+          <MDXRemote source={article.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
         </article>
 
         {/* FAQセクション */}

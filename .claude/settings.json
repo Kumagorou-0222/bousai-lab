@@ -25,7 +25,10 @@
       "Bash(npm run:*)",
       "Bash(NODE_OPTIONS=\"--max-old-space-size=2048\" npm run build)",
       "Bash(NODE_OPTIONS=\"--max-old-space-size=2048\" npx next build)",
-      "Bash(ls /workspaces/bousai-lab/public/sitemap*.xml /workspaces/bousai-lab/public/robots.txt)"
+      "Bash(ls /workspaces/bousai-lab/public/sitemap*.xml /workspaces/bousai-lab/public/robots.txt)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://bousai-lab.vercel.app/)",
+      "Bash(vercel ls:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://bousai-3j0e3gpwf-kensuke-onos-projects.vercel.app/)"
     ],
     "additionalDirectories": [
       "/workspaces/bousai-lab/app/articles",
