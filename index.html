@@ -1044,7 +1044,6 @@
   .sphere-sub { font-size: 12px; color: #888; }
 
   /* ふりがな：非表示 */
-  ruby { display: inline; }
   ruby rt { display: none; }
 
   /* ===== こどもモード ===== */
@@ -1070,9 +1069,10 @@
   #kids-mode-btn.active { background: #16A34A; }
 
   /* こどもモードON：ふりがな表示 */
+  body.kids-mode ruby { display: ruby; }
   body.kids-mode ruby rt {
-    display: revert;
-    font-size: 0.6em;
+    display: ruby-text;
+    font-size: 0.55em;
     color: #CC4400;
     font-weight: 400;
   }
