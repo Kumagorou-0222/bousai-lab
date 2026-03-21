@@ -1090,6 +1090,12 @@
   body.kids-mode .quiz-question { font-size: 20px !important; line-height: 1.8 !important; }
   body.kids-mode .quiz-option { font-size: 16px !important; padding: 14px !important; }
 
+  /* ナビ・ヘッダー・ニュース日付はふりがなを非表示（レイアウト崩れ防止） */
+  body.kids-mode nav ruby rt,
+  body.kids-mode .logo ruby rt,
+  body.kids-mode .news-date ruby rt,
+  body.kids-mode .news-link-btn ruby rt { display: none; }
+
   /* こどもモードのみ表示する要素 */
   .kids-only { display: none; }
   body.kids-mode .kids-only { display: block; }
@@ -1124,9 +1130,10 @@
     align-items: flex-start;
     gap: 12px;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 2;
     color: var(--text);
   }
+  .news-text ruby rt { font-size: 0.55em; }
   .news-date {
     background: var(--orange);
     color: white;
