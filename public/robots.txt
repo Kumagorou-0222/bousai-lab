@@ -1,4 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
+# Host
+Host: https://bousai-lab.vercel.app
+
+# Sitemaps
 Sitemap: https://bousai-lab.vercel.app/sitemap.xml
