@@ -13,6 +13,15 @@ export default function Header() {
           <Link href="/category/evacuation" style={{ color: 'white', fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>避難所</Link>
           <Link href="/category/disaster-prep" style={{ color: 'white', fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>備蓄</Link>
           <Link href="/about" style={{ color: 'white', fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>著者</Link>
+          <a
+            href="https://room.rakuten.co.jp/room_e510207d9c/items"
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+            referrerPolicy="no-referrer-when-downgrade"
+            style={{ color: '#FFD000', fontSize: 13, fontWeight: 700, textDecoration: 'none', border: '1px solid #FFD000', borderRadius: 20, padding: '3px 10px' }}
+          >
+            🛍️ 楽天ルーム
+          </a>
         </nav>
       </div>
     </header>

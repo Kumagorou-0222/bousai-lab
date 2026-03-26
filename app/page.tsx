@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllArticlesMeta, CATEGORY_MAP } from '@/lib/articles'
 import ArticleCard from '@/components/ArticleCard'
+import RakutenBanner from '@/components/RakutenBanner'
 
 export const metadata: Metadata = {
   title: '在宅避難ラボ｜武蔵野市の防災・避難所・防災グッズ完全ガイド',
@@ -106,6 +107,11 @@ export default function HomePage() {
             <ArticleCard key={article.slug} article={article} />
           ))}
         </div>
+      </section>
+
+      {/* 楽天・Amazonバナー */}
+      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px' }}>
+        <RakutenBanner />
       </section>
 
       {/* 著者プロフィール */}
