@@ -19,6 +19,7 @@ export type ArticleFrontmatter = {
   description: string
   category: ArticleCategory
   date: string
+  updatedDate?: string
   emoji: string
   faqs: FaqItem[]
   relatedSlugs?: string[]
@@ -55,6 +56,7 @@ export function getArticleBySlug(slug: string): Article {
     description: data.description ?? '',
     category: data.category ?? 'disaster-prep',
     date: data.date ?? '',
+    updatedDate: data.updatedDate,
     emoji: data.emoji ?? '📄',
     faqs: data.faqs ?? [],
     relatedSlugs: data.relatedSlugs,
@@ -74,6 +76,7 @@ export function getAllArticlesMeta(): ArticleMeta[] {
         description: data.description ?? '',
         category: (data.category ?? 'disaster-prep') as ArticleCategory,
         date: data.date ?? '',
+        updatedDate: data.updatedDate,
         emoji: data.emoji ?? '📄',
         faqs: data.faqs ?? [],
         relatedSlugs: data.relatedSlugs,

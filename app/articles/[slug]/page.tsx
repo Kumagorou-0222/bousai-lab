@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         url: `https://bousai-lab.vercel.app/articles/${slug}`,
         type: 'article',
         publishedTime: article.date,
+        modifiedTime: article.updatedDate ?? article.date,
         authors: ['くまごろう'],
         tags: [cat.label, '防災', '武蔵野市', '在宅避難'],
       },
@@ -56,16 +57,16 @@ export default async function ArticlePage({ params }: Props) {
     headline: article.title,
     description: article.description,
     datePublished: article.date,
-    dateModified: article.date,
+    dateModified: article.updatedDate ?? article.date,
     author: {
       '@type': 'Person',
       name: 'くまごろう',
       jobTitle: '医師',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: '武蔵野市',
-        addressRegion: '東京都',
-        addressCountry: 'JP',
+      sameAs: 'https://bousai-lab.vercel.app/about',
+      affiliation: {
+        '@type': 'Organization',
+        name: '在宅避難ラボ',
+        url: 'https://bousai-lab.vercel.app',
       },
     },
     publisher: {
@@ -77,6 +78,16 @@ export default async function ArticlePage({ params }: Props) {
       '@type': 'WebPage',
       '@id': `https://bousai-lab.vercel.app/articles/${slug}`,
     },
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://bousai-lab.vercel.app' },
+      { '@type': 'ListItem', position: 2, name: cat.label, item: `https://bousai-lab.vercel.app/category/${article.category}` },
+      { '@type': 'ListItem', position: 3, name: article.title, item: `https://bousai-lab.vercel.app/articles/${slug}` },
+    ],
   }
 
   const faqJsonLd = article.faqs.length > 0
@@ -94,6 +105,7 @@ export default async function ArticlePage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {faqJsonLd && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       )}
