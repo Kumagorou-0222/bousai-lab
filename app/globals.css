@@ -133,3 +133,108 @@ body.kids-mode h3 { font-size: 1.25rem !important; }
 
 .kids-only { display: none; }
 body.kids-mode .kids-only { display: block; }
+
+/* ===== こどもモード: アニメーション ===== */
+@keyframes kidsBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes kidsPopIn {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.04); }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes kidsShine {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes kidsFadeSlide {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* キャラクターのバウンス */
+.kids-bear-bounce {
+  animation: kidsBounce 2.4s ease-in-out infinite;
+}
+
+/* ===== こどもモード: 見出しを虹色に ===== */
+body.kids-mode .prose-bousai h2 {
+  border-bottom: 4px solid transparent;
+  border-image: linear-gradient(90deg, #FF6B00, #FFD000, #56C271, #4EAAF5, #A975E0) 1;
+  background: linear-gradient(135deg, #FFF8F0, #FFFDE7);
+  border-radius: 12px 12px 0 0;
+  padding: 10px 16px 8px;
+  animation: kidsFadeSlide 0.4s ease both;
+}
+
+body.kids-mode .prose-bousai h2::before {
+  content: '⭐ ';
+}
+
+body.kids-mode .prose-bousai h3::before {
+  content: '🔸 ';
+}
+
+/* ===== こどもモード: 段落・リストのアニメーション ===== */
+body.kids-mode .prose-bousai p,
+body.kids-mode .prose-bousai li {
+  animation: kidsFadeSlide 0.35s ease both;
+}
+
+/* ===== こどもモード: ルビの読みやすいスタイル ===== */
+body.kids-mode ruby {
+  display: inline-flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  line-height: 1;
+  vertical-align: bottom;
+  margin: 0 1px;
+}
+
+body.kids-mode ruby rt {
+  display: block;
+  font-size: 0.55em;
+  line-height: 1.2;
+  color: #CC4400;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ===== こどもモード: 背景をやさしいパステルに ===== */
+body.kids-mode {
+  background: linear-gradient(180deg, #FFFDF5 0%, #FFF8F0 100%) !important;
+}
+
+/* ===== こどもモード: blockquote を楽しく ===== */
+body.kids-mode .prose-bousai blockquote {
+  border-left: 5px solid #FFD000;
+  background: linear-gradient(135deg, #FFFDE7, #FFF8F0);
+  border-radius: 0 16px 16px 0;
+}
+
+/* ===== こどもモード: テーブルを見やすく ===== */
+body.kids-mode .prose-bousai th {
+  background: linear-gradient(135deg, #FF6B00, #FF9500);
+  font-size: 1rem;
+}
+
+body.kids-mode .prose-bousai td {
+  font-size: 0.95rem;
+  line-height: 2;
+}
+
+/* ===== こどもモード: カードの変化 ===== */
+body.kids-mode a[style] {
+  border-radius: 24px !important;
+}
+
+/* ===== こどもモード: 画面全体のポップ演出 ===== */
+body.kids-mode main {
+  animation: kidsPopIn 0.4s ease both;
+}

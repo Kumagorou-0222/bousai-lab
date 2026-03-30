@@ -3,6 +3,8 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import KidsModeButton from '@/components/KidsModeButton'
+import KidsModeTransformer from '@/components/KidsModeTransformer'
+import KidsCharacter from '@/components/KidsCharacter'
 import Script from 'next/script'
 
 const SITE_URL = 'https://bousai-lab.vercel.app'
@@ -52,6 +54,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <KidsModeButton />
+        <KidsModeTransformer />
+        <KidsCharacter />
         {/* Amazonアソシエイト タグ付与 */}
         <Script id="amazon-affiliate" strategy="afterInteractive">
           {`
