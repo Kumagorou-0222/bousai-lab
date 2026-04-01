@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://bousai-lab.vercel.app</loc><lastmod>2026-04-01T06:44:53.088Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/about</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/blackout-refrigerator</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/bousaicho-setchi</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/disaster-hygiene-disinfection</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/disaster-prep-goods</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/disaster-prep-medicine</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/earthquake-elevator</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/earthquake-zaitaku</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/evacuation-shelter-infection</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/articles/water-purifier-disaster</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/category/blackout</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/category/disaster-prep</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/category/earthquake</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/category/evacuation</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://bousai-lab.vercel.app/checklist</loc><lastmod>2026-04-01T06:44:53.090Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app</loc><lastmod>2026-04-01T06:50:45.715Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/about</loc><lastmod>2026-04-01T06:50:45.716Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/blackout-refrigerator</loc><lastmod>2026-04-01T06:50:45.716Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/bousaicho-setchi</loc><lastmod>2026-04-01T06:50:45.716Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/disaster-hygiene-disinfection</loc><lastmod>2026-04-01T06:50:45.716Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/disaster-prep-goods</loc><lastmod>2026-04-01T06:50:45.716Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/disaster-prep-medicine</loc><lastmod>2026-04-01T06:50:45.716Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/earthquake-elevator</loc><lastmod>2026-04-01T06:50:45.716Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/earthquake-zaitaku</loc><lastmod>2026-04-01T06:50:45.716Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/evacuation-shelter-infection</loc><lastmod>2026-04-01T06:50:45.717Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/articles/water-purifier-disaster</loc><lastmod>2026-04-01T06:50:45.717Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/category/blackout</loc><lastmod>2026-04-01T06:50:45.717Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/category/disaster-prep</loc><lastmod>2026-04-01T06:50:45.717Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/category/earthquake</loc><lastmod>2026-04-01T06:50:45.717Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/category/evacuation</loc><lastmod>2026-04-01T06:50:45.717Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://bousai-lab.vercel.app/checklist</loc><lastmod>2026-04-01T06:50:45.717Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>

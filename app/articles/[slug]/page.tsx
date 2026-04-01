@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { getAllSlugs, getArticleBySlug, getRelatedArticles, CATEGORY_MAP } from '@/lib/articles'
 import Breadcrumb from '@/components/Breadcrumb'
 import ArticleCard from '@/components/ArticleCard'
+import ProductCard from '@/components/ProductCard'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -135,7 +136,7 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* 記事本文 */}
         <article className="prose-bousai">
-          <MDXRemote source={article.content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
+          <MDXRemote source={article.content} components={{ ProductCard }} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
         </article>
 
         {/* FAQセクション */}
