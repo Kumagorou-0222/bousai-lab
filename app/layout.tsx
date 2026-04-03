@@ -8,16 +8,16 @@ import KidsCharacter from '@/components/KidsCharacter'
 import Script from 'next/script'
 
 const SITE_URL = 'https://bousai-lab.vercel.app'
-const SITE_NAME = '在宅避難ラボ'
+const SITE_NAME = '防災Lab'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME}｜武蔵野市の防災・避難所・防災グッズ完全ガイド`,
+    default: `${SITE_NAME}｜災害が起きたとき今すぐやることがわかるサイト`,
     template: `%s｜${SITE_NAME}`,
   },
   description:
-    '武蔵野市在住の現役勤務医師・大家さんが作った防災サイト。在宅避難の方法、武蔵野市の避難所一覧（20か所）・浸水ハザードマップ、防災グッズ完全ガイドを掲載。',
+    '地震・台風・停電・避難——「今どうする？」がすぐわかる防災行動サイト。今すぐできるチェックリストと状況別ガイドを武蔵野市在住の現役医師が監修。',
   authors: [{ name: 'くまごろう（武蔵野市在住の現役勤務医師・大家さん）' }],
   robots: { index: true, follow: true },
   openGraph: {

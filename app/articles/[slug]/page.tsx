@@ -182,8 +182,8 @@ export default async function ArticlePage({ params }: Props) {
           />
         </article>
 
-        {/* 中盤CTA */}
-        <CtaButton />
+        {/* 中盤CTA（カテゴリ別） */}
+        <CtaButton category={article.category} />
 
         {/* SNSシェア */}
         <ShareButton title={article.title} url={articleUrl} shareText={shareText} />
