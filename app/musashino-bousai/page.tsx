@@ -89,6 +89,40 @@ export default function MusashinoBousaiPage() {
           </p>
         </div>
 
+        {/* 武蔵野市在住ならではの視点 */}
+        <section style={{ marginBottom: 32 }}>
+          <div style={{
+            background: 'white', borderRadius: 18,
+            border: '2px solid #E8E8E8',
+            padding: '24px 20px',
+            boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+              <div style={{
+                width: 52, height: 52, flexShrink: 0,
+                background: 'linear-gradient(135deg, #FF6B00, #FFD000)',
+                borderRadius: '50%', display: 'flex', alignItems: 'center',
+                justifyContent: 'center', fontSize: 26,
+              }}>🐻</div>
+              <div>
+                <div style={{ fontSize: 11, color: '#FF6B00', fontWeight: 700, marginBottom: 4, letterSpacing: '0.05em' }}>
+                  武蔵野市在住の現役医師・くまごろうの視点
+                </div>
+                <blockquote style={{
+                  margin: 0, padding: 0,
+                  fontSize: 14, color: '#333', lineHeight: 1.85, fontStyle: 'normal',
+                }}>
+                  「武蔵野市に実際に住んでいて感じるのは、<strong>この街は意外と"静かな脆さ"を持っている</strong>ということです。吉祥寺駅周辺は平時には賑やかですが、大地震が起きれば帰宅困難者があふれ、スーパーは数時間で棚が空になります。<br /><br />
+                  マンションオーナーとして複数の物件を管理する中で痛感するのは、建物の耐震性だけでなく<strong>住民一人ひとりの備えの差が命運を分ける</strong>ということ。このページは、同じ武蔵野市民として、医師として、本当に役立つ情報だけをまとめました。」
+                </blockquote>
+                <div style={{ marginTop: 12, fontSize: 12, color: '#888' }}>
+                  🩺 武蔵野市在住・現役勤務医師 ／ 🏢 武蔵野市マンションオーナー
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ① 結論：武蔵野市は在宅避難が基本 */}
         <section style={{ marginBottom: 40 }}>
           <div style={{

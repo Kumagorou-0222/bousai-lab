@@ -284,11 +284,7 @@ export default async function ArticlePage({ params }: Props) {
         )}
 
         {/* 末尾CTA */}
-        <CtaButton
-          text="防災グッズチェックリストを見る"
-          href="/articles/disaster-prep-goods"
-          emoji="✅"
-        />
+        <CtaButton category={article.category} variant="end" />
       </div>
     </>
   )

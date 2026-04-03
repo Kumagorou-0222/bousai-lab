@@ -107,6 +107,80 @@ body {
   cursor: pointer;
 }
 
+/* ===== 緊急感・注意ボックス ===== */
+
+/* 危険ボックス（赤） */
+.danger-box {
+  background: #FFF0F0;
+  border: 2px solid #E53935;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 20px 0;
+}
+.danger-box-title {
+  color: #C62828;
+  font-weight: 900;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 警告ボックス（黄） */
+.alert-box {
+  background: #FFF8E1;
+  border: 2px solid #F5A623;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 20px 0;
+}
+.alert-box-title {
+  color: #7A4F00;
+  font-weight: 900;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 情報ボックス（青） */
+.info-box {
+  background: #E3F2FD;
+  border: 2px solid #1E88E5;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 20px 0;
+}
+
+/* 記事内の重要テキスト強調 */
+.prose-bousai em {
+  font-style: normal;
+  background: linear-gradient(transparent 60%, #FFD00060 60%);
+  font-weight: 700;
+}
+
+/* 「今すぐ」強調タグ */
+.prose-bousai strong.urgent {
+  color: #E53935;
+}
+
+/* チェックリストアイテム（視覚強化） */
+.prose-bousai input[type="checkbox"] {
+  accent-color: var(--orange);
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.6rem;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+/* NG行（赤背景） */
+.prose-bousai td:first-child:has(> strong) {
+  color: #C62828;
+}
+
 /* ===== ふりがな（通常時は非表示） ===== */
 ruby rt {
   display: none;
