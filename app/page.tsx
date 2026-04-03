@@ -22,12 +22,15 @@ const websiteJsonLd = {
   '@id': 'https://bousai-lab.vercel.app/#website',
   url: 'https://bousai-lab.vercel.app/',
   name: '在宅避難ラボ',
+  description: '武蔵野市在住の現役勤務医師・大家さんが作った防災サイト。在宅避難の方法、避難所一覧、防災グッズを医師の視点で解説。',
   inLanguage: 'ja',
   publisher: {
     '@type': 'Person',
     name: 'くまごろう',
     jobTitle: '医師',
+    url: 'https://bousai-lab.vercel.app/about',
     description: '武蔵野市在住の現役勤務医師。マンション経営も行う大家さん。医師の視点から防災情報を発信。',
+    knowsAbout: ['防災', '在宅避難', '災害医療', '武蔵野市', '感染症対策'],
     address: {
       '@type': 'PostalAddress',
       addressLocality: '武蔵野市',
@@ -39,7 +42,6 @@ const websiteJsonLd = {
 
 export default function HomePage() {
   const allArticles = getAllArticlesMeta()
-  const recentArticles = allArticles
 
   return (
     <>
@@ -103,7 +105,7 @@ export default function HomePage() {
           📰 新着記事
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20 }}>
-          {recentArticles.map((article) => (
+          {allArticles.map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))}
         </div>

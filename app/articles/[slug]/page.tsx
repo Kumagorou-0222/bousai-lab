@@ -52,6 +52,20 @@ export default async function ArticlePage({ params }: Props) {
   const cat = CATEGORY_MAP[article.category]
   const related = getRelatedArticles(article)
 
+  const authorSchema = {
+    '@type': 'Person',
+    name: 'くまごろう',
+    jobTitle: '医師',
+    url: 'https://bousai-lab.vercel.app/about',
+    sameAs: 'https://bousai-lab.vercel.app/about',
+    affiliation: {
+      '@type': 'Organization',
+      name: '在宅避難ラボ',
+      url: 'https://bousai-lab.vercel.app',
+    },
+    knowsAbout: ['防災', '在宅避難', '災害医療', '武蔵野市', '感染症対策'],
+  }
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -59,17 +73,8 @@ export default async function ArticlePage({ params }: Props) {
     description: article.description,
     datePublished: article.date,
     dateModified: article.updatedDate ?? article.date,
-    author: {
-      '@type': 'Person',
-      name: 'くまごろう',
-      jobTitle: '医師',
-      sameAs: 'https://bousai-lab.vercel.app/about',
-      affiliation: {
-        '@type': 'Organization',
-        name: '在宅避難ラボ',
-        url: 'https://bousai-lab.vercel.app',
-      },
-    },
+    author: authorSchema,
+    reviewedBy: authorSchema,
     publisher: {
       '@type': 'Organization',
       name: '在宅避難ラボ',
@@ -128,9 +133,15 @@ export default async function ArticlePage({ params }: Props) {
             {article.title}
           </h1>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 12, color: '#888' }}>🩺 くまごろう（現役勤務医師）</span>
+            <Link href="/about" style={{ fontSize: 12, color: '#888', textDecoration: 'none' }}>🩺 くまごろう（現役勤務医師）</Link>
             <span style={{ fontSize: 12, color: '#bbb' }}>|</span>
-            <span style={{ fontSize: 12, color: '#888' }}>{article.date}</span>
+            <span style={{ fontSize: 12, color: '#888' }}>公開: {article.date}</span>
+            {article.updatedDate && article.updatedDate !== article.date && (
+              <>
+                <span style={{ fontSize: 12, color: '#bbb' }}>|</span>
+                <span style={{ fontSize: 12, color: '#FF6B00', fontWeight: 600 }}>更新: {article.updatedDate}</span>
+              </>
+            )}
           </div>
         </div>
 
@@ -165,12 +176,13 @@ export default async function ArticlePage({ params }: Props) {
         <div style={{ display: 'flex', gap: 20, alignItems: 'center', background: '#FFF3E0', borderRadius: 16, padding: 24, marginTop: 48 }}>
           <div style={{ width: 56, height: 56, background: 'linear-gradient(135deg, #FF6B00, #FFD000)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, flexShrink: 0 }}>🐻</div>
           <div>
-            <div style={{ fontSize: 11, color: '#FF6B00', fontWeight: 700 }}>この記事の著者</div>
-            <div style={{ fontWeight: 700, fontSize: 15, color: '#1A1A1A' }}>くまごろう</div>
+            <div style={{ fontSize: 11, color: '#FF6B00', fontWeight: 700 }}>この記事の著者・監修者</div>
+            <Link href="/about" style={{ fontWeight: 700, fontSize: 15, color: '#1A1A1A', textDecoration: 'none' }}>くまごろう</Link>
             <div style={{ fontSize: 12, color: '#666', lineHeight: 1.7, marginTop: 4 }}>
               🩺 武蔵野市在住・現役勤務医師 ／ 🏢 武蔵野市マンションオーナー<br />
               医師の視点から防災・在宅避難情報を発信しています。
             </div>
+            <Link href="/about" style={{ fontSize: 12, color: '#FF6B00', fontWeight: 600, textDecoration: 'none', marginTop: 6, display: 'inline-block' }}>詳しいプロフィール →</Link>
           </div>
         </div>
 

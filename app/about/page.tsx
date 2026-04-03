@@ -2,13 +2,37 @@ import type { Metadata } from 'next'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
-  title: '著者について',
+  title: '著者について｜くまごろう（武蔵野市在住の現役勤務医師）',
   description: '在宅避難ラボを運営するくまごろうのプロフィール。武蔵野市在住の現役勤務医師・マンションオーナー。医師の視点から防災・在宅避難情報を発信しています。',
+  alternates: { canonical: 'https://bousai-lab.vercel.app/about' },
+}
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'くまごろう',
+  jobTitle: '医師',
+  url: 'https://bousai-lab.vercel.app/about',
+  sameAs: 'https://bousai-lab.vercel.app/about',
+  description: '武蔵野市在住の現役勤務医師・マンションオーナー。医師の視点から防災・在宅避難情報を発信。',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: '武蔵野市',
+    addressRegion: '東京都',
+    addressCountry: 'JP',
+  },
+  knowsAbout: ['防災', '在宅避難', '災害医療', '感染症対策', '武蔵野市の避難所', 'マンション防災'],
+  worksFor: {
+    '@type': 'Organization',
+    name: '在宅避難ラボ',
+    url: 'https://bousai-lab.vercel.app',
+  },
 }
 
 export default function AboutPage() {
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 20px 80px' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
       <Breadcrumb items={[{ label: 'ホーム', href: '/' }, { label: '著者について' }]} />
 
       <div style={{ textAlign: 'center', padding: '40px 0 48px' }}>

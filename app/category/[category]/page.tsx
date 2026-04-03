@@ -30,8 +30,23 @@ export default async function CategoryPage({ params }: Props) {
   const cat = CATEGORY_MAP[category as ArticleCategory]
   const articles = getArticlesByCategory(category as ArticleCategory)
 
+  const itemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${cat.label}の記事一覧`,
+    description: cat.description,
+    url: `https://bousai-lab.vercel.app/category/${category}`,
+    itemListElement: articles.map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://bousai-lab.vercel.app/articles/${a.slug}`,
+      name: a.title,
+    })),
+  }
+
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 20px 80px' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <Breadcrumb items={[
         { label: 'ホーム', href: '/' },
         { label: cat.label },
