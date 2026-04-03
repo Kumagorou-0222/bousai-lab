@@ -39,7 +39,7 @@ const websiteJsonLd = {
 
 export default function HomePage() {
   const allArticles = getAllArticlesMeta()
-  const recentArticles = allArticles.slice(0, 6)
+  const recentArticles = allArticles
 
   return (
     <>
