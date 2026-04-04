@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import AffiliateButtons from '@/components/AffiliateButtons'
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
+const RAKUTEN_ID = '1400711'
+const rkt = (keyword: string) =>
+  `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_ID}/?pc=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${keyword}/`)}`
 const ACCENT = '#DC2626'
 const ACCENT_BG = '#FEF2F2'
 const ACCENT_LIGHT = '#FECACA'
@@ -29,8 +33,10 @@ const PRODUCTS = [
     reason: '何か1つだけ買うなら防災リュックセット。水・食料・ライト・救急用品が揃っている。中身を揃える手間がない。',
     spec: '15L以上・防水・反射材付き・中身入りセット',
     price: '5,000〜15,000円',
-    url: `https://www.amazon.co.jp/s?k=防災リュック+セット+中身入り&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=防災リュック+セット+中身入り&tag=bousailab0c-22`,
+    rakutenUrl: rkt('防災リュック セット 中身入り'),
     badgeText: '第1優先',
+    trustText: '防災グッズの中で最初に買われる定番品',
   },
   {
     step: 2,
@@ -40,8 +46,10 @@ const PRODUCTS = [
     reason: '地震で一番多い死因は「家屋倒壊による圧死」と「落下物による頭部外傷」。ヘルメット1つで生存率が変わる。',
     spec: '折りたたみ式・軽量・防災規格適合',
     price: '3,000〜8,000円',
-    url: `https://www.amazon.co.jp/s?k=防災ヘルメット+折りたたみ+軽量&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=防災ヘルメット+折りたたみ+軽量&tag=bousailab0c-22`,
+    rakutenUrl: rkt('防災ヘルメット 折りたたみ 軽量'),
     badgeText: '第2優先',
+    trustText: '地震の多い地域で多くの家庭が備えている',
   },
   {
     step: 3,
@@ -51,8 +59,10 @@ const PRODUCTS = [
     reason: 'ほとんどの怪我は避難中ではなく「自宅内での倒壊物による」もの。本棚・タンス・冷蔵庫を固定するだけで命を守れる。',
     spec: '突っ張り棒＋転倒防止板のセット',
     price: '1,500〜4,000円',
-    url: `https://www.amazon.co.jp/s?k=家具転倒防止+突っ張り棒+セット&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=家具転倒防止+突っ張り棒+セット&tag=bousailab0c-22`,
+    rakutenUrl: rkt('家具転倒防止 突っ張り棒 セット'),
     badgeText: '在宅必須',
+    trustText: '阪神・東日本大震災で証明された転倒防止効果',
   },
 ]
 
@@ -222,29 +232,11 @@ export default function EarthquakeItemsPage() {
                 }}>目安: {p.price}</span>
               </div>
             </div>
-            <a href={p.url} target="_blank" rel="noopener noreferrer sponsored" style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              background: 'white', border: `1.5px solid ${ACCENT}44`,
-              borderRadius: 12, padding: '12px 16px', textDecoration: 'none',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={{ fontSize: 28 }}>{p.emoji}</span>
-                <div>
-                  <div style={{
-                    background: ACCENT, color: 'white', fontSize: 9, fontWeight: 700,
-                    borderRadius: 4, padding: '2px 6px', display: 'inline-block', marginBottom: 3,
-                  }}>{p.badgeText}</div>
-                  <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{p.name}を見る</div>
-                  <div style={{ fontSize: 11, color: '#94A3B8' }}>Amazon で検索する</div>
-                </div>
-              </div>
-              <div style={{
-                background: '#FF9900', color: 'white',
-                fontSize: 11, fontWeight: 700, borderRadius: 8, padding: '7px 12px', flexShrink: 0,
-              }}>
-                Amazonで見る →
-              </div>
-            </a>
+            <AffiliateButtons
+              amazonUrl={p.amazonUrl}
+              rakutenUrl={p.rakutenUrl}
+              trustText={p.trustText}
+            />
           </div>
         ))}
       </section>
@@ -303,29 +295,36 @@ export default function EarthquakeItemsPage() {
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, marginBottom: 20, fontWeight: 600 }}>
             🏚️ 地震はいつ来るかわからない。<br />今すぐ揃えて、あとは何も心配しない。
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 400, margin: '0 auto' }}>
-            <a href={`https://www.amazon.co.jp/s?k=防災リュック+セット+中身入り&tag=bousailab0c-22`}
-              target="_blank" rel="noopener noreferrer sponsored"
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                background: '#FF9900', color: '#111',
-                padding: '14px 24px', borderRadius: 50,
-                textDecoration: 'none', fontWeight: 900, fontSize: 14,
-                boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-              }}>
-              🎒 まず防災リュックを買う →
-            </a>
-            <a href={`https://www.amazon.co.jp/s?k=防災ヘルメット+折りたたみ&tag=bousailab0c-22`}
-              target="_blank" rel="noopener noreferrer sponsored"
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                background: 'rgba(255,255,255,0.2)', color: 'white',
-                padding: '12px 24px', borderRadius: 50,
-                textDecoration: 'none', fontWeight: 700, fontSize: 13,
-                border: '1px solid rgba(255,255,255,0.4)',
-              }}>
-              ⛑️ 防災ヘルメットを見る →
-            </a>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 440, margin: '0 auto' }}>
+            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, margin: 0, fontWeight: 700 }}>
+              🎒 まず防災リュックから揃える
+            </p>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <a href={`https://www.amazon.co.jp/s?k=防災リュック+セット+中身入り&tag=bousailab0c-22`}
+                target="_blank" rel="noopener noreferrer sponsored"
+                style={{
+                  flex: '1 1 140px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  background: '#FF9900', color: '#111',
+                  padding: '14px 16px', borderRadius: 10,
+                  textDecoration: 'none', fontWeight: 900, fontSize: 14,
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
+                }}>
+                🛒 Amazonで見る
+              </a>
+              <a href={rkt('防災リュック セット 中身入り')}
+                target="_blank" rel="noopener noreferrer sponsored"
+                style={{
+                  flex: '1 1 140px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  background: '#BF0000', color: 'white',
+                  padding: '14px 16px', borderRadius: 10,
+                  textDecoration: 'none', fontWeight: 900, fontSize: 14,
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
+                }}>
+                🛍️ 楽天で見る
+              </a>
+            </div>
           </div>
         </div>
       </section>

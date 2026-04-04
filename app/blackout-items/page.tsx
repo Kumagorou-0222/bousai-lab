@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import AffiliateButtons from '@/components/AffiliateButtons'
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
+const RAKUTEN_ID = '1400711'
+const rkt = (keyword: string) =>
+  `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_ID}/?pc=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${keyword}/`)}`
 const ACCENT = '#D97706'
 const ACCENT_BG = '#FFFBEB'
 const ACCENT_LIGHT = '#FDE68A'
@@ -29,8 +33,10 @@ const PRODUCTS = [
     reason: 'スマホが死ぬと情報が途絶える。充電できる状態を維持するのが最優先。',
     spec: '容量20,000mAh以上・USB-C対応',
     price: '3,000〜6,000円',
-    url: `https://www.amazon.co.jp/s?k=モバイルバッテリー+20000mAh+USB-C&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=モバイルバッテリー+20000mAh+USB-C&tag=bousailab0c-22`,
+    rakutenUrl: rkt('モバイルバッテリー 20000mAh USB-C'),
     badgeText: '第1優先',
+    trustText: '停電時にまず求められる定番品',
   },
   {
     step: 2,
@@ -40,8 +46,10 @@ const PRODUCTS = [
     reason: '暗闇での移動・生活に必須。懐中電灯より両手が使えるランタン型が実用的。',
     spec: '充電式・防水・明るさ調整付き',
     price: '2,000〜5,000円',
-    url: `https://www.amazon.co.jp/s?k=LEDランタン+充電式+防水+防災&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=LEDランタン+充電式+防水+防災&tag=bousailab0c-22`,
+    rakutenUrl: rkt('LEDランタン 充電式 防水 防災'),
     badgeText: '第2優先',
+    trustText: '防災備蓄済みの家庭の多くが持っている',
   },
   {
     step: 3,
@@ -51,8 +59,10 @@ const PRODUCTS = [
     reason: '3日以上の停電で冷蔵庫・医療機器・スマホ複数台の充電に対応できる。',
     spec: '容量500Wh以上・AC出力付き',
     price: '30,000〜70,000円',
-    url: `https://www.amazon.co.jp/s?k=ポータブル電源+500Wh+AC出力&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=ポータブル電源+500Wh+AC出力&tag=bousailab0c-22`,
+    rakutenUrl: rkt('ポータブル電源 500Wh AC出力'),
     badgeText: '長期備え',
+    trustText: '長期停電・在宅医療のある家庭に支持',
   },
 ]
 
@@ -224,29 +234,11 @@ export default function BlackoutItemsPage() {
                 }}>目安: {p.price}</span>
               </div>
             </div>
-            <a href={p.url} target="_blank" rel="noopener noreferrer sponsored" style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              background: 'white', border: `1.5px solid ${ACCENT}44`,
-              borderRadius: 12, padding: '12px 16px', textDecoration: 'none',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={{ fontSize: 28 }}>{p.emoji}</span>
-                <div>
-                  <div style={{
-                    background: ACCENT, color: 'white', fontSize: 9, fontWeight: 700,
-                    borderRadius: 4, padding: '2px 6px', display: 'inline-block', marginBottom: 3,
-                  }}>{p.badgeText}</div>
-                  <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{p.name}を見る</div>
-                  <div style={{ fontSize: 11, color: '#94A3B8' }}>Amazon で検索する</div>
-                </div>
-              </div>
-              <div style={{
-                background: '#FF9900', color: 'white',
-                fontSize: 11, fontWeight: 700, borderRadius: 8, padding: '7px 12px', flexShrink: 0,
-              }}>
-                Amazonで見る →
-              </div>
-            </a>
+            <AffiliateButtons
+              amazonUrl={p.amazonUrl}
+              rakutenUrl={p.rakutenUrl}
+              trustText={p.trustText}
+            />
           </div>
         ))}
       </section>
@@ -305,29 +297,36 @@ export default function BlackoutItemsPage() {
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, marginBottom: 20, fontWeight: 600 }}>
             ⚡ 停電はいつ来るかわからない。<br />今すぐ揃えて、あとは何も心配しない。
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 400, margin: '0 auto' }}>
-            <a href={`https://www.amazon.co.jp/s?k=モバイルバッテリー+20000mAh&tag=bousailab0c-22`}
-              target="_blank" rel="noopener noreferrer sponsored"
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                background: '#FF9900', color: '#111',
-                padding: '14px 24px', borderRadius: 50,
-                textDecoration: 'none', fontWeight: 900, fontSize: 14,
-                boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-              }}>
-              🔋 まずモバイルバッテリーを買う →
-            </a>
-            <a href={`https://www.amazon.co.jp/s?k=LEDランタン+充電式+防災&tag=bousailab0c-22`}
-              target="_blank" rel="noopener noreferrer sponsored"
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                background: 'rgba(255,255,255,0.2)', color: 'white',
-                padding: '12px 24px', borderRadius: 50,
-                textDecoration: 'none', fontWeight: 700, fontSize: 13,
-                border: '1px solid rgba(255,255,255,0.4)',
-              }}>
-              🔦 LEDランタンを見る →
-            </a>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 440, margin: '0 auto' }}>
+            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, margin: 0, fontWeight: 700 }}>
+              🔋 まずモバイルバッテリーから揃える
+            </p>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <a href={`https://www.amazon.co.jp/s?k=モバイルバッテリー+20000mAh&tag=bousailab0c-22`}
+                target="_blank" rel="noopener noreferrer sponsored"
+                style={{
+                  flex: '1 1 140px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  background: '#FF9900', color: '#111',
+                  padding: '14px 16px', borderRadius: 10,
+                  textDecoration: 'none', fontWeight: 900, fontSize: 14,
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
+                }}>
+                🛒 Amazonで見る
+              </a>
+              <a href={rkt('モバイルバッテリー 20000mAh')}
+                target="_blank" rel="noopener noreferrer sponsored"
+                style={{
+                  flex: '1 1 140px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  background: '#BF0000', color: 'white',
+                  padding: '14px 16px', borderRadius: 10,
+                  textDecoration: 'none', fontWeight: 900, fontSize: 14,
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
+                }}>
+                🛍️ 楽天で見る
+              </a>
+            </div>
           </div>
         </div>
       </section>

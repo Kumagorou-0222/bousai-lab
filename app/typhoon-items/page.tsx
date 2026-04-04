@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import AffiliateButtons from '@/components/AffiliateButtons'
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
+const RAKUTEN_ID = '1400711'
+const rkt = (keyword: string) =>
+  `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_ID}/?pc=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${keyword}/`)}`
 const ACCENT = '#2563EB'
 const ACCENT_BG = '#EFF6FF'
 const ACCENT_LIGHT = '#BFDBFE'
@@ -29,8 +33,10 @@ const PRODUCTS = [
     reason: '台風通過後の断水は数日続くことがある。1人1日3Lが目安。家族3人なら最低9L（3日分）を確保。',
     spec: '保存期間5年以上・2Lペット×6本以上',
     price: '1,500〜3,500円（12本ケース）',
-    url: `https://www.amazon.co.jp/s?k=保存水+2L+5年+ケース&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=保存水+2L+5年+ケース&tag=bousailab0c-22`,
+    rakutenUrl: rkt('保存水 2L 5年 ケース'),
     badgeText: '第1優先',
+    trustText: '防災備蓄の基本中の基本',
   },
   {
     step: 2,
@@ -40,8 +46,10 @@ const PRODUCTS = [
     reason: '台風後のスーパーは即座に棚が空になる。最低5日分あれば落ち着いて行動できる。カロリーと食べやすさで選ぶ。',
     spec: '5年以上保存・加熱不要・1人5日分',
     price: '3,000〜8,000円',
-    url: `https://www.amazon.co.jp/s?k=非常食+セット+5日分+加熱不要&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=非常食+セット+5日分+加熱不要&tag=bousailab0c-22`,
+    rakutenUrl: rkt('非常食 セット 5日分 加熱不要'),
     badgeText: '第2優先',
+    trustText: '行政も推奨する最低限の備蓄食',
   },
   {
     step: 3,
@@ -51,8 +59,10 @@ const PRODUCTS = [
     reason: '台風の強風で窓ガラスが割れると室内に破片が飛び散る。養生テープを×字に貼るだけで飛散を大幅に抑えられる。',
     spec: '養生テープ（幅50mm）＋窓ガラス飛散防止フィルム',
     price: '1,000〜3,000円',
-    url: `https://www.amazon.co.jp/s?k=養生テープ+窓ガラス飛散防止&tag=bousailab0c-22`,
+    amazonUrl: `https://www.amazon.co.jp/s?k=養生テープ+窓ガラス飛散防止&tag=bousailab0c-22`,
+    rakutenUrl: rkt('養生テープ 窓ガラス飛散防止'),
     badgeText: '窓対策必須',
+    trustText: '台風シーズン前に毎年売り切れる必需品',
   },
 ]
 
@@ -222,29 +232,11 @@ export default function TyphoonItemsPage() {
                 }}>目安: {p.price}</span>
               </div>
             </div>
-            <a href={p.url} target="_blank" rel="noopener noreferrer sponsored" style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              background: 'white', border: `1.5px solid ${ACCENT}44`,
-              borderRadius: 12, padding: '12px 16px', textDecoration: 'none',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <span style={{ fontSize: 28 }}>{p.emoji}</span>
-                <div>
-                  <div style={{
-                    background: ACCENT, color: 'white', fontSize: 9, fontWeight: 700,
-                    borderRadius: 4, padding: '2px 6px', display: 'inline-block', marginBottom: 3,
-                  }}>{p.badgeText}</div>
-                  <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{p.name}を見る</div>
-                  <div style={{ fontSize: 11, color: '#94A3B8' }}>Amazon で検索する</div>
-                </div>
-              </div>
-              <div style={{
-                background: '#FF9900', color: 'white',
-                fontSize: 11, fontWeight: 700, borderRadius: 8, padding: '7px 12px', flexShrink: 0,
-              }}>
-                Amazonで見る →
-              </div>
-            </a>
+            <AffiliateButtons
+              amazonUrl={p.amazonUrl}
+              rakutenUrl={p.rakutenUrl}
+              trustText={p.trustText}
+            />
           </div>
         ))}
       </section>
@@ -303,29 +295,36 @@ export default function TyphoonItemsPage() {
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, marginBottom: 20, fontWeight: 600 }}>
             🌀 台風が来てから準備しても間に合わない。<br />今すぐ揃えて、あとは何も心配しない。
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 400, margin: '0 auto' }}>
-            <a href={`https://www.amazon.co.jp/s?k=保存水+2L+5年+ケース&tag=bousailab0c-22`}
-              target="_blank" rel="noopener noreferrer sponsored"
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                background: '#FF9900', color: '#111',
-                padding: '14px 24px', borderRadius: 50,
-                textDecoration: 'none', fontWeight: 900, fontSize: 14,
-                boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-              }}>
-              💧 まず保存水を買う →
-            </a>
-            <a href={`https://www.amazon.co.jp/s?k=非常食+セット+5日分&tag=bousailab0c-22`}
-              target="_blank" rel="noopener noreferrer sponsored"
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                background: 'rgba(255,255,255,0.2)', color: 'white',
-                padding: '12px 24px', borderRadius: 50,
-                textDecoration: 'none', fontWeight: 700, fontSize: 13,
-                border: '1px solid rgba(255,255,255,0.4)',
-              }}>
-              🍱 非常食セットを見る →
-            </a>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 440, margin: '0 auto' }}>
+            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, margin: 0, fontWeight: 700 }}>
+              💧 まず保存水から揃える
+            </p>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <a href={`https://www.amazon.co.jp/s?k=保存水+2L+5年+ケース&tag=bousailab0c-22`}
+                target="_blank" rel="noopener noreferrer sponsored"
+                style={{
+                  flex: '1 1 140px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  background: '#FF9900', color: '#111',
+                  padding: '14px 16px', borderRadius: 10,
+                  textDecoration: 'none', fontWeight: 900, fontSize: 14,
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
+                }}>
+                🛒 Amazonで見る
+              </a>
+              <a href={rkt('保存水 2L 5年 ケース')}
+                target="_blank" rel="noopener noreferrer sponsored"
+                style={{
+                  flex: '1 1 140px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  background: '#BF0000', color: 'white',
+                  padding: '14px 16px', borderRadius: 10,
+                  textDecoration: 'none', fontWeight: 900, fontSize: 14,
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
+                }}>
+                🛍️ 楽天で見る
+              </a>
+            </div>
           </div>
         </div>
       </section>
