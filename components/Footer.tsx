@@ -2,24 +2,67 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#1A1A2E', color: '#aaa', padding: '40px 20px', marginTop: 80, textAlign: 'center', fontSize: 13 }}>
+    <footer style={{
+      background: '#F8FAFC',
+      borderTop: '1px solid #E2E8F0',
+      padding: '40px 20px 32px',
+      marginTop: 80,
+    }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
-        <p style={{ fontWeight: 900, color: 'white', fontSize: 18, marginBottom: 4, fontFamily: 'Kaisei Decol, serif' }}>🛡️ 防災Lab</p>
-        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', marginBottom: 16 }}>在宅避難のための実践ガイド</p>
-        <p style={{ marginBottom: 20, fontSize: 12 }}>武蔵野市在住の現役勤務医師・大家さんが作った防災情報サイト</p>
-        <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
-          <Link href="/category/earthquake" style={{ color: '#aaa', textDecoration: 'none', fontSize: 12 }}>地震対策</Link>
-          <Link href="/category/typhoon" style={{ color: '#aaa', textDecoration: 'none', fontSize: 12 }}>台風対策</Link>
-          <Link href="/category/blackout" style={{ color: '#aaa', textDecoration: 'none', fontSize: 12 }}>停電対策</Link>
-          <Link href="/category/evacuation" style={{ color: '#aaa', textDecoration: 'none', fontSize: 12 }}>避難</Link>
-          <Link href="/category/disaster-prep" style={{ color: '#aaa', textDecoration: 'none', fontSize: 12 }}>備蓄・準備</Link>
-          <Link href="/musashino-bousai" style={{ color: '#FFD000', textDecoration: 'none', fontSize: 12, fontWeight: 700 }}>📍 武蔵野市の防災</Link>
-          <Link href="/about" style={{ color: '#aaa', textDecoration: 'none', fontSize: 12 }}>著者について</Link>
+        {/* ブランド */}
+        <div style={{ marginBottom: 24, textAlign: 'center' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 6,
+          }}>
+            <span style={{
+              background: '#2563EB', color: 'white',
+              width: 28, height: 28, borderRadius: 8,
+              display: 'inline-flex', alignItems: 'center',
+              justifyContent: 'center', fontSize: 14,
+            }}>🛡️</span>
+            <span style={{ fontWeight: 900, color: '#0F172A', fontSize: 16, fontFamily: 'Kaisei Decol, serif' }}>
+              防災Lab
+            </span>
+          </div>
+          <p style={{ fontSize: 11, color: '#94A3B8', margin: 0 }}>
+            在宅避難のための実践ガイド
+          </p>
         </div>
-        <p style={{ fontSize: 11, marginBottom: 8 }}>
-          ※本サイトの情報は医師の監修のもと作成していますが、緊急時は必ず行政機関・医療機関の情報を優先してください。
-        </p>
-        <p style={{ fontSize: 11 }}>© 2026 防災Lab | くまごろう（武蔵野市）</p>
+
+        {/* ナビ */}
+        <div style={{
+          display: 'flex', gap: 12, justifyContent: 'center',
+          flexWrap: 'wrap', marginBottom: 24,
+        }}>
+          {[
+            { href: '/category/earthquake', label: '地震対策' },
+            { href: '/category/typhoon',    label: '台風対策' },
+            { href: '/category/blackout',   label: '停電対策' },
+            { href: '/category/evacuation', label: '避難' },
+            { href: '/earthquake-items',    label: '地震グッズ' },
+            { href: '/blackout-items',      label: '停電グッズ' },
+            { href: '/typhoon-items',       label: '台風グッズ' },
+            { href: '/musashino-bousai',    label: '武蔵野市の防災', highlight: true },
+            { href: '/about',               label: '著者について' },
+          ].map((item) => (
+            <Link key={item.href} href={item.href} style={{
+              color: item.highlight ? '#2563EB' : '#64748B',
+              textDecoration: 'none', fontSize: 12, fontWeight: item.highlight ? 700 : 500,
+            }}>
+              {item.highlight ? '📍 ' : ''}{item.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* 区切り */}
+        <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: 20, textAlign: 'center' }}>
+          <p style={{ fontSize: 11, color: '#94A3B8', marginBottom: 6, lineHeight: 1.7 }}>
+            ※本サイトの情報は医師の監修のもと作成していますが、緊急時は必ず行政機関・医療機関の情報を優先してください。
+          </p>
+          <p style={{ fontSize: 11, color: '#CBD5E1' }}>
+            © 2026 防災Lab — くまごろう（武蔵野市）
+          </p>
+        </div>
       </div>
     </footer>
   )

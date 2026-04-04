@@ -1,37 +1,42 @@
 import type { ArticleCategory } from '@/lib/categories'
 
-const CATEGORY_CTA: Record<ArticleCategory, { text: string; subText: string; emoji: string; color: string }> = {
+const CATEGORY_CTA: Record<ArticleCategory, { text: string; subText: string; emoji: string; color: string; href: string }> = {
   earthquake: {
-    text: '今すぐ備える — 地震対策グッズを確認',
-    subText: '家具固定・防災リュック・非常食',
+    text: '今すぐ備える — これだけ揃えればOK',
+    subText: '防災リュック・ヘルメット・家具固定の3点',
     emoji: '🏚️', color: '#DC2626',
+    href: '/earthquake-items',
   },
   typhoon: {
-    text: '今すぐ備える — 台風対策グッズを確認',
-    subText: '養生テープ・保存水・懐中電灯',
+    text: '今すぐ備える — これだけ揃えればOK',
+    subText: '保存水・非常食・養生テープの3点',
     emoji: '🌀', color: '#2563EB',
+    href: '/typhoon-items',
   },
   blackout: {
-    text: '今すぐ備える — 停電対策グッズを確認',
-    subText: '懐中電灯・モバイルバッテリー・カセットコンロ',
+    text: '今すぐ備える — これだけ揃えればOK',
+    subText: 'モバイルバッテリー・ランタン・ポータブル電源',
     emoji: '🔦', color: '#D97706',
+    href: '/blackout-items',
   },
   evacuation: {
     text: '今すぐ備える — 避難グッズを確認',
     subText: '非常持ち出し袋・携帯トイレ・保険証コピー',
     emoji: '🏃', color: '#16A34A',
+    href: '/earthquake-items',
   },
   'disaster-prep': {
-    text: 'チェックリストを確認する',
+    text: '最低限これだけ揃えればOK',
     subText: '防災グッズ・備蓄・薬の準備',
     emoji: '🎒', color: '#475569',
+    href: '/earthquake-items',
   },
 }
 
 export default function CtaButton({
   text,
   subText,
-  href = '/articles/disaster-prep-goods',
+  href,
   emoji,
   category,
   variant = 'mid',
@@ -48,6 +53,7 @@ export default function CtaButton({
   const sub = subText ?? defaults.subText
   const icon = emoji ?? defaults.emoji
   const color = defaults.color
+  const link = href ?? defaults.href
 
   if (variant === 'end') {
     return (
@@ -59,13 +65,13 @@ export default function CtaButton({
         padding: '24px 20px',
         textAlign: 'center',
       }}>
-        <p style={{ fontSize: 13, color: '#64748B', marginBottom: 6, fontWeight: 600 }}>
+        <p style={{ fontSize: 12, color: '#64748B', marginBottom: 4, fontWeight: 700 }}>
           ⚠️ 災害はいつ来るかわかりません
         </p>
         <p style={{ fontSize: 12, color: '#94A3B8', marginBottom: 18 }}>
           {sub}
         </p>
-        <a href={href} style={{
+        <a href={link} style={{
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10,
           background: color, color: 'white',
           padding: '14px 28px', borderRadius: 50,
@@ -94,7 +100,7 @@ export default function CtaButton({
       <p style={{ fontSize: 12, color: '#94A3B8', marginBottom: 14, fontWeight: 600 }}>
         ⚠️ 今のうちに準備しておきましょう
       </p>
-      <a href={href} style={{
+      <a href={link} style={{
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
         background: color, color: 'white',
         padding: '13px 24px', borderRadius: 50,
