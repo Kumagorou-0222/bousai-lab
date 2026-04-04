@@ -14,6 +14,14 @@ type Props = { params: Promise<{ slug: string }> }
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
 
+const CATEGORY_COLORS: Record<string, { bg: string; text: string; light: string }> = {
+  earthquake:     { bg: '#FEF2F2', text: '#DC2626', light: '#FECACA' },
+  typhoon:        { bg: '#EFF6FF', text: '#2563EB', light: '#BFDBFE' },
+  blackout:       { bg: '#FFFBEB', text: '#D97706', light: '#FDE68A' },
+  evacuation:     { bg: '#F0FDF4', text: '#16A34A', light: '#BBF7D0' },
+  'disaster-prep':{ bg: '#F8FAFC', text: '#475569', light: '#CBD5E1' },
+}
+
 export async function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }))
 }
@@ -62,6 +70,7 @@ export default async function ArticlePage({ params }: Props) {
   const cat = CATEGORY_MAP[article.category]
   const related = getRelatedArticles(article)
   const articleUrl = `${BASE_URL}/articles/${slug}`
+  const colors = CATEGORY_COLORS[article.category] ?? CATEGORY_COLORS['disaster-prep']
 
   const authorSchema = {
     '@type': 'Person',
@@ -114,7 +123,6 @@ export default async function ArticlePage({ params }: Props) {
       }
     : null
 
-  // X シェア文（カテゴリに応じて変える）
   const shareTextMap: Record<string, string> = {
     earthquake: `地震来た人これ見て\n→今やること3つ\n\n${article.title}`,
     blackout: `停電したらこれ見て\n→今すぐやること\n\n${article.title}`,
@@ -141,33 +149,35 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* 記事ヘッダー */}
         <div style={{
-          background: 'linear-gradient(135deg, #1A1A2E, #0F3460)',
-          borderRadius: 20, padding: '32px 24px', marginBottom: 32, textAlign: 'center',
+          background: colors.bg,
+          border: `1.5px solid ${colors.light}`,
+          borderRadius: 18, padding: '28px 24px', marginBottom: 32, textAlign: 'center',
         }}>
-          <div style={{ fontSize: 56, marginBottom: 12 }}>{article.emoji}</div>
+          <div style={{ fontSize: 52, marginBottom: 10 }}>{article.emoji}</div>
           <div style={{
-            display: 'inline-block', background: '#FF6B00', color: 'white',
-            fontSize: 12, fontWeight: 700, borderRadius: 20, padding: '4px 14px', marginBottom: 16,
+            display: 'inline-block',
+            background: colors.text, color: 'white',
+            fontSize: 11, fontWeight: 700, borderRadius: 20, padding: '4px 14px', marginBottom: 14,
           }}>
             {cat.emoji} {cat.label}
           </div>
           <h1 style={{
             fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 900,
-            lineHeight: 1.4, color: 'white', marginBottom: 12,
+            lineHeight: 1.4, color: '#0F172A', marginBottom: 12,
             fontFamily: 'Kaisei Decol, serif',
           }}>
             {article.title}
           </h1>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-            <Link href="/about" style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>
+            <Link href="/about" style={{ fontSize: 12, color: '#64748B', textDecoration: 'none' }}>
               🩺 くまごろう（現役勤務医師）
             </Link>
-            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>|</span>
-            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>{article.date}</span>
+            <span style={{ fontSize: 12, color: '#CBD5E1' }}>|</span>
+            <span style={{ fontSize: 12, color: '#94A3B8' }}>{article.date}</span>
             {article.updatedDate && article.updatedDate !== article.date && (
               <>
-                <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>|</span>
-                <span style={{ fontSize: 12, color: '#FFD000', fontWeight: 600 }}>更新: {article.updatedDate}</span>
+                <span style={{ fontSize: 12, color: '#CBD5E1' }}>|</span>
+                <span style={{ fontSize: 12, color: '#D97706', fontWeight: 600 }}>更新: {article.updatedDate}</span>
               </>
             )}
           </div>
@@ -191,25 +201,26 @@ export default async function ArticlePage({ params }: Props) {
         {/* FAQセクション */}
         {article.faqs.length > 0 && (
           <section style={{
-            background: '#F8F9FA', borderRadius: 20, padding: 32, marginTop: 40,
+            background: '#F8FAFC', borderRadius: 16, padding: 28, marginTop: 40,
+            border: '1px solid #E2E8F0',
           }}>
-            <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 20, color: '#1A1A1A' }}>
+            <h2 style={{ fontSize: 17, fontWeight: 700, marginBottom: 18, color: '#0F172A' }}>
               ❓ よくある質問
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {article.faqs.map((faq, i) => (
                 <details key={i} style={{
-                  background: 'white', borderRadius: 12, padding: '16px 20px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                  background: 'white', borderRadius: 12, padding: '14px 18px',
+                  border: '1px solid #E2E8F0',
                 }}>
                   <summary style={{
-                    fontWeight: 700, fontSize: 15, cursor: 'pointer', color: '#1A1A1A',
+                    fontWeight: 700, fontSize: 14, cursor: 'pointer', color: '#0F172A',
                     listStyle: 'none', display: 'flex', alignItems: 'center', gap: 10,
                   }}>
-                    <span style={{ color: '#FF6B00', fontWeight: 900, fontSize: 18 }}>Q</span>
+                    <span style={{ color: '#2563EB', fontWeight: 900, fontSize: 16 }}>Q</span>
                     {faq.question}
                   </summary>
-                  <p style={{ marginTop: 12, fontSize: 14, lineHeight: 1.8, color: '#555', paddingLeft: 28 }}>
+                  <p style={{ marginTop: 10, fontSize: 13, lineHeight: 1.8, color: '#475569', paddingLeft: 26 }}>
                     {faq.answer}
                   </p>
                 </details>
@@ -220,31 +231,36 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* 著者 */}
         <div style={{
-          display: 'flex', gap: 20, alignItems: 'center',
-          background: 'linear-gradient(135deg, #1A1A2E, #0F3460)',
+          background: 'white',
+          border: '1.5px solid #E2E8F0',
           borderRadius: 16, padding: 24, marginTop: 40,
+          boxShadow: '0 2px 12px rgba(15,23,42,0.06)',
         }}>
-          <div style={{
-            width: 56, height: 56,
-            background: 'linear-gradient(135deg, #FF6B00, #FFD000)',
-            borderRadius: '50%', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', fontSize: 28, flexShrink: 0,
-          }}>🐻</div>
-          <div>
-            <div style={{ fontSize: 11, color: '#FF9500', fontWeight: 700 }}>この記事の著者・監修者</div>
-            <Link href="/about" style={{ fontWeight: 700, fontSize: 15, color: 'white', textDecoration: 'none' }}>
-              くまごろう
-            </Link>
-            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, marginTop: 4 }}>
-              🩺 武蔵野市在住・現役勤務医師 ／ 🏢 マンションオーナー<br />
-              医師の視点から防災・在宅避難情報を発信。
+          <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+            <div style={{
+              width: 52, height: 52,
+              background: 'linear-gradient(135deg, #2563EB, #1D4ED8)',
+              borderRadius: 14, display: 'flex', alignItems: 'center',
+              justifyContent: 'center', fontSize: 26, flexShrink: 0,
+            }}>🐻</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 10, color: '#2563EB', fontWeight: 700, marginBottom: 3, letterSpacing: '0.06em' }}>
+                この記事の著者・監修者
+              </div>
+              <Link href="/about" style={{ fontWeight: 800, fontSize: 15, color: '#0F172A', textDecoration: 'none' }}>
+                くまごろう
+              </Link>
+              <div style={{ fontSize: 12, color: '#475569', lineHeight: 1.7, marginTop: 4 }}>
+                🩺 武蔵野市在住・現役勤務医師 ／ 🏢 マンションオーナー<br />
+                医師の視点から防災・在宅避難情報を発信。
+              </div>
+              <Link href="/about" style={{
+                fontSize: 12, color: '#2563EB', fontWeight: 700,
+                textDecoration: 'none', marginTop: 6, display: 'inline-block',
+              }}>
+                詳しいプロフィール →
+              </Link>
             </div>
-            <Link href="/about" style={{
-              fontSize: 12, color: '#FFD000', fontWeight: 600,
-              textDecoration: 'none', marginTop: 6, display: 'inline-block',
-            }}>
-              詳しいプロフィール →
-            </Link>
           </div>
         </div>
 
@@ -252,31 +268,30 @@ export default async function ArticlePage({ params }: Props) {
         {related.length > 0 && (
           <section style={{ marginTop: 48 }}>
             <h2 style={{
-              fontSize: 18, fontWeight: 700, marginBottom: 8, color: '#1A1A1A',
+              fontSize: 16, fontWeight: 700, marginBottom: 6, color: '#0F172A',
               fontFamily: 'Kaisei Decol, serif',
             }}>
               📚 次に読むべき記事
             </h2>
-            <p style={{ fontSize: 12, color: '#888', marginBottom: 16 }}>
+            <p style={{ fontSize: 12, color: '#94A3B8', marginBottom: 14 }}>
               関連する防災行動ガイドをチェックしておきましょう
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {related.map((a) => (
                 <Link key={a.slug} href={`/articles/${a.slug}`} style={{
                   display: 'flex', alignItems: 'center', gap: 14,
                   background: 'white', borderRadius: 12, padding: '14px 16px',
-                  textDecoration: 'none', color: '#1A1A1A',
-                  border: '1px solid #E8E8E8',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                  textDecoration: 'none', color: '#0F172A',
+                  border: '1.5px solid #E2E8F0',
                 }}>
-                  <span style={{ fontSize: 28, flexShrink: 0 }}>{a.emoji}</span>
+                  <span style={{ fontSize: 26, flexShrink: 0 }}>{a.emoji}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, fontSize: 14, lineHeight: 1.4 }}>{a.title}</div>
-                    <div style={{ fontSize: 11, color: '#888', marginTop: 3 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, lineHeight: 1.4 }}>{a.title}</div>
+                    <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 2 }}>
                       {CATEGORY_MAP[a.category].emoji} {CATEGORY_MAP[a.category].label}
                     </div>
                   </div>
-                  <span style={{ color: '#FF6B00', fontSize: 18, flexShrink: 0 }}>›</span>
+                  <span style={{ color: '#2563EB', fontSize: 18, flexShrink: 0 }}>›</span>
                 </Link>
               ))}
             </div>
