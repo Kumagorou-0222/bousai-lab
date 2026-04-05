@@ -31,51 +31,54 @@ export default function ProductCard({
     // ── 1位：フィーチャー表示 ──────────────────────────────
     return (
       <div style={{
-        background: lightBg,
+        borderRadius: 22,
         border: `3px solid ${accent}`,
-        borderRadius: 20,
-        padding: '22px 20px 18px',
-        marginBottom: 14,
-        boxShadow: `0 8px 28px ${accent}33`,
-        position: 'relative',
+        marginBottom: 16,
+        boxShadow: `0 10px 36px ${accent}33`,
+        overflow: 'hidden',
       }}>
-        {/* 「これを選べ」ラベル */}
+        {/* 上帯ラベル */}
         <div style={{
-          position: 'absolute', top: -14, left: 20,
-          background: accent, color: 'white',
-          fontSize: 13, fontWeight: 900,
-          borderRadius: 20, padding: '4px 16px',
-          boxShadow: `0 4px 12px ${accent}55`,
-          letterSpacing: '0.03em',
+          background: accent,
+          padding: '10px 18px',
+          textAlign: 'center',
         }}>
-          {badge ?? '✅ これを選べばOK'}
-        </div>
-
-        {/* アイコン＋テキスト */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 14, marginTop: 8 }}>
-          <div style={{
-            width: 72, height: 72,
-            background: 'white',
-            borderRadius: 16,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 36, flexShrink: 0,
-            boxShadow: `0 4px 12px ${accent}22`,
+          <span style={{
+            color: 'white', fontSize: 15, fontWeight: 900, letterSpacing: '0.04em',
           }}>
-            {emoji}
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontWeight: 900, fontSize: 17, color: '#0F172A', lineHeight: 1.4, marginBottom: 5 }}>
-              {name}
-            </div>
-            <div style={{ fontSize: 13, color: '#334155', lineHeight: 1.75, marginBottom: 6 }}>
-              {description}
-            </div>
-            <div style={{ fontSize: 18, color: accent, fontWeight: 900 }}>
-              {price}
-            </div>
-          </div>
+            {badge ?? '✅ 迷ったらこれ — これを買えば大丈夫'}
+          </span>
         </div>
+
+        <div style={{
+          background: lightBg,
+          padding: '22px 20px 18px',
+        }}>
+          {/* アイコン＋テキスト */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 14 }}>
+            <div style={{
+              width: 76, height: 76,
+              background: 'white',
+              borderRadius: 18,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 38, flexShrink: 0,
+              boxShadow: `0 4px 14px ${accent}22`,
+            }}>
+              {emoji}
+            </div>
+
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 900, fontSize: 17, color: '#0F172A', lineHeight: 1.4, marginBottom: 5 }}>
+                {name}
+              </div>
+              <div style={{ fontSize: 13, color: '#334155', lineHeight: 1.75, marginBottom: 6 }}>
+                {description}
+              </div>
+              <div style={{ fontSize: 19, color: accent, fontWeight: 900 }}>
+                {price}
+              </div>
+            </div>
+          </div>
 
         {/* 不安訴求 */}
         {painText && (
@@ -103,38 +106,39 @@ export default function ProductCard({
           </div>
         )}
 
-        {/* ボタン */}
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-          {resolvedAmazonUrl && (
-            <a href={resolvedAmazonUrl} target="_blank" rel="noopener noreferrer sponsored"
-              style={{
-                flex: '1 1 140px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                background: '#FF9900', color: '#111',
-                fontSize: 15, fontWeight: 900,
-                borderRadius: 12, padding: '15px 18px',
-                textDecoration: 'none', whiteSpace: 'nowrap',
-                boxShadow: '0 4px 14px rgba(255,153,0,0.45)',
-              }}
-            >
-              🛒 Amazonで見る
-            </a>
-          )}
-          {rakutenUrl && (
-            <a href={rakutenUrl} target="_blank" rel="noopener noreferrer sponsored"
-              style={{
-                flex: '1 1 140px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                background: '#BF0000', color: 'white',
-                fontSize: 15, fontWeight: 900,
-                borderRadius: 12, padding: '15px 18px',
-                textDecoration: 'none', whiteSpace: 'nowrap',
-                boxShadow: '0 4px 14px rgba(191,0,0,0.3)',
-              }}
-            >
-              🛍️ 楽天で見る
-            </a>
-          )}
+          {/* ボタン */}
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            {resolvedAmazonUrl && (
+              <a href={resolvedAmazonUrl} target="_blank" rel="noopener noreferrer sponsored"
+                style={{
+                  flex: '1 1 140px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  background: '#FF9900', color: '#111',
+                  fontSize: 15, fontWeight: 900,
+                  borderRadius: 12, padding: '16px 18px',
+                  textDecoration: 'none', whiteSpace: 'nowrap',
+                  boxShadow: '0 4px 16px rgba(255,153,0,0.5)',
+                }}
+              >
+                🛒 Amazonで見る
+              </a>
+            )}
+            {rakutenUrl && (
+              <a href={rakutenUrl} target="_blank" rel="noopener noreferrer sponsored"
+                style={{
+                  flex: '1 1 140px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  background: '#BF0000', color: 'white',
+                  fontSize: 15, fontWeight: 900,
+                  borderRadius: 12, padding: '16px 18px',
+                  textDecoration: 'none', whiteSpace: 'nowrap',
+                  boxShadow: '0 4px 14px rgba(191,0,0,0.3)',
+                }}
+              >
+                🛍️ 楽天で見る
+              </a>
+            )}
+          </div>
         </div>
       </div>
     )
