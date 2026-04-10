@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import CtaButton from '@/components/CtaButton'
+import type { MapPin } from '@/components/MusashinoMap'
+import MusashinoMapWrapper from '@/components/MusashinoMapWrapper'
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
 
@@ -40,17 +42,94 @@ const pageJsonLd = {
   },
 }
 
-const EVACUATION_SHELTERS = [
-  { name: '武蔵野市立第一中学校', address: '吉祥寺北町4-8-1', type: '指定避難所' },
-  { name: '武蔵野市立第二中学校', address: '中町4-14-1', type: '指定避難所' },
-  { name: '武蔵野市立第三中学校', address: '境南町2-12-1', type: '指定避難所' },
-  { name: '武蔵野市立第四中学校', address: '八幡町1-1-1', type: '指定避難所' },
-  { name: '武蔵野市立第五中学校', address: '緑町3-1-2', type: '指定避難所' },
-  { name: '武蔵野市立井之頭小学校', address: '御殿山1-3-9', type: '指定避難所' },
-  { name: '武蔵野市立吉祥寺小学校', address: '吉祥寺南町2-14-1', type: '指定避難所' },
-  { name: '武蔵野市立関前南小学校', address: '関前5-7-1', type: '指定避難所' },
-  { name: '武蔵野市立桜野小学校', address: '桜堤2-8-1', type: '指定避難所' },
-  { name: '武蔵野市立緑小学校', address: '緑町1-5-1', type: '指定避難所' },
+// 指定避難所（一時集合場所）全20か所
+// 出典：武蔵野市公式HP https://www.city.musashino.lg.jp/faq/kurashi_tetsuzuki/bosai/1004409.html
+const EVACUATION_SHELTERS: { name: string; address: string; area: string }[] = [
+  // 小学校 12校
+  { name: '市立第一小学校', address: '吉祥寺本町4-17-16', area: '吉祥寺' },
+  { name: '市立第二小学校', address: '境4-2-15', area: '境' },
+  { name: '市立第三小学校', address: '吉祥寺南町2-35-9', area: '吉祥寺' },
+  { name: '市立第四小学校', address: '吉祥寺北町2-4-5', area: '吉祥寺' },
+  { name: '市立第五小学校', address: '関前3-2-20', area: '関前' },
+  { name: '市立大野田小学校', address: '吉祥寺北町4-11-37', area: '吉祥寺' },
+  { name: '市立境南小学校', address: '境南町2-27-27', area: '境南' },
+  { name: '市立本宿小学校', address: '吉祥寺東町4-1-9', area: '吉祥寺東' },
+  { name: '市立千川小学校', address: '八幡町3-5-25', area: '八幡' },
+  { name: '市立井之頭小学校', address: '吉祥寺本町3-27-19', area: '吉祥寺' },
+  { name: '市立関前南小学校', address: '関前3-37-26', area: '関前' },
+  { name: '市立桜野小学校', address: '桜堤1-8-19', area: '桜堤' },
+  // 中学校 6校
+  { name: '市立第一中学校', address: '中町3-9-5', area: '中町' },
+  { name: '市立第二中学校', address: '桜堤1-7-31', area: '桜堤' },
+  { name: '市立第三中学校', address: '吉祥寺東町1-23-8', area: '吉祥寺東' },
+  { name: '市立第四中学校', address: '吉祥寺北町5-11-41', area: '吉祥寺北' },
+  { name: '市立第五中学校', address: '関前2-10-20', area: '関前' },
+  { name: '市立第六中学校', address: '境3-20-10', area: '境' },
+  // 都立高校 2校
+  { name: '都立武蔵高校', address: '境4-13-28', area: '境' },
+  { name: '都立武蔵野北高校', address: '八幡町2-3-10', area: '八幡' },
+]
+
+// 広域避難場所（大規模延焼火災時）
+const WIDE_AREA_SHELTERS = [
+  { name: 'グリーンパーク', note: '市内最大の広域避難場所' },
+  { name: '成蹊学園グラウンド', note: '吉祥寺エリアの広域避難場所' },
+  { name: '井の頭恩賜公園', note: '吉祥寺南部・三鷹方面' },
+  { name: '小金井公園', note: '境・関前エリア方面' },
+  { name: '国際基督教大学（ICU）周辺', note: '桜堤・境南エリア方面' },
+  { name: '善福寺公園・東京女子大学一帯', note: '吉祥寺東・関前方面' },
+]
+
+// 防災広場（住所付き）
+// 出典：https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/saigai_taisei_hinan/shisetsuseibi/1005955.html
+const BOUSAI_HIROBA = [
+  { name: '南町防災広場',       address: '吉祥寺南町5-6' },
+  { name: '東町防災広場',       address: '吉祥寺東町4-15' },
+  { name: '吉祥寺西公園',       address: '吉祥寺本町3-7' },
+  { name: '境南町防災広場',     address: '境南町3-20' },
+  { name: '西久保二丁目防災広場', address: '西久保2-15' },
+  { name: '桜堤二丁目防災広場', address: '桜堤2-8' },
+]
+
+// 地図ピンデータ（座標は OpenStreetMap Nominatim を参照）
+const MAP_PINS: MapPin[] = [
+  // ── いっとき集合場所・避難所（小学校） ──
+  { lat: 35.7073, lng: 139.5783, name: '市立第一小学校',   address: '吉祥寺本町4-17-16', type: 'shelter' },
+  { lat: 35.7204, lng: 139.5497, name: '市立第二小学校',   address: '境4-2-15',          type: 'shelter' },
+  { lat: 35.7028, lng: 139.5769, name: '市立第三小学校',   address: '吉祥寺南町2-35-9',  type: 'shelter' },
+  { lat: 35.7185, lng: 139.5726, name: '市立第四小学校',   address: '吉祥寺北町2-4-5',   type: 'shelter' },
+  { lat: 35.7166, lng: 139.5622, name: '市立第五小学校',   address: '関前3-2-20',        type: 'shelter' },
+  { lat: 35.7218, lng: 139.5763, name: '市立大野田小学校', address: '吉祥寺北町4-11-37', type: 'shelter' },
+  { lat: 35.7050, lng: 139.5492, name: '市立境南小学校',   address: '境南町2-27-27',     type: 'shelter' },
+  { lat: 35.7076, lng: 139.5847, name: '市立本宿小学校',   address: '吉祥寺東町4-1-9',   type: 'shelter' },
+  { lat: 35.7127, lng: 139.5673, name: '市立千川小学校',   address: '八幡町3-5-25',      type: 'shelter' },
+  { lat: 35.7063, lng: 139.5742, name: '市立井之頭小学校', address: '吉祥寺本町3-27-19', type: 'shelter' },
+  { lat: 35.7161, lng: 139.5582, name: '市立関前南小学校', address: '関前3-37-26',       type: 'shelter' },
+  { lat: 35.7093, lng: 139.5417, name: '市立桜野小学校',   address: '桜堤1-8-19',        type: 'shelter' },
+  // ── いっとき集合場所・避難所（中学校） ──
+  { lat: 35.7056, lng: 139.5702, name: '市立第一中学校',   address: '中町3-9-5',         type: 'shelter' },
+  { lat: 35.7090, lng: 139.5414, name: '市立第二中学校',   address: '桜堤1-7-31',        type: 'shelter' },
+  { lat: 35.7098, lng: 139.5805, name: '市立第三中学校',   address: '吉祥寺東町1-23-8',  type: 'shelter' },
+  { lat: 35.7231, lng: 139.5765, name: '市立第四中学校',   address: '吉祥寺北町5-11-41', type: 'shelter' },
+  { lat: 35.7179, lng: 139.5557, name: '市立第五中学校',   address: '関前2-10-20',       type: 'shelter' },
+  { lat: 35.7215, lng: 139.5519, name: '市立第六中学校',   address: '境3-20-10',         type: 'shelter' },
+  // ── いっとき集合場所・避難所（都立高校） ──
+  { lat: 35.7194, lng: 139.5483, name: '都立武蔵高校',     address: '境4-13-28',         type: 'shelter' },
+  { lat: 35.7148, lng: 139.5641, name: '都立武蔵野北高校', address: '八幡町2-3-10',      type: 'shelter' },
+  // ── 広域避難場所 ──
+  { lat: 35.7248, lng: 139.5598, name: 'グリーンパーク',           address: '緑町2丁目周辺',   type: 'wide' },
+  { lat: 35.7126, lng: 139.5768, name: '成蹊学園グラウンド',       address: '吉祥寺北町3-3-1', type: 'wide' },
+  { lat: 35.6996, lng: 139.5742, name: '井の頭恩賜公園',           address: '御殿山1-18-31',   type: 'wide' },
+  { lat: 35.7283, lng: 139.5358, name: '小金井公園',               address: '桜堤1丁目周辺',   type: 'wide' },
+  { lat: 35.7072, lng: 139.5283, name: '国際基督教大学（ICU）周辺', address: '境南町6丁目周辺', type: 'wide' },
+  { lat: 35.7100, lng: 139.6050, name: '善福寺公園・東京女子大学一帯', address: '関前南側',    type: 'wide' },
+  // ── 防災広場 ──
+  { lat: 35.7030, lng: 139.5778, name: '南町防災広場',         address: '吉祥寺南町5-6', type: 'hiroba' },
+  { lat: 35.7080, lng: 139.5843, name: '東町防災広場',         address: '吉祥寺東町4-15', type: 'hiroba' },
+  { lat: 35.7064, lng: 139.5727, name: '吉祥寺西公園',         address: '吉祥寺本町3-7',  type: 'hiroba' },
+  { lat: 35.7046, lng: 139.5489, name: '境南町防災広場',       address: '境南町3-20',     type: 'hiroba' },
+  { lat: 35.7143, lng: 139.5794, name: '西久保二丁目防災広場', address: '西久保2-15',     type: 'hiroba' },
+  { lat: 35.7100, lng: 139.5412, name: '桜堤二丁目防災広場',   address: '桜堤2-8',        type: 'hiroba' },
 ]
 
 export default function MusashinoBousaiPage() {
@@ -162,12 +241,12 @@ export default function MusashinoBousaiPage() {
           }}>
             🏙️ 武蔵野市の災害リスクの特徴
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 12 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 12, marginBottom: 16 }}>
             {[
               { emoji: '👥', title: '人口密度が高い', desc: '人口密度は全国でも上位。避難所が混雑する可能性が高く、在宅避難の重要性が増す。' },
-              { emoji: '🌊', title: '水害リスクは局所的', desc: '玉川上水・仙川沿いなど一部は浸水リスクあり。ハザードマップで自宅を要確認。' },
               { emoji: '🏠', title: '住宅密集地', desc: '木造密集地域では火災延焼リスクがある。古い木造住宅は耐震補強の検討を。' },
               { emoji: '🚇', title: '交通インフラへの依存', desc: '中央線・井の頭線など鉄道が多く、大規模地震時は帰宅困難者が発生しやすい。' },
+              { emoji: '🌊', title: '大規模水害リスクは低い', desc: '河川氾濫などの大規模水害リスクは比較的低い。ただし地形的な冠水に注意が必要。' },
             ].map((item) => (
               <div key={item.title} style={{
                 background: 'white', borderRadius: 12, padding: '16px',
@@ -178,6 +257,36 @@ export default function MusashinoBousaiPage() {
                 <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.7 }}>{item.desc}</div>
               </div>
             ))}
+          </div>
+
+          {/* 水害リスク詳細：すり鉢状地形 */}
+          <div style={{
+            background: '#EFF6FF',
+            border: '1.5px solid #BFDBFE',
+            borderLeft: '4px solid #2563EB',
+            borderRadius: 12, padding: '16px 18px',
+          }}>
+            <div style={{ fontWeight: 700, fontSize: 14, color: '#1E40AF', marginBottom: 10 }}>
+              💧 武蔵野市の水害リスク：「すり鉢状地形」による冠水
+            </div>
+            <p style={{ fontSize: 13, color: '#334155', lineHeight: 1.85, margin: '0 0 10px' }}>
+              武蔵野市は大きな河川がないため、<strong>河川氾濫による大規模水害リスクは低い</strong>のが特徴です。
+              しかし、市内の一部エリアは<strong>「すり鉢状の地形」</strong>になっており、
+              台風・集中豪雨の際に雨水が集まり、<strong>道路や低地が冠水しやすい場所</strong>があります。
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {[
+                '大雨のとき、自宅周辺の道路が冠水したことがあるか確認する',
+                'ハザードマップで自宅の浸水リスクを確認する',
+                '冠水が予想される場合は早めに上階・高台への移動を検討する',
+                'アンダーパス（立体交差の低い部分）は冠水しやすいため通行しない',
+              ].map((item) => (
+                <div key={item} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                  <span style={{ color: '#2563EB', fontWeight: 700, flexShrink: 0 }}>▶</span>
+                  <span style={{ fontSize: 12, color: '#334155', lineHeight: 1.6 }}>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -238,52 +347,328 @@ export default function MusashinoBousaiPage() {
             fontFamily: 'Kaisei Decol, serif', marginBottom: 6,
             paddingBottom: 8, borderBottom: '2px solid #2563EB',
           }}>
-            🏫 武蔵野市の指定避難所（主要10か所）
+            🏫 武蔵野市の指定避難所（全20か所）
           </h2>
           <p style={{ fontSize: 12, color: '#94A3B8', marginBottom: 14 }}>
-            ※最新情報は武蔵野市公式サイトで必ずご確認ください
+            市立小学校12校・市立中学校6校・都立高校2校｜※開設状況は武蔵野市公式サイトで確認
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {EVACUATION_SHELTERS.map((shelter, i) => (
-              <div key={i} style={{
-                display: 'flex', alignItems: 'center', gap: 12,
-                background: 'white', borderRadius: 10, padding: '12px 14px',
-                border: '1.5px solid #E2E8F0',
-              }}>
+
+          {/* エリア説明 */}
+          <div style={{
+            background: '#EFF6FF', border: '1.5px solid #BFDBFE',
+            borderRadius: 10, padding: '11px 14px', marginBottom: 14, fontSize: 12, color: '#1E40AF',
+          }}>
+            💡 武蔵野市は住所による避難先の指定を行っていません。<strong>お近くの施設に避難</strong>してください。
+            <br />ここは「<ruby>いっとき集合場所<rt style={{ fontSize: 9 }}>いっときしゅうごうばしょ</rt></ruby>」兼「避難所」として機能します。
+          </div>
+
+          {/* 小学校 */}
+          <div style={{ fontWeight: 700, fontSize: 12, color: '#2563EB', marginBottom: 8, letterSpacing: '0.05em' }}>
+            ▼ 市立小学校（12校）
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 16 }}>
+            {EVACUATION_SHELTERS.slice(0, 12).map((shelter, i) => (
+              <a
+                key={i}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('武蔵野市' + shelter.address)}`}
+                target="_blank" rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
                 <div style={{
-                  width: 26, height: 26, background: '#2563EB', color: 'white',
-                  borderRadius: 8, display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0,
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  background: 'white', borderRadius: 10, padding: '10px 14px',
+                  border: '1.5px solid #E2E8F0',
                 }}>
-                  {i + 1}
+                  <div style={{
+                    width: 24, height: 24, background: '#2563EB', color: 'white',
+                    borderRadius: 6, display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                  }}>
+                    {i + 1}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{shelter.name}</div>
+                    <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 1 }}>📍 {shelter.address}</div>
+                  </div>
+                  <span style={{
+                    background: '#EFF6FF', color: '#2563EB',
+                    borderRadius: 20, padding: '2px 8px', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                  }}>
+                    地図 →
+                  </span>
                 </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{shelter.name}</div>
-                  <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 1 }}>📍 {shelter.address}</div>
-                </div>
-                <span style={{
-                  background: '#EFF6FF', color: '#2563EB',
-                  borderRadius: 20, padding: '3px 10px', fontSize: 10, fontWeight: 700, flexShrink: 0,
-                }}>
-                  {shelter.type}
-                </span>
-              </div>
+              </a>
             ))}
           </div>
+
+          {/* 中学校 */}
+          <div style={{ fontWeight: 700, fontSize: 12, color: '#2563EB', marginBottom: 8, letterSpacing: '0.05em' }}>
+            ▼ 市立中学校（6校）
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 16 }}>
+            {EVACUATION_SHELTERS.slice(12, 18).map((shelter, i) => (
+              <a
+                key={i}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('武蔵野市' + shelter.address)}`}
+                target="_blank" rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  background: 'white', borderRadius: 10, padding: '10px 14px',
+                  border: '1.5px solid #E2E8F0',
+                }}>
+                  <div style={{
+                    width: 24, height: 24, background: '#1D4ED8', color: 'white',
+                    borderRadius: 6, display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                  }}>
+                    {i + 13}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{shelter.name}</div>
+                    <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 1 }}>📍 {shelter.address}</div>
+                  </div>
+                  <span style={{
+                    background: '#EFF6FF', color: '#2563EB',
+                    borderRadius: 20, padding: '2px 8px', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                  }}>
+                    地図 →
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* 都立高校 */}
+          <div style={{ fontWeight: 700, fontSize: 12, color: '#2563EB', marginBottom: 8, letterSpacing: '0.05em' }}>
+            ▼ 都立高校（2校）
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 16 }}>
+            {EVACUATION_SHELTERS.slice(18).map((shelter, i) => (
+              <a
+                key={i}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('武蔵野市' + shelter.address)}`}
+                target="_blank" rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  background: 'white', borderRadius: 10, padding: '10px 14px',
+                  border: '1.5px solid #E2E8F0',
+                }}>
+                  <div style={{
+                    width: 24, height: 24, background: '#475569', color: 'white',
+                    borderRadius: 6, display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                  }}>
+                    {i + 19}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{shelter.name}</div>
+                    <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 1 }}>📍 {shelter.address}</div>
+                  </div>
+                  <span style={{
+                    background: '#F1F5F9', color: '#475569',
+                    borderRadius: 20, padding: '2px 8px', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                  }}>
+                    地図 →
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+
           <div style={{
-            marginTop: 12, background: '#FFFBEB', borderRadius: 10,
+            background: '#FFFBEB', borderRadius: 10,
             padding: '12px 14px', border: '1.5px solid #FDE68A',
           }}>
             <p style={{ fontSize: 12, color: '#78350F', lineHeight: 1.7, margin: 0 }}>
-              ⚠️ <strong>避難所に行く前に確認</strong><br />
-              武蔵野市の全避難所（20か所以上）の最新情報・開設状況は、
-              <a href="https://www.city.musashino.lg.jp/bousai_bouhan/bousai/index.html"
+              ⚠️ <strong>避難所の開設状況は事前に決まっていません。</strong>
+              災害発生時の開設情報は
+              <a href="https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/saigai_taisei_hinan/index.html"
                 target="_blank" rel="noopener noreferrer"
                 style={{ color: '#2563EB', fontWeight: 700 }}>
-                武蔵野市公式サイト（防災・安全）
+                武蔵野市公式サイト
               </a>
-              でご確認ください。
+              ・防災行政無線・武蔵野市防災アプリで確認してください。
             </p>
+          </div>
+        </section>
+
+        {/* ④-2 一時避難場所（広域避難場所・防災広場） */}
+        <section style={{ marginBottom: 36 }}>
+          <h2 style={{
+            fontSize: 18, fontWeight: 900, color: '#0F172A',
+            fontFamily: 'Kaisei Decol, serif', marginBottom: 6,
+            paddingBottom: 8, borderBottom: '2px solid #DC2626',
+          }}>
+            🔥 <ruby>広域避難場所<rt style={{ fontSize: 10, fontWeight: 400 }}>こういきひなんばしょ</rt></ruby>・<ruby>防災広場<rt style={{ fontSize: 10, fontWeight: 400 }}>ぼうさいひろば</rt></ruby>
+          </h2>
+          <div style={{
+            background: '#FEF2F2', border: '1.5px solid #FECACA',
+            borderLeft: '4px solid #DC2626',
+            borderRadius: 10, padding: '12px 14px', marginBottom: 16,
+          }}>
+            <p style={{ fontSize: 12, color: '#7F1D1D', lineHeight: 1.8, margin: 0 }}>
+              <strong>大規模な火災延焼が発生したとき</strong>に、炎や熱から身を守るために逃げ込む場所です。
+              学校の避難所（<ruby>いっとき集合場所<rt style={{ fontSize: 9 }}>いっときしゅうごうばしょ</rt></ruby>）とは目的が異なります。
+            </p>
+          </div>
+
+          <div style={{ fontWeight: 700, fontSize: 12, color: '#DC2626', marginBottom: 8, letterSpacing: '0.05em' }}>
+            ▼ <ruby>広域避難場所<rt style={{ fontSize: 9, fontWeight: 400 }}>こういきひなんばしょ</rt></ruby>（6か所）
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 20 }}>
+            {WIDE_AREA_SHELTERS.map((s, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                background: 'white', borderRadius: 10, padding: '10px 14px',
+                border: '1.5px solid #FECACA',
+              }}>
+                <div style={{
+                  width: 24, height: 24, background: '#DC2626', color: 'white',
+                  borderRadius: 6, display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                }}>
+                  {i + 1}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{s.name}</div>
+                  <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 1 }}>{s.note}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ fontWeight: 700, fontSize: 12, color: '#475569', marginBottom: 8, letterSpacing: '0.05em' }}>
+            ▼ <ruby>防災広場<rt style={{ fontSize: 9, fontWeight: 400 }}>ぼうさいひろば</rt></ruby>（6か所）
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+            {BOUSAI_HIROBA.map((h, i) => (
+              <a
+                key={i}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('武蔵野市' + h.address)}`}
+                target="_blank" rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  background: 'white', borderRadius: 10, padding: '10px 14px',
+                  border: '1.5px solid #D1FAE5',
+                }}>
+                  <div style={{
+                    width: 24, height: 24, background: '#16A34A', color: 'white',
+                    borderRadius: 6, display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', fontSize: 12, flexShrink: 0,
+                  }}>
+                    🌳
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A' }}>{h.name}</div>
+                    <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 1 }}>📍 {h.address}</div>
+                  </div>
+                  <span style={{
+                    background: '#F0FDF4', color: '#16A34A',
+                    borderRadius: 20, padding: '2px 8px', fontSize: 10, fontWeight: 700, flexShrink: 0,
+                  }}>
+                    地図 →
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* ④-3 地図 */}
+        <section style={{ marginBottom: 36 }}>
+          <h2 style={{
+            fontSize: 18, fontWeight: 900, color: '#0F172A',
+            fontFamily: 'Kaisei Decol, serif', marginBottom: 8,
+            paddingBottom: 8, borderBottom: '2px solid #16A34A',
+          }}>
+            🗺️ 武蔵野市の避難所マップ
+          </h2>
+
+          {/* 凡例 */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 10 }}>
+            {[
+              { color: '#2563EB', label: 'いっとき集合場所・避難所', emoji: '🏫' },
+              { color: '#DC2626', label: '広域避難場所',             emoji: '🌳' },
+              { color: '#16A34A', label: '防災広場',                 emoji: '🌿' },
+            ].map((l) => (
+              <div key={l.label} style={{
+                display: 'flex', alignItems: 'center', gap: 5,
+                background: 'white', border: `1.5px solid ${l.color}20`,
+                borderRadius: 20, padding: '4px 10px',
+                fontSize: 11, fontWeight: 600, color: '#475569',
+              }}>
+                <span style={{
+                  width: 10, height: 10, borderRadius: '50%',
+                  background: l.color, flexShrink: 0,
+                }} />
+                {l.emoji} {l.label}
+              </div>
+            ))}
+          </div>
+
+          {/* ピン付きマップ */}
+          <div style={{
+            border: '1.5px solid #E2E8F0', borderRadius: 14,
+            overflow: 'hidden', marginBottom: 12,
+          }}>
+            <MusashinoMapWrapper pins={MAP_PINS} />
+          </div>
+          <p style={{ fontSize: 11, color: '#94A3B8', marginBottom: 14, lineHeight: 1.6 }}>
+            ※ ピンをタップすると施設名・住所・Google マップリンクが表示されます。座標は概算です。正確な情報は市公式マップでご確認ください。
+          </p>
+
+          {/* 公式マップリンク */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <a
+              href="https://www.city.musashino.lg.jp/_res/projects/default_project/_page_/001/005/950/R7bousaimap.pdf"
+              target="_blank" rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
+            >
+              <div style={{
+                background: 'linear-gradient(135deg, #1E40AF, #2563EB)',
+                borderRadius: 12, padding: '14px 18px',
+                display: 'flex', alignItems: 'center', gap: 12,
+              }}>
+                <span style={{ fontSize: 20 }}>🗺️</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13, color: 'white', marginBottom: 2 }}>
+                    武蔵野市 防災情報マップ（公式PDF・印刷用）
+                  </div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.75)' }}>
+                    避難所・広域避難場所・防災広場・AED・災害用トイレが全掲載
+                  </div>
+                </div>
+                <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: 18 }}>›</span>
+              </div>
+            </a>
+            <a
+              href="https://disaportal.gsi.go.jp/hazardmap/maps/index.html?query=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%AD%A6%E8%94%B5%E9%87%8E%E5%B8%82"
+              target="_blank" rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
+            >
+              <div style={{
+                background: 'white', border: '1.5px solid #D1FAE5',
+                borderRadius: 12, padding: '14px 18px',
+                display: 'flex', alignItems: 'center', gap: 12,
+              }}>
+                <span style={{ fontSize: 20 }}>🌐</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A', marginBottom: 2 }}>
+                    国土地理院「重ねるハザードマップ」（インタラクティブ）
+                  </div>
+                  <div style={{ fontSize: 11, color: '#64748B' }}>
+                    洪水・土砂・地震リスクを地図上で重ね合わせて確認
+                  </div>
+                </div>
+                <span style={{ color: '#16A34A', fontSize: 18 }}>›</span>
+              </div>
+            </a>
           </div>
         </section>
 

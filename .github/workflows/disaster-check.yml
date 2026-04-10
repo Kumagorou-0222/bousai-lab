@@ -1,0 +1,48 @@
+name: disaster-check
+
+on:
+  schedule:
+    # 5分ごとに実行（UTC）
+    - cron: "*/5 * * * *"
+  # 手動実行も可能
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: disaster-bot
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # seen_entries.db をキャッシュして重複通知を防ぐ
+      - name: Cache seen_entries DB
+        uses: actions/cache@v4
+        with:
+          path: disaster-bot/seen_entries.db
+          key: seen-entries-db-${{ github.run_id }}
+          restore-keys: |
+            seen-entries-db-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run bot
+        env:
+          TELEGRAM_BOT_TOKEN:        ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:          ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL:       ${{ secrets.DISCORD_WEBHOOK_URL }}
+          X_CONSUMER_KEY:            ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET:         ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN:            ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET:     ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          # 最初は false のまま — true にすると限定条件でX自動投稿
+          AUTO_POST_ENABLED:         ${{ secrets.AUTO_POST_ENABLED }}
+        run: python main.py
