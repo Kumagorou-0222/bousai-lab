@@ -12,7 +12,7 @@ disaster-bot / main.py
 
 from fetchers.jma_feed import fetch_all_entries
 from filters.important import is_notify_entry, is_auto_post_entry
-from generators.post_text import build_telegram_message, generate_x_post
+from generators.post_text import build_telegram_message, generate_x_post, build_x_intent_url
 from notifiers.console import notify_console
 from notifiers.discord import notify_discord
 from notifiers.telegram_notify import notify_telegram
@@ -48,12 +48,13 @@ def main() -> None:
             mark_seen(entry_id)
             continue
 
-        # Telegram向け（概要 + X投稿案つき）
+        # Telegram向け（概要 + X投稿案 + ワンクリック投稿ボタン）
         telegram_msg = build_telegram_message(title, summary)
-        notify_telegram(telegram_msg)
+        x_post = generate_x_post(title, summary)
+        x_intent_url = build_x_intent_url(x_post)
+        notify_telegram(telegram_msg, x_intent_url)
 
         # Discord / コンソール向けはX投稿文のみ
-        x_post = generate_x_post(title, summary)
         notify_discord(x_post, title=title)
         notify_console(telegram_msg)
         notified += 1

@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 from config import SITE_URL
 
 X_LIMIT = 280
@@ -112,6 +114,12 @@ def build_telegram_message(title: str, summary: str) -> str:
 ▶ X投稿案（コピペしてそのまま投稿可）
 {x_post}
 """
+
+
+def build_x_intent_url(post_text: str) -> str:
+    """X投稿画面を開くURLを生成する（投稿文をURLエンコードして渡す）"""
+    encoded = quote(post_text)
+    return f"https://x.com/intent/tweet?text={encoded}"
 
 
 def _short_title(title: str, limit: int = 40) -> str:
