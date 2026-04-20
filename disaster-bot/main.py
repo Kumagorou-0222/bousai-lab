@@ -31,6 +31,11 @@ def main() -> None:
         title   = getattr(entry, "title",   "")
         summary = getattr(entry, "summary", "")
 
+        # 気象庁Atomフィードはsummaryではなくcontentタグを使うため、
+        # summaryが空の場合はcontentから取得する
+        if not summary and hasattr(entry, "content") and entry.content:
+            summary = entry.content[0].get("value", "")
+
         if not entry_id:
             continue
 
