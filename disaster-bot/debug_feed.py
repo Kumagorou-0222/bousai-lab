@@ -32,12 +32,19 @@ def show_feed():
         if not summary and hasattr(entry, "content") and entry.content:
             summary = entry.content[0].get("value", "")
 
+        content = ""
+        if hasattr(entry, "content") and entry.content:
+            content = entry.content[0].get("value", "")
+        full_text = f"{summary} {content}".strip() if content else summary
+
         seen     = has_seen(entry_id)
-        notify   = is_notify_entry(title, summary)
+        notify   = is_notify_entry(title, full_text)
 
         print(f"[{i+1:02d}] {'★通知対象★' if notify else '　　　　　'} {'(既読)' if seen else '(未読)'}")
         print(f"     タイトル: {title}")
         print(f"     概要    : {summary[:80]}..." if len(summary) > 80 else f"     概要    : {summary}")
+        if content:
+            print(f"     content : {content[:100]}..." if len(content) > 100 else f"     content : {content}")
         print()
 
 

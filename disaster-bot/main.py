@@ -31,10 +31,12 @@ def main() -> None:
         title   = getattr(entry, "title",   "")
         summary = getattr(entry, "summary", "")
 
-        # 気象庁Atomフィードはsummaryではなくcontentタグを使うため、
-        # summaryが空の場合はcontentから取得する
-        if not summary and hasattr(entry, "content") and entry.content:
-            summary = entry.content[0].get("value", "")
+        # 気象庁Atomフィードはcontentタグに詳細情報（震度など）が入るため、
+        # summaryとcontentを結合してフィルター・投稿文生成に使う
+        content = ""
+        if hasattr(entry, "content") and entry.content:
+            content = entry.content[0].get("value", "")
+        full_text = f"{summary} {content}".strip() if content else summary
 
         if not entry_id:
             continue
@@ -44,13 +46,13 @@ def main() -> None:
             continue
 
         # 通知対象でなければ記録だけして終わり
-        if not is_notify_entry(title, summary):
+        if not is_notify_entry(title, full_text):
             mark_seen(entry_id)
             continue
 
         # Telegram向け（概要 + X投稿案 + ワンクリック投稿ボタン）
-        telegram_msg = build_telegram_message(title, summary)
-        x_post = generate_x_post(title, summary)
+        telegram_msg = build_telegram_message(title, full_text)
+        x_post = generate_x_post(title, full_text)
         x_intent_url = build_x_intent_url(x_post)
         notify_telegram(telegram_msg, x_intent_url)
 
