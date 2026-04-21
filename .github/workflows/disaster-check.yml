@@ -4,8 +4,18 @@ on:
   schedule:
     # 5分ごとに実行（UTC）
     - cron: "*/5 * * * *"
-  # 手動実行も可能
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "実行モード"
+        required: false
+        default: "normal"
+        type: choice
+        options:
+          - normal        # 通常実行
+          - test-telegram # Telegramにテスト送信
+          - debug-feed    # フィード内容を表示（通知なし）
+          - reset-db      # seen_entries.db をリセットして通常実行
 
 jobs:
   run:
@@ -43,6 +53,16 @@ jobs:
           X_CONSUMER_SECRET:         ${{ secrets.X_CONSUMER_SECRET }}
           X_ACCESS_TOKEN:            ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET:     ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-          # 最初は false のまま — true にすると限定条件でX自動投稿
           AUTO_POST_ENABLED:         ${{ secrets.AUTO_POST_ENABLED }}
-        run: python main.py
+        run: |
+          MODE="${{ github.event.inputs.mode || 'normal' }}"
+          if [ "$MODE" = "test-telegram" ]; then
+            python debug_feed.py --test-telegram
+          elif [ "$MODE" = "debug-feed" ]; then
+            python debug_feed.py
+          elif [ "$MODE" = "reset-db" ]; then
+            python debug_feed.py --reset-db
+            python main.py
+          else
+            python main.py
+          fi
