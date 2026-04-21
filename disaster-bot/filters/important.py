@@ -18,13 +18,13 @@ NOTIFY_KEYWORDS = [
 ]
 
 
-def is_notify_entry(title: str, summary: str) -> bool:
-    """Discord通知すべきか判定（震度4以上・津波・特別警報など）"""
-    text = f"{title} {summary}"
+def is_notify_entry(title: str, full_text: str) -> bool:
+    """通知すべきか判定（震度4以上・津波・特別警報など）"""
+    text = f"{title} {full_text}"
     return any(kw in text for kw in NOTIFY_KEYWORDS)
 
 
-def is_auto_post_entry(title: str, summary: str) -> bool:
+def is_auto_post_entry(title: str, full_text: str) -> bool:
     """完全自動X投稿してよいか判定（厳しい条件のみ）"""
-    text = f"{title} {summary}"
+    text = f"{title} {full_text}"
     return any(kw in text for kw in AUTO_POST_KEYWORDS)
