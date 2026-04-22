@@ -4,6 +4,8 @@ on:
   schedule:
     # 5分ごとに実行（UTC）
     - cron: "*/5 * * * *"
+    # 毎日21時（JST）に定時まとめ送信
+    - cron: "0 12 * * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -16,6 +18,7 @@ on:
           - test-telegram # Telegramにテスト送信
           - debug-feed    # フィード内容を表示（通知なし）
           - reset-db      # seen_entries.db をリセットして通常実行
+          - daily-summary # 定時まとめを手動送信
 
 jobs:
   run:
@@ -56,13 +59,20 @@ jobs:
           AUTO_POST_ENABLED:         ${{ secrets.AUTO_POST_ENABLED }}
         run: |
           MODE="${{ github.event.inputs.mode || 'normal' }}"
-          if [ "$MODE" = "test-telegram" ]; then
+          # 毎日21時(JST=UTC12:00)は定時まとめを実行
+          CURRENT_HOUR=$(date -u +"%H")
+          CURRENT_MIN=$(date -u +"%M")
+          if [ "$CURRENT_HOUR" = "12" ] && [ "$CURRENT_MIN" -lt "10" ] && [ "$MODE" = "normal" ]; then
+            python daily_summary.py
+          elif [ "$MODE" = "test-telegram" ]; then
             python debug_feed.py --test-telegram
           elif [ "$MODE" = "debug-feed" ]; then
             python debug_feed.py
           elif [ "$MODE" = "reset-db" ]; then
             python debug_feed.py --reset-db
             python main.py
+          elif [ "$MODE" = "daily-summary" ]; then
+            python daily_summary.py
           else
             python main.py
           fi

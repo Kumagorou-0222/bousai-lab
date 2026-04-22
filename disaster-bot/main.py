@@ -21,7 +21,10 @@ from notifiers.discord import notify_discord
 from notifiers.telegram_notify import notify_telegram
 from notifiers.error_notify import notify_error
 from posters.x_poster import post_to_x
-from storage.state import init_db, has_seen, mark_seen, log_notify, log_error, get_last_notify_time
+from storage.state import (
+    init_db, has_seen, mark_seen, log_notify, log_error,
+    get_last_notify_time, is_update_entry, get_recent_notified_titles,
+)
 from config import AUTO_POST_ENABLED
 
 # 同一レベル内での連続投稿を防ぐ最小間隔（秒）
@@ -82,9 +85,16 @@ def main() -> None:
             print(f"[SKIP] レート制限中: {title}")
             continue
 
+        # 更新報・解除報の検知（D-1）
+        update_prefix = ""
+        if is_update_entry(title):
+            update_prefix = "🔄【更新】" if "更新" in title or "続報" in title else "✅【解除】"
+
         # 投稿文生成
         x_post       = generate_x_post(title, full_text)
-        telegram_msg = build_telegram_message(title, full_text)
+        if update_prefix:
+            x_post = f"{update_prefix}\n{x_post}"
+        telegram_msg = build_telegram_message(title, full_text, level=level)
 
         # レベル2以上のみXボタンを付ける
         x_intent_url = build_x_intent_url(x_post) if level >= 2 else ""

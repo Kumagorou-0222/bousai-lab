@@ -82,3 +82,23 @@ def get_last_notify_time() -> str | None:
     row = cur.fetchone()
     conn.close()
     return row[0] if row else None
+
+
+def is_update_entry(title: str) -> bool:
+    """更新報・解除報かどうかを判定する"""
+    return any(kw in title for kw in ["更新", "解除", "訂正", "続報"])
+
+
+def get_recent_notified_titles(hours: int = 24) -> list[str]:
+    """過去N時間以内に通知したタイトル一覧（D-2定時まとめ用）"""
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT title, level, notified_at FROM notify_log "
+        "WHERE notified_at >= datetime('now', ?, 'localtime') "
+        "ORDER BY id DESC",
+        (f"-{hours} hours",),
+    )
+    rows = cur.fetchall()
+    conn.close()
+    return rows

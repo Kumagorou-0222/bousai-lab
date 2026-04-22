@@ -182,33 +182,76 @@ def generate_x_post(title: str, summary: str) -> str:
     return trim_post(post)
 
 
-def build_telegram_message(title: str, summary: str) -> str:
-    x_post = generate_x_post(title, summary)
+def generate_short_post(title: str, full_text: str) -> str:
+    """短文版（100文字以内）— 速報性重視"""
+    text  = f"{title} {full_text}"
+    area  = extract_area(text) or "詳細確認中"
+    scale = extract_scale(text)
+    scale_part = f" {scale}" if scale else ""
 
-    short_summary = summary.strip()
+    if "大津波" in text:
+        core = f"🚨大津波警報 {area} 今すぐ高台へ"
+    elif "津波警報" in text:
+        core = f"🚨津波警報 {area} 今すぐ避難"
+    elif "津波注意" in text:
+        core = f"⚠️津波注意報 {area} 海岸から離れて"
+    elif "緊急地震速報" in text:
+        core = f"🚨緊急地震速報{scale_part} {area} 今すぐ身を守って"
+    elif any(kw in text for kw in ["震度4","震度5","震度6","震度7"]):
+        core = f"【地震{scale_part}】{area} 頭を守る・火の元確認"
+    elif "特別警報" in text:
+        core = f"🚨特別警報 {area} 命を守る行動を"
+    elif "台風" in text or "暴風" in text:
+        core = f"🌀台風・暴風警報 {area} 外出危険"
+    elif "土砂" in text or "氾濫" in text or "洪水" in text:
+        core = f"⚠️洪水・土砂危険 {area} 低地から離れて"
+    elif "竜巻" in text:
+        core = f"🌪️竜巻注意 {area} 頑丈な建物の中心へ"
+    elif "噴火" in text:
+        core = f"🌋噴火情報 {area} 火口から離れて"
+    else:
+        core = f"【災害情報】{area} 安全確保を"
+
+    return trim_post(core, limit=100)
+
+
+def build_telegram_message(title: str, full_text: str, level: int = 2) -> str:
+    """Telegram向けメッセージ（B-3: 見やすい構成）"""
+    text  = f"{title} {full_text}"
+    area  = extract_area(text)
+    scale = extract_scale(text)
+
+    x_post     = generate_x_post(title, full_text)
+    short_post = generate_short_post(title, full_text)
+
+    # 震源・震度を別行で表示
+    detail_lines = []
+    if area:
+        detail_lines.append(f"📍 震源・地域: {area}")
+    if scale:
+        detail_lines.append(f"📊 最大{scale}")
+    detail_block = "\n".join(detail_lines) if detail_lines else ""
+
+    # 概要は140文字に収める
+    short_summary = full_text.strip()
     if len(short_summary) > 140:
         short_summary = short_summary[:140] + "…"
 
-    return f"""【災害速報】
-{title}
+    # レベルに応じてヘッダーを変える
+    level_label = {3: "🚨【緊急速報】", 2: "⚠️【災害速報】", 1: "ℹ️【気象情報】"}.get(level, "【情報】")
 
-▶ 概要
-{short_summary}
+    parts = [f"{level_label}\n{title}"]
+    if detail_block:
+        parts.append(detail_block)
+    parts.append(f"▶ 概要\n{short_summary}")
+    parts.append(f"▶ 短文版（そのまま投稿可）\n{short_post}")
+    if level >= 2:
+        parts.append(f"▶ 詳細版\n{x_post}")
 
-▶ X投稿案（コピペしてそのまま投稿可）
-{x_post}
-"""
+    return "\n\n".join(parts)
 
 
 def build_x_intent_url(post_text: str) -> str:
     """X投稿画面を開くURLを生成する（投稿文をURLエンコードして渡す）"""
     encoded = quote(post_text)
     return f"https://x.com/intent/tweet?text={encoded}"
-
-
-def _short_title(title: str, limit: int = 40) -> str:
-    """タイトルが長すぎる場合に省略する"""
-    title = title.strip()
-    if len(title) <= limit:
-        return title
-    return title[: limit - 1] + "…"
