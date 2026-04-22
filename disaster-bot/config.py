@@ -3,6 +3,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# 対象地域フィルター（空リストなら全国対象）
+# 例: ["東京", "神奈川", "埼玉", "千葉"]
+_areas_env = os.getenv("TARGET_AREAS", "")
+TARGET_AREAS: list[str] = [a.strip() for a in _areas_env.split(",") if a.strip()]
+
 # 気象庁XMLフィード
 JMA_EQVOL_FEED = "https://www.data.jma.go.jp/developer/xml/feed/eqvol.xml"
 JMA_REGULAR_FEED = "https://www.data.jma.go.jp/developer/xml/feed/regular.xml"
