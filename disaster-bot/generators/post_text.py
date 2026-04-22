@@ -105,7 +105,8 @@ def generate_x_post(title: str, summary: str) -> str:
 命を守る行動を
 外出は危険
 
-自治体情報を確認"""
+自治体の情報に従い
+直ちに避難"""
 
     elif "土砂" in text:
         post = f"""⚠️【土砂災害警戒情報】
@@ -115,12 +116,68 @@ def generate_x_post(title: str, summary: str) -> str:
 山・崖沿いから離れ
 安全な場所へ移動してください"""
 
+    elif "氾濫発生" in text or "氾濫危険" in text:
+        post = f"""🚨【洪水・氾濫情報】
+
+{area_line}
+
+川の近くは今すぐ離れて
+高い場所に避難を"""
+
+    elif "洪水" in text or "記録的短時間大雨" in text:
+        post = f"""⚠️【大雨・洪水情報】
+
+{area_line}
+
+河川の増水に注意
+低地・地下は危険
+
+避難指示を確認"""
+
+    elif "台風" in text or "暴風" in text:
+        post = f"""🌀【台風・暴風情報】
+
+{area_line}
+
+外出は危険
+窓から離れ
+頑丈な建物の中心へ
+
+自治体の避難指示を確認"""
+
+    elif "高潮" in text:
+        post = f"""🚨【高潮警報】
+
+{area_line}
+
+海岸・低地は今すぐ離れて
+浸水前に避難を"""
+
+    elif "竜巻" in text:
+        post = f"""🌪️【竜巻注意情報】
+
+{area_line}
+
+頑丈な建物の中心・窓から離れた場所へ
+発生したら即座に低い姿勢で頭を守る"""
+
+    elif "噴火" in text:
+        post = f"""🌋【噴火情報】
+
+{area_line}
+
+火口から離れ
+降灰・噴石に注意
+
+気象庁の情報を確認"""
+
     else:
         post = f"""【災害情報】
 
 {area_line}
 
-安全確保を優先"""
+安全確保を優先
+自治体の情報に従ってください"""
 
     return trim_post(post)
 
