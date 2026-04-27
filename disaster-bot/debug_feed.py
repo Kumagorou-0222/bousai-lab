@@ -56,6 +56,23 @@ def test_telegram():
     )
 
 
+def test_keywords():
+    from filters.important import get_level
+    cases = [
+        ("震源・震度に関する情報", "北海道で最大震度５強を観測しました"),
+        ("震源・震度に関する情報", "北海道で最大震度５強を観測しました"),  # 全角
+        ("震度速報", "震度６弱　北海道"),
+        ("震度速報", "震度６弱　北海道"),  # 全角
+        ("緊急地震速報（警報）", "強い揺れに警戒してください"),
+        ("大雨情報", "明日は晴れ"),  # レベル0
+    ]
+    print("\n=== キーワードマッチングテスト ===\n")
+    for title, text in cases:
+        level = get_level(title, text)
+        mark = "✅" if level > 0 else "❌"
+        print(f"{mark} level={level}  [{title}] {text[:40]}")
+
+
 def reset_db():
     print("\n=== seen_entries.db をリセット ===")
     conn = sqlite3.connect(DB_PATH)
@@ -75,10 +92,13 @@ if __name__ == "__main__":
         reset_db()
     elif "--test-telegram" in sys.argv:
         test_telegram()
+    elif "--test-keywords" in sys.argv:
+        test_keywords()
     else:
         show_feed()
 
-    if "--test-telegram" not in sys.argv and "--reset-db" not in sys.argv:
+    if "--test-telegram" not in sys.argv and "--reset-db" not in sys.argv and "--test-keywords" not in sys.argv:
         print("\n--- オプション ---")
         print("  python debug_feed.py --test-telegram  # Telegramにテスト送信")
         print("  python debug_feed.py --reset-db       # seen_entries.db をリセット")
+        print("  python debug_feed.py --test-keywords  # キーワードマッチングのテスト")
