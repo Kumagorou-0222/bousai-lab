@@ -22,6 +22,7 @@ on:
         options:
           - normal        # 通常実行
           - test-telegram # Telegramにテスト送信
+          - test-keywords # キーワードマッチングのテスト（全角/半角）
           - debug-feed    # フィード内容を表示（通知なし）
           - reset-db      # seen_entries.db をリセットして通常実行
           - daily-summary # 定時災害まとめを手動送信
@@ -72,6 +73,8 @@ jobs:
 
           if [ "$MODE" = "test-telegram" ]; then
             python debug_feed.py --test-telegram
+          elif [ "$MODE" = "test-keywords" ]; then
+            python debug_feed.py --test-keywords
           elif [ "$MODE" = "debug-feed" ]; then
             python debug_feed.py
           elif [ "$MODE" = "reset-db" ]; then
