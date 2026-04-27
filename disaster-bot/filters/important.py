@@ -1,5 +1,11 @@
 from config import AUTO_POST_KEYWORDS, TARGET_AREAS
 
+_FULLWIDTH_DIGITS = str.maketrans("０１２３４５６７８９", "0123456789")
+
+
+def _normalize(text: str) -> str:
+    return text.translate(_FULLWIDTH_DIGITS)
+
 # 通知対象キーワード
 NOTIFY_KEYWORDS = [
     # 地震
@@ -84,7 +90,7 @@ LEVEL1_KEYWORDS = [
 
 def get_level(title: str, full_text: str) -> int:
     """重要度レベルを返す（3が最重大、0は通知不要）"""
-    text = f"{title} {full_text}"
+    text = _normalize(f"{title} {full_text}")
     if any(kw in text for kw in LEVEL3_KEYWORDS):
         return 3
     if any(kw in text for kw in LEVEL2_KEYWORDS):
@@ -96,7 +102,7 @@ def get_level(title: str, full_text: str) -> int:
 
 def is_notify_entry(title: str, full_text: str) -> bool:
     """通知すべきか判定（レベル1以上）"""
-    text = f"{title} {full_text}"
+    text = _normalize(f"{title} {full_text}")
     return any(kw in text for kw in NOTIFY_KEYWORDS)
 
 
@@ -109,5 +115,5 @@ def is_target_area(full_text: str) -> bool:
 
 def is_auto_post_entry(title: str, full_text: str) -> bool:
     """完全自動X投稿してよいか判定（厳しい条件のみ）"""
-    text = f"{title} {full_text}"
+    text = _normalize(f"{title} {full_text}")
     return any(kw in text for kw in AUTO_POST_KEYWORDS)
