@@ -50,6 +50,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
         <Script defer src="/_vercel/insights/script.js" strategy="afterInteractive" />
+        {/* Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3234145492070041"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <Header />
         <main>{children}</main>
         <Footer />

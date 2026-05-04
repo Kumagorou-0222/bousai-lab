@@ -4,22 +4,29 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import { getAllSlugs, getArticleBySlug, getRelatedArticles, CATEGORY_MAP } from '@/lib/articles'
+import { buildXPostFromArticle } from '@/lib/xpost'
 import Breadcrumb from '@/components/Breadcrumb'
 import ArticleCard from '@/components/ArticleCard'
 import ProductCard from '@/components/ProductCard'
 import CtaButton from '@/components/CtaButton'
 import ShareButton from '@/components/ShareButton'
+import AdSense from '@/components/AdSense'
+import Dialogue from '@/components/Dialogue'
+import MangaDialogue from '@/components/MangaDialogue'
+import ReasonsList from '@/components/ReasonsList'
+import MonetizeLinks from '@/components/MonetizeLinks'
+import XPostBox from '@/components/XPostBox'
 
 type Props = { params: Promise<{ slug: string }> }
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
 
 const CATEGORY_COLORS: Record<string, { bg: string; text: string; light: string }> = {
-  earthquake:     { bg: '#FEF2F2', text: '#DC2626', light: '#FECACA' },
-  typhoon:        { bg: '#EFF6FF', text: '#2563EB', light: '#BFDBFE' },
-  blackout:       { bg: '#FFFBEB', text: '#D97706', light: '#FDE68A' },
-  evacuation:     { bg: '#F0FDF4', text: '#16A34A', light: '#BBF7D0' },
-  'disaster-prep':{ bg: '#F8FAFC', text: '#475569', light: '#CBD5E1' },
+  earthquake:      { bg: '#FEF2F2', text: '#DC2626', light: '#FECACA' },
+  typhoon:         { bg: '#EFF6FF', text: '#2563EB', light: '#BFDBFE' },
+  blackout:        { bg: '#FFFBEB', text: '#D97706', light: '#FDE68A' },
+  evacuation:      { bg: '#F0FDF4', text: '#16A34A', light: '#BBF7D0' },
+  'disaster-prep': { bg: '#F8FAFC', text: '#475569', light: '#CBD5E1' },
 }
 
 export async function generateStaticParams() {
@@ -45,7 +52,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         modifiedTime: article.updatedDate ?? article.date,
         authors: ['くまごろう'],
         tags: [cat.label, '防災', '今すぐやること'],
-        images: [{ url: `${BASE_URL}/ogp.svg`, width: 1200, height: 630 }],
+        images: [{
+          url: `${BASE_URL}/og?title=${encodeURIComponent(article.title)}&category=${article.category}&emoji=${encodeURIComponent(article.emoji ?? '🛡️')}`,
+          width: 1200,
+          height: 630,
+        }],
       },
       twitter: {
         card: 'summary_large_image',
@@ -71,6 +82,7 @@ export default async function ArticlePage({ params }: Props) {
   const related = getRelatedArticles(article)
   const articleUrl = `${BASE_URL}/articles/${slug}`
   const colors = CATEGORY_COLORS[article.category] ?? CATEGORY_COLORS['disaster-prep']
+  const xPost = buildXPostFromArticle(article)
 
   const authorSchema = {
     '@type': 'Person',
@@ -147,7 +159,7 @@ export default async function ArticlePage({ params }: Props) {
           { label: article.title },
         ]} />
 
-        {/* 記事ヘッダー */}
+        {/* ① 記事ヘッダー */}
         <div style={{
           background: colors.bg,
           border: `1.5px solid ${colors.light}`,
@@ -183,14 +195,84 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </div>
 
-        {/* 記事本文 */}
+        {/* ② 結論ボックス（最上部に1行） */}
+        {article.conclusion && (
+          <div style={{
+            background: colors.bg,
+            border: `2px solid ${colors.text}`,
+            borderRadius: 14,
+            padding: '16px 20px',
+            marginBottom: 24,
+            display: 'flex', alignItems: 'flex-start', gap: 12,
+          }}>
+            <span style={{ fontSize: 22, flexShrink: 0, marginTop: 1 }}>💡</span>
+            <p style={{
+              fontSize: 16, fontWeight: 800,
+              color: colors.text, margin: 0, lineHeight: 1.55,
+              fontFamily: 'Kaisei Decol, serif',
+            }}>
+              結論：{article.conclusion}
+            </p>
+          </div>
+        )}
+
+        {/* ③ 4コマ漫画 */}
+        {article.manga && article.manga.panels.length > 0 && (
+          <MangaDialogue panels={article.manga.panels} />
+        )}
+
+        {/* ④ 理由3つ */}
+        {article.reasons && article.reasons.length > 0 && (
+          <ReasonsList reasons={article.reasons} color={colors.text} />
+        )}
+
+        {/* ⑤ 記事本文 */}
         <article className="prose-bousai">
           <MDXRemote
             source={article.content}
-            components={{ ProductCard, CtaButton }}
+            components={{ ProductCard, CtaButton, Dialogue, MangaDialogue }}
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           />
         </article>
+
+        {/* 武蔵野市ブロック */}
+        {article.region && (
+          <div style={{
+            background: 'linear-gradient(135deg, #FFFBEB, #FEF3C7)',
+            border: '2px solid #FCD34D',
+            borderRadius: 16,
+            padding: '20px 22px',
+            marginTop: 32,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 20 }}>📍</span>
+              <span style={{ fontSize: 13, fontWeight: 800, color: '#92400E' }}>
+                【{article.region.name}の場合】
+              </span>
+            </div>
+            <p style={{ fontSize: 14, color: '#78350F', lineHeight: 1.75, margin: 0 }}>
+              {article.region.content}
+            </p>
+            <a href="/musashino" style={{
+              fontSize: 13, color: '#B45309', fontWeight: 700,
+              textDecoration: 'none',
+            }}>
+              ▶ 武蔵野市の防災ガイドを見る →
+            </a>
+          </div>
+        )}
+
+        {/* 中盤広告 */}
+        <AdSense slot="2847651930" format="auto" />
+
+        {/* ⑥ 収益導線（チェックリスト → 商品） */}
+        <MonetizeLinks
+          category={article.category}
+          items={article.monetizeItems}
+        />
 
         {/* 中盤CTA（カテゴリ別） */}
         <CtaButton category={article.category} />
@@ -198,7 +280,10 @@ export default async function ArticlePage({ params }: Props) {
         {/* SNSシェア */}
         <ShareButton title={article.title} url={articleUrl} shareText={shareText} />
 
-        {/* FAQセクション */}
+        {/* ⑦ X投稿文生成ボックス */}
+        <XPostBox short={xPost.short} normal={xPost.normal} />
+
+        {/* ⑧ FAQ */}
         {article.faqs.length > 0 && (
           <section style={{
             background: '#F8FAFC', borderRadius: 16, padding: 28, marginTop: 40,
@@ -229,7 +314,7 @@ export default async function ArticlePage({ params }: Props) {
           </section>
         )}
 
-        {/* 著者 */}
+        {/* ⑨ 著者 */}
         <div style={{
           background: 'white',
           border: '1.5px solid #E2E8F0',
@@ -264,7 +349,7 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </div>
 
-        {/* 次に読むべき記事 */}
+        {/* ⑩ 関連記事 */}
         {related.length > 0 && (
           <section style={{ marginTop: 48 }}>
             <h2 style={{
@@ -300,6 +385,9 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* 末尾CTA */}
         <CtaButton category={article.category} variant="end" />
+
+        {/* 末尾広告 */}
+        <AdSense slot="5193847620" format="auto" />
       </div>
     </>
   )
