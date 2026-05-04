@@ -10,20 +10,22 @@ const BASE_URL = 'https://bousai-lab.vercel.app'
 
 const CHAR = {
   riss: {
-    emoji: '🐿️',
-    charBg: 'linear-gradient(135deg, #FF8C00, #FFA500)',
+    img: '/img/riss.png',
+    charBg: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)',
+    charRadius: '50%',
+    charShadow: '0 3px 12px rgba(255,180,0,0.3)',
     bubbleBg: '#FFFBEB',
     bubbleBorder: '#FDE68A',
-    charRadius: '50%',
-    textColor: '#1A1A1A',
-    fontWeight: '400' as const,
+    textColor: '#92400E',
+    fontWeight: '500' as const,
   },
   robot: {
-    emoji: '🤖',
-    charBg: 'linear-gradient(135deg, #1E40AF, #3B82F6)',
+    img: '/img/robot.png',
+    charBg: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)',
+    charRadius: '10px',
+    charShadow: '0 3px 12px rgba(6,182,212,0.3)',
     bubbleBg: '#EFF6FF',
     bubbleBorder: '#BFDBFE',
-    charRadius: '10px',
     textColor: '#1E3A8A',
     fontWeight: '700' as const,
   },
@@ -119,14 +121,18 @@ export default async function MangaPage({ params }: Props) {
           <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
             <div style={{
               width: 28, height: 28, borderRadius: '50%',
-              background: 'linear-gradient(135deg, #FF8C00, #FFA500)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14,
-            }}>🐿️</div>
+              background: 'rgba(255,255,255,0.15)',
+              overflow: 'hidden',
+            }}>
+              <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </div>
             <div style={{
               width: 28, height: 28, borderRadius: 6,
-              background: 'rgba(255,255,255,0.25)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14,
-            }}>🤖</div>
+              background: 'rgba(255,255,255,0.15)',
+              overflow: 'hidden',
+            }}>
+              <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </div>
           </div>
           <span style={{ color: 'white', fontWeight: 800, fontSize: 14 }}>防災リス＆レスQロボ</span>
           <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11, marginLeft: 'auto' }}>4コマ漫画</span>
@@ -163,13 +169,13 @@ export default async function MangaPage({ params }: Props) {
                 </div>
 
                 <div style={{
-                  width: 52, height: 52, borderRadius: char.charRadius,
+                  width: 60, height: 60, borderRadius: char.charRadius,
                   background: char.charBg,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 26, boxShadow: '0 3px 12px rgba(0,0,0,0.15)',
+                  overflow: 'hidden',
+                  boxShadow: char.charShadow,
                   marginTop: 14,
                 }}>
-                  {char.emoji}
+                  <img src={char.img} alt={panel.character === 'riss' ? '防災リス' : 'レスQロボ'} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 </div>
 
                 <div style={{
@@ -200,9 +206,11 @@ export default async function MangaPage({ params }: Props) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
           <div style={{
             width: 32, height: 32, borderRadius: 8,
-            background: 'linear-gradient(135deg, #1E40AF, #3B82F6)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
-          }}>🤖</div>
+            background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)',
+            overflow: 'hidden',
+          }}>
+            <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
           <span style={{ fontWeight: 700, fontSize: 14, color: '#1E3A8A' }}>レスQロボのまとめ</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -229,7 +237,15 @@ export default async function MangaPage({ params }: Props) {
         background: 'linear-gradient(135deg, #0F172A, #1E3A8A)',
         borderRadius: 16, padding: '24px 20px', marginBottom: 28, textAlign: 'center',
       }}>
-        <div style={{ fontSize: 24, marginBottom: 10 }}>🐿️ + 🤖</div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 4, marginBottom: 10 }}>
+          <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)', overflow: 'hidden' }}>
+            <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
+          <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 20, lineHeight: '32px' }}>+</span>
+          <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)', overflow: 'hidden' }}>
+            <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
+        </div>
         <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 14, lineHeight: 1.7, marginBottom: 18 }}>
           もっと詳しく知りたい？<br />
           <strong style={{ color: '#60A5FA' }}>記事で理由・具体策・Q&Aを確認しよう</strong>

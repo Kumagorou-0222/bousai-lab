@@ -199,14 +199,18 @@ export default function HomePage() {
             <div style={{ display: 'flex', gap: 4 }}>
               <div style={{
                 width: 24, height: 24, borderRadius: '50%',
-                background: 'linear-gradient(135deg, #FF8C00, #FFA500)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
-              }}>🐿️</div>
+                background: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)',
+                overflow: 'hidden',
+              }}>
+                <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
               <div style={{
                 width: 24, height: 24, borderRadius: 6,
-                background: 'rgba(255,255,255,0.2)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
-              }}>🤖</div>
+                background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)',
+                overflow: 'hidden',
+              }}>
+                <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
             </div>
           </div>
           <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>

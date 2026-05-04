@@ -158,7 +158,14 @@ export default function MusashinoPage() {
         {/* キャラ導入漫画 */}
         <section style={{ marginBottom: 40 }}>
           <h2 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 24 }}>🐿️🤖</span>
+            <div style={{ display: 'flex', gap: 2 }}>
+              <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)', overflow: 'hidden' }}>
+                <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+              <div style={{ width: 28, height: 28, borderRadius: 7, background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)', overflow: 'hidden' }}>
+                <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+            </div>
             武蔵野市の防災を漫画で理解する
           </h2>
           <MangaDialogue panels={introManPanels} />
@@ -229,7 +236,7 @@ export default function MusashinoPage() {
             漫画で学ぶ防災知識
           </h2>
           <p style={{ fontSize: 14, color: '#64748B', margin: '0 0 24px', lineHeight: 1.6 }}>
-            武蔵野市在住の医師が、防災リス🐿️とレスQロボ🤖のキャラクターで解説します。
+            武蔵野市在住の医師が、防災リスとレスQロボのキャラクターで解説します。
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
             {ARTICLES.map((article) => (

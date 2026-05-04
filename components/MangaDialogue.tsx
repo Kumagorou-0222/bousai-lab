@@ -237,9 +237,12 @@ export default function MangaDialogue({ panels, articleSlug, articleTitle }: Man
           gap: 12,
         }}>
           <div>
-            <span style={{ fontSize: 11, color: '#0C4A6E', fontWeight: 700, display: 'block', marginBottom: 2 }}>
-              🤖 レスQロボより
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 2 }}>
+              <div style={{ width: 18, height: 18, borderRadius: 4, background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)', overflow: 'hidden', flexShrink: 0 }}>
+                <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+              <span style={{ fontSize: 11, color: '#0C4A6E', fontWeight: 700 }}>レスQロボより</span>
+            </div>
             <span style={{ fontSize: 13, color: '#475569', fontWeight: 600 }}>
               詳しく知りたい方はこちら
             </span>

@@ -22,10 +22,12 @@ export default function Dialogue({ riss, robot }: DialogueProps) {
             }}>
               <div style={{
                 width: 46, height: 46, borderRadius: '50%',
-                background: 'linear-gradient(135deg, #FF8C00, #FFA500)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 22, boxShadow: '0 3px 10px rgba(255,140,0,0.35)',
-              }}>🐿️</div>
+                background: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)',
+                overflow: 'hidden',
+                boxShadow: '0 3px 10px rgba(255,180,0,0.3)',
+              }}>
+                <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
               <span style={{ fontSize: 9, color: '#888', marginTop: 3, whiteSpace: 'nowrap', fontWeight: 700 }}>
                 防災リス
               </span>
@@ -54,10 +56,12 @@ export default function Dialogue({ riss, robot }: DialogueProps) {
             }}>
               <div style={{
                 width: 46, height: 46, borderRadius: 12,
-                background: 'linear-gradient(135deg, #1E40AF, #3B82F6)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 22, boxShadow: '0 3px 10px rgba(59,130,246,0.35)',
-              }}>🤖</div>
+                background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)',
+                overflow: 'hidden',
+                boxShadow: '0 3px 10px rgba(6,182,212,0.3)',
+              }}>
+                <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
               <span style={{ fontSize: 9, color: '#888', marginTop: 3, whiteSpace: 'nowrap', fontWeight: 700 }}>
                 レスQロボ
               </span>

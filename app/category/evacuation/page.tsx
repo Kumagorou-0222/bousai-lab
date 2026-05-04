@@ -80,16 +80,12 @@ export default function EvacuationCategoryPage() {
               <div style={{
                 display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8,
               }}>
-                <div style={{
-                  width: 32, height: 32, borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #FF8C00, #FFA500)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
-                }}>🐿️</div>
-                <div style={{
-                  width: 32, height: 32, borderRadius: 8,
-                  background: 'linear-gradient(135deg, #1E40AF, #3B82F6)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
-                }}>🤖</div>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)', overflow: 'hidden' }}>
+                  <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </div>
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)', overflow: 'hidden' }}>
+                  <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </div>
                 <span style={{ color: '#4ADE80', fontWeight: 700, fontSize: 13 }}>
                   4コマ漫画で学ぶ避難
                 </span>

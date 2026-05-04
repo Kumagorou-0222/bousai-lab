@@ -68,9 +68,11 @@ export default function MangaIndexPage() {
           }}>
             <div style={{
               width: 32, height: 32, borderRadius: '50%',
-              background: 'linear-gradient(135deg, #FF8C00, #FFA500)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
-            }}>🐿️</div>
+              background: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)',
+              overflow: 'hidden',
+            }}>
+              <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </div>
             <div style={{ textAlign: 'left' }}>
               <div style={{ color: '#FFA500', fontWeight: 700, fontSize: 12 }}>防災リス</div>
               <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: 10 }}>疑問・質問担当</div>
@@ -83,9 +85,11 @@ export default function MangaIndexPage() {
           }}>
             <div style={{
               width: 32, height: 32, borderRadius: 8,
-              background: 'linear-gradient(135deg, #1E40AF, #3B82F6)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
-            }}>🤖</div>
+              background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)',
+              overflow: 'hidden',
+            }}>
+              <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </div>
             <div style={{ textAlign: 'left' }}>
               <div style={{ color: '#60A5FA', fontWeight: 700, fontSize: 12 }}>レスQロボ</div>
               <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: 10 }}>結論・解説担当</div>
