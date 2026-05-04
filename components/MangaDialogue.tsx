@@ -19,33 +19,36 @@ const EMOTION_STYLE: Record<string, { bg: string; border: string; badge: string 
 
 const CHAR_BASE = {
   riss: {
-    emoji: '🐿️',
+    img: '/img/riss.png',
     name: '防災リス',
-    // かわいい：ピンク×オレンジのグラデーション
-    charBg: 'linear-gradient(135deg, #FF6B9D 0%, #FF8C00 60%, #FFD000 100%)',
-    charRadius: '50%',
-    charShadow: '0 4px 16px rgba(255,107,157,0.45), 0 1px 4px rgba(255,140,0,0.3)',
+    charBg: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)',
+    charShadow: '0 4px 16px rgba(255,180,0,0.25)',
     textColor: '#92400E',
     fontWeight: '500' as const,
-    // 右向きに反転
-    emojiTransform: 'scaleX(-1)',
-    panelBg: 'linear-gradient(160deg, #FFF9F0 0%, #FFF5F8 100%)',
+    panelBg: 'linear-gradient(160deg, #FFFDF5 0%, #FFF8EC 100%)',
     bubbleRadius: '4px 20px 20px 20px',
-    decorColor: '#FFD000',
+    nameBadgeBg: 'rgba(255,180,0,0.15)',
+    nameBadgeColor: '#92400E',
+    numBg: 'linear-gradient(135deg, #FF8C00, #FFD000)',
+    numShadow: '0 2px 8px rgba(255,140,0,0.4)',
+    numRadius: '50%',
+    glowShadow: '0 2px 10px rgba(255,180,0,0.15)',
   },
   robot: {
-    emoji: '🤖',
+    img: '/img/robot.png',
     name: 'レスQロボ',
-    // かっこいい：ダークネイビー×電気ブルー×シアン
-    charBg: 'linear-gradient(135deg, #0A0A2E 0%, #1E3A8A 50%, #06B6D4 100%)',
-    charRadius: '8px',
-    charShadow: '0 4px 20px rgba(6,182,212,0.55), 0 0 0 2px rgba(6,182,212,0.25)',
+    charBg: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)',
+    charShadow: '0 4px 20px rgba(6,182,212,0.3)',
     textColor: '#0C4A6E',
     fontWeight: '700' as const,
-    emojiTransform: 'none',
     panelBg: 'linear-gradient(160deg, #F0F9FF 0%, #EFF6FF 100%)',
     bubbleRadius: '20px 4px 20px 20px',
-    decorColor: '#06B6D4',
+    nameBadgeBg: 'rgba(6,182,212,0.15)',
+    nameBadgeColor: '#0C4A6E',
+    numBg: 'linear-gradient(135deg, #1E3A8A, #06B6D4)',
+    numShadow: '0 2px 8px rgba(6,182,212,0.4)',
+    numRadius: '5px',
+    glowShadow: '0 2px 10px rgba(6,182,212,0.12)',
   },
 }
 
@@ -67,23 +70,25 @@ export default function MangaDialogue({ panels, articleSlug, articleTitle }: Man
         padding: '12px 18px',
         display: 'flex', alignItems: 'center', gap: 10,
       }}>
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
           {/* リスアイコン（ヘッダー） */}
           <div style={{
-            width: 28, height: 28, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #FF6B9D, #FF8C00)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14,
-            boxShadow: '0 2px 8px rgba(255,107,157,0.5)',
+            width: 30, height: 30, borderRadius: '50%',
+            background: 'rgba(255,255,255,0.15)',
+            overflow: 'hidden',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            <span style={{ display: 'inline-block', transform: 'scaleX(-1)' }}>🐿️</span>
+            <img src="/img/riss.png" alt="防災リス" style={{ width: 30, height: 30, objectFit: 'contain' }} />
           </div>
           {/* ロボアイコン（ヘッダー） */}
           <div style={{
-            width: 28, height: 28, borderRadius: 7,
-            background: 'linear-gradient(135deg, #1E3A8A, #06B6D4)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14,
-            boxShadow: '0 0 0 1px rgba(6,182,212,0.5)',
-          }}>🤖</div>
+            width: 30, height: 30, borderRadius: 7,
+            background: 'rgba(255,255,255,0.15)',
+            overflow: 'hidden',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <img src="/img/robot.png" alt="レスQロボ" style={{ width: 30, height: 30, objectFit: 'contain' }} />
+          </div>
         </div>
         <span style={{ color: 'white', fontWeight: 800, fontSize: 14, letterSpacing: '0.02em' }}>4コマ漫画</span>
         <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, marginLeft: 'auto' }}>
@@ -129,53 +134,46 @@ export default function MangaDialogue({ panels, articleSlug, articleTitle }: Man
                 position: 'absolute', top: 10,
                 left: isRobot ? 'auto' : 10,
                 right: isRobot ? 10 : 'auto',
-                width: 22, height: 22, borderRadius: isRobot ? 5 : '50%',
-                background: isRobot
-                  ? 'linear-gradient(135deg, #1E3A8A, #06B6D4)'
-                  : 'linear-gradient(135deg, #FF6B9D, #FF8C00)',
+                width: 22, height: 22, borderRadius: char.numRadius,
+                background: char.numBg,
                 color: 'white',
                 fontSize: 12, fontWeight: 900,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: isRobot
-                  ? '0 2px 8px rgba(6,182,212,0.4)'
-                  : '0 2px 8px rgba(255,107,157,0.4)',
+                boxShadow: char.numShadow,
               }}>
                 {i + 1}
               </div>
 
-              {/* デコレーション（リスのみ：小さな星） */}
-              {!isRobot && (
-                <div style={{
-                  position: 'absolute', top: 8, right: 10,
-                  fontSize: 11, opacity: 0.5,
-                  pointerEvents: 'none',
-                }}>✨</div>
-              )}
               {/* デコレーション（ロボのみ：コーナーライン） */}
               {isRobot && (
                 <div style={{
                   position: 'absolute', bottom: 8, left: 10,
                   width: 18, height: 18, pointerEvents: 'none',
-                  borderLeft: '2px solid rgba(6,182,212,0.35)',
-                  borderBottom: '2px solid rgba(6,182,212,0.35)',
+                  borderLeft: '2px solid rgba(6,182,212,0.3)',
+                  borderBottom: '2px solid rgba(6,182,212,0.3)',
                 }} />
               )}
 
-              {/* キャラクターアイコン */}
+              {/* キャラクター画像 */}
               <div style={{ position: 'relative', marginTop: 6 }}>
                 <div style={{
-                  width: 58, height: 58,
-                  borderRadius: char.charRadius,
+                  width: 72, height: 72,
+                  borderRadius: isRobot ? 12 : '50%',
                   background: char.charBg,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 28,
                   boxShadow: char.charShadow,
-                  // ロボはボーダー付き
-                  border: isRobot ? '1.5px solid rgba(6,182,212,0.4)' : 'none',
+                  overflow: 'hidden',
+                  padding: 4,
                 }}>
-                  <span style={{ display: 'inline-block', transform: char.emojiTransform }}>
-                    {char.emoji}
-                  </span>
+                  <img
+                    src={char.img}
+                    alt={char.name}
+                    style={{
+                      width: '100%', height: '100%',
+                      objectFit: 'contain',
+                      objectPosition: 'bottom',
+                    }}
+                  />
                 </div>
 
                 {/* 感情バッジ */}
@@ -199,12 +197,10 @@ export default function MangaDialogue({ panels, articleSlug, articleTitle }: Man
               {/* 名前ラベル */}
               <span style={{
                 fontSize: 10,
-                color: isRobot ? '#0C4A6E' : '#92400E',
+                color: char.nameBadgeColor,
                 fontWeight: 800,
                 letterSpacing: '0.04em',
-                background: isRobot
-                  ? 'rgba(6,182,212,0.12)'
-                  : 'rgba(255,107,157,0.12)',
+                background: char.nameBadgeBg,
                 borderRadius: 20,
                 padding: '2px 8px',
               }}>
@@ -222,9 +218,7 @@ export default function MangaDialogue({ panels, articleSlug, articleTitle }: Man
                 color: char.textColor,
                 width: '100%',
                 boxSizing: 'border-box',
-                boxShadow: isRobot
-                  ? '0 2px 10px rgba(6,182,212,0.1)'
-                  : '0 2px 10px rgba(255,107,157,0.1)',
+                boxShadow: char.glowShadow,
               }}>
                 {panel.message}
               </div>
