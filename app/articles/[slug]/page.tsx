@@ -383,6 +383,55 @@ export default async function ArticlePage({ params }: Props) {
           </section>
         )}
 
+        {/* 次に読む（固定導線） */}
+        <section style={{
+          marginTop: 40,
+          background: '#F8FAFC',
+          border: '1px solid #E2E8F0',
+          borderRadius: 16,
+          padding: '20px 20px',
+        }}>
+          <h3 style={{ fontSize: 13, fontWeight: 700, color: '#64748B', margin: '0 0 14px', letterSpacing: '0.05em' }}>
+            📖 次に読む
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <Link href="/musashino" style={{
+              display: 'flex', alignItems: 'center', gap: 12,
+              background: 'linear-gradient(135deg, #FFFBEB, #FEF3C7)',
+              border: '1.5px solid #FCD34D',
+              borderRadius: 12, padding: '12px 16px',
+              textDecoration: 'none', color: '#92400E', fontWeight: 700, fontSize: 13,
+            }}>
+              <span style={{ fontSize: 18 }}>📍</span>
+              <span style={{ flex: 1 }}>武蔵野市の防災ガイドを見る</span>
+              <span style={{ color: '#D97706', fontSize: 16 }}>›</span>
+            </Link>
+            {related.slice(0, 2).map((a) => (
+              <Link key={a.slug} href={`/articles/${a.slug}`} style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                background: 'white', border: '1.5px solid #E2E8F0',
+                borderRadius: 12, padding: '12px 16px',
+                textDecoration: 'none', color: '#0F172A', fontSize: 13,
+              }}>
+                <span style={{ fontSize: 18 }}>{a.emoji}</span>
+                <span style={{ flex: 1, fontWeight: 600, lineHeight: 1.4 }}>{a.title}</span>
+                <span style={{ color: '#94A3B8', fontSize: 16 }}>›</span>
+              </Link>
+            ))}
+            <Link href="/checklist" style={{
+              display: 'flex', alignItems: 'center', gap: 12,
+              background: 'linear-gradient(135deg, #F0FDF4, #DCFCE7)',
+              border: '1.5px solid #BBF7D0',
+              borderRadius: 12, padding: '12px 16px',
+              textDecoration: 'none', color: '#15803D', fontWeight: 700, fontSize: 13,
+            }}>
+              <span style={{ fontSize: 18 }}>📋</span>
+              <span style={{ flex: 1 }}>防災チェックリストで備えを確認する</span>
+              <span style={{ color: '#16A34A', fontSize: 16 }}>›</span>
+            </Link>
+          </div>
+        </section>
+
         {/* 末尾CTA */}
         <CtaButton category={article.category} variant="end" />
 

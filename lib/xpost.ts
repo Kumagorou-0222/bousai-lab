@@ -72,3 +72,19 @@ export function buildXPostFromArticle(article: ArticleMeta & { xPost?: { short: 
     category: article.category,
   })
 }
+
+// 全記事のX投稿文を一括取得（X投稿スケジュール管理用）
+export function getAllXPosts(): Array<{ slug: string; title: string; category: string; short: string; normal: string }> {
+  // 動的importを避けるため、実行時に articles を参照
+  const { getAllArticlesMeta } = require('./articles') as typeof import('./articles')
+  return getAllArticlesMeta().map((article) => {
+    const xPost = buildXPostFromArticle(article)
+    return {
+      slug: article.slug,
+      title: article.title,
+      category: article.category,
+      short: xPost.short,
+      normal: xPost.normal,
+    }
+  })
+}

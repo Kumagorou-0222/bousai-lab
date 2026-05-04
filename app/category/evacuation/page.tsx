@@ -224,6 +224,28 @@ export default function EvacuationCategoryPage() {
         </Link>
       </section>
 
+      {/* 武蔵野市バナー */}
+      <section style={{ marginBottom: 28 }}>
+        <Link href="/musashino" style={{
+          display: 'flex', alignItems: 'center', gap: 14,
+          background: 'linear-gradient(135deg, #1A1A2E 0%, #0F3460 100%)',
+          borderRadius: 16, padding: '16px 20px',
+          textDecoration: 'none',
+          boxShadow: '0 4px 16px rgba(15,52,96,0.3)',
+        }}>
+          <div style={{ fontSize: 28, flexShrink: 0 }}>📍</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 11, color: '#FFD000', fontWeight: 700, marginBottom: 3, letterSpacing: '0.05em' }}>
+              武蔵野市在住の方へ
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 800, color: 'white', lineHeight: 1.4 }}>
+              武蔵野市の地域情報・避難所・在宅避難ガイド
+            </div>
+          </div>
+          <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: 20, flexShrink: 0 }}>›</span>
+        </Link>
+      </section>
+
       {/* 他カテゴリ */}
       <section>
         <div style={{

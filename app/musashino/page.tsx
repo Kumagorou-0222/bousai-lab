@@ -8,14 +8,14 @@ import type { MangaPanel } from '@/lib/articles'
 const BASE_URL = 'https://bousai-lab.vercel.app'
 
 export const metadata: Metadata = {
-  title: '武蔵野市の防災ガイド｜医師が解説する在宅避難・地震・停電対策',
+  title: '武蔵野市の防災ガイド｜在宅避難・避難所・持ち物を解説',
   description:
-    '武蔵野市在住の現役医師が解説する防災ガイド。武蔵野市の地震リスク・在宅避難の考え方・避難所情報を漫画でわかりやすく紹介。今すぐできる備えを確認しよう。',
+    '武蔵野市で地震・停電が起きたときの行動を、在宅避難・避難所・持ち物の観点でわかりやすく解説。武蔵野市在住の現役医師監修。今すぐできる備えをチェックリストで確認。',
   alternates: { canonical: `${BASE_URL}/musashino` },
-  keywords: ['武蔵野市 防災', '武蔵野市 地震対策', '武蔵野市 避難所', '武蔵野市 在宅避難', '武蔵野市 備え'],
+  keywords: ['武蔵野市 防災', '武蔵野市 地震対策', '武蔵野市 避難所', '武蔵野市 在宅避難', '武蔵野市 停電', '武蔵野市 備え', '武蔵野市 持ち物'],
   openGraph: {
-    title: '武蔵野市の防災ガイド｜医師が解説する在宅避難・地震・停電対策',
-    description: '武蔵野市在住の現役医師が解説する防災ガイド。在宅避難・避難所情報・今すぐできる備えを漫画でわかりやすく紹介。',
+    title: '武蔵野市の防災ガイド｜在宅避難・避難所・持ち物を解説',
+    description: '武蔵野市で地震・停電が起きたときの行動を、在宅避難・避難所・持ち物の観点でわかりやすく解説。現役医師監修。',
     url: `${BASE_URL}/musashino`,
     images: [{ url: `${BASE_URL}/ogp.svg`, width: 1200, height: 630 }],
   },
@@ -227,6 +227,89 @@ export default function MusashinoPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* テーマ別記事カード */}
+        <section style={{ marginBottom: 40 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 20px' }}>
+            テーマ別に学ぶ
+          </h2>
+
+          {/* 地震対策 */}
+          <div style={{ marginBottom: 28 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <div style={{ width: 4, height: 20, background: '#DC2626', borderRadius: 2 }} />
+              <span style={{ fontSize: 15, fontWeight: 800, color: '#DC2626' }}>🌋 地震対策</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+              {[
+                { slug: 'earthquake-furniture', title: '家具固定で命を守る', desc: '揺れで倒れるリスクがある家具を今すぐ固定。武蔵野市でも震度6強が想定される。' },
+                { slug: 'earthquake-prep-minimum', title: '最低限やるべき地震対策', desc: '家具固定・保存水・携帯トイレ。この3つだけで生存率が大きく変わる。' },
+              ].map((a) => (
+                <Link key={a.slug} href={`/articles/${a.slug}`} style={{
+                  background: 'white', border: '1.5px solid #FECACA',
+                  borderRadius: 14, padding: '16px 18px',
+                  textDecoration: 'none', display: 'block',
+                  boxShadow: '0 2px 8px rgba(220,38,38,0.06)',
+                  transition: 'box-shadow 0.2s',
+                }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: '#1E293B', marginBottom: 6 }}>{a.title}</div>
+                  <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.6 }}>{a.desc}</div>
+                  <div style={{ fontSize: 12, color: '#DC2626', fontWeight: 700, marginTop: 8 }}>詳しく読む →</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* 停電対策 */}
+          <div style={{ marginBottom: 28 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <div style={{ width: 4, height: 20, background: '#D97706', borderRadius: 2 }} />
+              <span style={{ fontSize: 15, fontWeight: 800, color: '#D97706' }}>⚡ 停電対策</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+              {[
+                { slug: 'blackout-what-to-do', title: '停電したらすぐやること', desc: '冷蔵庫を開けない・換気確保・モバイルバッテリーを出す。初動3分が重要。' },
+                { slug: 'blackout-mobile-battery', title: 'モバイルバッテリー選び方', desc: '容量・充電速度・重さで選ぶ。停電72時間を乗り切る最低スペックを解説。' },
+              ].map((a) => (
+                <Link key={a.slug} href={`/articles/${a.slug}`} style={{
+                  background: 'white', border: '1.5px solid #FDE68A',
+                  borderRadius: 14, padding: '16px 18px',
+                  textDecoration: 'none', display: 'block',
+                  boxShadow: '0 2px 8px rgba(217,119,6,0.06)',
+                }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: '#1E293B', marginBottom: 6 }}>{a.title}</div>
+                  <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.6 }}>{a.desc}</div>
+                  <div style={{ fontSize: 12, color: '#D97706', fontWeight: 700, marginTop: 8 }}>詳しく読む →</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* 避難所 */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <div style={{ width: 4, height: 20, background: '#2563EB', borderRadius: 2 }} />
+              <span style={{ fontSize: 15, fontWeight: 800, color: '#2563EB' }}>🏃 避難・持ち物</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+              {[
+                { slug: 'evacuation-bag', title: '避難袋の中身リスト', desc: '7kg以内に収める最適な中身。武蔵野市の避難所に持参すべき優先5品。' },
+                { slug: 'evacuation-illness', title: '持病がある人の避難準備', desc: '処方薬・お薬手帳・医療機器の電源確保。慢性疾患がある人は早めに準備を。' },
+              ].map((a) => (
+                <Link key={a.slug} href={`/articles/${a.slug}`} style={{
+                  background: 'white', border: '1.5px solid #BFDBFE',
+                  borderRadius: 14, padding: '16px 18px',
+                  textDecoration: 'none', display: 'block',
+                  boxShadow: '0 2px 8px rgba(37,99,235,0.06)',
+                }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: '#1E293B', marginBottom: 6 }}>{a.title}</div>
+                  <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.6 }}>{a.desc}</div>
+                  <div style={{ fontSize: 12, color: '#2563EB', fontWeight: 700, marginTop: 8 }}>詳しく読む →</div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
