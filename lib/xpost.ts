@@ -2,12 +2,14 @@ import type { ArticleMeta } from './articles'
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
 
+const UNIFIED_HASHTAGS = '#防災 #地震 #停電 #避難'
+
 const CATEGORY_HASHTAGS: Record<string, string> = {
-  earthquake: '#防災 #地震 #震災対策',
-  typhoon: '#防災 #台風 #風水害',
-  blackout: '#防災 #停電 #節電',
-  evacuation: '#防災 #避難 #災害',
-  'disaster-prep': '#防災 #備蓄 #防災グッズ',
+  earthquake: UNIFIED_HASHTAGS,
+  typhoon: UNIFIED_HASHTAGS,
+  blackout: UNIFIED_HASHTAGS,
+  evacuation: UNIFIED_HASHTAGS,
+  'disaster-prep': UNIFIED_HASHTAGS,
 }
 
 export type XPostParams = {
@@ -26,9 +28,12 @@ export function generateXPost(params: XPostParams): { short: string; normal: str
   const hashtags = CATEGORY_HASHTAGS[category] ?? '#防災'
 
   // 短縮版（140字以内）
+  const shortTitle = title.length > 15 ? title.slice(0, 14) + '…' : title
+  const shortConclusion = conclusion.length > 45 ? conclusion.slice(0, 42) + '…' : conclusion
   const short = [
-    `【防災メモ】`,
-    conclusion.length > 50 ? conclusion.slice(0, 47) + '…' : conclusion,
+    `【${shortTitle}】`,
+    ``,
+    shortConclusion,
     ``,
     `👉 ${url}`,
     hashtags,
@@ -36,25 +41,24 @@ export function generateXPost(params: XPostParams): { short: string; normal: str
     .join('\n')
     .slice(0, 140)
 
-  // 通常版（actionがある場合）
+  // 通常版
   const lines: string[] = []
+  const summary = title.length > 20 ? title.slice(0, 19) + '…' : title
+  lines.push(`【${summary}】`)
+  lines.push(``)
   if (ngAction && correctAction) {
-    const summary = title.length > 20 ? title.slice(0, 19) + '…' : title
-    lines.push(`【${summary}】`)
-    lines.push(``)
     lines.push(`❌ ${ngAction}`)
     lines.push(`⭕ ${correctAction}`)
     if (reason) {
       lines.push(``)
       lines.push(`理由：`)
-      lines.push(reason.length > 40 ? reason.slice(0, 39) + '…' : reason)
+      lines.push(reason.length > 50 ? reason.slice(0, 47) + '…' : reason)
     }
   } else {
-    lines.push(conclusion)
+    lines.push(conclusion.length > 80 ? conclusion.slice(0, 77) + '…' : conclusion)
   }
   lines.push(``)
-  lines.push(`👉 詳しく`)
-  lines.push(url)
+  lines.push(`👉 ${url}`)
   lines.push(``)
   lines.push(hashtags)
 

@@ -117,6 +117,26 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </div>
 
+      {/* 武蔵野市バナー（上部） */}
+      <Link href="/musashino" style={{
+        display: 'flex', alignItems: 'center', gap: 12,
+        background: 'linear-gradient(135deg, #FFFBEB, #FEF3C7)',
+        border: '1.5px solid #FCD34D',
+        borderRadius: 12, padding: '12px 16px',
+        textDecoration: 'none', marginBottom: 20,
+      }}>
+        <span style={{ fontSize: 16, flexShrink: 0 }}>📍</span>
+        <div style={{ flex: 1 }}>
+          <span style={{ fontSize: 11, color: '#92400E', fontWeight: 700 }}>
+            武蔵野市在住の方へ ―
+          </span>
+          <span style={{ fontSize: 13, color: '#78350F', fontWeight: 800, marginLeft: 6 }}>
+            武蔵野市の場合を見る →
+          </span>
+        </div>
+        <span style={{ color: '#D97706', fontSize: 16, flexShrink: 0 }}>›</span>
+      </Link>
+
       {/* 今すぐやること3つ — 最上部強調 */}
       {urgentActions && (
         <section style={{ marginBottom: 28 }}>

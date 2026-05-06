@@ -288,7 +288,7 @@ export default function MusashinoPage() {
           </div>
 
           {/* 避難所 */}
-          <div>
+          <div style={{ marginBottom: 28 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <div style={{ width: 4, height: 20, background: '#2563EB', borderRadius: 2 }} />
               <span style={{ fontSize: 15, fontWeight: 800, color: '#2563EB' }}>🏃 避難・持ち物</span>
@@ -307,6 +307,31 @@ export default function MusashinoPage() {
                   <div style={{ fontSize: 14, fontWeight: 800, color: '#1E293B', marginBottom: 6 }}>{a.title}</div>
                   <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.6 }}>{a.desc}</div>
                   <div style={{ fontSize: 12, color: '#2563EB', fontWeight: 700, marginTop: 8 }}>詳しく読む →</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* チェックリスト */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <div style={{ width: 4, height: 20, background: '#16A34A', borderRadius: 2 }} />
+              <span style={{ fontSize: 15, fontWeight: 800, color: '#16A34A' }}>📋 チェックリスト・備蓄</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+              {[
+                { href: '/checklist', title: '防災チェックリスト', desc: '今すぐ何が足りているか・足りていないかを確認。武蔵野市の実情に合わせた内容。', color: '#16A34A', border: '#BBF7D0' },
+                { href: '/articles/disaster-backpack', title: '防災リュックの中身リスト', desc: '水・食料・携帯トイレ・薬・充電器の5品を7kg以内に。優先度順で解説。', color: '#16A34A', border: '#BBF7D0' },
+              ].map((a) => (
+                <Link key={a.href} href={a.href} style={{
+                  background: 'white', border: `1.5px solid ${a.border}`,
+                  borderRadius: 14, padding: '16px 18px',
+                  textDecoration: 'none', display: 'block',
+                  boxShadow: '0 2px 8px rgba(22,163,74,0.06)',
+                }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: '#1E293B', marginBottom: 6 }}>{a.title}</div>
+                  <div style={{ fontSize: 12, color: '#64748B', lineHeight: 1.6 }}>{a.desc}</div>
+                  <div style={{ fontSize: 12, color: a.color, fontWeight: 700, marginTop: 8 }}>確認する →</div>
                 </Link>
               ))}
             </div>

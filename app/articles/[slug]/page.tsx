@@ -218,7 +218,19 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* ③ 4コマ漫画 */}
         {article.manga && article.manga.panels.length > 0 && (
-          <MangaDialogue panels={article.manga.panels} />
+          <div>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 12, fontWeight: 700, color: '#64748B',
+              background: '#F8FAFC', border: '1px solid #E2E8F0',
+              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
+            }}>
+              <span>🎬</span>
+              <span>4コマで理解</span>
+              {/* 将来的に画像版へ置換しやすい構造 */}
+            </div>
+            <MangaDialogue panels={article.manga.panels} />
+          </div>
         )}
 
         {/* ④ 理由3つ */}
