@@ -23,3 +23,4 @@ def post_to_x(text: str) -> None:
         print(f"[X投稿完了] tweet_id={response.data['id']}")
     except tweepy.TweepyException as e:
         print(f"[X投稿失敗] {e}")
+        raise  # 呼び出し元でエラー通知できるように再スロー

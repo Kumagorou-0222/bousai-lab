@@ -28,3 +28,4 @@ def notify_telegram(text: str, x_intent_url: str = "") -> None:
         print("[Telegram通知完了]")
     except requests.RequestException as e:
         print(f"[Telegram通知失敗] {e}")
+        raise  # 呼び出し元でエラー通知できるように再スロー
