@@ -2,37 +2,17 @@
   "permissions": {
     "allow": [
       "Bash(vercel whoami:*)",
-      "Bash(wait)",
       "Bash(vercel --prod --yes)",
+      "Bash(vercel ls:*)",
+      "Bash(vercel link:*)",
       "Bash(git fetch:*)",
       "Bash(git add:*)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://bousai-lab.vercel.app/sitemap.xml)",
-      "Bash(curl -sI https://bousai-lab.vercel.app/sitemap.xml)",
-      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d[0][''''text''''][:8000]\\)\")",
-      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d[0][''''text''''][8000:16000]\\)\")",
-      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d[0][''''text''''][16000:]\\)\")",
-      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git --yes)",
-      "Bash(mkdir -p /workspaces/bousai-lab-legacy)",
-      "Bash(mv /workspaces/bousai-lab/index.html /workspaces/bousai-lab-legacy/)",
-      "Bash(mv /workspaces/bousai-lab/ogp.svg /workspaces/bousai-lab-legacy/)",
-      "Bash(mv /workspaces/bousai-lab/robots.txt /workspaces/bousai-lab-legacy/)",
-      "Bash(mv /workspaces/bousai-lab/sitemap.xml /workspaces/bousai-lab-legacy/)",
-      "Bash(mv /workspaces/bousai-lab/.vercel /workspaces/bousai-lab-legacy/)",
-      "Bash(mv /workspaces/bousai-lab/img /workspaces/bousai-lab-legacy/)",
-      "Bash(npx create-next-app@latest /workspaces/bousai-lab --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git --yes)",
-      "Bash(cp /workspaces/bousai-lab-legacy/ogp.svg /workspaces/bousai-lab/public/)",
-      "Bash(cp -r /workspaces/bousai-lab-legacy/img /workspaces/bousai-lab/public/)",
       "Bash(npm run:*)",
       "Bash(NODE_OPTIONS=\"--max-old-space-size=2048\" npm run build)",
       "Bash(NODE_OPTIONS=\"--max-old-space-size=2048\" npx next build)",
-      "Bash(ls /workspaces/bousai-lab/public/sitemap*.xml /workspaces/bousai-lab/public/robots.txt)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://bousai-lab.vercel.app/)",
-      "Bash(vercel ls:*)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://bousai-3j0e3gpwf-kensuke-onos-projects.vercel.app/)"
-    ],
-    "additionalDirectories": [
-      "/workspaces/bousai-lab/app/articles",
-      "/workspaces/bousai-lab-legacy/.vercel"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://bousai-lab.vercel.app/sitemap.xml)",
+      "Bash(curl -sI https://bousai-lab.vercel.app/sitemap.xml)"
     ]
   }
 }

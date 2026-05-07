@@ -69,7 +69,7 @@ jobs:
           AUTO_POST_ENABLED:         ${{ secrets.AUTO_POST_ENABLED }}
         run: |
           MODE="${{ github.event.inputs.mode || 'normal' }}"
-          HOUR=$(date -u +"%H")
+          SCHEDULE="${{ github.event.schedule }}"
 
           if [ "$MODE" = "test-telegram" ]; then
             python debug_feed.py --test-telegram
@@ -83,18 +83,18 @@ jobs:
           elif [ "$MODE" = "daily-summary" ]; then
             python daily_summary.py
           elif [ "$MODE" = "morning" ]; then
-            python scheduled_post_runner.py morning
+            python scheduled_post_runner.py morning --auto-post
           elif [ "$MODE" = "noon" ]; then
             python scheduled_post_runner.py noon
           elif [ "$MODE" = "evening" ]; then
-            python scheduled_post_runner.py evening
-          elif [ "$HOUR" = "23" ]; then
-            python scheduled_post_runner.py morning
-          elif [ "$HOUR" = "03" ]; then
+            python scheduled_post_runner.py evening --auto-post
+          elif [ "$SCHEDULE" = "0 23 * * *" ]; then
+            python scheduled_post_runner.py morning --auto-post
+          elif [ "$SCHEDULE" = "0 3 * * *" ]; then
             python scheduled_post_runner.py noon
-          elif [ "$HOUR" = "11" ]; then
-            python scheduled_post_runner.py evening
-          elif [ "$HOUR" = "12" ]; then
+          elif [ "$SCHEDULE" = "0 11 * * *" ]; then
+            python scheduled_post_runner.py evening --auto-post
+          elif [ "$SCHEDULE" = "0 12 * * *" ]; then
             python daily_summary.py
           else
             python main.py
