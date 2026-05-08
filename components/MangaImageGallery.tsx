@@ -28,7 +28,7 @@ export default function MangaImageGallery({ images }: Props) {
               border: 'none', background: '#F8FAFC', padding: 0,
               cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden',
               boxShadow: '0 2px 10px rgba(0,0,0,0.12)',
-              aspectRatio: '4 / 3',
+              aspectRatio: '3 / 4',
               position: 'relative',
               display: 'block',
               width: '100%',
@@ -42,7 +42,7 @@ export default function MangaImageGallery({ images }: Props) {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
+                objectFit: 'contain',
                 display: 'block',
               }}
             />

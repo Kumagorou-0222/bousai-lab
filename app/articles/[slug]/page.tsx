@@ -233,8 +233,8 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
 
-        {/* ④ 4コマ台詞（テキスト版） */}
-        {article.manga && article.manga.panels.length > 0 && (
+        {/* ④ 4コマ台詞（画像がないときだけ表示） */}
+        {article.manga && article.manga.panels.length > 0 && !article.mangaImages?.length && (
           <div>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
