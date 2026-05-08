@@ -62,6 +62,12 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'blackout-what-to-do',
     date: '2026-04-01',
+    mangaImages: [
+      '/manga/blackout-basics/panel-01.png',
+      '/manga/blackout-basics/panel-02.png',
+      '/manga/blackout-basics/panel-03.png',
+      '/manga/blackout-basics/panel-04.png',
+    ],
   },
   {
     slug: 'evacuation-basics',
@@ -82,6 +88,12 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'evacuation-shelter-infection',
     date: '2026-04-01',
+    mangaImages: [
+      '/manga/evacuation-basics/panel-01.png',
+      '/manga/evacuation-basics/panel-02.png',
+      '/manga/evacuation-basics/panel-03.png',
+      '/manga/evacuation-basics/panel-04.png',
+    ],
   },
 ]
 
