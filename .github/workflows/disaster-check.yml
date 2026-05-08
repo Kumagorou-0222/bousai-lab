@@ -2,16 +2,8 @@ name: disaster-check
 
 on:
   schedule:
-    # 5分ごとに実行（UTC）
+    # 5分ごとに実行（UTC）- 時刻ベースルーティングで朝・昼・夜を判定
     - cron: "*/5 * * * *"
-    # 朝08:00 JST（UTC 23:00 前日）
-    - cron: "0 23 * * *"
-    # 昼12:00 JST（UTC 03:00）
-    - cron: "0 3 * * *"
-    # 夜20:00 JST（UTC 11:00）
-    - cron: "0 11 * * *"
-    # 夜21:00 JST（UTC 12:00）定時災害まとめ
-    - cron: "0 12 * * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -69,7 +61,10 @@ jobs:
           AUTO_POST_ENABLED:         ${{ secrets.AUTO_POST_ENABLED }}
         run: |
           MODE="${{ github.event.inputs.mode || 'normal' }}"
-          SCHEDULE="${{ github.event.schedule }}"
+          HOUR=$(date -u +%H)
+          MINUTE=$(date -u +%M)
+
+          echo "[DEBUG] MODE=$MODE HOUR=$HOUR MINUTE=$MINUTE"
 
           if [ "$MODE" = "test-telegram" ]; then
             python debug_feed.py --test-telegram
@@ -88,13 +83,21 @@ jobs:
             python scheduled_post_runner.py noon
           elif [ "$MODE" = "evening" ]; then
             python scheduled_post_runner.py evening --auto-post
-          elif [ "$SCHEDULE" = "0 23 * * *" ]; then
+          elif [ "$HOUR" = "23" ] && [ "$MINUTE" -lt "5" ]; then
+            # 朝08:00 JST = UTC 23:00
+            echo "[SLOT] morning"
             python scheduled_post_runner.py morning --auto-post
-          elif [ "$SCHEDULE" = "0 3 * * *" ]; then
+          elif [ "$HOUR" = "03" ] && [ "$MINUTE" -lt "5" ]; then
+            # 昼12:00 JST = UTC 03:00
+            echo "[SLOT] noon"
             python scheduled_post_runner.py noon
-          elif [ "$SCHEDULE" = "0 11 * * *" ]; then
+          elif [ "$HOUR" = "11" ] && [ "$MINUTE" -lt "5" ]; then
+            # 夜20:00 JST = UTC 11:00
+            echo "[SLOT] evening"
             python scheduled_post_runner.py evening --auto-post
-          elif [ "$SCHEDULE" = "0 12 * * *" ]; then
+          elif [ "$HOUR" = "12" ] && [ "$MINUTE" -lt "5" ]; then
+            # 夜21:00 JST = UTC 12:00 定時災害まとめ
+            echo "[SLOT] daily-summary"
             python daily_summary.py
           else
             python main.py
