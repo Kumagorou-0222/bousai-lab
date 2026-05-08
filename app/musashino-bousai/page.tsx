@@ -828,12 +828,21 @@ export default function MusashinoBousaiPage() {
                 🩺 武蔵野市在住・現役勤務医師 ／ 🏢 武蔵野市マンションオーナー<br />
                 武蔵野市在住だからこそわかる地域の防災事情を発信。
               </div>
-              <Link href="/about" style={{
-                fontSize: 12, color: '#2563EB', fontWeight: 700,
-                textDecoration: 'none', marginTop: 6, display: 'inline-block',
-              }}>
-                詳しいプロフィール →
-              </Link>
+              <div style={{ display: 'flex', gap: 10, marginTop: 8, flexWrap: 'wrap' }}>
+                <Link href="/about" style={{
+                  fontSize: 12, color: '#2563EB', fontWeight: 700,
+                  textDecoration: 'none',
+                }}>
+                  詳しいプロフィール →
+                </Link>
+                <a href="https://x.com/zaitaku_bousai" target="_blank" rel="noopener noreferrer" style={{
+                  fontSize: 12, color: '#0F172A', fontWeight: 700,
+                  textDecoration: 'none',
+                  display: 'inline-flex', alignItems: 'center', gap: 4,
+                }}>
+                  𝕏 @zaitaku_bousai →
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -4,41 +4,47 @@ import { getArticlesByCategory } from '@/lib/articles'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
-  title: '避難ってどうすればいい？完全ガイド｜防災Lab',
+  title: '避難ってどうすればいい？【在宅避難・持ち物・タイミング完全ガイド】',
   description:
-    'どこに逃げる？何を持っていく？家にいた方が安全？避難の基本・持ち物リスト・タイミングをわかりやすく解説。在宅避難のための実践ガイド。',
+    '災害時、避難所に行くべきか・家に残るべきか。避難のタイミング・持ち物リスト・在宅避難の判断基準を現役医師が解説。家族を守る正しい備えがわかります。',
   alternates: { canonical: 'https://bousai-lab.vercel.app/category/evacuation' },
   openGraph: {
     title: '避難ってどうすればいい？完全ガイド｜防災Lab',
-    description: '避難の基本・持ち物・タイミング・在宅避難まで全部わかる。',
+    description: '避難所に行くべきか・在宅避難か。持ち物・タイミング・判断基準がすべてわかる。',
     url: 'https://bousai-lab.vercel.app/category/evacuation',
   },
 }
 
+const accent = '#16A34A'
+const accentBg = '#F0FDF4'
+const accentLight = '#BBF7D0'
+
 const GUIDE_CARDS = [
   {
-    title: '【結論】在宅避難が最強な理由',
-    desc: '避難所に行くべき人・行かない方がいい人がわかる',
+    title: '【結論】在宅避難が向いているケース',
+    desc: '避難所に行くべき人・家に残れる人の違いがわかる',
     href: '/home-evacuation',
     emoji: '🏠',
   },
   {
-    title: '【完全版】避難持ち物リスト',
-    desc: 'これだけ準備すればOK',
+    title: '【完全版】避難の持ち物リスト',
+    desc: 'これだけ準備すればOK。家族向けの基本セット',
     href: '/evacuation-items',
     emoji: '🎒',
   },
   {
     title: '【重要】避難のタイミング',
-    desc: '遅れると命に関わる判断基準',
+    desc: '遅れると危険。判断を間違えないための基準',
     href: '/evacuation-timing',
     emoji: '⏰',
   },
+  {
+    title: '避難所での感染症対策',
+    desc: '避難先で体調を崩さないために知っておきたいこと',
+    href: '/articles/evacuation-shelter-infection',
+    emoji: '🏥',
+  },
 ]
-
-const accent = '#16A34A'
-const accentBg = '#F0FDF4'
-const accentLight = '#BBF7D0'
 
 export default function EvacuationCategoryPage() {
   const existingArticles = getArticlesByCategory('evacuation')
@@ -88,7 +94,40 @@ export default function EvacuationCategoryPage() {
           「家にいた方が安全？」
         </p>
         <p style={{ color: '#4ADE80', fontWeight: 700, fontSize: 14, margin: 0 }}>
-          👉 この記事を読めば全部わかります
+          👉 このページを読めば、避難の基本がすぐわかります
+        </p>
+      </section>
+
+      {/* ===== 実例・危機感ブロック ===== */}
+      <section style={{
+        background: '#FFF4F4',
+        border: '1.5px solid #FECACA',
+        borderLeft: '4px solid #DC2626',
+        borderRadius: 14,
+        padding: '20px 22px',
+        marginBottom: 24,
+      }}>
+        <h2 style={{ fontSize: 15, fontWeight: 700, color: '#7F1D1D', marginBottom: 12 }}>
+          ⚠️ 実際に多いケース
+        </h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: '🚨', text: '避難が遅れて孤立する' },
+            { icon: '💧', text: '水がなくなる' },
+            { icon: '🚽', text: 'トイレが使えない' },
+            { icon: '🤒', text: '避難所で体調を崩す' },
+          ].map((item) => (
+            <div key={item.text} style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              fontSize: 13, color: '#7F1D1D',
+            }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{item.icon}</span>
+              <span style={{ fontWeight: 600 }}>{item.text}</span>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: 13, color: '#991B1B', fontWeight: 700, margin: 0 }}>
+          👉 正しい準備と判断で防げます
         </p>
       </section>
 
@@ -104,10 +143,10 @@ export default function EvacuationCategoryPage() {
         gap: 10,
       }}>
         <div style={{ fontSize: 13, color: '#1A1A1A', lineHeight: 1.7 }}>
-          🤖 <strong>レスQロボ：</strong>「避難は"早すぎる"より<strong>"遅れる"方が危険</strong>だ」
+          🐻 <strong>くまごろう：</strong>「避難は<strong>"早すぎる"より"遅れる"方が危険</strong>なことが多い」
         </div>
         <div style={{ fontSize: 13, color: '#1A1A1A', lineHeight: 1.7 }}>
-          🐿 <strong>防災リス：</strong>「何を持って出ればいいの？」
+          🐿 <strong>防災リス：</strong>「えっ、じゃあ何を持って、いつ動けばいいの？」
         </div>
       </section>
 
@@ -117,16 +156,16 @@ export default function EvacuationCategoryPage() {
         border: '1.5px solid #E2E8F0',
         borderRadius: 14,
         padding: '20px 22px',
-        marginBottom: 32,
+        marginBottom: 28,
       }}>
         <h2 style={{ fontSize: 15, fontWeight: 700, color: '#0F172A', marginBottom: 14 }}>
           👇 初めての人はここから
         </h2>
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
           {[
-            { label: '① 避難の基本', href: '/evacuation-basics' },
-            { label: '② 在宅避難という選択', href: '/home-evacuation' },
-            { label: '③ 持ち物リスト', href: '/evacuation-items' },
+            { label: '① 避難の基本（避難とは何か）', href: '/evacuation-basics' },
+            { label: '② 在宅避難という選択（避難所に行かない判断）', href: '/home-evacuation' },
+            { label: '③ 持ち物リスト（家族を守る備え）', href: '/evacuation-items' },
           ].map((item) => (
             <li key={item.href} style={{ fontSize: 14, color: '#334155', lineHeight: 1.5 }}>
               <Link href={item.href} style={{ color: accent, fontWeight: 700, textDecoration: 'none' }}>
@@ -140,7 +179,7 @@ export default function EvacuationCategoryPage() {
       {/* ===== 記事カード ===== */}
       <section style={{ marginBottom: 32 }}>
         <h2 style={{ fontSize: 16, fontWeight: 700, color: '#0F172A', marginBottom: 14 }}>
-          📚 避難を学ぶ
+          📚 避難を学ぶ — 災害時に何をする？
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {GUIDE_CARDS.map((card, i) => (
@@ -230,6 +269,46 @@ export default function EvacuationCategoryPage() {
         </section>
       )}
 
+      {/* ===== X導線 ===== */}
+      <section style={{ marginBottom: 28 }}>
+        <a
+          href="https://x.com/zaitaku_bousai"
+          target="_blank" rel="noopener noreferrer"
+          style={{ textDecoration: 'none' }}
+        >
+          <div style={{
+            background: 'linear-gradient(135deg, #0F172A, #1E293B)',
+            border: '1.5px solid #334155',
+            borderRadius: 16,
+            padding: '18px 22px',
+            display: 'flex', alignItems: 'center', gap: 16,
+          }}>
+            <div style={{
+              width: 44, height: 44, background: 'black',
+              borderRadius: 12, display: 'flex', alignItems: 'center',
+              justifyContent: 'center', fontSize: 22, flexShrink: 0,
+            }}>
+              𝕏
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 700, fontSize: 13, color: 'white', marginBottom: 4 }}>
+                防災ラボ｜在宅避難 @zaitaku_bousai
+              </div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6 }}>
+                速報＋実用情報を毎日発信。災害当日の行動指針はXで確認。
+              </div>
+            </div>
+            <div style={{
+              background: 'white', color: '#0F172A',
+              borderRadius: 20, padding: '7px 14px',
+              fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap', flexShrink: 0,
+            }}>
+              フォローする
+            </div>
+          </div>
+        </a>
+      </section>
+
       {/* ===== マンガ導線 ===== */}
       <section style={{ marginBottom: 28 }}>
         <Link href="/manga/evacuation-basics" style={{ textDecoration: 'none' }}>
@@ -270,14 +349,17 @@ export default function EvacuationCategoryPage() {
         marginBottom: 28,
         textAlign: 'center',
       }}>
-        <h2 style={{ color: '#FFD000', fontSize: 16, fontWeight: 700, marginBottom: 16 }}>
+        <h2 style={{ color: '#FFD000', fontSize: 16, fontWeight: 700, marginBottom: 8 }}>
           👇 今すぐ準備する
         </h2>
+        <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, marginBottom: 16 }}>
+          備えた人だけが落ち着いて動ける
+        </p>
         <div style={{
           display: 'flex', justifyContent: 'center', gap: 8,
           flexWrap: 'wrap', marginBottom: 20,
         }}>
-          {['防災リュック', 'ポータブル電源', '飲料水', '携帯トイレ'].map((item) => (
+          {['防災リュック', '飲料水', '携帯トイレ', 'モバイルバッテリー', 'ポータブル電源'].map((item) => (
             <span key={item} style={{
               background: 'rgba(255,208,0,0.12)',
               border: '1px solid rgba(255,208,0,0.3)',
@@ -316,7 +398,7 @@ export default function EvacuationCategoryPage() {
           padding: '16px 18px', borderRadius: 14,
           fontSize: 13, lineHeight: 1.7, color: '#1A1A1A',
         }}>
-          🤖 <strong>レスQロボ：</strong><br />「"備えた人"だけが助かる」
+          🐻 <strong>くまごろう：</strong><br />「"備えた人"だけが落ち着いて動ける」
         </div>
       </section>
 
