@@ -13,6 +13,7 @@ export type MangaData = {
   points: string[]
   articleSlug: string
   date: string
+  mangaImages?: string[]
 }
 
 export const MANGA_LIST: MangaData[] = [
@@ -35,6 +36,12 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'earthquake-elevator',
     date: '2026-04-01',
+    mangaImages: [
+      '/manga/earthquake-elevator/panel-01.png',
+      '/manga/earthquake-elevator/panel-02.png',
+      '/manga/earthquake-elevator/panel-03.png',
+      '/manga/earthquake-elevator/panel-04.png',
+    ],
   },
   {
     slug: 'blackout-basics',

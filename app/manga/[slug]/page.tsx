@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { MANGA_LIST, getMangaBySlug } from '@/lib/manga'
 import Breadcrumb from '@/components/Breadcrumb'
+import MangaImageGallery from '@/components/MangaImageGallery'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -138,63 +139,69 @@ export default async function MangaPage({ params }: Props) {
           <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11, marginLeft: 'auto' }}>4コマ漫画</span>
         </div>
 
-        <div style={{
-          display: 'grid', gridTemplateColumns: '1fr 1fr',
-          gap: 3, background: '#CBD5E1', padding: 3,
-        }}>
-          {manga.panels.map((panel, i) => {
-            const char = CHAR[panel.character]
-            const isRobot = panel.character === 'robot'
-            return (
-              <div key={i} style={{
-                background: 'white',
-                padding: '20px 14px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: isRobot ? 'flex-end' : 'flex-start',
-                gap: 10,
-                minHeight: 180,
-                position: 'relative',
-              }}>
-                <div style={{
-                  position: 'absolute', top: 10,
-                  left: isRobot ? 'auto' : 10,
-                  right: isRobot ? 10 : 'auto',
-                  width: 22, height: 22, borderRadius: '50%',
-                  background: '#1E40AF', color: 'white',
-                  fontSize: 12, fontWeight: 800,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+        {manga.mangaImages && manga.mangaImages.length > 0 ? (
+          <div style={{ padding: 12 }}>
+            <MangaImageGallery images={manga.mangaImages} />
+          </div>
+        ) : (
+          <div style={{
+            display: 'grid', gridTemplateColumns: '1fr 1fr',
+            gap: 3, background: '#CBD5E1', padding: 3,
+          }}>
+            {manga.panels.map((panel, i) => {
+              const char = CHAR[panel.character]
+              const isRobot = panel.character === 'robot'
+              return (
+                <div key={i} style={{
+                  background: 'white',
+                  padding: '20px 14px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: isRobot ? 'flex-end' : 'flex-start',
+                  gap: 10,
+                  minHeight: 180,
+                  position: 'relative',
                 }}>
-                  {i + 1}
-                </div>
+                  <div style={{
+                    position: 'absolute', top: 10,
+                    left: isRobot ? 'auto' : 10,
+                    right: isRobot ? 10 : 'auto',
+                    width: 22, height: 22, borderRadius: '50%',
+                    background: '#1E40AF', color: 'white',
+                    fontSize: 12, fontWeight: 800,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    {i + 1}
+                  </div>
 
-                <div style={{
-                  width: 60, height: 60, borderRadius: char.charRadius,
-                  background: char.charBg,
-                  overflow: 'hidden',
-                  boxShadow: char.charShadow,
-                  marginTop: 14,
-                }}>
-                  <img src={char.img} alt={panel.character === 'riss' ? '防災リス' : 'レスQロボ'} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                </div>
+                  <div style={{
+                    width: 60, height: 60, borderRadius: char.charRadius,
+                    background: char.charBg,
+                    overflow: 'hidden',
+                    boxShadow: char.charShadow,
+                    marginTop: 14,
+                  }}>
+                    <img src={char.img} alt={panel.character === 'riss' ? '防災リス' : 'レスQロボ'} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                  </div>
 
-                <div style={{
-                  background: char.bubbleBg,
-                  border: `2px solid ${char.bubbleBorder}`,
-                  borderRadius: 12,
-                  padding: '10px 12px',
-                  fontSize: 13, lineHeight: 1.6,
-                  fontWeight: char.fontWeight,
-                  color: char.textColor,
-                  width: '100%',
-                  boxSizing: 'border-box',
-                }}>
-                  {panel.text}
+                  <div style={{
+                    background: char.bubbleBg,
+                    border: `2px solid ${char.bubbleBorder}`,
+                    borderRadius: 12,
+                    padding: '10px 12px',
+                    fontSize: 13, lineHeight: 1.6,
+                    fontWeight: char.fontWeight,
+                    color: char.textColor,
+                    width: '100%',
+                    boxSizing: 'border-box',
+                  }}>
+                    {panel.text}
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        )}
       </div>
 
       {/* 要点まとめ */}
