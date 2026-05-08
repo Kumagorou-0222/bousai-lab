@@ -1,0 +1,74 @@
+name: scheduled-posts
+
+on:
+  schedule:
+    # 朝08:00 JST（UTC 23:00 前日）
+    - cron: "0 23 * * *"
+    # 昼12:00 JST（UTC 03:00）
+    - cron: "0 3 * * *"
+    # 夜20:00 JST（UTC 11:00）
+    - cron: "0 11 * * *"
+    # 夜21:00 JST（UTC 12:00）定時災害まとめ
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: "スロット"
+        required: true
+        default: "morning"
+        type: choice
+        options:
+          - morning       # 朝の保存系投稿
+          - noon          # 昼のストーリー投稿
+          - evening       # 夜のまとめ投稿
+          - daily-summary # 定時災害まとめ
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: disaster-bot
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scheduled post
+        env:
+          TELEGRAM_BOT_TOKEN:    ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:      ${{ secrets.TELEGRAM_CHAT_ID }}
+          X_CONSUMER_KEY:        ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET:     ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          SLOT="${{ github.event.inputs.slot }}"
+
+          if [ -n "$SLOT" ]; then
+            # workflow_dispatch による手動実行
+            case "$SLOT" in
+              morning)       python scheduled_post_runner.py morning --auto-post ;;
+              noon)          python scheduled_post_runner.py noon ;;
+              evening)       python scheduled_post_runner.py evening --auto-post ;;
+              daily-summary) python daily_summary.py ;;
+            esac
+          else
+            # schedule による自動実行: UTC時刻でスロットを判定
+            UTC_HOUR=$(date -u +%H)
+            echo "[scheduled-posts] UTC_HOUR=$UTC_HOUR"
+            case "$UTC_HOUR" in
+              23) python scheduled_post_runner.py morning --auto-post ;;
+              03) python scheduled_post_runner.py noon ;;
+              11) python scheduled_post_runner.py evening --auto-post ;;
+              12) python daily_summary.py ;;
+              *)  echo "[SKIP] 予期しない時刻: $UTC_HOUR" ;;
+            esac
+          fi

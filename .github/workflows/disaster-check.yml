@@ -4,14 +4,6 @@ on:
   schedule:
     # 5分ごとに実行（UTC）
     - cron: "*/5 * * * *"
-    # 朝08:00 JST（UTC 23:00 前日）
-    - cron: "0 23 * * *"
-    # 昼12:00 JST（UTC 03:00）
-    - cron: "0 3 * * *"
-    # 夜20:00 JST（UTC 11:00）
-    - cron: "0 11 * * *"
-    # 夜21:00 JST（UTC 12:00）定時災害まとめ
-    - cron: "0 12 * * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -25,10 +17,6 @@ on:
           - test-keywords # キーワードマッチングのテスト（全角/半角）
           - debug-feed    # フィード内容を表示（通知なし）
           - reset-db      # seen_entries.db をリセットして通常実行
-          - daily-summary # 定時災害まとめを手動送信
-          - morning       # 朝の保存系投稿案を手動送信
-          - noon          # 昼のストーリー投稿案を手動送信
-          - evening       # 夜のまとめ投稿案を手動送信
 
 jobs:
   run:
@@ -69,7 +57,6 @@ jobs:
           AUTO_POST_ENABLED:         ${{ secrets.AUTO_POST_ENABLED }}
         run: |
           MODE="${{ github.event.inputs.mode || 'normal' }}"
-          SCHEDULE="${{ github.event.schedule }}"
 
           if [ "$MODE" = "test-telegram" ]; then
             python debug_feed.py --test-telegram
@@ -80,22 +67,6 @@ jobs:
           elif [ "$MODE" = "reset-db" ]; then
             python debug_feed.py --reset-db
             python main.py
-          elif [ "$MODE" = "daily-summary" ]; then
-            python daily_summary.py
-          elif [ "$MODE" = "morning" ]; then
-            python scheduled_post_runner.py morning --auto-post
-          elif [ "$MODE" = "noon" ]; then
-            python scheduled_post_runner.py noon
-          elif [ "$MODE" = "evening" ]; then
-            python scheduled_post_runner.py evening --auto-post
-          elif [ "$SCHEDULE" = "0 23 * * *" ]; then
-            python scheduled_post_runner.py morning --auto-post
-          elif [ "$SCHEDULE" = "0 3 * * *" ]; then
-            python scheduled_post_runner.py noon
-          elif [ "$SCHEDULE" = "0 11 * * *" ]; then
-            python scheduled_post_runner.py evening --auto-post
-          elif [ "$SCHEDULE" = "0 12 * * *" ]; then
-            python daily_summary.py
           else
             python main.py
           fi
