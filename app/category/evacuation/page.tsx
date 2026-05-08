@@ -5,21 +5,25 @@ import Breadcrumb from '@/components/Breadcrumb'
 import CategoryHero from '@/components/CategoryHero'
 
 export const metadata: Metadata = {
-  title: '避難ってどうすればいい？完全ガイド｜防災Lab',
+  title: '避難ってどうすればいい？【在宅避難・持ち物・タイミング完全ガイド】',
   description:
-    'どこに逃げる？何を持っていく？家にいた方が安全？避難の基本・持ち物リスト・タイミングをわかりやすく解説。在宅避難のための実践ガイド。',
+    '災害時、避難所に行くべきか・家に残るべきか。避難のタイミング・持ち物リスト・在宅避難の判断基準を現役医師が解説。家族を守る正しい備えがわかります。',
   alternates: { canonical: 'https://bousai-lab.vercel.app/category/evacuation' },
   openGraph: {
     title: '避難ってどうすればいい？完全ガイド｜防災Lab',
-    description: '避難の基本・持ち物・タイミング・在宅避難まで全部わかる。',
+    description: '避難所に行くべきか・在宅避難か。持ち物・タイミング・判断基準がすべてわかる。',
     url: 'https://bousai-lab.vercel.app/category/evacuation',
   },
 }
 
+const accent = '#16A34A'
+const accentBg = '#F0FDF4'
+const accentLight = '#BBF7D0'
+
 const GUIDE_CARDS = [
   {
-    title: '【結論】在宅避難が最強な理由',
-    desc: '避難所に行くべき人・行かない方がいい人がわかる',
+    title: '【結論】在宅避難が向いているケース',
+    desc: '避難所に行くべき人・家に残れる人の違いがわかる',
     href: '/home-evacuation',
     emoji: '🏠',
   },
@@ -35,11 +39,13 @@ const GUIDE_CARDS = [
     href: '/articles/evacuation-bag',
     emoji: '🎒',
   },
+  {
+    title: '避難所での感染症対策',
+    desc: '避難先で体調を崩さないために知っておきたいこと',
+    href: '/articles/evacuation-shelter-infection',
+    emoji: '🏥',
+  },
 ]
-
-const accent = '#16A34A'
-const accentBg = '#F0FDF4'
-const accentLight = '#BBF7D0'
 
 export default function EvacuationCategoryPage() {
   const existingArticles = getArticlesByCategory('evacuation')
@@ -193,16 +199,62 @@ export default function EvacuationCategoryPage() {
         </section>
       )}
 
+      {/* X導線 */}
+      <section style={{ marginBottom: 28 }}>
+        <a
+          href="https://x.com/zaitaku_bousai"
+          target="_blank" rel="noopener noreferrer"
+          style={{ textDecoration: 'none' }}
+        >
+          <div style={{
+            background: 'linear-gradient(135deg, #0F172A, #1E293B)',
+            border: '1.5px solid #334155',
+            borderRadius: 16,
+            padding: '18px 22px',
+            display: 'flex', alignItems: 'center', gap: 16,
+          }}>
+            <div style={{
+              width: 44, height: 44, background: 'black',
+              borderRadius: 12, display: 'flex', alignItems: 'center',
+              justifyContent: 'center', fontSize: 22, flexShrink: 0,
+            }}>
+              𝕏
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 700, fontSize: 13, color: 'white', marginBottom: 4 }}>
+                防災ラボ｜在宅避難 @zaitaku_bousai
+              </div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6 }}>
+                速報＋実用情報を毎日発信。災害当日の行動指針はXで確認。
+              </div>
+            </div>
+            <div style={{
+              background: 'white', color: '#0F172A',
+              borderRadius: 20, padding: '7px 14px',
+              fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap', flexShrink: 0,
+            }}>
+              フォローする
+            </div>
+          </div>
+        </a>
+      </section>
+
       {/* CTA（収益導線） */}
       <section style={{
         background: 'linear-gradient(160deg, #0D0D1A, #0A1A3A)',
         borderRadius: 20, padding: '28px 24px', marginBottom: 28, textAlign: 'center',
       }}>
-        <h2 style={{ color: '#FFD000', fontSize: 16, fontWeight: 700, marginBottom: 16 }}>
+        <h2 style={{ color: '#FFD000', fontSize: 16, fontWeight: 700, marginBottom: 8 }}>
           👇 今すぐ準備する
         </h2>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
-          {['防災リュック', 'ポータブル電源', '飲料水', '携帯トイレ'].map((item) => (
+        <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, marginBottom: 16 }}>
+          備えた人だけが落ち着いて動ける
+        </p>
+        <div style={{
+          display: 'flex', justifyContent: 'center', gap: 8,
+          flexWrap: 'wrap', marginBottom: 20,
+        }}>
+          {['防災リュック', '飲料水', '携帯トイレ', 'モバイルバッテリー', 'ポータブル電源'].map((item) => (
             <span key={item} style={{
               background: 'rgba(255,208,0,0.12)',
               border: '1px solid rgba(255,208,0,0.3)',

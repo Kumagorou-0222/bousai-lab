@@ -254,7 +254,7 @@ export default function HomePage() {
       </section>
 
       {/* サブリンク */}
-      <section style={{ maxWidth: 800, margin: '0 auto', padding: '12px 16px 32px' }}>
+      <section style={{ maxWidth: 800, margin: '0 auto', padding: '12px 16px 16px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
           <Link href="/category/disaster-prep" style={{ textDecoration: 'none' }}>
             <div style={{
@@ -288,6 +288,44 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* X導線 */}
+      <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 28px' }}>
+        <a
+          href="https://x.com/zaitaku_bousai"
+          target="_blank" rel="noopener noreferrer"
+          style={{ textDecoration: 'none' }}
+        >
+          <div style={{
+            background: 'linear-gradient(135deg, #0F172A, #1E293B)',
+            border: '1.5px solid #334155',
+            borderRadius: 12, padding: '14px 18px',
+            display: 'flex', alignItems: 'center', gap: 12,
+          }}>
+            <div style={{
+              width: 38, height: 38, background: 'black',
+              borderRadius: 10, display: 'flex', alignItems: 'center',
+              justifyContent: 'center', color: 'white', fontWeight: 900,
+              fontSize: 16, flexShrink: 0, letterSpacing: '-1px',
+            }}>𝕏</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 700, fontSize: 12, color: 'white', marginBottom: 2 }}>
+                防災ラボ｜在宅避難 @zaitaku_bousai
+              </div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>
+                速報・実用情報を毎日発信。災害当日の行動指針はXで。
+              </div>
+            </div>
+            <div style={{
+              background: 'white', color: '#0F172A',
+              borderRadius: 20, padding: '6px 12px',
+              fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap', flexShrink: 0,
+            }}>
+              フォロー
+            </div>
+          </div>
+        </a>
+      </section>
+
       {/* 監修者 */}
       <section style={{
         background: 'linear-gradient(160deg, #0D0D1A, #0A1A3A)',
@@ -315,14 +353,25 @@ export default function HomePage() {
           <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, lineHeight: 1.6, marginBottom: 18 }}>
             武蔵野市在住の現役勤務医師・マンションオーナー
           </p>
-          <Link href="/about" style={{
-            background: 'rgba(255,255,255,0.1)', color: 'white',
-            border: '1px solid rgba(255,255,255,0.2)',
-            padding: '9px 22px', borderRadius: 50,
-            textDecoration: 'none', fontSize: 12, fontWeight: 700,
-          }}>
-            プロフィールを見る
-          </Link>
+          <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/about" style={{
+              background: 'rgba(255,255,255,0.1)', color: 'white',
+              border: '1px solid rgba(255,255,255,0.2)',
+              padding: '9px 22px', borderRadius: 50,
+              textDecoration: 'none', fontSize: 12, fontWeight: 700,
+            }}>
+              プロフィールを見る
+            </Link>
+            <a href="https://x.com/zaitaku_bousai" target="_blank" rel="noopener noreferrer" style={{
+              background: 'black', color: 'white',
+              border: '1px solid rgba(255,255,255,0.15)',
+              padding: '9px 22px', borderRadius: 50,
+              textDecoration: 'none', fontSize: 12, fontWeight: 700,
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+            }}>
+              𝕏 フォローする
+            </a>
+          </div>
         </div>
       </section>
     </>
