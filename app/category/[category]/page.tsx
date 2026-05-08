@@ -117,6 +117,26 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </div>
 
+      {/* 武蔵野市バナー（上部） */}
+      <Link href="/musashino" style={{
+        display: 'flex', alignItems: 'center', gap: 12,
+        background: 'linear-gradient(135deg, #FFFBEB, #FEF3C7)',
+        border: '1.5px solid #FCD34D',
+        borderRadius: 12, padding: '12px 16px',
+        textDecoration: 'none', marginBottom: 20,
+      }}>
+        <span style={{ fontSize: 16, flexShrink: 0 }}>📍</span>
+        <div style={{ flex: 1 }}>
+          <span style={{ fontSize: 11, color: '#92400E', fontWeight: 700 }}>
+            武蔵野市在住の方へ ―
+          </span>
+          <span style={{ fontSize: 13, color: '#78350F', fontWeight: 800, marginLeft: 6 }}>
+            武蔵野市の場合を見る →
+          </span>
+        </div>
+        <span style={{ color: '#D97706', fontSize: 16, flexShrink: 0 }}>›</span>
+      </Link>
+
       {/* 今すぐやること3つ — 最上部強調 */}
       {urgentActions && (
         <section style={{ marginBottom: 28 }}>
@@ -262,6 +282,28 @@ export default async function CategoryPage({ params }: Props) {
             ))}
           </div>
         )}
+      </section>
+
+      {/* 武蔵野市バナー */}
+      <section style={{ marginTop: 32 }}>
+        <Link href="/musashino" style={{
+          display: 'flex', alignItems: 'center', gap: 14,
+          background: 'linear-gradient(135deg, #1A1A2E 0%, #0F3460 100%)',
+          borderRadius: 16, padding: '16px 20px',
+          textDecoration: 'none',
+          boxShadow: '0 4px 16px rgba(15,52,96,0.3)',
+        }}>
+          <div style={{ fontSize: 28, flexShrink: 0 }}>📍</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 11, color: '#FFD000', fontWeight: 700, marginBottom: 3, letterSpacing: '0.05em' }}>
+              武蔵野市在住の方へ
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 800, color: 'white', lineHeight: 1.4 }}>
+              武蔵野市の地域情報・避難所・在宅避難ガイド
+            </div>
+          </div>
+          <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: 20, flexShrink: 0 }}>›</span>
+        </Link>
       </section>
 
       {/* 他のカテゴリ */}

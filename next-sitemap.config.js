@@ -8,5 +8,43 @@ module.exports = {
     policies: [
       { userAgent: '*', allow: '/' },
     ],
+    additionalSitemaps: [
+      'https://bousai-lab.vercel.app/sitemap.xml',
+    ],
+  },
+  transform: async (config, path) => {
+    // トップページ
+    if (path === '/') {
+      return { loc: path, changefreq: 'daily', priority: 1.0, lastmod: new Date().toISOString() }
+    }
+    // カテゴリページ
+    if (path.startsWith('/category/')) {
+      return { loc: path, changefreq: 'weekly', priority: 0.9, lastmod: new Date().toISOString() }
+    }
+    // 記事ページ
+    if (path.startsWith('/articles/')) {
+      return { loc: path, changefreq: 'monthly', priority: 0.8, lastmod: new Date().toISOString() }
+    }
+    // 武蔵野市ハブ（最重要ローカルページ）
+    if (path === '/musashino') {
+      return { loc: path, changefreq: 'weekly', priority: 0.9, lastmod: new Date().toISOString() }
+    }
+    if (path.startsWith('/musashino-bousai')) {
+      return { loc: path, changefreq: 'weekly', priority: 0.85, lastmod: new Date().toISOString() }
+    }
+    // チェックリスト
+    if (path.startsWith('/checklist')) {
+      return { loc: path, changefreq: 'monthly', priority: 0.82, lastmod: new Date().toISOString() }
+    }
+    // おすすめ防災グッズ
+    if (path.startsWith('/best-disaster-items')) {
+      return { loc: path, changefreq: 'monthly', priority: 0.8, lastmod: new Date().toISOString() }
+    }
+    // まんがページ
+    if (path.startsWith('/manga')) {
+      return { loc: path, changefreq: 'monthly', priority: 0.75, lastmod: new Date().toISOString() }
+    }
+    // その他
+    return { loc: path, changefreq: config.changefreq, priority: config.priority, lastmod: new Date().toISOString() }
   },
 }

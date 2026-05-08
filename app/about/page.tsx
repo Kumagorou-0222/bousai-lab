@@ -46,9 +46,9 @@ export default function AboutPage() {
           <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16, color: '#FF6B00' }}>🩺 プロフィール</h2>
           <ul style={{ fontSize: 14, lineHeight: 2, color: '#555', paddingLeft: 20 }}>
             <li>武蔵野市在住の現役勤務医師</li>
-            <li>武蔵野市でマンションを経営する大家さん</li>
+            <li>マンションオーナー（1棟）として住民の安全を考える大家さん</li>
             <li>医師として「命を守る防災知識」を発信</li>
-            <li>大家として「自宅を最強の避難場所にする備え」を研究</li>
+            <li>大家として「住民が安全に在宅避難できる備え」を研究</li>
           </ul>
         </div>
 

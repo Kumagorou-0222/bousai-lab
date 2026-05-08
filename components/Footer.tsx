@@ -39,10 +39,13 @@ export default function Footer() {
             { href: '/category/typhoon',    label: '台風対策' },
             { href: '/category/blackout',   label: '停電対策' },
             { href: '/category/evacuation', label: '避難' },
+            { href: '/checklist',           label: '📋 防災チェックリスト', highlight: true },
+            { href: '/best-disaster-items', label: '🎒 おすすめ防災グッズ', highlight: true },
             { href: '/earthquake-items',    label: '地震グッズ' },
             { href: '/blackout-items',      label: '停電グッズ' },
             { href: '/typhoon-items',       label: '台風グッズ' },
-            { href: '/musashino-bousai',    label: '武蔵野市の防災', highlight: true },
+            { href: '/musashino',           label: '📍 武蔵野市の防災', highlight: true },
+            { href: '/musashino-bousai',    label: '武蔵野市 避難所一覧' },
             { href: '/about',               label: '著者について' },
           ].map((item) => (
             <Link key={item.href} href={item.href} style={{

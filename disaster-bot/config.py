@@ -3,6 +3,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# 対象地域フィルター（空リストなら全国対象）
+# 例: ["東京", "神奈川", "埼玉", "千葉"]
+_areas_env = os.getenv("TARGET_AREAS", "")
+TARGET_AREAS: list[str] = [a.strip() for a in _areas_env.split(",") if a.strip()]
+
 # 気象庁XMLフィード
 JMA_EQVOL_FEED = "https://www.data.jma.go.jp/developer/xml/feed/eqvol.xml"
 JMA_REGULAR_FEED = "https://www.data.jma.go.jp/developer/xml/feed/regular.xml"
@@ -27,7 +32,7 @@ X_ACCESS_TOKEN_SECRET = os.getenv("X_ACCESS_TOKEN_SECRET", "")
 # 有効にすると AUTO_POST_KEYWORDS に一致した場合のみX自動投稿
 AUTO_POST_ENABLED = os.getenv("AUTO_POST_ENABLED", "false").lower() == "true"
 
-# 完全自動投稿を許可するキーワード（限定条件のみ）
+# 完全自動投稿を許可するキーワード（重大災害のみ・AUTO_POST_ENABLED=trueの場合に使用）
 AUTO_POST_KEYWORDS = [
     "緊急地震速報",
     "震度5弱",
@@ -38,4 +43,6 @@ AUTO_POST_KEYWORDS = [
     "津波警報",
     "大津波警報",
     "特別警報",
+    "氾濫発生情報",
+    "噴火警報",
 ]

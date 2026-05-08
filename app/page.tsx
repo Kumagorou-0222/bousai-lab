@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CATEGORY_MAP, MAIN_CATEGORIES } from '@/lib/categories'
+import { MANGA_LIST } from '@/lib/manga'
 
 export const metadata: Metadata = {
   title: '防災Lab｜災害が起きたとき今すぐやることチェックリスト',
@@ -176,6 +177,64 @@ export default function HomePage() {
               </Link>
             )
           })}
+        </div>
+      </section>
+
+      {/* マンガで学ぶ防災 */}
+      <section style={{ maxWidth: 800, margin: '0 auto', padding: '16px 16px 0' }}>
+        <div style={{
+          background: 'white', borderRadius: 18, border: '2px solid #E2E8F0',
+          overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #1E40AF, #3B82F6)',
+            padding: '12px 18px',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 18 }}>🎨</span>
+              <span style={{ color: 'white', fontWeight: 800, fontSize: 14 }}>マンガで学ぶ防災</span>
+              <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11 }}>— 4コマ漫画シリーズ</span>
+            </div>
+            <div style={{ display: 'flex', gap: 4 }}>
+              <div style={{
+                width: 24, height: 24, borderRadius: '50%',
+                background: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)',
+                overflow: 'hidden',
+              }}>
+                <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+              <div style={{
+                width: 24, height: 24, borderRadius: 6,
+                background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)',
+                overflow: 'hidden',
+              }}>
+                <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+            </div>
+          </div>
+          <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {MANGA_LIST.map((manga) => (
+              <Link key={manga.slug} href={`/manga/${manga.slug}`} style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                background: '#F8FAFC', borderRadius: 12, padding: '12px 14px',
+                textDecoration: 'none', border: '1px solid #E2E8F0',
+              }}>
+                <span style={{ fontSize: 22, flexShrink: 0 }}>{manga.emoji}</span>
+                <span style={{ flex: 1, fontWeight: 700, fontSize: 13, color: '#0F172A', lineHeight: 1.4 }}>
+                  {manga.title}
+                </span>
+                <span style={{ color: '#3B82F6', fontSize: 16, flexShrink: 0 }}>›</span>
+              </Link>
+            ))}
+            <Link href="/manga" style={{
+              display: 'block', textAlign: 'center',
+              color: '#3B82F6', fontWeight: 700, fontSize: 13,
+              padding: '8px', textDecoration: 'none',
+            }}>
+              すべてのマンガを見る →
+            </Link>
+          </div>
         </div>
       </section>
 
