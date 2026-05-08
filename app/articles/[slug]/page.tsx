@@ -16,6 +16,7 @@ import MangaDialogue from '@/components/MangaDialogue'
 import ReasonsList from '@/components/ReasonsList'
 import MonetizeLinks from '@/components/MonetizeLinks'
 import XPostBox from '@/components/XPostBox'
+import MangaImageGallery from '@/components/MangaImageGallery'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -216,7 +217,23 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
 
-        {/* ③ 4コマ漫画 */}
+        {/* ③ 4コマ画像ギャラリー */}
+        {article.mangaImages && article.mangaImages.length > 0 && (
+          <div style={{ marginBottom: 8 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 12, fontWeight: 700, color: '#64748B',
+              background: '#F8FAFC', border: '1px solid #E2E8F0',
+              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
+            }}>
+              <span>🎨</span>
+              <span>4コマ漫画</span>
+            </div>
+            <MangaImageGallery images={article.mangaImages} />
+          </div>
+        )}
+
+        {/* ④ 4コマ台詞（テキスト版） */}
         {article.manga && article.manga.panels.length > 0 && (
           <div>
             <div style={{
@@ -227,7 +244,6 @@ export default async function ArticlePage({ params }: Props) {
             }}>
               <span>🎬</span>
               <span>4コマで理解</span>
-              {/* 将来的に画像版へ置換しやすい構造 */}
             </div>
             <MangaDialogue panels={article.manga.panels} />
           </div>

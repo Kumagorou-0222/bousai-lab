@@ -383,7 +383,32 @@ export default function MusashinoPage() {
           </div>
         </section>
 
-        {/* 避難所情報へのリンク */}
+        {/* 避難所ガイドへのリンク */}
+        <section style={{ marginBottom: 20 }}>
+          <Link href="/musashino/shelters" style={{
+            display: 'flex', alignItems: 'center', gap: 16,
+            background: 'linear-gradient(135deg, #1A1A2E 0%, #0F3460 100%)',
+            borderRadius: 18, padding: '20px 22px',
+            textDecoration: 'none',
+            boxShadow: '0 4px 16px rgba(15,52,96,0.3)',
+          }}>
+            <div style={{ fontSize: 32, flexShrink: 0 }}>🏫</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 11, color: '#FFD000', fontWeight: 700, marginBottom: 4, letterSpacing: '0.05em' }}>
+                地域SEO強化コンテンツ
+              </div>
+              <div style={{ fontSize: 15, fontWeight: 800, color: 'white', lineHeight: 1.4, marginBottom: 4 }}>
+                武蔵野市の避難所ガイド
+              </div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.65)' }}>
+                学校避難所・在宅避難・持ち物の考え方を解説
+              </div>
+            </div>
+            <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: 22, flexShrink: 0 }}>›</span>
+          </Link>
+        </section>
+
+        {/* 避難所一覧へのリンク */}
         <section style={{
           background: 'linear-gradient(135deg, #EFF6FF, #DBEAFE)',
           border: '2px solid #BFDBFE',
