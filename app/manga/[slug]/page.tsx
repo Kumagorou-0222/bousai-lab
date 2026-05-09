@@ -36,11 +36,13 @@ const CAT_LABEL: Record<string, string> = {
   earthquake: '地震が起きたとき',
   blackout: '停電したとき',
   evacuation: '避難が必要なとき',
+  goods: '防災グッズを知る',
 }
 const CAT_HREF: Record<string, string> = {
   earthquake: '/category/earthquake',
   blackout: '/category/blackout',
   evacuation: '/category/evacuation',
+  goods: '/best-disaster-items',
 }
 
 export async function generateStaticParams() {
