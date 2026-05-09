@@ -51,6 +51,7 @@ jobs:
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
           SLOT="${{ github.event.inputs.slot }}"
+          SCHED="${{ github.event.schedule }}"
 
           if [ -n "$SLOT" ]; then
             # workflow_dispatch による手動実行
@@ -61,14 +62,13 @@ jobs:
               daily-summary) python daily_summary.py ;;
             esac
           else
-            # schedule による自動実行: UTC時刻でスロットを判定
-            UTC_HOUR=$(date -u +%H)
-            echo "[scheduled-posts] UTC_HOUR=$UTC_HOUR"
-            case "$UTC_HOUR" in
-              23) python scheduled_post_runner.py morning --auto-post ;;
-              03) python scheduled_post_runner.py noon ;;
-              11) python scheduled_post_runner.py evening --auto-post ;;
-              12) python daily_summary.py ;;
-              *)  echo "[SKIP] 予期しない時刻: $UTC_HOUR" ;;
+            # schedule による自動実行: cron文字列で判定（UTC時刻は遅延で一致しない場合があるため）
+            echo "[scheduled-posts] triggered by schedule: $SCHED"
+            case "$SCHED" in
+              "0 23 * * *") python scheduled_post_runner.py morning --auto-post ;;
+              "0 3 * * *")  python scheduled_post_runner.py noon ;;
+              "0 11 * * *") python scheduled_post_runner.py evening --auto-post ;;
+              "0 12 * * *") python daily_summary.py ;;
+              *)             echo "[SKIP] 不明なスケジュール: $SCHED" ;;
             esac
           fi

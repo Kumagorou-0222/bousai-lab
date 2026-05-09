@@ -31,6 +31,20 @@ def init_db() -> None:
             logged_at  TEXT DEFAULT (datetime('now', 'localtime'))
         )
     """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS pending_posts (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            post_text  TEXT NOT NULL,
+            executed   INTEGER DEFAULT 0,
+            created_at TEXT DEFAULT (datetime('now', 'localtime'))
+        )
+    """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS meta (
+            key   TEXT PRIMARY KEY,
+            value TEXT
+        )
+    """)
     conn.commit()
     conn.close()
 
@@ -102,3 +116,52 @@ def get_recent_notified_titles(hours: int = 24) -> list[str]:
     rows = cur.fetchall()
     conn.close()
     return rows
+
+
+# ── pending_posts (Telegram確認→X投稿) ───────────────────────────
+
+def add_pending_post(post_text: str) -> None:
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute("INSERT INTO pending_posts (post_text) VALUES (?)", (post_text,))
+    conn.commit()
+    conn.close()
+
+
+def get_pending_posts() -> list[tuple[int, str]]:
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute("SELECT id, post_text FROM pending_posts WHERE executed = 0 ORDER BY id")
+    rows = cur.fetchall()
+    conn.close()
+    return rows
+
+
+def mark_post_executed(post_id: int) -> None:
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute("UPDATE pending_posts SET executed = 1 WHERE id = ?", (post_id,))
+    conn.commit()
+    conn.close()
+
+
+# ── meta (getUpdates オフセット管理) ─────────────────────────────
+
+def get_last_update_id() -> int | None:
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute("SELECT value FROM meta WHERE key = 'last_update_id'")
+    row = cur.fetchone()
+    conn.close()
+    return int(row[0]) if row else None
+
+
+def set_last_update_id(update_id: int) -> None:
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT OR REPLACE INTO meta (key, value) VALUES ('last_update_id', ?)",
+        (str(update_id),),
+    )
+    conn.commit()
+    conn.close()

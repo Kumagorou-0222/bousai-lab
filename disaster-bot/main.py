@@ -21,6 +21,7 @@ from notifiers.discord import notify_discord
 from notifiers.telegram_notify import notify_telegram
 from notifiers.error_notify import notify_error
 from posters.x_poster import post_to_x
+from posters.telegram_commander import check_and_execute_commands
 from storage.state import (
     init_db, has_seen, mark_seen, log_notify, log_error,
     get_last_notify_time, is_update_entry, get_recent_notified_titles,
@@ -45,6 +46,8 @@ def _within_rate_limit() -> bool:
 
 def main() -> None:
     init_db()
+    # Telegramで「投稿」返信があれば pending_posts を X に投稿する
+    check_and_execute_commands()
     try:
         entries = fetch_all_entries()
     except RuntimeError as e:
@@ -96,12 +99,14 @@ def main() -> None:
             x_post = f"{update_prefix}\n{x_post}"
         telegram_msg = build_telegram_message(title, full_text, level=level)
 
-        # レベル2以上のみXボタンを付ける
-        x_intent_url = build_x_intent_url(x_post) if level >= 2 else ""
-
         # Telegram通知
+        # レベル3 + AUTO_POST_ENABLED は自動投稿。それ以外はXボタン + pending保存→「投稿」返信待ち
+        auto_post = AUTO_POST_ENABLED and level >= 3 and is_auto_post_entry(title, full_text)
+        x_intent_url = build_x_intent_url(x_post) if level >= 2 else ""
+        pending_text = "" if auto_post else x_post
+
         try:
-            notify_telegram(telegram_msg, x_intent_url)
+            notify_telegram(telegram_msg, x_intent_url=x_intent_url, pending_post_text=pending_text)
         except Exception as e:
             notify_error("Telegram送信失敗", e)
             log_error("telegram", str(e))
@@ -113,15 +118,14 @@ def main() -> None:
         log_notify(entry_id, title, level, x_post)
         notified += 1
 
-        # レベル3 + AUTO_POST_ENABLED のみ自動投稿
-        if AUTO_POST_ENABLED and level >= 3 and is_auto_post_entry(title, full_text):
+        if auto_post:
             try:
                 post_to_x(x_post)
             except Exception as e:
                 notify_error("X投稿失敗", e)
                 log_error("x_post", str(e))
         else:
-            print(f"[X投稿] レベル{level} — Telegramで確認後Xへ手動投稿してください")
+            print(f"[X投稿] レベル{level} — Telegramで「投稿」と返信するとXへ投稿します")
 
         mark_seen(entry_id)
 
