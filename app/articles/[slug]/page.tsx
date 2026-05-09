@@ -18,6 +18,8 @@ import MonetizeLinks from '@/components/MonetizeLinks'
 import XPostBox from '@/components/XPostBox'
 import MangaImageGallery from '@/components/MangaImageGallery'
 import SeriesNav from '@/components/SeriesNav'
+import ComparisonTable from '@/components/ComparisonTable'
+import { getProductByMangaSlug } from '@/lib/products'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -83,6 +85,7 @@ export default async function ArticlePage({ params }: Props) {
   const cat = CATEGORY_MAP[article.category]
   const related = getRelatedArticles(article)
   const articleUrl = `${BASE_URL}/articles/${slug}`
+  const product = article.mangaSlug ? getProductByMangaSlug(article.mangaSlug) : undefined
   const colors = CATEGORY_COLORS[article.category] ?? CATEGORY_COLORS['disaster-prep']
   const xPost = buildXPostFromArticle(article)
 
@@ -254,6 +257,52 @@ export default async function ArticlePage({ params }: Props) {
           <ReasonsList reasons={article.reasons} color={colors.text} />
         )}
 
+        {/* ④b 今すぐやること（グッズ記事のみ） */}
+        {product && (
+          <div style={{
+            background: '#F0FDF4', border: '2px solid #86EFAC',
+            borderRadius: 16, padding: '20px', marginBottom: 24,
+          }}>
+            <div style={{ fontWeight: 800, fontSize: 15, color: '#15803D', marginBottom: 12 }}>
+              ✅ 今すぐやること
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {product.immediateActions.map((action, i) => (
+                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                  <span style={{
+                    width: 20, height: 20, borderRadius: '50%',
+                    background: '#16A34A', color: 'white',
+                    fontSize: 11, fontWeight: 700, flexShrink: 0,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    marginTop: 1,
+                  }}>{i + 1}</span>
+                  <span style={{ fontSize: 14, color: '#166534', lineHeight: 1.6 }}>{action}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ④c NG行動（グッズ記事のみ） */}
+        {product && (
+          <div style={{
+            background: '#FEF2F2', border: '2px solid #FECACA',
+            borderRadius: 16, padding: '20px', marginBottom: 24,
+          }}>
+            <div style={{ fontWeight: 800, fontSize: 15, color: '#DC2626', marginBottom: 12 }}>
+              ❌ やってはいけないNG行動
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {product.ngActions.map((action, i) => (
+                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: 14, flexShrink: 0, marginTop: 1 }}>⚠️</span>
+                  <span style={{ fontSize: 14, color: '#991B1B', lineHeight: 1.6 }}>{action}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* ⑤ 記事本文 */}
         <article className="prose-bousai">
           <MDXRemote
@@ -262,6 +311,43 @@ export default async function ArticlePage({ params }: Props) {
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           />
         </article>
+
+        {/* ⑤b 比較表 + おすすめ商品（グッズ記事のみ） */}
+        {product && (
+          <div style={{ marginTop: 32, marginBottom: 8 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: '#0F172A', marginBottom: 14 }}>
+              📊 {product.name}の選び方
+            </h2>
+            <ComparisonTable comparison={product.comparison} />
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: '#0F172A', margin: '24px 0 14px' }}>
+              🛒 おすすめ商品
+            </h2>
+            <ProductCard
+              name={product.featured.name}
+              price={product.featured.price}
+              description={product.featured.description}
+              emoji={product.emoji}
+              badge={product.featured.badge}
+              trustText={product.featured.trustText}
+              painText={product.featured.painText}
+              amazonUrl={product.featured.amazonUrl}
+              rakutenUrl={product.featured.rakutenUrl}
+              featured
+            />
+            {product.alternatives?.map((alt, i) => (
+              <ProductCard
+                key={i}
+                name={alt.name}
+                price={alt.price}
+                description={alt.description}
+                emoji={product.emoji}
+                badge={alt.badge}
+                amazonUrl={alt.amazonUrl}
+                rakutenUrl={alt.rakutenUrl}
+              />
+            ))}
+          </div>
+        )}
 
         {/* 武蔵野市ブロック */}
         {article.region && (

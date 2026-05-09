@@ -68,6 +68,7 @@ export type ArticleFrontmatter = {
   conclusion?: string
   manga?: ArticleManga
   mangaImages?: string[]
+  mangaSlug?: string
   reasons?: ReasonItem[]
   xPost?: XPost
   monetizeItems?: MonetizeItem[]
@@ -160,6 +161,7 @@ export function getArticleBySlug(slug: string): Article {
     conclusion: data.conclusion,
     manga: data.manga,
     mangaImages: data.mangaImages,
+    mangaSlug: data.mangaSlug,
     reasons: normalizeReasons(data.reasons),
     xPost: data.xPost,
     monetizeItems: normalizeMonetizeItems(data.monetizeItems),
@@ -187,6 +189,7 @@ export function getAllArticlesMeta(): ArticleMeta[] {
         conclusion: data.conclusion,
         manga: data.manga,
         mangaImages: data.mangaImages,
+        mangaSlug: data.mangaSlug,
         reasons: normalizeReasons(data.reasons),
         xPost: data.xPost,
         monetizeItems: normalizeMonetizeItems(data.monetizeItems),
