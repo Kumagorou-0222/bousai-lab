@@ -17,6 +17,7 @@ import ReasonsList from '@/components/ReasonsList'
 import MonetizeLinks from '@/components/MonetizeLinks'
 import XPostBox from '@/components/XPostBox'
 import MangaImageGallery from '@/components/MangaImageGallery'
+import SeriesNav from '@/components/SeriesNav'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -196,7 +197,38 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </div>
 
-        {/* ② 結論ボックス（最上部に1行） */}
+        {/* ② 4コマ漫画（タイトル直下） */}
+        {article.mangaImages && article.mangaImages.length > 0 && (
+          <div style={{ marginBottom: 8 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 12, fontWeight: 700, color: '#64748B',
+              background: '#F8FAFC', border: '1px solid #E2E8F0',
+              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
+            }}>
+              <span>🎨</span>
+              <span>4コマ漫画</span>
+            </div>
+            <MangaImageGallery images={article.mangaImages} />
+          </div>
+        )}
+
+        {article.manga && article.manga.panels.length > 0 && !article.mangaImages?.length && (
+          <div style={{ marginBottom: 8 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 12, fontWeight: 700, color: '#64748B',
+              background: '#F8FAFC', border: '1px solid #E2E8F0',
+              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
+            }}>
+              <span>🎬</span>
+              <span>4コマで理解</span>
+            </div>
+            <MangaDialogue panels={article.manga.panels} />
+          </div>
+        )}
+
+        {/* ③ 結論ボックス */}
         {article.conclusion && (
           <div style={{
             background: colors.bg,
@@ -214,38 +246,6 @@ export default async function ArticlePage({ params }: Props) {
             }}>
               結論：{article.conclusion}
             </p>
-          </div>
-        )}
-
-        {/* ③ 4コマ画像ギャラリー */}
-        {article.mangaImages && article.mangaImages.length > 0 && (
-          <div style={{ marginBottom: 8 }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              fontSize: 12, fontWeight: 700, color: '#64748B',
-              background: '#F8FAFC', border: '1px solid #E2E8F0',
-              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
-            }}>
-              <span>🎨</span>
-              <span>4コマ漫画</span>
-            </div>
-            <MangaImageGallery images={article.mangaImages} />
-          </div>
-        )}
-
-        {/* ④ 4コマ台詞（画像がないときだけ表示） */}
-        {article.manga && article.manga.panels.length > 0 && !article.mangaImages?.length && (
-          <div>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              fontSize: 12, fontWeight: 700, color: '#64748B',
-              background: '#F8FAFC', border: '1px solid #E2E8F0',
-              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
-            }}>
-              <span>🎬</span>
-              <span>4コマで理解</span>
-            </div>
-            <MangaDialogue panels={article.manga.panels} />
           </div>
         )}
 
@@ -376,6 +376,9 @@ export default async function ArticlePage({ params }: Props) {
             </div>
           </div>
         </div>
+
+        {/* シリーズナビ */}
+        <SeriesNav slug={slug} />
 
         {/* ⑩ 関連記事 */}
         {related.length > 0 && (
