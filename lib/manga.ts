@@ -14,6 +14,7 @@ export type MangaData = {
   articleSlug: string
   date: string
   mangaImages?: string[]
+  label?: string
 }
 
 export const MANGA_LIST: MangaData[] = [
@@ -37,6 +38,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'earthquake-elevator',
     date: '2026-04-01',
+    label: 'NG注意',
     mangaImages: [
       '/manga/earthquake-elevator/panel-01.png',
       '/manga/earthquake-elevator/panel-02.png',
@@ -63,6 +65,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'blackout-what-to-do',
     date: '2026-04-01',
+    label: '3つだけ',
     mangaImages: [
       '/manga/blackout-basics/panel-01.png',
       '/manga/blackout-basics/panel-02.png',
@@ -89,6 +92,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'evacuation-shelter-infection',
     date: '2026-04-01',
+    label: '保存版',
     mangaImages: [
       '/manga/evacuation-basics/panel-01.png',
       '/manga/evacuation-basics/panel-02.png',
@@ -117,6 +121,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'emergency-toilet',
     date: '2026-05-09',
+    label: '保存版',
     mangaImages: [
       '/manga/product-portable-toilet/panel-01.png',
       '/manga/product-portable-toilet/panel-02.png',
@@ -143,6 +148,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'mobile-battery',
     date: '2026-05-09',
+    label: '今すぐ',
     mangaImages: [
       '/manga/product-mobile-battery/panel-01.png',
       '/manga/product-mobile-battery/panel-02.png',
@@ -169,6 +175,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'blackout-night',
     date: '2026-05-09',
+    label: '保存版',
     mangaImages: [
       '/manga/product-led-lantern/panel-01.png',
       '/manga/product-led-lantern/panel-02.png',
@@ -195,6 +202,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'water-storage-necessary',
     date: '2026-05-09',
+    label: '数字で納得',
     mangaImages: [
       '/manga/product-water-storage/panel-01.png',
       '/manga/product-water-storage/panel-02.png',
@@ -221,6 +229,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'earthquake-cooking',
     date: '2026-05-09',
+    label: '今すぐ',
     mangaImages: [
       '/manga/product-cassette-stove/panel-01.png',
       '/manga/product-cassette-stove/panel-02.png',
@@ -247,6 +256,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'blackout-longterm',
     date: '2026-05-09',
+    label: '保存版',
     mangaImages: [
       '/manga/product-portable-power/panel-01.png',
       '/manga/product-portable-power/panel-02.png',
@@ -273,6 +283,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'disaster-prep-food-days',
     date: '2026-05-09',
+    label: '保存版',
     mangaImages: [
       '/manga/product-preserved-food/panel-01.png',
       '/manga/product-preserved-food/panel-02.png',
@@ -299,6 +310,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'blackout-refrigerator',
     date: '2026-05-09',
+    label: '今すぐ',
     mangaImages: [
       '/manga/product-cooler-box/panel-01.png',
       '/manga/product-cooler-box/panel-02.png',
@@ -325,6 +337,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'blackout-toilet',
     date: '2026-05-09',
+    label: '3つだけ',
     mangaImages: [
       '/manga/product-odor-bag/panel-01.png',
       '/manga/product-odor-bag/panel-02.png',
@@ -351,6 +364,7 @@ export const MANGA_LIST: MangaData[] = [
     ],
     articleSlug: 'evacuation-items',
     date: '2026-05-09',
+    label: '必須',
     mangaImages: [
       '/manga/product-liquid-milk/panel-01.png',
       '/manga/product-liquid-milk/panel-02.png',

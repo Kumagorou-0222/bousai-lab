@@ -28,8 +28,18 @@ const CAT_LABEL: Record<string, string> = {
   goods:      'グッズ',
 }
 
+const LABEL_COLOR: Record<string, { bg: string; text: string }> = {
+  '保存版':     { bg: '#FEF3C7', text: '#92400E' },
+  '今すぐ':     { bg: '#FEE2E2', text: '#991B1B' },
+  '3つだけ':    { bg: '#DBEAFE', text: '#1E40AF' },
+  'NG注意':     { bg: '#FFE4E6', text: '#BE123C' },
+  '必須':       { bg: '#DCFCE7', text: '#166534' },
+  '数字で納得':  { bg: '#E0F2FE', text: '#0369A1' },
+}
+
 function MangaCard({ manga }: { manga: (typeof MANGA_LIST)[number] }) {
   const catColor = CAT_COLOR[manga.category] ?? CAT_COLOR['earthquake']
+  const labelStyle = manga.label ? (LABEL_COLOR[manga.label] ?? { bg: '#F1F5F9', text: '#475569' }) : null
   return (
     <Link href={`/manga/${manga.slug}`} style={{ textDecoration: 'none' }}>
       <div style={{
@@ -47,14 +57,24 @@ function MangaCard({ manga }: { manga: (typeof MANGA_LIST)[number] }) {
             {manga.emoji}
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{
-              display: 'inline-block',
-              background: catColor.bg, color: catColor.badge,
-              fontSize: 10, fontWeight: 700, borderRadius: 50,
-              padding: '2px 10px', marginBottom: 6,
-              border: `1px solid ${catColor.badge}40`,
-            }}>
-              {CAT_LABEL[manga.category] ?? manga.category}
+            <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginBottom: 6 }}>
+              <span style={{
+                background: catColor.bg, color: catColor.badge,
+                fontSize: 10, fontWeight: 700, borderRadius: 50,
+                padding: '2px 10px',
+                border: `1px solid ${catColor.badge}40`,
+              }}>
+                {CAT_LABEL[manga.category] ?? manga.category}
+              </span>
+              {labelStyle && manga.label && (
+                <span style={{
+                  background: labelStyle.bg, color: labelStyle.text,
+                  fontSize: 10, fontWeight: 800, borderRadius: 50,
+                  padding: '2px 10px',
+                }}>
+                  {manga.label}
+                </span>
+              )}
             </div>
             <div style={{ fontWeight: 800, fontSize: 15, color: '#0F172A', lineHeight: 1.4, marginBottom: 4 }}>
               {manga.title}

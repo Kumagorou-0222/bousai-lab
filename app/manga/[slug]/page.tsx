@@ -2,8 +2,11 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { MANGA_LIST, getMangaBySlug } from '@/lib/manga'
+import { getProductByMangaSlug } from '@/lib/products'
 import Breadcrumb from '@/components/Breadcrumb'
 import MangaImageGallery from '@/components/MangaImageGallery'
+import ProductCard from '@/components/ProductCard'
+import ComparisonTable from '@/components/ComparisonTable'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -79,6 +82,7 @@ export default async function MangaPage({ params }: Props) {
 
   const catLabel = CAT_LABEL[manga.category] ?? manga.category
   const catHref = CAT_HREF[manga.category] ?? '/'
+  const product = manga.category === 'goods' ? getProductByMangaSlug(manga.slug) : undefined
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 80px' }}>
@@ -240,6 +244,92 @@ export default async function MangaPage({ params }: Props) {
           ))}
         </div>
       </div>
+
+      {/* グッズ専用セクション */}
+      {product && (
+        <>
+          {/* 今すぐやること */}
+          <div style={{
+            background: '#F0FDF4', border: '2px solid #86EFAC',
+            borderRadius: 16, padding: '20px', marginBottom: 24,
+          }}>
+            <div style={{ fontWeight: 800, fontSize: 15, color: '#15803D', marginBottom: 12 }}>
+              ✅ 今すぐやること
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {product.immediateActions.map((action, i) => (
+                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                  <span style={{
+                    width: 20, height: 20, borderRadius: '50%',
+                    background: '#16A34A', color: 'white',
+                    fontSize: 11, fontWeight: 700, flexShrink: 0,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    marginTop: 1,
+                  }}>{i + 1}</span>
+                  <span style={{ fontSize: 14, color: '#166534', lineHeight: 1.6 }}>{action}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* NG行動 */}
+          <div style={{
+            background: '#FEF2F2', border: '2px solid #FECACA',
+            borderRadius: 16, padding: '20px', marginBottom: 24,
+          }}>
+            <div style={{ fontWeight: 800, fontSize: 15, color: '#DC2626', marginBottom: 12 }}>
+              ❌ やってはいけないNG行動
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {product.ngActions.map((action, i) => (
+                <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: 14, flexShrink: 0, marginTop: 1 }}>⚠️</span>
+                  <span style={{ fontSize: 14, color: '#991B1B', lineHeight: 1.6 }}>{action}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 比較表 */}
+          <div style={{ marginBottom: 4 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: '#0F172A', marginBottom: 14 }}>
+              📊 {product.name}の選び方
+            </h2>
+            <ComparisonTable comparison={product.comparison} />
+          </div>
+
+          {/* おすすめ商品 */}
+          <div style={{ marginBottom: 28 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: '#0F172A', marginBottom: 14 }}>
+              🛒 おすすめ商品
+            </h2>
+            <ProductCard
+              name={product.featured.name}
+              price={product.featured.price}
+              description={product.featured.description}
+              emoji={product.emoji}
+              badge={product.featured.badge}
+              trustText={product.featured.trustText}
+              painText={product.featured.painText}
+              amazonUrl={product.featured.amazonUrl}
+              rakutenUrl={product.featured.rakutenUrl}
+              featured
+            />
+            {product.alternatives?.map((alt, i) => (
+              <ProductCard
+                key={i}
+                name={alt.name}
+                price={alt.price}
+                description={alt.description}
+                emoji={product.emoji}
+                badge={alt.badge}
+                amazonUrl={alt.amazonUrl}
+                rakutenUrl={alt.rakutenUrl}
+              />
+            ))}
+          </div>
+        </>
+      )}
 
       {/* 記事CTA */}
       <div style={{
