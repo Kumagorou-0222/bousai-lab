@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 
 interface Props {
   images: string[]
@@ -35,23 +36,20 @@ export default function MangaImageGallery({ images }: Props) {
             }}
             aria-label={`4コマ漫画 ${i + 1}コマ目を拡大`}
           >
-            <img
+            <Image
               src={src}
               alt={`${i + 1}コマ目`}
+              fill
+              sizes="(max-width: 800px) 45vw, 360px"
+              style={{ objectFit: 'contain' }}
               loading="lazy"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                display: 'block',
-              }}
             />
             <span style={{
               position: 'absolute', bottom: 6, right: 8,
               background: 'rgba(0,0,0,0.55)', color: 'white',
               fontSize: 10, fontWeight: 700,
               borderRadius: 6, padding: '2px 7px',
-              lineHeight: 1.4,
+              lineHeight: 1.4, zIndex: 1,
             }}>
               {i + 1}コマ目
             </span>
@@ -70,25 +68,21 @@ export default function MangaImageGallery({ images }: Props) {
             padding: '16px',
           }}
         >
-          <div style={{ position: 'relative', maxWidth: '95vw', maxHeight: '95vh' }}>
-            <img
+          <div style={{ position: 'relative', width: '70vmin', height: '93vmin', maxWidth: '90vw', maxHeight: '90vh' }}>
+            <Image
               src={images[lightboxIndex]}
               alt={`${lightboxIndex + 1}コマ目`}
-              style={{
-                maxWidth: '95vw',
-                maxHeight: '90vh',
-                objectFit: 'contain',
-                borderRadius: 12,
-                display: 'block',
-                boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
-              }}
+              fill
+              sizes="90vw"
+              style={{ objectFit: 'contain', borderRadius: 12 }}
+              priority
             />
-            <div style={{
-              position: 'absolute', bottom: -36, left: '50%', transform: 'translateX(-50%)',
-              color: 'rgba(255,255,255,0.6)', fontSize: 12,
-            }}>
-              タップして閉じる
-            </div>
+          </div>
+          <div style={{
+            position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)',
+            color: 'rgba(255,255,255,0.6)', fontSize: 12,
+          }}>
+            タップして閉じる
           </div>
 
           {lightboxIndex > 0 && (
