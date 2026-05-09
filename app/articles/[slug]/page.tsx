@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import { getAllSlugs, getArticleBySlug, getRelatedArticles, CATEGORY_MAP } from '@/lib/articles'
+import { MANGA_LIST } from '@/lib/manga'
 import { buildXPostFromArticle } from '@/lib/xpost'
 import Breadcrumb from '@/components/Breadcrumb'
 import ArticleCard from '@/components/ArticleCard'
@@ -57,7 +58,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         authors: ['くまごろう'],
         tags: [cat.label, '防災', '今すぐやること'],
         images: [{
-          url: `${BASE_URL}/og?title=${encodeURIComponent(article.title)}&category=${article.category}&emoji=${encodeURIComponent(article.emoji ?? '🛡️')}`,
+          url: (() => {
+            const manga = article.mangaSlug ? MANGA_LIST.find((m) => m.slug === article.mangaSlug) : undefined
+            const label = manga?.label ?? ''
+            return `${BASE_URL}/og?title=${encodeURIComponent(article.title)}&category=${article.category}&emoji=${encodeURIComponent(article.emoji ?? '🛡️')}${label ? `&label=${encodeURIComponent(label)}` : ''}`
+          })(),
           width: 1200,
           height: 630,
         }],

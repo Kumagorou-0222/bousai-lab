@@ -64,6 +64,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: `${manga.title}【4コマ漫画】`,
         description: manga.description,
         url: `${BASE_URL}/manga/${slug}`,
+        images: [{
+          url: `${BASE_URL}/og?title=${encodeURIComponent(manga.title)}&category=${manga.category}&emoji=${encodeURIComponent(manga.emoji)}${manga.label ? `&label=${encodeURIComponent(manga.label)}` : ''}`,
+          width: 1200,
+          height: 630,
+        }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${manga.title}【4コマ漫画】`,
+        description: manga.description,
       },
     }
   } catch {
