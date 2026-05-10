@@ -51,7 +51,10 @@ jobs:
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
           SLOT="${{ github.event.inputs.slot }}"
-          SCHED="${{ github.event.schedule }}"
+          HOUR=$(date -u +%H)
+          MINUTE=$(date -u +%M)
+
+          echo "[scheduled-posts] SLOT=$SLOT HOUR=$HOUR MINUTE=$MINUTE"
 
           if [ -n "$SLOT" ]; then
             # workflow_dispatch による手動実行
@@ -61,14 +64,22 @@ jobs:
               evening)       python scheduled_post_runner.py evening --auto-post ;;
               daily-summary) python daily_summary.py ;;
             esac
+          elif [ "$HOUR" = "23" ] && [ "$MINUTE" -lt "30" ]; then
+            # 朝08:00 JST = UTC 23:00（GitHub遅延を考慮して30分ウィンドウ）
+            echo "[SLOT] morning"
+            python scheduled_post_runner.py morning --auto-post
+          elif [ "$HOUR" = "03" ] && [ "$MINUTE" -lt "30" ]; then
+            # 昼12:00 JST = UTC 03:00
+            echo "[SLOT] noon"
+            python scheduled_post_runner.py noon
+          elif [ "$HOUR" = "11" ] && [ "$MINUTE" -lt "30" ]; then
+            # 夜20:00 JST = UTC 11:00
+            echo "[SLOT] evening"
+            python scheduled_post_runner.py evening --auto-post
+          elif [ "$HOUR" = "12" ] && [ "$MINUTE" -lt "30" ]; then
+            # 夜21:00 JST = UTC 12:00
+            echo "[SLOT] daily-summary"
+            python daily_summary.py
           else
-            # schedule による自動実行: cron文字列で判定（UTC時刻は遅延で一致しない場合があるため）
-            echo "[scheduled-posts] triggered by schedule: $SCHED"
-            case "$SCHED" in
-              "0 23 * * *") python scheduled_post_runner.py morning --auto-post ;;
-              "0 3 * * *")  python scheduled_post_runner.py noon ;;
-              "0 11 * * *") python scheduled_post_runner.py evening --auto-post ;;
-              "0 12 * * *") python daily_summary.py ;;
-              *)             echo "[SKIP] 不明なスケジュール: $SCHED" ;;
-            esac
+            echo "[SKIP] スケジュール遅延が30分超のため今回はスキップ (HOUR=$HOUR MINUTE=$MINUTE)"
           fi
