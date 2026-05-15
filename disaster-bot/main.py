@@ -13,7 +13,7 @@ disaster-bot / main.py
 
 from datetime import datetime, timedelta
 
-from fetchers.jma_feed import fetch_all_entries
+from fetchers.jma_feed import fetch_all_entries, fetch_max_int_keyword
 from filters.important import get_level, is_target_area, is_auto_post_entry
 from generators.post_text import build_telegram_message, generate_x_post, build_x_intent_url
 from notifiers.console import notify_console
@@ -71,6 +71,11 @@ def main() -> None:
             continue
         if has_seen(entry_id):
             continue
+
+        # 地震エントリはリンクXMLから実際の最大震度を補完する
+        max_int_keyword = fetch_max_int_keyword(entry)
+        if max_int_keyword:
+            full_text = f"{full_text} {max_int_keyword}".strip()
 
         # 重要度レベル判定
         level = get_level(title, full_text)
