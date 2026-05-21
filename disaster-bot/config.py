@@ -12,6 +12,7 @@ TARGET_AREAS: list[str] = [a.strip() for a in _areas_env.split(",") if a.strip()
 JMA_EQVOL_FEED = "https://www.data.jma.go.jp/developer/xml/feed/eqvol.xml"
 JMA_REGULAR_FEED = "https://www.data.jma.go.jp/developer/xml/feed/regular.xml"
 
+SITE_BASE_URL = "https://bousai-lab.vercel.app"
 SITE_URL = "https://bousai-lab.vercel.app/category/evacuation"
 
 # Discord Webhook

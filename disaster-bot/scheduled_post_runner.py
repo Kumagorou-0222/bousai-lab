@@ -31,7 +31,7 @@ SLOT_MAP = {
 }
 
 
-def pick_template(templates: list[str]) -> str:
+def pick_template(templates: list[dict]) -> dict:
     """通し日数 % 本数 で順番に選ぶ（日付が変われば次の投稿文になる）"""
     day_of_year = date.today().timetuple().tm_yday
     index = day_of_year % len(templates)
@@ -44,14 +44,16 @@ def run(slot: str, auto_post: bool = False) -> None:
         raise SystemExit(1)
 
     label, icon, templates = SLOT_MAP[slot]
-    post_text = pick_template(templates)
+    template = pick_template(templates)
+    post_text = template["text"]
+    manga_slug = template.get("manga_slug") or ""
 
     telegram_msg = f"{icon}【{label}】\n\n{post_text}"
     x_intent_url = build_x_intent_url(post_text)
 
     try:
-        notify_telegram(telegram_msg, x_intent_url)
-        print(f"[{label}] Telegram送信完了")
+        notify_telegram(telegram_msg, x_intent_url, manga_slug=manga_slug)
+        print(f"[{label}] Telegram送信完了 (manga={manga_slug or 'なし'})")
     except Exception as e:
         notify_error(f"{label} 送信失敗", e)
 
