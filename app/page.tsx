@@ -166,7 +166,7 @@ export default function HomePage() {
         </div>
 
         {/* キャラクター＋街並みゾーン */}
-        <div style={{ position: 'relative', height: 210, maxWidth: 680, margin: '0 auto' }}>
+        <div style={{ position: 'relative', height: 300, maxWidth: 680, margin: '0 auto' }}>
           {/* 防災リス（左） */}
           <div style={{
             position: 'absolute', bottom: 68, left: '4%',
