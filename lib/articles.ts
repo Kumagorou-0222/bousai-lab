@@ -69,6 +69,7 @@ export type ArticleFrontmatter = {
   manga?: ArticleManga
   mangaImages?: string[]
   mangaSlug?: string
+  label?: string
   reasons?: ReasonItem[]
   xPost?: XPost
   monetizeItems?: MonetizeItem[]

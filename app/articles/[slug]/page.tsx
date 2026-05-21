@@ -171,17 +171,49 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* ① 記事ヘッダー */}
         <div style={{
-          background: colors.bg,
+          background: `linear-gradient(160deg, ${colors.bg} 0%, #F8FBFF 100%)`,
           border: `1.5px solid ${colors.light}`,
-          borderRadius: 18, padding: '28px 24px', marginBottom: 32, textAlign: 'center',
+          borderRadius: 18, padding: '28px 24px', marginBottom: 24,
+          textAlign: 'center', position: 'relative', overflow: 'hidden',
         }}>
-          <div style={{ fontSize: 52, marginBottom: 10 }}>{article.emoji}</div>
+          {/* キャラクター装飾（左：リス、右：ロボ） */}
           <div style={{
-            display: 'inline-block',
-            background: colors.text, color: 'white',
-            fontSize: 11, fontWeight: 700, borderRadius: 20, padding: '4px 14px', marginBottom: 14,
+            position: 'absolute', top: 10, left: 12,
+            width: 34, height: 34, borderRadius: '50%', overflow: 'hidden',
+            background: 'rgba(255,249,230,0.9)', border: '2px solid rgba(252,211,77,0.45)',
+            opacity: 0.75,
           }}>
-            {cat.emoji} {cat.label}
+            <img src="/img/riss.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
+          <div style={{
+            position: 'absolute', top: 10, right: 12,
+            width: 34, height: 34, borderRadius: 8, overflow: 'hidden',
+            background: 'rgba(239,246,255,0.9)', border: '2px solid rgba(96,165,250,0.45)',
+            opacity: 0.75,
+          }}>
+            <img src="/img/robot.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
+
+          <div style={{ fontSize: 52, marginBottom: 10 }}>{article.emoji}</div>
+          <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 14 }}>
+            <div style={{
+              display: 'inline-block',
+              background: colors.text, color: 'white',
+              fontSize: 11, fontWeight: 700, borderRadius: 20, padding: '4px 14px',
+            }}>
+              {cat.emoji} {cat.label}
+            </div>
+            {article.label && (
+              <div style={{
+                display: 'inline-block',
+                background: '#FFF7ED', color: '#92400E',
+                border: '1.5px solid #FCD34D',
+                fontSize: 11, fontWeight: 800, borderRadius: 20, padding: '4px 14px',
+                letterSpacing: '0.02em',
+              }}>
+                {article.label}
+              </div>
+            )}
           </div>
           <h1 style={{
             fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 900,
@@ -205,45 +237,12 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </div>
 
-        {/* ② 4コマ漫画（タイトル直下） */}
-        {article.mangaImages && article.mangaImages.length > 0 && (
-          <div style={{ marginBottom: 8 }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              fontSize: 12, fontWeight: 700, color: '#64748B',
-              background: '#F8FAFC', border: '1px solid #E2E8F0',
-              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
-            }}>
-              <span>🎨</span>
-              <span>4コマ漫画</span>
-            </div>
-            <MangaImageGallery images={article.mangaImages} />
-          </div>
-        )}
-
-        {article.manga && article.manga.panels.length > 0 && !article.mangaImages?.length && (
-          <div style={{ marginBottom: 8 }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              fontSize: 12, fontWeight: 700, color: '#64748B',
-              background: '#F8FAFC', border: '1px solid #E2E8F0',
-              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
-            }}>
-              <span>🎬</span>
-              <span>4コマで理解</span>
-            </div>
-            <MangaDialogue panels={article.manga.panels} />
-          </div>
-        )}
-
-        {/* ③ 結論ボックス */}
+        {/* ② 結論ボックス（最優先表示） */}
         {article.conclusion && (
           <div style={{
             background: colors.bg,
             border: `2px solid ${colors.text}`,
-            borderRadius: 14,
-            padding: '16px 20px',
-            marginBottom: 24,
+            borderRadius: 14, padding: '16px 20px', marginBottom: 20,
             display: 'flex', alignItems: 'flex-start', gap: 12,
           }}>
             <span style={{ fontSize: 22, flexShrink: 0, marginTop: 1 }}>💡</span>
@@ -254,6 +253,36 @@ export default async function ArticlePage({ params }: Props) {
             }}>
               結論：{article.conclusion}
             </p>
+          </div>
+        )}
+
+        {/* ③ 4コマ画像（MangaImageGallery） */}
+        {article.mangaImages && article.mangaImages.length > 0 && (
+          <div style={{ marginBottom: 8 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 12, fontWeight: 700, color: '#1E40AF',
+              background: '#EFF6FF', border: '1px solid #BFDBFE',
+              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
+            }}>
+              <span>🎨</span><span>4コマ漫画</span>
+            </div>
+            <MangaImageGallery images={article.mangaImages} />
+          </div>
+        )}
+
+        {/* ④ テキスト4コマ（MangaDialogue）— 常に表示 */}
+        {article.manga && article.manga.panels.length > 0 && (
+          <div style={{ marginBottom: 8 }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 12, fontWeight: 700, color: '#15803D',
+              background: '#F0FDF4', border: '1px solid #BBF7D0',
+              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
+            }}>
+              <span>💬</span><span>セリフで確認</span>
+            </div>
+            <MangaDialogue panels={article.manga.panels} />
           </div>
         )}
 
