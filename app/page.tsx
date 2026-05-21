@@ -2,21 +2,22 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CATEGORY_MAP, MAIN_CATEGORIES } from '@/lib/categories'
 import { MANGA_LIST } from '@/lib/manga'
+import { getAllArticlesMeta } from '@/lib/articles'
 
 export const metadata: Metadata = {
-  title: '防災Lab｜災害が起きたとき今すぐやることチェックリスト',
+  title: '防災Lab｜まんがで学ぶ在宅避難ガイド【武蔵野市対応】',
   description:
-    '地震・台風・停電・避難——「今どうする？」が今すぐわかるチェックリストと行動ガイド。在宅避難のための実践ガイドを武蔵野市在住の現役医師が監修。',
+    '地震・台風・停電・避難——「今どうする？」が今すぐわかる防災サイト。防災リスとレスQロボのまんがで楽しく学べる。武蔵野市在住の現役医師監修。',
   alternates: { canonical: 'https://bousai-lab.vercel.app/' },
   openGraph: {
-    title: '防災Lab｜災害が起きたとき今すぐやることチェックリスト',
-    description: '地震・台風・停電・避難——今すぐできるチェックリストと行動ガイド。在宅避難の実践ガイド。',
+    title: '防災Lab｜まんがで学ぶ在宅避難ガイド【武蔵野市対応】',
+    description: '地震・台風・停電・避難——今すぐできるチェックリストと行動ガイド。まんがで学ぶ防災。武蔵野市対応。',
     url: 'https://bousai-lab.vercel.app/',
     images: [{ url: 'https://bousai-lab.vercel.app/ogp.svg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: '防災Lab｜災害が起きたとき今すぐやることチェックリスト',
+    title: '防災Lab｜まんがで学ぶ在宅避難ガイド【武蔵野市対応】',
     description: '地震・台風・停電・避難——今すぐできるチェックリストと行動ガイド',
   },
 }
@@ -27,7 +28,7 @@ const websiteJsonLd = {
   '@id': 'https://bousai-lab.vercel.app/#website',
   url: 'https://bousai-lab.vercel.app/',
   name: '防災Lab',
-  description: '災害が起きたとき「今どうする？」がすぐわかる防災行動サイト。在宅避難のための実践ガイド。',
+  description: '災害が起きたとき「今どうする？」がすぐわかる防災行動サイト。まんがで学ぶ在宅避難ガイド。',
   inLanguage: 'ja',
   publisher: {
     '@type': 'Person',
@@ -37,33 +38,18 @@ const websiteJsonLd = {
   },
 }
 
-// カテゴリごとのビジュアル設定
 const CARD_CONFIG: Record<string, {
-  bg: string; border: string; accent: string; badgeBg: string; badgeText: string; desc: string
+  bg: string; border: string; accent: string; desc: string
 }> = {
-  earthquake: {
-    bg: '#FFF8F0', border: '#FF6B00', accent: '#FF6B00',
-    badgeBg: '#FF6B00', badgeText: 'white',
-    desc: '揺れを感じたら今すぐ確認',
-  },
-  typhoon: {
-    bg: '#F0F4FF', border: '#3A5FFF', accent: '#3A5FFF',
-    badgeBg: '#3A5FFF', badgeText: 'white',
-    desc: '上陸前日に準備を完了させる',
-  },
-  blackout: {
-    bg: '#FFFBF0', border: '#E69500', accent: '#E69500',
-    badgeBg: '#E69500', badgeText: 'white',
-    desc: '停電直後の3つの行動',
-  },
-  evacuation: {
-    bg: '#F0FFF4', border: '#1E9E50', accent: '#1E9E50',
-    badgeBg: '#1E9E50', badgeText: 'white',
-    desc: '避難指示が出たら即行動',
-  },
+  earthquake: { bg: '#FFF8F0', border: '#FF6B00', accent: '#FF6B00', desc: '揺れを感じたら今すぐ確認' },
+  typhoon:    { bg: '#F0F4FF', border: '#3A5FFF', accent: '#3A5FFF', desc: '上陸前日に準備を完了させる' },
+  blackout:   { bg: '#FFFBF0', border: '#E69500', accent: '#E69500', desc: '停電直後の3つの行動' },
+  evacuation: { bg: '#F0FFF4', border: '#1E9E50', accent: '#1E9E50', desc: '避難指示が出たら即行動' },
 }
 
 export default function HomePage() {
+  const recentArticles = getAllArticlesMeta().slice(0, 10)
+
   return (
     <>
       <script
@@ -71,7 +57,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
 
-      {/* HERO */}
+      {/* ── HERO ── */}
       <section style={{
         background: 'linear-gradient(160deg, #0D0D1A 0%, #141428 50%, #0A1A3A 100%)',
         padding: '40px 20px 36px',
@@ -83,11 +69,11 @@ export default function HomePage() {
             display: 'inline-flex', alignItems: 'center', gap: 6,
             background: 'rgba(255,60,60,0.15)', border: '1px solid rgba(255,60,60,0.45)',
             color: '#FF6060', padding: '5px 14px', borderRadius: 50,
-            fontWeight: 700, fontSize: 12, marginBottom: 20,
-            letterSpacing: '0.04em',
+            fontWeight: 700, fontSize: 12, marginBottom: 20, letterSpacing: '0.04em',
           }}>
             ⚡ 災害はいつ起きるかわかりません
           </div>
+
           <h1 style={{
             color: 'white', fontSize: 'clamp(24px, 6vw, 38px)',
             fontWeight: 900, lineHeight: 1.25, marginBottom: 14,
@@ -96,15 +82,60 @@ export default function HomePage() {
             災害が起きたとき<br />
             <span style={{ color: '#FFD000' }}>今すぐやること</span>がわかるサイト
           </h1>
-          <p style={{
-            color: 'rgba(255,255,255,0.65)', fontSize: 14, lineHeight: 1.7, marginBottom: 24,
-          }}>
-            在宅避難のための実践ガイド
-            <span style={{ color: 'rgba(255,255,255,0.4)', margin: '0 8px' }}>|</span>
+
+          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 14, lineHeight: 1.7, marginBottom: 20 }}>
+            まんがで楽しく学ぶ在宅避難ガイド
+            <span style={{ color: 'rgba(255,255,255,0.3)', margin: '0 8px' }}>|</span>
             武蔵野市在住の現役医師監修
           </p>
-          {/* 武蔵野市リンク */}
-          <Link href="/musashino-bousai" style={{
+
+          {/* キャラクター紹介バッジ */}
+          <div style={{
+            display: 'flex', gap: 10, justifyContent: 'center',
+            marginBottom: 20, flexWrap: 'wrap',
+          }}>
+            <Link href="/characters" style={{ textDecoration: 'none' }}>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                background: 'rgba(255,255,255,0.07)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: 12, padding: '7px 14px',
+              }}>
+                <div style={{
+                  width: 30, height: 30, borderRadius: '50%',
+                  background: '#FFF9E6', overflow: 'hidden', flexShrink: 0,
+                }}>
+                  <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ color: 'white', fontWeight: 700, fontSize: 11 }}>防災リス</div>
+                  <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 10 }}>心配性な女の子🐿️</div>
+                </div>
+              </div>
+            </Link>
+            <Link href="/characters" style={{ textDecoration: 'none' }}>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                background: 'rgba(255,255,255,0.07)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: 12, padding: '7px 14px',
+              }}>
+                <div style={{
+                  width: 30, height: 30, borderRadius: 6,
+                  background: '#EFF6FF', overflow: 'hidden', flexShrink: 0,
+                }}>
+                  <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ color: 'white', fontWeight: 700, fontSize: 11 }}>レスQロボ</div>
+                  <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 10 }}>頼れる防災AI🤖</div>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* 武蔵野市ショートカット */}
+          <Link href="/musashino" style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
             background: 'rgba(255,208,0,0.12)', border: '1px solid rgba(255,208,0,0.45)',
             color: '#FFD000', padding: '9px 20px', borderRadius: 50,
@@ -115,59 +146,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 状況選択ラベル */}
+      {/* ── 状況選択 ── */}
       <div style={{
         textAlign: 'center', padding: '22px 16px 0',
-        fontSize: 11, color: '#999', fontWeight: 700,
-        letterSpacing: '0.1em',
+        fontSize: 11, color: '#999', fontWeight: 700, letterSpacing: '0.1em',
       }}>
         ▼ 今の状況を選んでください
       </div>
 
-      {/* 4カテゴリカード — シンプル版 */}
-      <section style={{ maxWidth: 800, margin: '0 auto', padding: '12px 16px 16px' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: 12,
-        }}>
+      {/* ── 4カテゴリカード ── */}
+      <section style={{ maxWidth: 800, margin: '0 auto', padding: '12px 16px 0' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
           {MAIN_CATEGORIES.map((key) => {
             const cat = CATEGORY_MAP[key]
             const cfg = CARD_CONFIG[key]
             return (
               <Link key={key} href={`/category/${key}`} style={{ textDecoration: 'none' }}>
                 <div style={{
-                  background: cfg.bg,
-                  borderRadius: 18,
-                  padding: '22px 18px',
-                  border: `2px solid ${cfg.border}`,
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 14,
+                  background: cfg.bg, borderRadius: 18, padding: '22px 18px',
+                  border: `2px solid ${cfg.border}`, height: '100%',
+                  display: 'flex', flexDirection: 'column', gap: 14,
                   boxShadow: `0 2px 16px ${cfg.accent}18`,
                 }}>
-                  {/* タイトル */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <span style={{ fontSize: 32, flexShrink: 0 }}>{cat.emoji}</span>
-                    <span style={{
-                      fontSize: 'clamp(15px, 4vw, 18px)',
-                      fontWeight: 900, color: '#1A1A1A', lineHeight: 1.25,
-                    }}>
+                    <span style={{ fontSize: 'clamp(15px, 4vw, 18px)', fontWeight: 900, color: '#1A1A1A', lineHeight: 1.25 }}>
                       {cat.label}
                     </span>
                   </div>
-                  {/* 1行説明 */}
-                  <p style={{
-                    fontSize: 12, color: '#555', lineHeight: 1.5,
-                    margin: 0, fontWeight: 600,
-                  }}>
+                  <p style={{ fontSize: 12, color: '#555', lineHeight: 1.5, margin: 0, fontWeight: 600 }}>
                     {cfg.desc}
                   </p>
-                  {/* CTA */}
                   <div style={{
-                    marginTop: 'auto',
-                    background: cfg.accent, color: 'white',
+                    marginTop: 'auto', background: cfg.accent, color: 'white',
                     borderRadius: 10, padding: '11px 14px',
                     textAlign: 'center', fontSize: 13, fontWeight: 700,
                   }}>
@@ -180,39 +191,63 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* マンガで学ぶ防災 */}
+      {/* ── 武蔵野市 大型CTA ── */}
+      <section style={{ maxWidth: 800, margin: '0 auto', padding: '16px 16px 0' }}>
+        <Link href="/musashino" style={{ textDecoration: 'none' }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #0F172A, #1A1A2E)',
+            borderRadius: 18, padding: '20px 22px',
+            border: '2px solid #FFD000',
+            display: 'flex', alignItems: 'center', gap: 14,
+            boxShadow: '0 4px 24px rgba(255,208,0,0.12)',
+          }}>
+            <span style={{ fontSize: 40, flexShrink: 0 }}>📍</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ color: '#FFD000', fontWeight: 900, fontSize: 16, marginBottom: 4 }}>
+                武蔵野市在住の方へ
+              </div>
+              <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13, lineHeight: 1.5 }}>
+                避難所マップ・ハザードマップ・市の防災情報をまとめて確認
+              </div>
+            </div>
+            <div style={{
+              background: '#FFD000', color: '#0F172A',
+              borderRadius: 10, padding: '10px 16px',
+              fontSize: 13, fontWeight: 900, whiteSpace: 'nowrap', flexShrink: 0,
+            }}>
+              見る →
+            </div>
+          </div>
+        </Link>
+      </section>
+
+      {/* ── まんがで学ぶ防災 ── */}
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '16px 16px 0' }}>
         <div style={{
           background: 'white', borderRadius: 18, border: '2px solid #E2E8F0',
           overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
         }}>
+          {/* ヘッダー */}
           <div style={{
             background: 'linear-gradient(135deg, #1E40AF, #3B82F6)',
             padding: '12px 18px',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 18 }}>🎨</span>
-              <span style={{ color: 'white', fontWeight: 800, fontSize: 14 }}>マンガで学ぶ防災</span>
-              <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11 }}>— 4コマ漫画シリーズ</span>
+              <span style={{ fontSize: 18 }}>📖</span>
+              <span style={{ color: 'white', fontWeight: 800, fontSize: 14 }}>まんがで学ぶ防災</span>
+              <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11 }}>— 防災リス×レスQロボ</span>
             </div>
             <div style={{ display: 'flex', gap: 4 }}>
-              <div style={{
-                width: 24, height: 24, borderRadius: '50%',
-                background: 'linear-gradient(160deg, #FFF9E6, #FFF0D6)',
-                overflow: 'hidden',
-              }}>
+              <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#FFF9E6', overflow: 'hidden' }}>
                 <img src="/img/riss.png" alt="防災リス" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
-              <div style={{
-                width: 24, height: 24, borderRadius: 6,
-                background: 'linear-gradient(160deg, #EFF6FF, #DBEAFE)',
-                overflow: 'hidden',
-              }}>
+              <div style={{ width: 24, height: 24, borderRadius: 6, background: '#EFF6FF', overflow: 'hidden' }}>
                 <img src="/img/robot.png" alt="レスQロボ" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
             </div>
           </div>
+          {/* リスト */}
           <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 8 }}>
             {MANGA_LIST.map((manga) => (
               <Link key={manga.slug} href={`/manga/${manga.slug}`} style={{
@@ -227,20 +262,67 @@ export default function HomePage() {
                 <span style={{ color: '#3B82F6', fontSize: 16, flexShrink: 0 }}>›</span>
               </Link>
             ))}
+          </div>
+          {/* フッター */}
+          <div style={{
+            borderTop: '1px solid #E2E8F0',
+            padding: '10px 16px',
+            display: 'flex', gap: 12, justifyContent: 'center',
+          }}>
             <Link href="/manga" style={{
-              display: 'block', textAlign: 'center',
               color: '#3B82F6', fontWeight: 700, fontSize: 13,
-              padding: '8px', textDecoration: 'none',
+              textDecoration: 'none',
             }}>
-              すべてのマンガを見る →
+              すべてのまんがを見る →
+            </Link>
+            <Link href="/characters" style={{
+              color: '#64748B', fontWeight: 600, fontSize: 13,
+              textDecoration: 'none',
+            }}>
+              キャラクター紹介 →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 緊急感メッセージ */}
+      {/* ── 新着記事 ── */}
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '16px 16px 0' }}>
-        <div className="alert-box" style={{
+        <div style={{
+          background: 'white', borderRadius: 18,
+          border: '2px solid #E2E8F0', overflow: 'hidden',
+          boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+        }}>
+          <div style={{
+            background: '#F1F5F9', padding: '12px 18px',
+            borderBottom: '1px solid #E2E8F0',
+            display: 'flex', alignItems: 'center', gap: 8,
+          }}>
+            <span style={{ fontSize: 16 }}>📰</span>
+            <span style={{ fontWeight: 800, fontSize: 14, color: '#0F172A' }}>新着記事</span>
+          </div>
+          <div style={{
+            padding: '12px 16px',
+            display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8,
+          }}>
+            {recentArticles.map((article) => (
+              <Link key={article.slug} href={`/articles/${article.slug}`} style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                background: '#F8FAFC', borderRadius: 10, padding: '10px 12px',
+                textDecoration: 'none', border: '1px solid #E2E8F0',
+              }}>
+                <span style={{ fontSize: 18, flexShrink: 0 }}>{article.emoji}</span>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#1E293B', lineHeight: 1.4 }}>
+                  {article.title}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 緊急感メッセージ ── */}
+      <section style={{ maxWidth: 800, margin: '0 auto', padding: '16px 16px 0' }}>
+        <div style={{
           background: '#FFF3CD', borderRadius: 12, padding: '14px 18px',
           border: '2px solid #F5A623',
           display: 'flex', alignItems: 'flex-start', gap: 10,
@@ -253,42 +335,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* サブリンク */}
+      {/* ── サブリンク ── */}
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '12px 16px 16px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          <Link href="/category/disaster-prep" style={{ textDecoration: 'none' }}>
+          <Link href="/best-disaster-items" style={{ textDecoration: 'none' }}>
             <div style={{
               background: 'white', borderRadius: 12, padding: '14px 16px',
-              border: '2px solid #E0E0E0', display: 'flex',
-              alignItems: 'center', gap: 10,
+              border: '2px solid #E0E0E0', display: 'flex', alignItems: 'center', gap: 10,
             }}>
               <span style={{ fontSize: 22 }}>🎒</span>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 13, color: '#1A1A1A' }}>備蓄・防災準備</div>
+                <div style={{ fontWeight: 700, fontSize: 13, color: '#1A1A1A' }}>おすすめ防災グッズ</div>
                 <div style={{ fontSize: 11, color: '#888' }}>グッズ・食料・薬</div>
               </div>
               <span style={{ color: '#bbb', fontSize: 18, marginLeft: 'auto' }}>›</span>
             </div>
           </Link>
-          <Link href="/musashino-bousai" style={{ textDecoration: 'none' }}>
+          <Link href="/checklist" style={{ textDecoration: 'none' }}>
             <div style={{
-              background: 'linear-gradient(135deg, #1A1A2E, #0F3460)',
-              borderRadius: 12, padding: '14px 16px',
-              border: '2px solid #3A5FFF', display: 'flex',
-              alignItems: 'center', gap: 10,
+              background: 'white', borderRadius: 12, padding: '14px 16px',
+              border: '2px solid #E0E0E0', display: 'flex', alignItems: 'center', gap: 10,
             }}>
-              <span style={{ fontSize: 22 }}>📍</span>
+              <span style={{ fontSize: 22 }}>📋</span>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 13, color: 'white' }}>武蔵野市の防災</div>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.55)' }}>避難所・ハザードマップ</div>
+                <div style={{ fontWeight: 700, fontSize: 13, color: '#1A1A1A' }}>防災チェックリスト</div>
+                <div style={{ fontSize: 11, color: '#888' }}>備えの確認はここから</div>
               </div>
-              <span style={{ color: '#FFD000', fontSize: 18, marginLeft: 'auto' }}>›</span>
+              <span style={{ color: '#bbb', fontSize: 18, marginLeft: 'auto' }}>›</span>
             </div>
           </Link>
         </div>
       </section>
 
-      {/* X導線 */}
+      {/* ── X導線 ── */}
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 28px' }}>
         <a
           href="https://x.com/zaitaku_bousai"
@@ -326,7 +405,7 @@ export default function HomePage() {
         </a>
       </section>
 
-      {/* 監修者 */}
+      {/* ── 監修者 ── */}
       <section style={{
         background: 'linear-gradient(160deg, #0D0D1A, #0A1A3A)',
         padding: '32px 20px',
@@ -340,7 +419,6 @@ export default function HomePage() {
           <div style={{ color: 'white', fontWeight: 900, fontSize: 17, marginBottom: 10 }}>
             くまごろう（現役勤務医師）
           </div>
-          {/* 信頼性を高める一言 */}
           <div style={{
             background: 'rgba(255,208,0,0.1)', border: '1px solid rgba(255,208,0,0.3)',
             borderRadius: 12, padding: '12px 16px', marginBottom: 16,

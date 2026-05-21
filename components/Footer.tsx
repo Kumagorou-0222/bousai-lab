@@ -1,6 +1,25 @@
 import Link from 'next/link'
 
 export default function Footer() {
+  const categoryLinks = [
+    { href: '/category/earthquake', label: '地震対策' },
+    { href: '/category/typhoon',    label: '台風対策' },
+    { href: '/category/blackout',   label: '停電対策' },
+    { href: '/category/evacuation', label: '避難' },
+  ]
+
+  const featuredLinks = [
+    { href: '/musashino',           label: '📍 武蔵野市の防災' },
+    { href: '/checklist',           label: '📋 防災チェックリスト' },
+    { href: '/best-disaster-items', label: '🎒 おすすめ防災グッズ' },
+    { href: '/manga',               label: '📖 まんがで学ぶ' },
+    { href: '/characters',          label: '🐿️ キャラクター紹介' },
+  ]
+
+  const subLinks = [
+    { href: '/about', label: '著者について' },
+  ]
+
   return (
     <footer style={{
       background: '#F8FAFC',
@@ -10,7 +29,7 @@ export default function Footer() {
     }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         {/* ブランド */}
-        <div style={{ marginBottom: 24, textAlign: 'center' }}>
+        <div style={{ marginBottom: 28, textAlign: 'center' }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 6,
           }}>
@@ -25,34 +44,42 @@ export default function Footer() {
             </span>
           </div>
           <p style={{ fontSize: 11, color: '#94A3B8', margin: 0 }}>
-            在宅避難のための実践ガイド
+            在宅避難のための実践ガイド｜武蔵野市在住の現役医師監修
           </p>
         </div>
 
-        {/* ナビ */}
+        {/* 主要リンク */}
         <div style={{
           display: 'flex', gap: 12, justifyContent: 'center',
-          flexWrap: 'wrap', marginBottom: 24,
+          flexWrap: 'wrap', marginBottom: 16,
         }}>
-          {[
-            { href: '/category/earthquake', label: '地震対策' },
-            { href: '/category/typhoon',    label: '台風対策' },
-            { href: '/category/blackout',   label: '停電対策' },
-            { href: '/category/evacuation', label: '避難' },
-            { href: '/checklist',           label: '📋 防災チェックリスト', highlight: true },
-            { href: '/best-disaster-items', label: '🎒 おすすめ防災グッズ', highlight: true },
-            { href: '/earthquake-items',    label: '地震グッズ' },
-            { href: '/blackout-items',      label: '停電グッズ' },
-            { href: '/typhoon-items',       label: '台風グッズ' },
-            { href: '/musashino',           label: '📍 武蔵野市の防災', highlight: true },
-            { href: '/musashino-bousai',    label: '武蔵野市 避難所一覧' },
-            { href: '/about',               label: '著者について' },
-          ].map((item) => (
+          {featuredLinks.map((item) => (
             <Link key={item.href} href={item.href} style={{
-              color: item.highlight ? '#2563EB' : '#64748B',
-              textDecoration: 'none', fontSize: 12, fontWeight: item.highlight ? 700 : 500,
+              color: '#2563EB', textDecoration: 'none',
+              fontSize: 13, fontWeight: 700,
             }}>
-              {item.highlight ? '📍 ' : ''}{item.label}
+              {item.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* カテゴリリンク */}
+        <div style={{
+          display: 'flex', gap: 16, justifyContent: 'center',
+          flexWrap: 'wrap', marginBottom: 16,
+        }}>
+          {categoryLinks.map((item) => (
+            <Link key={item.href} href={item.href} style={{
+              color: '#64748B', textDecoration: 'none', fontSize: 12, fontWeight: 500,
+            }}>
+              {item.label}
+            </Link>
+          ))}
+          {subLinks.map((item) => (
+            <Link key={item.href} href={item.href} style={{
+              color: '#64748B', textDecoration: 'none', fontSize: 12, fontWeight: 500,
+            }}>
+              {item.label}
             </Link>
           ))}
         </div>

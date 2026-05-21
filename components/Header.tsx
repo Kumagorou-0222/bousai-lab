@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { href: '/category/blackout',   label: '停電',   emoji: '⚡' },
   { href: '/category/evacuation', label: '避難',   emoji: '🚨' },
   { href: '/checklist',           label: 'チェック', emoji: '📋' },
+  { href: '/manga',               label: 'まんが',  emoji: '📖' },
 ]
 
 export default function Header() {
@@ -28,7 +29,7 @@ export default function Header() {
         </Link>
 
         {/* PCナビ */}
-        <nav style={{ display: 'flex', gap: 16, alignItems: 'center' }} className="pc-nav">
+        <nav style={{ display: 'flex', gap: 14, alignItems: 'center' }} className="pc-nav">
           {NAV_LINKS.map(({ href, label }) => (
             <Link key={href} href={href} style={{ color: 'rgba(255,255,255,0.85)', fontSize: 12, fontWeight: 700, textDecoration: 'none' }}>
               {label}
@@ -54,7 +55,7 @@ export default function Header() {
             padding: 8,
           }}
         >
-          <span style={{ display: 'block', width: 22, height: 2, background: open ? 'transparent' : 'white', transition: 'all 0.2s', transform: open ? 'none' : 'none' }} />
+          <span style={{ display: 'block', width: 22, height: 2, background: open ? 'transparent' : 'white', transition: 'all 0.2s' }} />
           <span style={{ display: 'block', width: 22, height: 2, background: 'white', transition: 'all 0.2s', transform: open ? 'rotate(45deg) translate(5px, 5px)' : 'none' }} />
           <span style={{ display: 'block', width: 22, height: 2, background: 'white', transition: 'all 0.2s', transform: open ? 'rotate(-45deg) translate(5px, -5px)' : 'none' }} />
         </button>
@@ -85,6 +86,22 @@ export default function Header() {
               <span style={{ marginLeft: 'auto', color: 'rgba(255,255,255,0.3)', fontSize: 18 }}>›</span>
             </Link>
           ))}
+          {/* キャラクター紹介 */}
+          <Link
+            href="/characters"
+            onClick={() => setOpen(false)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 12,
+              padding: '13px 24px',
+              color: 'rgba(255,255,255,0.9)', textDecoration: 'none', fontSize: 15, fontWeight: 700,
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
+            }}
+          >
+            <span style={{ fontSize: 20, width: 28, textAlign: 'center' }}>🐿️</span>
+            キャラクター紹介
+            <span style={{ marginLeft: 'auto', color: 'rgba(255,255,255,0.3)', fontSize: 18 }}>›</span>
+          </Link>
+          {/* おすすめ防災グッズ */}
           <Link
             href="/best-disaster-items"
             onClick={() => setOpen(false)}
@@ -99,6 +116,7 @@ export default function Header() {
             おすすめ防災グッズ
             <span style={{ marginLeft: 'auto', color: 'rgba(74,222,128,0.6)', fontSize: 18 }}>›</span>
           </Link>
+          {/* 武蔵野市 */}
           <Link
             href="/musashino"
             onClick={() => setOpen(false)}
@@ -116,7 +134,7 @@ export default function Header() {
       )}
 
       <style>{`
-        @media (max-width: 600px) {
+        @media (max-width: 640px) {
           .pc-nav { display: none !important; }
           .hamburger-btn { display: flex !important; }
         }
