@@ -132,7 +132,7 @@ export const PRODUCTS: ProductData[] = [
         price: '30,000〜100,000円',
         badge: '在宅避難・長期向け',
         amazonUrl: 'https://www.amazon.co.jp/s?k=ポータブル電源+1000wh',
-        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/ポータブル電源+1000wh/',
+        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/ポータブル電源+1000wh+大容量/',
       },
     ],
   },
