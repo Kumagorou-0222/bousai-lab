@@ -3,6 +3,15 @@ export type ComparisonRow = {
   recommended?: boolean
 }
 
+/**
+ * URLフィールドの設定方法:
+ * - amazonUrl: Amazon検索URLをそのまま記載（tag= 不要、lib/affiliateConfig.ts で自動付与）
+ *   例: 'https://www.amazon.co.jp/s?k=携帯トイレ+防災+100回分'
+ * - rakutenUrl: 楽天アフィリエイトポータルで生成した完全URLを貼る
+ *   例: 'https://hb.afl.rakuten.co.jp/hgc/1400711/?pc=https%3A%2F%2F...'
+ *   または通常の search.rakuten.co.jp URL（NEXT_PUBLIC_RAKUTEN_AFFILIATE_ID が設定されていれば自動変換）
+ * - undefined にすると「準備中」表示になり、リンクは出力されない
+ */
 export type ProductData = {
   mangaSlug: string
   name: string
@@ -21,15 +30,15 @@ export type ProductData = {
     badge: string
     trustText: string
     painText: string
-    amazonUrl: string
-    rakutenUrl: string
+    amazonUrl?: string
+    rakutenUrl?: string
   }
   alternatives?: {
     name: string
     description: string
     price: string
     badge: string
-    amazonUrl: string
+    amazonUrl?: string
     rakutenUrl?: string
   }[]
 }

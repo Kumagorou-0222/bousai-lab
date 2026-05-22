@@ -16,30 +16,46 @@ type HttpState = Record<string, StatusResult | 'loading'>
 function StatusBadge({ state }: { state: StatusResult | 'loading' | undefined }) {
   if (!state) return null
   if (state === 'loading') {
-    return (
-      <span style={{ fontSize: 11, color: '#64748B', fontWeight: 600 }}>確認中…</span>
-    )
+    return <span style={{ fontSize: 11, color: '#64748B', fontWeight: 600 }}>確認中…</span>
   }
   const { status, ok, redirected, error } = state
   if (error && status === 0) {
-    return (
-      <span style={{ fontSize: 11, fontWeight: 700, color: '#DC2626' }}>
-        ✗ {error}
-      </span>
-    )
+    return <span style={{ fontSize: 11, fontWeight: 700, color: '#DC2626' }}>✗ {error}</span>
   }
   if (redirected) {
-    return (
-      <span style={{ fontSize: 11, fontWeight: 700, color: '#D97706' }}>
-        → {status}
-      </span>
-    )
+    return <span style={{ fontSize: 11, fontWeight: 700, color: '#D97706' }}>→ {status}</span>
   }
   return (
     <span style={{ fontSize: 11, fontWeight: 700, color: ok ? '#15803D' : '#DC2626' }}>
       {ok ? `✓ ${status}` : `✗ ${status}`}
     </span>
   )
+}
+
+function TagBadge({ entry }: { entry: LinkEntry }) {
+  if (entry.urlType === 'amazon') {
+    const { tag, source } = entry.amazonTagStatus
+    if (!tag) return <span style={{ fontSize: 11, fontWeight: 700, color: '#DC2626' }}>✗ tag= なし</span>
+    return (
+      <span style={{ fontSize: 11, fontWeight: 700, color: '#15803D' }}>
+        ✓ {tag}
+        {source === 'env' && (
+          <span style={{ fontSize: 9, color: '#6B7280', fontWeight: 600, marginLeft: 3 }}>(env)</span>
+        )}
+      </span>
+    )
+  } else {
+    const { tag: affId, source } = entry.rakutenAffStatus
+    if (!affId) return <span style={{ fontSize: 11, fontWeight: 700, color: '#DC2626' }}>✗ aff_id= なし</span>
+    return (
+      <span style={{ fontSize: 11, fontWeight: 700, color: '#15803D' }}>
+        ✓ {affId}
+        {source === 'env' && (
+          <span style={{ fontSize: 9, color: '#6B7280', fontWeight: 600, marginLeft: 3 }}>(env)</span>
+        )}
+      </span>
+    )
+  }
 }
 
 export default function AuditClient({ links }: { links: LinkEntry[] }) {
@@ -62,8 +78,8 @@ export default function AuditClient({ links }: { links: LinkEntry[] }) {
   const checkAll = useCallback(async () => {
     setChecking(true)
     for (const link of links) {
+      if (!link.url) continue
       await checkUrl(link.url)
-      // 短いウェイトでサーバー負荷を分散
       await new Promise((r) => setTimeout(r, 300))
     }
     setChecking(false)
@@ -71,7 +87,6 @@ export default function AuditClient({ links }: { links: LinkEntry[] }) {
 
   const displayed = filter === 'issues' ? links.filter((l) => l.issues.length > 0) : links
 
-  // 商品ごとにグループ化
   const grouped = displayed.reduce<Record<string, { name: string; emoji: string; slug: string; entries: LinkEntry[] }>>(
     (acc, l) => {
       if (!acc[l.mangaSlug]) {
@@ -86,9 +101,7 @@ export default function AuditClient({ links }: { links: LinkEntry[] }) {
   return (
     <div>
       {/* ── ツールバー ── */}
-      <div style={{
-        display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, flexWrap: 'wrap',
-      }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
         <button
           onClick={checkAll}
           disabled={checking}
@@ -175,7 +188,7 @@ export default function AuditClient({ links }: { links: LinkEntry[] }) {
                     <tbody>
                       {group.entries.map((entry, i) => {
                         const hasIssue = entry.issues.length > 0
-                        const httpResult = httpState[entry.url]
+                        const httpResult = entry.url ? httpState[entry.url] : undefined
                         const httpHasIssue = httpResult && httpResult !== 'loading' &&
                           (!httpResult.ok || httpResult.redirected)
 
@@ -205,45 +218,47 @@ export default function AuditClient({ links }: { links: LinkEntry[] }) {
                             </td>
                             {/* ドメイン */}
                             <td style={{ padding: '10px 12px', color: '#64748B', whiteSpace: 'nowrap' }}>
-                              {entry.domain}
+                              {entry.domain ?? (
+                                <span style={{ fontSize: 11, color: '#7C3AED', fontWeight: 700 }}>準備中</span>
+                              )}
                             </td>
                             {/* タグ状態 */}
                             <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
-                              {entry.urlType === 'amazon' ? (
-                                entry.amazonTag ? (
-                                  <span style={{ color: '#15803D', fontWeight: 700 }}>✓ {entry.amazonTag}</span>
-                                ) : (
-                                  <span style={{ color: '#DC2626', fontWeight: 700 }}>✗ tag= なし</span>
-                                )
+                              {entry.url === null ? (
+                                <span style={{ fontSize: 11, color: '#7C3AED', fontWeight: 700 }}>— URL未設定</span>
                               ) : (
-                                entry.rakutenAffId ? (
-                                  <span style={{ color: '#15803D', fontWeight: 700 }}>✓ {entry.rakutenAffId}</span>
-                                ) : (
-                                  <span style={{ color: '#DC2626', fontWeight: 700 }}>✗ aff_id= なし</span>
-                                )
+                                <TagBadge entry={entry} />
                               )}
                             </td>
                             {/* HTTP ステータス */}
                             <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                                <StatusBadge state={httpState[entry.url]} />
-                                {!httpState[entry.url] && (
-                                  <button
-                                    onClick={() => checkUrl(entry.url)}
-                                    style={{
-                                      fontSize: 10, color: '#1E40AF', background: '#EFF6FF',
-                                      border: '1px solid #BFDBFE', borderRadius: 6,
-                                      padding: '3px 8px', cursor: 'pointer', fontWeight: 700,
-                                    }}
-                                  >
-                                    確認
-                                  </button>
-                                )}
-                              </div>
+                              {entry.url === null ? (
+                                <span style={{ fontSize: 11, color: '#7C3AED', fontWeight: 700 }}>準備中</span>
+                              ) : (
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                  <StatusBadge state={httpResult} />
+                                  {!httpResult && (
+                                    <button
+                                      onClick={() => checkUrl(entry.url!)}
+                                      style={{
+                                        fontSize: 10, color: '#1E40AF', background: '#EFF6FF',
+                                        border: '1px solid #BFDBFE', borderRadius: 6,
+                                        padding: '3px 8px', cursor: 'pointer', fontWeight: 700,
+                                      }}
+                                    >
+                                      確認
+                                    </button>
+                                  )}
+                                </div>
+                              )}
                             </td>
                             {/* 問題 */}
                             <td style={{ padding: '10px 12px' }}>
-                              {entry.issues.length > 0 ? (
+                              {entry.url === null ? (
+                                <span style={{ fontSize: 10, fontWeight: 700, color: '#7C3AED', background: '#F5F3FF', borderRadius: 4, padding: '2px 6px' }}>
+                                  URL未設定
+                                </span>
+                              ) : entry.issues.length > 0 ? (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                                   {entry.issues.map((issue, j) => (
                                     <span key={j} style={{
@@ -261,19 +276,23 @@ export default function AuditClient({ links }: { links: LinkEntry[] }) {
                             </td>
                             {/* URL */}
                             <td style={{ padding: '10px 12px', maxWidth: 220 }}>
-                              <a
-                                href={entry.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                  fontSize: 11, color: '#2563EB', textDecoration: 'underline',
-                                  display: 'block', overflow: 'hidden', textOverflow: 'ellipsis',
-                                  whiteSpace: 'nowrap',
-                                }}
-                                title={entry.url}
-                              >
-                                {entry.url}
-                              </a>
+                              {entry.url ? (
+                                <a
+                                  href={entry.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{
+                                    fontSize: 11, color: '#2563EB', textDecoration: 'underline',
+                                    display: 'block', overflow: 'hidden', textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                  }}
+                                  title={entry.url}
+                                >
+                                  {entry.url}
+                                </a>
+                              ) : (
+                                <span style={{ fontSize: 11, color: '#7C3AED', fontWeight: 700 }}>— 準備中</span>
+                              )}
                             </td>
                           </tr>
                         )
