@@ -2,7 +2,7 @@ name: disaster-check
 
 on:
   schedule:
-    # 5分ごとに実行（UTC）- 時刻ベースルーティングで朝・昼・夜を判定
+    # 5分ごとに実行（UTC）
     - cron: "*/5 * * * *"
   workflow_dispatch:
     inputs:
@@ -17,10 +17,6 @@ on:
           - test-keywords # キーワードマッチングのテスト（全角/半角）
           - debug-feed    # フィード内容を表示（通知なし）
           - reset-db      # seen_entries.db をリセットして通常実行
-          - daily-summary # 定時災害まとめを手動送信
-          - morning       # 朝の保存系投稿案を手動送信
-          - noon          # 昼のストーリー投稿案を手動送信
-          - evening       # 夜のまとめ投稿案を手動送信
 
 jobs:
   run:
@@ -51,20 +47,11 @@ jobs:
 
       - name: Run bot
         env:
-          TELEGRAM_BOT_TOKEN:        ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID:          ${{ secrets.TELEGRAM_CHAT_ID }}
-          DISCORD_WEBHOOK_URL:       ${{ secrets.DISCORD_WEBHOOK_URL }}
-          X_CONSUMER_KEY:            ${{ secrets.X_CONSUMER_KEY }}
-          X_CONSUMER_SECRET:         ${{ secrets.X_CONSUMER_SECRET }}
-          X_ACCESS_TOKEN:            ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET:     ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-          AUTO_POST_ENABLED:         ${{ secrets.AUTO_POST_ENABLED }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           MODE="${{ github.event.inputs.mode || 'normal' }}"
-          HOUR=$(date -u +%H)
-          MINUTE=$(date -u +%M)
-
-          echo "[DEBUG] MODE=$MODE HOUR=$HOUR MINUTE=$MINUTE"
+          echo "[DEBUG] MODE=$MODE"
 
           if [ "$MODE" = "test-telegram" ]; then
             python debug_feed.py --test-telegram
@@ -75,14 +62,6 @@ jobs:
           elif [ "$MODE" = "reset-db" ]; then
             python debug_feed.py --reset-db
             python main.py
-          elif [ "$MODE" = "daily-summary" ]; then
-            python daily_summary.py
-          elif [ "$MODE" = "morning" ]; then
-            python scheduled_post_runner.py morning --auto-post
-          elif [ "$MODE" = "noon" ]; then
-            python scheduled_post_runner.py noon
-          elif [ "$MODE" = "evening" ]; then
-            python scheduled_post_runner.py evening --auto-post
           else
             python main.py
           fi
