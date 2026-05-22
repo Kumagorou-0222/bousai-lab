@@ -37,8 +37,8 @@ export const PRIORITY_ARTICLES: PriorityConfig[] = [
   { slug: 'evacuation-items',       rank: 'A' },
   { slug: 'earthquake-bath',        rank: 'A' },
   { slug: 'earthquake-cooking',     rank: 'A' },
+  { slug: 'blackout-smartphone',    rank: 'A' },
   // ── Bランク（weight 1）
-  { slug: 'blackout-smartphone',        rank: 'B' },
   { slug: 'blackout-water',             rank: 'B' },
   { slug: 'disaster-water',             rank: 'B' },
   { slug: 'emergency-food',             rank: 'B' },
@@ -79,6 +79,7 @@ export type XPostCandidate = {
   url: string
   text: string
   hasManga: boolean
+  mangaImages: string[]   // スケジューラー・プレビュー用
 }
 
 // =====================================================
@@ -180,6 +181,7 @@ export function buildPriorityCandidates(
         url: config.fixedUrl!,
         text: config.fixedText!,
         hasManga: false,
+        mangaImages: [],
       }
     }
 
@@ -192,9 +194,11 @@ export function buildPriorityCandidates(
         url: `${BASE_URL}/articles/${config.slug}`,
         text: `${BASE_URL}/articles/${config.slug}\n#防災`,
         hasManga: false,
+        mangaImages: [],
       }
     }
 
+    const images = (article.mangaImages as string[] | undefined) ?? []
     return {
       slug: config.slug,
       rank: config.rank,
@@ -209,7 +213,8 @@ export function buildPriorityCandidates(
         xPostNormal: article.xPost?.normal,
         xPostShort: article.xPost?.short,
       }),
-      hasManga: !!(article.manga || (article.mangaImages && (article.mangaImages as string[]).length > 0)),
+      hasManga: !!(article.manga || images.length > 0),
+      mangaImages: images,
     }
   })
 }
