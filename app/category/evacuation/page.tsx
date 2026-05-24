@@ -24,7 +24,7 @@ const GUIDE_CARDS = [
   {
     title: '【結論】在宅避難が向いているケース',
     desc: '避難所に行くべき人・家に残れる人の違いがわかる',
-    href: '/home-evacuation',
+    href: '/articles/earthquake-zaitaku',
     emoji: '🏠',
   },
   {
