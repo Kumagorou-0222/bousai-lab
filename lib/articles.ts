@@ -149,7 +149,7 @@ export function getArticleBySlug(slug: string): Article {
   const filePath = path.join(ARTICLES_DIR, `${slug}.mdx`)
   const raw = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(raw)
-  return {
+  const article = {
     slug,
     title: data.title ?? '',
     description: data.description ?? '',
@@ -168,7 +168,12 @@ export function getArticleBySlug(slug: string): Article {
     monetizeItems: normalizeMonetizeItems(data.monetizeItems),
     region: data.region,
     content,
+  } satisfies Article
+  if (process.env.NODE_ENV === 'development') {
+    const { validateArticle } = require('./validateArticle')
+    validateArticle(slug, article)
   }
+  return article
 }
 
 export function getAllArticlesMeta(): ArticleMeta[] {

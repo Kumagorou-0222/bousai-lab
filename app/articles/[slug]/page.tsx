@@ -14,6 +14,7 @@ import ShareButton from '@/components/ShareButton'
 import AdSense from '@/components/AdSense'
 import Dialogue from '@/components/Dialogue'
 import MangaDialogue from '@/components/MangaDialogue'
+import MangaSection from '@/components/MangaSection'
 import ReasonsList from '@/components/ReasonsList'
 import MonetizeLinks from '@/components/MonetizeLinks'
 import XPostBox from '@/components/XPostBox'
@@ -256,35 +257,8 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
 
-        {/* ③ 4コマ画像（MangaImageGallery） */}
-        {article.mangaImages && article.mangaImages.length > 0 && (
-          <div style={{ marginBottom: 8 }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              fontSize: 12, fontWeight: 700, color: '#1E40AF',
-              background: '#EFF6FF', border: '1px solid #BFDBFE',
-              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
-            }}>
-              <span>🎨</span><span>4コマ漫画</span>
-            </div>
-            <MangaImageGallery images={article.mangaImages} />
-          </div>
-        )}
-
-        {/* ④ テキスト4コマ（MangaDialogue）— 常に表示 */}
-        {article.manga && article.manga.panels.length > 0 && (
-          <div style={{ marginBottom: 8 }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              fontSize: 12, fontWeight: 700, color: '#15803D',
-              background: '#F0FDF4', border: '1px solid #BBF7D0',
-              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
-            }}>
-              <span>💬</span><span>セリフで確認</span>
-            </div>
-            <MangaDialogue panels={article.manga.panels} />
-          </div>
-        )}
+        {/* ③④ 4コマ漫画（MangaSection が画像/テキスト/デフォルトを自動判定） */}
+        <MangaSection article={article} />
 
         {/* ④ 理由3つ */}
         {article.reasons && article.reasons.length > 0 && (
