@@ -1,0 +1,79 @@
+name: X自動投稿（朝昼夜）
+
+on:
+  schedule:
+    - cron: "0 22 * * *"   # 朝 07:00 JST  (UTC 22:00 前日)
+    - cron: "0 3 * * *"    # 昼 12:00 JST  (UTC 03:00)
+    - cron: "0 12 * * *"   # 夜 21:00 JST  (UTC 12:00)
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: "スロット指定"
+        required: true
+        default: "morning"
+        type: choice
+        options:
+          - morning
+          - noon
+          - night
+
+permissions:
+  contents: write   # 履歴ファイルを commit/push するために必要
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. チェックアウト
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ── 2. Node.js 20 セットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      # ── 3. 依存関係インストール
+      - name: npm install
+        run: npm ci
+
+      # ── 4. スロット判定
+      - name: スロット判定
+        id: slot
+        run: |
+          SCHEDULE="${{ github.event.schedule }}"
+          MANUAL="${{ github.event.inputs.slot }}"
+
+          if   [ "$SCHEDULE" = "0 22 * * *" ]; then echo "slot=morning" >> "$GITHUB_OUTPUT"
+          elif [ "$SCHEDULE" = "0 3 * * *"  ]; then echo "slot=noon"    >> "$GITHUB_OUTPUT"
+          elif [ "$SCHEDULE" = "0 12 * * *" ]; then echo "slot=night"   >> "$GITHUB_OUTPUT"
+          elif [ -n "$MANUAL" ];               then echo "slot=$MANUAL"  >> "$GITHUB_OUTPUT"
+          else                                      echo "slot=morning"  >> "$GITHUB_OUTPUT"
+          fi
+
+      # ── 5. X 投稿
+      - name: X 投稿実行
+        env:
+          POST_SLOT:            ${{ steps.slot.outputs.slot }}
+          X_API_KEY:            ${{ secrets.X_API_KEY }}
+          X_API_SECRET:         ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN:       ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET:      ${{ secrets.X_ACCESS_SECRET }}
+          TELEGRAM_BOT_TOKEN:   ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:     ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: npx tsx scripts/postToX.ts
+
+      # ── 6. 履歴ファイルをコミット
+      - name: 投稿履歴をコミット
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/x-post-history.json
+          # 変更がある場合のみコミット
+          git diff --cached --quiet || git commit -m "chore: X投稿ログ更新 ${{ steps.slot.outputs.slot }} [skip ci]"
+          git push
