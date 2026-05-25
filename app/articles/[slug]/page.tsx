@@ -17,6 +17,7 @@ import MangaDialogue from '@/components/MangaDialogue'
 import MangaSection from '@/components/MangaSection'
 import ReasonsList from '@/components/ReasonsList'
 import MonetizeLinks from '@/components/MonetizeLinks'
+import PrepItems from '@/components/PrepItems'
 import XPostBox from '@/components/XPostBox'
 import MangaImageGallery from '@/components/MangaImageGallery'
 import SeriesNav from '@/components/SeriesNav'
@@ -390,7 +391,12 @@ export default async function ArticlePage({ params }: Props) {
         {/* 中盤広告 */}
         <AdSense slot="2847651930" format="auto" />
 
-        {/* ⑥ 収益導線（チェックリスト → 商品） */}
+        {/* ⑥ 収益導線：この備えに必要なもの（prepItems あり記事のみ） */}
+        {article.prepItems && article.prepItems.length > 0 && (
+          <PrepItems items={article.prepItems} />
+        )}
+
+        {/* ⑥b 収益導線（チェックリスト → 商品） */}
         <MonetizeLinks
           category={article.category}
           items={article.monetizeItems}

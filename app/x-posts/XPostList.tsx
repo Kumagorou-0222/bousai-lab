@@ -3,18 +3,13 @@
 import { useState, useCallback } from 'react'
 import type { XPostCandidate, XRank } from '@/lib/xPostQueue'
 import { getRandomXPost, RANK_LABELS, RANK_WEIGHTS } from '@/lib/xPostQueue'
+import type { XPostListItem } from '@/lib/xpost'
 
 // =====================================================
 // 型
 // =====================================================
 
-type XPostItem = {
-  slug: string
-  title: string
-  category: string
-  short: string
-  normal: string
-}
+type XPostItem = XPostListItem
 
 // =====================================================
 // 定数
@@ -303,6 +298,66 @@ function PriorityCard({ candidate }: { candidate: XPostCandidate }) {
   )
 }
 
+function CarouselCard({ post }: { post: XPostItem }) {
+  const slides = post.carouselSlides ?? []
+  const SLIDE_LABELS = ['1枚目：結論', '2枚目：理由①', '3枚目：理由②', '4枚目：理由③', '5枚目：チェックリスト']
+  const SLIDE_COLORS = ['#0369A1', '#7C3AED', '#7C3AED', '#7C3AED', '#16A34A']
+  const SLIDE_BG    = ['#F0F9FF', '#FAF5FF', '#FAF5FF', '#FAF5FF', '#F0FDF4']
+  const SLIDE_BD    = ['#BAE6FD', '#DDD6FE', '#DDD6FE', '#DDD6FE', '#BBF7D0']
+
+  return (
+    <div style={{
+      background: 'white', border: '1.5px solid #0369A1',
+      borderRadius: 16, padding: '20px 22px',
+      boxShadow: '0 2px 12px rgba(3,105,161,0.08)',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+        <span style={{
+          fontSize: 10, fontWeight: 800, padding: '2px 8px',
+          borderRadius: 10, background: '#0369A1', color: 'white',
+        }}>
+          🎠 カルーセル {slides.length}枚
+        </span>
+        {post.xSeries && (
+          <span style={{
+            fontSize: 10, fontWeight: 800, padding: '2px 8px',
+            borderRadius: 10, background: '#FEF3C7', color: '#92400E',
+            border: '1px solid #FCD34D',
+          }}>
+            【{post.xSeries}】
+          </span>
+        )}
+        <span style={{ fontSize: 14, fontWeight: 800, color: '#0F172A', flex: 1 }}>
+          {post.title}
+        </span>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {slides.map((slide, i) => (
+          <div key={i}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: SLIDE_COLORS[i] ?? '#475569' }}>
+                {SLIDE_LABELS[i] ?? `${i + 1}枚目`}
+              </span>
+              <span style={{ fontSize: 10, color: '#94A3B8' }}>{slide.length}文字</span>
+              <CopyButton text={slide} label="コピー" />
+            </div>
+            <div style={{
+              background: SLIDE_BG[i] ?? '#F8FAFC',
+              border: `1px solid ${SLIDE_BD[i] ?? '#E2E8F0'}`,
+              borderRadius: 10, padding: '12px 14px',
+              fontSize: 12, lineHeight: 1.75, color: '#0F172A',
+              whiteSpace: 'pre-wrap', wordBreak: 'break-all',
+            }}>
+              {slide}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function AllPostCard({ post }: { post: XPostItem }) {
   return (
     <div
@@ -314,13 +369,22 @@ function AllPostCard({ post }: { post: XPostItem }) {
         boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
         <span style={{
           fontSize: 10, fontWeight: 700, padding: '2px 8px',
           borderRadius: 10, background: '#F1F5F9', color: '#64748B',
         }}>
           {CATEGORY_LABELS[post.category] ?? post.category}
         </span>
+        {post.xSeries && (
+          <span style={{
+            fontSize: 10, fontWeight: 800, padding: '2px 8px',
+            borderRadius: 10, background: '#FEF3C7', color: '#92400E',
+            border: '1px solid #FCD34D',
+          }}>
+            【{post.xSeries}】
+          </span>
+        )}
         <span style={{ fontSize: 14, fontWeight: 800, color: '#0F172A' }}>
           {post.title}
         </span>
@@ -395,17 +459,19 @@ export default function XPostList({
   }, [])
 
   const allCategories = Array.from(new Set(posts.map((p) => p.category)))
+  const carouselPosts = posts.filter((p) => (p.carouselSlides?.length ?? 0) > 0)
 
   const filteredPosts =
-    filter === 'priority'
+    filter === 'priority' || filter === 'carousel'
       ? []
       : filter === 'all'
       ? posts
       : posts.filter((p) => p.category === filter)
 
   const filterOptions: { key: FilterMode; label: string }[] = [
-    { key: 'priority', label: `⭐ 優先${priorityCandidates.length}記事` },
-    { key: 'all',      label: `全記事（${posts.length}本）` },
+    { key: 'priority',  label: `⭐ 優先${priorityCandidates.length}記事` },
+    { key: 'carousel',  label: `🎠 カルーセル（${carouselPosts.length}本）` },
+    { key: 'all',       label: `全記事（${posts.length}本）` },
     ...allCategories.map((cat) => ({
       key: cat,
       label: CATEGORY_LABELS[cat] ?? cat,
@@ -433,6 +499,31 @@ export default function XPostList({
           </button>
         ))}
       </div>
+
+      {/* カルーセルビュー */}
+      {filter === 'carousel' && (
+        <div>
+          <div style={{ fontSize: 12, color: '#94A3B8', marginBottom: 16 }}>
+            carousel フィールドが設定された {carouselPosts.length} 記事（5枚スライド構成）
+          </div>
+          {carouselPosts.length === 0 ? (
+            <div style={{
+              background: '#F8FAFC', border: '1px solid #E2E8F0',
+              borderRadius: 12, padding: '24px', textAlign: 'center',
+              color: '#94A3B8', fontSize: 13,
+            }}>
+              まだカルーセルデータが設定された記事がありません。<br />
+              記事 MDX に <code>carousel.reasons</code> と <code>carousel.checklist</code> を追加してください。
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              {carouselPosts.map((post) => (
+                <CarouselCard key={post.slug} post={post} />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* 優先20記事ビュー */}
       {filter === 'priority' && (

@@ -56,6 +56,25 @@ export type RegionBlock = {
   content: string
 }
 
+export type XSeriesLabel =
+  | '保存版'
+  | 'これだけでOK'
+  | '1分防災'
+  | '家族で確認'
+
+export type CarouselData = {
+  reasons: string[]
+  checklist: string[]
+}
+
+export type PrepItem = {
+  name: string
+  emoji: string
+  spec: string
+  amazonQuery: string
+  rakutenQuery: string
+}
+
 export type ArticleFrontmatter = {
   title: string
   description: string
@@ -72,6 +91,9 @@ export type ArticleFrontmatter = {
   label?: string
   reasons?: ReasonItem[]
   xPost?: XPost
+  xSeries?: XSeriesLabel
+  carousel?: CarouselData
+  prepItems?: PrepItem[]
   monetizeItems?: MonetizeItem[]
   region?: RegionBlock
 }
@@ -165,6 +187,9 @@ export function getArticleBySlug(slug: string): Article {
     mangaSlug: data.mangaSlug,
     reasons: normalizeReasons(data.reasons),
     xPost: data.xPost,
+    xSeries: data.xSeries,
+    carousel: data.carousel,
+    prepItems: data.prepItems,
     monetizeItems: normalizeMonetizeItems(data.monetizeItems),
     region: data.region,
     content,
@@ -198,6 +223,9 @@ export function getAllArticlesMeta(): ArticleMeta[] {
         mangaSlug: data.mangaSlug,
         reasons: normalizeReasons(data.reasons),
         xPost: data.xPost,
+        xSeries: data.xSeries,
+        carousel: data.carousel,
+        prepItems: data.prepItems,
         monetizeItems: normalizeMonetizeItems(data.monetizeItems),
       } satisfies ArticleMeta
     })

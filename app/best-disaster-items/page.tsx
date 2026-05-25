@@ -4,7 +4,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 
 export const metadata: Metadata = {
   title: 'おすすめ防災グッズ完全版【医師監修】',
-  description: '医師くまごろうが厳選した防災グッズ7カテゴリ。防災トイレ・モバイルバッテリー・ランタン・非常食・水・保冷バッグ・カセットコンロ。押し売りなしで本当に必要なものだけを解説。',
+  description: '医師くまごろうが厳選した防災グッズ12カテゴリ。防災トイレ・モバイルバッテリー・ランタン・非常食・水・保冷バッグ・カセットコンロ。停電対策・避難所・マンション・子供・高齢者別も解説。',
   alternates: { canonical: 'https://bousai-lab.vercel.app/best-disaster-items' },
 }
 
@@ -19,8 +19,11 @@ type Item = {
   emoji: string
 }
 
-const ITEMS: { category: string; emoji: string; color: string; description: string; products: Item[] }[] = [
+type Category = { id: string; category: string; emoji: string; color: string; description: string; products: Item[] }
+
+const ITEMS: Category[] = [
   {
+    id: 'toilet',
     category: '携帯トイレ',
     emoji: '🚽',
     color: '#DC2626',
@@ -49,6 +52,7 @@ const ITEMS: { category: string; emoji: string; color: string; description: stri
     ],
   },
   {
+    id: 'battery',
     category: 'モバイルバッテリー',
     emoji: '🔋',
     color: '#D97706',
@@ -77,6 +81,7 @@ const ITEMS: { category: string; emoji: string; color: string; description: stri
     ],
   },
   {
+    id: 'lantern',
     category: 'ランタン・照明',
     emoji: '🔦',
     color: '#2563EB',
@@ -105,6 +110,7 @@ const ITEMS: { category: string; emoji: string; color: string; description: stri
     ],
   },
   {
+    id: 'food',
     category: '非常食',
     emoji: '🍱',
     color: '#16A34A',
@@ -133,6 +139,7 @@ const ITEMS: { category: string; emoji: string; color: string; description: stri
     ],
   },
   {
+    id: 'water',
     category: '保存水',
     emoji: '💧',
     color: '#0891B2',
@@ -161,6 +168,7 @@ const ITEMS: { category: string; emoji: string; color: string; description: stri
     ],
   },
   {
+    id: 'coolbag',
     category: '保冷バッグ',
     emoji: '🧊',
     color: '#7C3AED',
@@ -189,6 +197,7 @@ const ITEMS: { category: string; emoji: string; color: string; description: stri
     ],
   },
   {
+    id: 'stove',
     category: 'カセットコンロ',
     emoji: '🔥',
     color: '#EA580C',
@@ -213,6 +222,204 @@ const ITEMS: { category: string; emoji: string; color: string; description: stri
         emoji: '⛽',
         amazonQuery: 'カセットボンベ 12本 防災 備蓄',
         rakutenQuery: 'カセットガス 12本セット 防災',
+      },
+    ],
+  },
+  // ──────────────────────────────────────────────────
+  // シーン別カテゴリ
+  // ──────────────────────────────────────────────────
+  {
+    id: 'blackout',
+    category: '停電対策',
+    emoji: '⚡',
+    color: '#B45309',
+    description: '停電は24時間〜数日続くことも。ライフラインが止まっても生活できる準備が必要です。',
+    products: [
+      {
+        name: 'ポータブル電源（大容量）',
+        priority: '必須',
+        spec: '1,000Wh以上・AC出力あり',
+        reason: '冷蔵庫・医療機器・スマホ充電に対応。長期停電には1,000Wh以上が目安。',
+        price: '50,000〜120,000円',
+        emoji: '⚡',
+        amazonQuery: 'ポータブル電源 1000Wh 防災 停電',
+        rakutenQuery: 'ポータブル電源 1000Wh 停電 大容量',
+      },
+      {
+        name: 'ソーラーパネル',
+        priority: '推奨',
+        spec: '100W以上・折りたたみ式',
+        reason: 'ポータブル電源を継続充電できる。停電が1週間以上になる場合に力を発揮する。',
+        price: '15,000〜40,000円',
+        emoji: '☀️',
+        amazonQuery: 'ソーラーパネル 折りたたみ 防災 100W',
+        rakutenQuery: 'ソーラーパネル 折りたたみ 防災',
+      },
+      {
+        name: '電池式ラジオ（防災ラジオ）',
+        priority: '必須',
+        spec: 'AM/FM対応・乾電池式',
+        reason: '停電中は唯一の情報源になる。スマホの電池を消費せずに情報収集できる。',
+        price: '2,000〜6,000円',
+        emoji: '📻',
+        amazonQuery: '防災ラジオ AM FM 乾電池 防水',
+        rakutenQuery: '防災ラジオ 乾電池 手回し AM FM',
+      },
+    ],
+  },
+  {
+    id: 'shelter',
+    category: '避難所',
+    emoji: '🏫',
+    color: '#0891B2',
+    description: '避難所生活は数日〜数週間に及ぶことも。感染症・快適性・衛生に備えましょう。',
+    products: [
+      {
+        name: 'アルコール手指消毒液',
+        priority: '必須',
+        spec: '60%以上・500ml×2本',
+        reason: '避難所での集団感染を防ぐ最重要アイテム。食事前・トイレ後に必ず使う。',
+        price: '500〜1,500円',
+        emoji: '🧴',
+        amazonQuery: 'アルコール消毒液 手指 防災 500ml',
+        rakutenQuery: 'アルコール手指消毒液 防災 ウイルス',
+      },
+      {
+        name: '使い捨てマスク（50枚入り）',
+        priority: '必須',
+        spec: '不織布・50枚以上',
+        reason: '飛沫感染・ほこり対策に。避難所での感染症予防に必須の備え。',
+        price: '800〜2,000円',
+        emoji: '😷',
+        amazonQuery: '不織布マスク 50枚 防災 非常用',
+        rakutenQuery: '不織布マスク 50枚 大容量 防災',
+      },
+      {
+        name: '簡易プライバシーテント',
+        priority: 'あれば便利',
+        spec: '着替え・授乳用・1人用',
+        reason: '避難所でのプライバシー確保に。着替え・授乳・貴重品管理に使える。',
+        price: '3,000〜8,000円',
+        emoji: '⛺',
+        amazonQuery: '着替えテント 簡易テント 避難所 プライバシー',
+        rakutenQuery: '簡易テント 着替え 避難所 プライバシー',
+      },
+    ],
+  },
+  {
+    id: 'mansion',
+    category: 'マンション',
+    emoji: '🏢',
+    color: '#6D28D9',
+    description: 'マンション特有の備え。断水時のトイレ・高層階での生活・エレベーター停止を想定しましょう。',
+    products: [
+      {
+        name: '凝固剤タイプ携帯トイレ（100回分）',
+        priority: '必須',
+        spec: '100回分・家族人数×15日分',
+        reason: 'マンションは断水するとトイレが完全に使えない。100回分以上を確保して。',
+        price: '4,000〜8,000円（100回分）',
+        emoji: '🚽',
+        amazonQuery: '携帯トイレ 100回分 マンション 断水 凝固剤',
+        rakutenQuery: '携帯トイレ 100回 マンション 備蓄',
+      },
+      {
+        name: '耐震ラッチ（食器棚・吊り戸棚用）',
+        priority: '必須',
+        spec: '2〜4個/戸棚',
+        reason: '地震で食器棚が開き中身が飛び出す事故を防ぐ。賃貸でも取り付けやすい商品がある。',
+        price: '1,000〜3,000円（2個セット）',
+        emoji: '🔒',
+        amazonQuery: '耐震ラッチ 食器棚 マンション 吊り戸棚',
+        rakutenQuery: '耐震ラッチ 食器棚 開き戸',
+      },
+      {
+        name: '耐震マット（家具固定用）',
+        priority: '推奨',
+        spec: '冷蔵庫・テレビ・本棚に',
+        reason: 'マンションでは家具転倒が怪我の主な原因。耐震マットと壁固定を組み合わせる。',
+        price: '1,000〜3,000円',
+        emoji: '🪵',
+        amazonQuery: '耐震マット 家具 冷蔵庫 転倒防止',
+        rakutenQuery: '耐震マット 家具固定 防災',
+      },
+    ],
+  },
+  {
+    id: 'kids',
+    category: '子供がいる家庭',
+    emoji: '👶',
+    color: '#EC4899',
+    description: '乳幼児・子供がいる家庭専用の備え。ミルク・おむつ・遊び道具も防災グッズです。',
+    products: [
+      {
+        name: '液体ミルク（常温保存）',
+        priority: '必須',
+        spec: '乳児がいる家庭は3日分以上',
+        reason: '断水・停電でも調乳不要。災害時に赤ちゃんの命をつなぐ最重要備蓄。',
+        price: '1,500〜3,000円（6本セット）',
+        emoji: '🍼',
+        amazonQuery: '液体ミルク 常温 防災 備蓄 乳児',
+        rakutenQuery: '液体ミルク 常温 防災 備蓄',
+      },
+      {
+        name: '使い捨ておむつ（多めに備蓄）',
+        priority: '必須',
+        spec: '3日分以上・サイズは大きめも用意',
+        reason: '避難所・在宅避難問わず消耗する。普段より1サイズ大きめも1パック確保を。',
+        price: '1,500〜4,000円（1パック）',
+        emoji: '👶',
+        amazonQuery: 'おむつ 防災 備蓄 大容量 紙おむつ',
+        rakutenQuery: 'おむつ 備蓄 防災 大容量',
+      },
+      {
+        name: '使い捨て哺乳瓶（滅菌済み）',
+        priority: '推奨',
+        spec: '5本以上',
+        reason: '断水時は哺乳瓶の消毒が困難。使い捨てタイプなら清潔を保てる。',
+        price: '1,000〜2,500円（5本）',
+        emoji: '🍼',
+        amazonQuery: '哺乳瓶 使い捨て 滅菌済み 防災',
+        rakutenQuery: '哺乳瓶 使い捨て 滅菌 防災',
+      },
+    ],
+  },
+  {
+    id: 'elderly',
+    category: '高齢者家庭',
+    emoji: '👴',
+    color: '#059669',
+    description: '高齢者は避難所より在宅避難が推奨。薬・補助具・快適な睡眠環境を重点的に備えましょう。',
+    products: [
+      {
+        name: '常備薬の予備（7日分以上）',
+        priority: '必須',
+        spec: '処方薬・市販薬合わせて7日分',
+        reason: '災害後は薬局・病院が機能しないことがある。お薬手帳のコピーも必ず用意する。',
+        price: '定期処方時に余分に確認',
+        emoji: '💊',
+        amazonQuery: '薬ケース 防災 お薬手帳 携帯',
+        rakutenQuery: '薬ケース 防災 お薬手帳',
+      },
+      {
+        name: '折りたたみ杖・歩行補助具',
+        priority: '推奨',
+        spec: '折りたたみ式・軽量',
+        reason: '足腰の弱い方は避難時に転倒しやすい。平時から使い慣れた軽量の杖を1本備える。',
+        price: '3,000〜8,000円',
+        emoji: '🦯',
+        amazonQuery: '折りたたみ杖 軽量 防災 歩行補助',
+        rakutenQuery: '折りたたみ杖 軽量 コンパクト',
+      },
+      {
+        name: '非常用簡易マット（断熱）',
+        priority: '推奨',
+        spec: '保温・断熱・折りたたみ式',
+        reason: '体温調節能力が低下しがちな高齢者は、床の冷えや断熱対策が特に重要。',
+        price: '2,000〜5,000円',
+        emoji: '🛏️',
+        amazonQuery: '非常用マット 断熱 保温 防災 アルミ',
+        rakutenQuery: '防災マット 断熱 保温 アルミ',
       },
     ],
   },
@@ -252,7 +459,7 @@ export default function BestDisasterItemsPage() {
         </h1>
         <p style={{ color: '#666', fontSize: 14, maxWidth: 520, margin: '0 auto', lineHeight: 1.8 }}>
           現役医師・くまごろうが「本当に必要なもの」だけを厳選。<br />
-          7カテゴリ・優先度つきで紹介します。
+          12カテゴリ・優先度つきで紹介します。
         </p>
       </div>
 
@@ -298,10 +505,34 @@ export default function BestDisasterItemsPage() {
         <span style={{ color: '#16A34A', fontSize: 20 }}>›</span>
       </Link>
 
+      {/* カテゴリナビ */}
+      <div style={{ marginBottom: 32 }}>
+        <div style={{ fontSize: 11, fontWeight: 800, color: '#64748B', marginBottom: 10, letterSpacing: '0.06em' }}>
+          カテゴリジャンプ
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {ITEMS.map((cat) => (
+            <a
+              key={cat.id}
+              href={`#cat-${cat.id}`}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 5,
+                padding: '6px 12px', borderRadius: 20,
+                background: `${cat.color}12`, border: `1.5px solid ${cat.color}30`,
+                color: cat.color, fontSize: 12, fontWeight: 700,
+                textDecoration: 'none',
+              }}
+            >
+              {cat.emoji} {cat.category}
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* カテゴリ別商品 */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         {ITEMS.map((cat) => (
-          <section key={cat.category}>
+          <section key={cat.category} id={`cat-${cat.id}`}>
             {/* カテゴリヘッダー */}
             <div style={{
               display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16,
