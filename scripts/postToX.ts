@@ -24,7 +24,6 @@ import {
   selectCandidate,
   resolveMangaImagePath,
   appendHistory,
-  sendTelegramAlert,
   detectSlot,
   nowJST,
 } from '../lib/xAutoPost'
@@ -123,17 +122,7 @@ async function main(): Promise<void> {
 // エントリーポイント
 // =====================================================
 
-main().catch(async (err: unknown) => {
-  const message =
-    err instanceof Error
-      ? `${err.message}\n\nslug: ${process.env._SELECTED_SLUG ?? '不明'}\nslot: ${process.env.POST_SLOT ?? '自動判定'}`
-      : String(err)
-
+main().catch((err: unknown) => {
   console.error('[postToX] ❌ エラー:', err)
-
-  await sendTelegramAlert(
-    `slot: ${process.env.POST_SLOT ?? '自動判定'}\n\n${message}`,
-  )
-
   process.exit(1)
 })
