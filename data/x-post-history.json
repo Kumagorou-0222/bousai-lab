@@ -25,5 +25,14 @@
     "tweetId": "2059410117926277173",
     "text": "【1分防災】【停電したら冷蔵庫は何時間もつ？】❌ 何度も開ける ⭕ なるべく開けない 目安：冷蔵4〜6時間、冷凍48時間。開けるたびに温度上昇。保冷バッグ+保冷剤で移動させれば時間を稼げる。→ https://bousai-lab.vercel.app/articles/blackout-refrigerator #防災 #停電 #備蓄",
     "imageLocalPath": "public/manga/blackout-refrigerator/panel-01.png"
+  },
+  {
+    "postedAt": "2026-05-27T16:10:44.564+09:00",
+    "slug": "evacuation-items",
+    "title": "避難所に持っていくべきもの完全リスト【医師監修】",
+    "slot": "noon",
+    "tweetId": "2059532740983234587",
+    "text": "【避難所に持っていくべきもの】❌ 避難所に行けば全部用意してもらえると思う ⭕ 水・食料・薬・衛生用品・充電器は自分で持参する 持病の薬・アレルギー対応食品は避難所では手に入らない。事前準備が命を守る。👉 https://bousai-lab.vercel.app/articles/evacuation-items #防災 #避難 #防災グッズ",
+    "imageLocalPath": "public/manga/evacuation-items/panel-01.png"
   }
 ]
