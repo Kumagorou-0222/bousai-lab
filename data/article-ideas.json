@@ -1,0 +1,29 @@
+[
+  {
+    "title": "停電したらスマホはどう使う？電池を守る5つの方法",
+    "slug": "blackout-smartphone-battery",
+    "category": "blackout",
+    "targetKeyword": "停電 スマホ 電池",
+    "intent": "停電時にスマホのバッテリーを長持ちさせる具体的な方法を知りたい",
+    "xSeries": "これだけでOK",
+    "monetizeItems": ["モバイルバッテリー", "ポータブル電源", "ランタン"]
+  },
+  {
+    "title": "地震の後、水が出なくなったときの対処法",
+    "slug": "earthquake-water-outage",
+    "category": "earthquake",
+    "targetKeyword": "地震 断水 対処",
+    "intent": "地震後に断水した場合、どう水を確保・節約するか知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": ["水", "携帯トイレ", "ウェットティッシュ"]
+  },
+  {
+    "title": "台風前日にやること10選【チェックリスト付き】",
+    "slug": "typhoon-day-before-checklist",
+    "category": "typhoon",
+    "targetKeyword": "台風 前日 やること",
+    "intent": "台風が来る前日に何をすべきか優先順位つきで知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": ["水", "非常食", "モバイルバッテリー", "ランタン"]
+  }
+]
