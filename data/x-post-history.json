@@ -43,5 +43,14 @@
     "tweetId": "2059660087333974110",
     "text": "【停電時にスマホを長持ちさせる方法】①低電力モードON②画面輝度を最低③Wi-Fi・Bluetooth・位置情報をオフ。スマホは避難情報と家族連絡の命綱。詳しくは→ https://bousai-lab.vercel.app/articles/blackout-smartphone #防災 #停電対策 #スマホ節電",
     "imageLocalPath": "public/manga/blackout-basics/panel-01.png"
+  },
+  {
+    "postedAt": "2026-05-28T08:11:50.120+09:00",
+    "slug": "blackout-toilet",
+    "title": "停電したらトイレは使える？マンション・戸建ての違い",
+    "slot": "morning",
+    "tweetId": "2059774607528177845",
+    "text": "【停電したらトイレは使える？】❌ マンションで普通にトイレを使い続ける ⭕ 停電後すぐ携帯トイレに切り替える マンションの給水ポンプは電動。停電→断水→トイレ不可の流れを知っておこう。👉 https://bousai-lab.vercel.app/articles/blackout-toilet #防災 #停電 #断水",
+    "imageLocalPath": "public/manga/blackout-toilet/panel-01.png"
   }
 ]
