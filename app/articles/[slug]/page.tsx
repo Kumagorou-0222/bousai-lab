@@ -393,7 +393,13 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* ⑥ 収益導線：この備えに必要なもの（prepItems あり記事のみ） */}
         {article.prepItems && article.prepItems.length > 0 && (
-          <PrepItems items={article.prepItems} />
+          <PrepItems
+            items={article.prepItems}
+            relatedSlugs={article.relatedSlugs}
+            relatedTitles={Object.fromEntries(
+              related.map((r) => [r.slug, r.title])
+            )}
+          />
         )}
 
         {/* ⑥b 収益導線（チェックリスト → 商品） */}

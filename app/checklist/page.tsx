@@ -294,30 +294,44 @@ export default function ChecklistPage() {
       </div>
 
       {/* アクションボタン */}
-      <div style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
-        <button
-          onClick={() => window.print()}
-          style={{
-            padding: '12px 24px', borderRadius: 12, cursor: 'pointer',
-            border: '1.5px solid #CBD5E1',
-            background: 'white', color: '#334155',
-            fontWeight: 700, fontSize: 14,
-            display: 'flex', alignItems: 'center', gap: 8,
-          }}
-        >
-          🖨️ 印刷する
-        </button>
-        <button
-          onClick={() => setChecked({})}
-          style={{
-            padding: '12px 24px', borderRadius: 12, cursor: 'pointer',
-            border: '1.5px solid #FECACA',
-            background: 'white', color: '#DC2626',
-            fontWeight: 700, fontSize: 14,
-          }}
-        >
-          リセット
-        </button>
+      <div style={{ marginTop: 32 }}>
+        <div style={{
+          background: 'linear-gradient(135deg, #EFF6FF, #DBEAFE)',
+          border: '1.5px solid #93C5FD',
+          borderRadius: 16, padding: '16px 20px',
+          marginBottom: 16, textAlign: 'center',
+        }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: '#1E40AF', marginBottom: 4 }}>
+            📄 家庭の防災チェックリスト — 無料PDF保存
+          </div>
+          <div style={{ fontSize: 11, color: '#3B82F6', marginBottom: 12 }}>
+            印刷ダイアログで「PDFに保存」を選択すると、いつでも確認できるPDFが作れます
+          </div>
+          <button
+            onClick={() => window.print()}
+            style={{
+              padding: '12px 28px', borderRadius: 12, cursor: 'pointer',
+              border: 'none', background: '#1D4ED8', color: 'white',
+              fontWeight: 800, fontSize: 14,
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+            }}
+          >
+            📄 PDFで保存 / 印刷する
+          </button>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button
+            onClick={() => setChecked({})}
+            style={{
+              padding: '10px 20px', borderRadius: 10, cursor: 'pointer',
+              border: '1.5px solid #FECACA',
+              background: 'white', color: '#DC2626',
+              fontWeight: 700, fontSize: 13,
+            }}
+          >
+            チェックをリセット
+          </button>
+        </div>
       </div>
 
       {/* 導線 */}
@@ -357,9 +371,12 @@ export default function ChecklistPage() {
       {/* 印刷スタイル */}
       <style>{`
         @media print {
-          header, nav, button, a[href] { display: none !important; }
-          body { background: white !important; }
-          input[type=checkbox] { print-color-adjust: exact; }
+          header, nav, footer, button, .no-print { display: none !important; }
+          body { background: white !important; font-size: 11pt; }
+          main { max-width: 100% !important; padding: 0 !important; }
+          input[type=checkbox] { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+          a { color: inherit !important; text-decoration: none !important; }
+          @page { margin: 15mm; }
         }
       `}</style>
     </div>

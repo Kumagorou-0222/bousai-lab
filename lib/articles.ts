@@ -71,6 +71,8 @@ export type PrepItem = {
   name: string
   emoji: string
   spec: string
+  reason?: string
+  compareSlug?: string   // /compare/{compareSlug} へのリンク
   amazonQuery: string
   rakutenQuery: string
 }
