@@ -29,6 +29,7 @@ import {
 } from '../lib/xAutoPost'
 import { buildPriorityCandidates } from '../lib/xPostQueue'
 import { getAllArticlesMeta } from '../lib/articles'
+import { generateHashtags, applyHashtags } from '../lib/xHashtags'
 
 // =====================================================
 // X クライアント初期化
@@ -76,8 +77,16 @@ async function main(): Promise<void> {
   console.log(`[postToX] 選択: ${selected.slug}  rank=${selected.rank}  hasManga=${selected.hasManga}`)
   console.log(`[postToX] タイトル: ${selected.title}`)
 
-  // ── 4. 投稿テキスト（既存 xPost.normal を優先）
-  const postText = selected.text
+  // ── 4. 投稿テキスト + ハッシュタグ自動付与
+  const hashtags = generateHashtags({
+    slug:      selected.slug,
+    category:  selected.category,
+    slot,
+    xSeries:   selected.xSeries,
+    hasRegion: selected.hasRegion,
+  })
+  const postText = applyHashtags(selected.text, hashtags)
+  console.log(`[postToX] ハッシュタグ: ${hashtags.join(' ')}`)
   console.log(`[postToX] 投稿文 (${postText.length}文字):\n${postText}\n`)
 
   // ── 5. 画像アップロード（mangaImages の先頭 PNG）

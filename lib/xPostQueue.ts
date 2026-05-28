@@ -80,6 +80,9 @@ export type XPostCandidate = {
   text: string
   hasManga: boolean
   mangaImages: string[]   // スケジューラー・プレビュー用
+  category: string
+  xSeries?: string
+  hasRegion: boolean
 }
 
 // =====================================================
@@ -165,8 +168,10 @@ export type ArticleInput = {
   conclusion?: string
   reasons?: Array<{ title: string; body?: string } | string>
   xPost?: { short: string; normal: string }
+  xSeries?: string
   manga?: unknown
   mangaImages?: string[]
+  region?: { name: string; content: string }
 }
 
 export function buildPriorityCandidates(
@@ -182,6 +187,9 @@ export function buildPriorityCandidates(
         text: config.fixedText!,
         hasManga: false,
         mangaImages: [],
+        category: 'disaster-prep',
+        xSeries: undefined,
+        hasRegion: config.slug === 'musashino',
       }
     }
 
@@ -195,6 +203,9 @@ export function buildPriorityCandidates(
         text: `${BASE_URL}/articles/${config.slug}\n#防災`,
         hasManga: false,
         mangaImages: [],
+        category: 'disaster-prep',
+        xSeries: undefined,
+        hasRegion: false,
       }
     }
 
@@ -215,6 +226,9 @@ export function buildPriorityCandidates(
       }),
       hasManga: !!(article.manga || images.length > 0),
       mangaImages: images,
+      category: article.category,
+      xSeries: article.xSeries,
+      hasRegion: !!article.region,
     }
   })
 }
