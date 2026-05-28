@@ -25,27 +25,27 @@ type PriorityConfig = {
 
 export const PRIORITY_ARTICLES: PriorityConfig[] = [
   // ── Sランク（weight 5）
-  { slug: 'earthquake-elevator',    rank: 'S' },
   { slug: 'blackout-refrigerator',  rank: 'S' },
   { slug: 'earthquake-toilet',      rank: 'S' },
-  { slug: 'evacuation-illness',     rank: 'S' },
+  { slug: 'earthquake-elevator',    rank: 'S' },
+  { slug: 'blackout-smartphone',    rank: 'S' },
+  { slug: 'emergency-toilet',       rank: 'S' },
   // ── Aランク（weight 3）
-  { slug: 'blackout-toilet',        rank: 'A' },
   { slug: 'disaster-backpack',      rank: 'A' },
-  { slug: 'emergency-toilet',       rank: 'A' },
   { slug: 'mobile-battery',         rank: 'A' },
+  { slug: 'evacuation-illness',     rank: 'A' },
   { slug: 'evacuation-items',       rank: 'A' },
   { slug: 'earthquake-bath',        rank: 'A' },
-  { slug: 'earthquake-cooking',     rank: 'A' },
-  { slug: 'blackout-smartphone',    rank: 'A' },
   // ── Bランク（weight 1）
-  { slug: 'blackout-water',             rank: 'B' },
-  { slug: 'disaster-water',             rank: 'B' },
-  { slug: 'emergency-food',             rank: 'B' },
-  { slug: 'lantern',                    rank: 'B' },
-  { slug: 'cassette-stove',             rank: 'B' },
-  { slug: 'portable-power-station',     rank: 'B' },
-  { slug: 'evacuation-shelter-basics',  rank: 'B' },
+  { slug: 'blackout-toilet',        rank: 'B' },
+  { slug: 'earthquake-cooking',     rank: 'B' },
+  { slug: 'blackout-water',         rank: 'B' },
+  { slug: 'disaster-water',         rank: 'B' },
+  { slug: 'emergency-food',         rank: 'B' },
+  { slug: 'lantern',                rank: 'B' },
+  { slug: 'cassette-stove',         rank: 'B' },
+  { slug: 'portable-power-station', rank: 'B' },
+  { slug: 'evacuation-shelter-basics', rank: 'B' },
   {
     slug: 'musashino',
     rank: 'B',
@@ -60,10 +60,8 @@ export const PRIORITY_ARTICLES: PriorityConfig[] = [
       '',
       '状況で選ぶことが大切です。',
       '',
-      '詳しく👇',
+      '保存して確認👇',
       `${BASE_URL}/musashino`,
-      '',
-      '#武蔵野市 #防災',
     ].join('\n'),
   },
 ]
@@ -89,13 +87,10 @@ export type XPostCandidate = {
 // 投稿文生成（article データを受け取るユーティリティ）
 // =====================================================
 
-const CATEGORY_HASHTAGS: Record<string, string> = {
-  earthquake:    '#防災 #地震',
-  blackout:      '#防災 #停電',
-  evacuation:    '#防災 #避難所',
-  'disaster-prep': '#防災 #備蓄',
-  typhoon:       '#防災 #台風',
-}
+// CTA パターン（hasManga の有無で使い分け）
+const CTA_WITH_MANGA    = '4コマで確認👇'
+const CTA_SAVE          = '保存して確認👇'
+const CTA_FAMILY        = '家族で共有👇'
 
 export function buildXPostText(params: {
   title: string
@@ -105,31 +100,30 @@ export function buildXPostText(params: {
   reasons?: Array<{ title: string; body?: string } | string>
   xPostNormal?: string
   xPostShort?: string
+  hasManga?: boolean
 }): string {
   if (params.xPostNormal) return params.xPostNormal
   if (params.xPostShort) return params.xPostShort
 
-  const url = `${BASE_URL}/articles/${params.slug}`
-  const hashtags = CATEGORY_HASHTAGS[params.category] ?? '#防災'
-  const conclusion = params.conclusion ?? ''
+  const url     = `${BASE_URL}/articles/${params.slug}`
+  const cta     = params.hasManga ? CTA_WITH_MANGA : CTA_SAVE
+  const conclusion = params.conclusion ?? params.title
 
-  const lines: string[] = [
-    `【${params.title}】`,
-    '',
-    '結論：',
-    conclusion,
-  ]
+  const lines: string[] = [conclusion, '']
 
-  if (params.reasons && params.reasons.length > 0) {
-    lines.push('')
-    lines.push('理由：')
-    params.reasons.slice(0, 2).forEach((r) => {
-      const text = typeof r === 'string' ? r : r.title
-      lines.push(`・${text}`)
-    })
+  const reasons = params.reasons ?? []
+  if (reasons.length >= 2) {
+    const ng = typeof reasons[0] === 'string' ? reasons[0] : reasons[0].title
+    const ok = typeof reasons[1] === 'string' ? reasons[1] : reasons[1].title
+    lines.push(`❌ ${ng}`, `⭕ ${ok}`, '')
   }
 
-  lines.push('', '詳しく👇', url, '', hashtags)
+  if (reasons.length >= 3) {
+    const r3 = typeof reasons[2] === 'string' ? reasons[2] : reasons[2].title
+    lines.push('理由：', r3, '')
+  }
+
+  lines.push(cta, url)
 
   return lines.join('\n')
 }
@@ -223,6 +217,7 @@ export function buildPriorityCandidates(
         reasons: article.reasons,
         xPostNormal: article.xPost?.normal,
         xPostShort: article.xPost?.short,
+        hasManga: !!(article.manga || ((article.mangaImages as string[] | undefined)?.length ?? 0) > 0),
       }),
       hasManga: !!(article.manga || images.length > 0),
       mangaImages: images,

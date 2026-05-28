@@ -18,8 +18,11 @@ export type PostRecord = {
   title: string
   slot: string            // morning | noon | night
   tweetId?: string
+  tweetUrl?: string
   text: string
+  hasImage: boolean
   imageLocalPath: string | null
+  success: boolean
 }
 
 // =====================================================
@@ -27,7 +30,7 @@ export type PostRecord = {
 // =====================================================
 
 const HISTORY_PATH = path.join(process.cwd(), 'data', 'x-post-history.json')
-const DUPLICATE_WINDOW = 7   // 直近 N 件と同じ記事は避ける
+const DUPLICATE_WINDOW_HOURS = 48  // 直近 48 時間以内に投稿したスラッグは避ける
 const RANK_WEIGHTS: Record<XRank, number> = { S: 5, A: 3, B: 1 }
 
 // =====================================================
@@ -66,10 +69,15 @@ export function selectCandidate(
   candidates: XPostCandidate[],
 ): XPostCandidate | null {
   const history = readHistory()
-  const recentSlugs = history.slice(-DUPLICATE_WINDOW).map((r) => r.slug)
+  const cutoffMs = Date.now() - DUPLICATE_WINDOW_HOURS * 3_600_000
+  const recentSlugs = new Set(
+    history
+      .filter((r) => new Date(r.postedAt).getTime() >= cutoffMs)
+      .map((r) => r.slug),
+  )
 
-  // 直近 N 件を除外。除外後が空なら全候補から選ぶ
-  let pool = candidates.filter((c) => !recentSlugs.includes(c.slug))
+  // 直近 48h を除外。除外後が空なら全候補から選ぶ
+  let pool = candidates.filter((c) => !recentSlugs.has(c.slug))
   if (pool.length === 0) pool = [...candidates]
 
   // 重み付き候補プール展開

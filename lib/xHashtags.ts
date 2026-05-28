@@ -15,6 +15,16 @@
 export type HashtagSlot = 'morning' | 'noon' | 'night'
 
 // =====================================================
+// スロット別ラベル（投稿文冒頭に付与）
+// =====================================================
+
+export const SLOT_LABELS: Record<HashtagSlot, string> = {
+  morning: '今日の備え',
+  noon:    '1分防災',
+  night:   '家族で確認',
+}
+
+// =====================================================
 // カテゴリ別タグ（優先度順）
 // =====================================================
 
@@ -131,4 +141,22 @@ export function applyHashtags(text: string, hashtags: string[]): string {
   const base = stripTrailingHashtags(text)
   if (hashtags.length === 0) return base
   return `${base}\n\n${hashtags.join(' ')}`
+}
+
+// =====================================================
+// スロットラベルを投稿文冒頭に付与
+// 既存の【...】があれば置換、なければ先頭に追加
+// xSeries === '保存版' のみ独自ラベルを優先
+// =====================================================
+
+export function applySlotLabel(
+  text: string,
+  slot: HashtagSlot,
+  xSeries?: string,
+): string {
+  const label = xSeries === '保存版' ? '保存版' : SLOT_LABELS[slot]
+  if (/^【[^】]*】/.test(text)) {
+    return text.replace(/^【[^】]*】/, `【${label}】`)
+  }
+  return `【${label}】${text}`
 }

@@ -29,7 +29,7 @@ import {
 } from '../lib/xAutoPost'
 import { buildPriorityCandidates } from '../lib/xPostQueue'
 import { getAllArticlesMeta } from '../lib/articles'
-import { generateHashtags, applyHashtags } from '../lib/xHashtags'
+import { generateHashtags, applyHashtags, applySlotLabel } from '../lib/xHashtags'
 
 // =====================================================
 // X クライアント初期化
@@ -77,7 +77,7 @@ async function main(): Promise<void> {
   console.log(`[postToX] 選択: ${selected.slug}  rank=${selected.rank}  hasManga=${selected.hasManga}`)
   console.log(`[postToX] タイトル: ${selected.title}`)
 
-  // ── 4. 投稿テキスト + ハッシュタグ自動付与
+  // ── 4. 投稿テキスト（スロットラベル → ハッシュタグ）
   const hashtags = generateHashtags({
     slug:      selected.slug,
     category:  selected.category,
@@ -85,7 +85,8 @@ async function main(): Promise<void> {
     xSeries:   selected.xSeries,
     hasRegion: selected.hasRegion,
   })
-  const postText = applyHashtags(selected.text, hashtags)
+  const slottedText = applySlotLabel(selected.text, slot, selected.xSeries)
+  const postText    = applyHashtags(slottedText, hashtags)
   console.log(`[postToX] ハッシュタグ: ${hashtags.join(' ')}`)
   console.log(`[postToX] 投稿文 (${postText.length}文字):\n${postText}\n`)
 
@@ -118,10 +119,13 @@ async function main(): Promise<void> {
     title:          selected.title,
     slot,
     tweetId:        tweet.id,
+    tweetUrl:       `https://x.com/i/web/status/${tweet.id}`,
     text:           postText,
+    hasImage:       !!mediaId,
     imageLocalPath: imagePath
       ? path.relative(process.cwd(), imagePath)
       : null,
+    success:        true,
   })
 
   console.log(`=== [postToX] 完了 ===\n`)
