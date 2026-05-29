@@ -46,6 +46,10 @@ export const PRIORITY_ARTICLES: PriorityConfig[] = [
   { slug: 'cassette-stove',         rank: 'B' },
   { slug: 'portable-power-station', rank: 'B' },
   { slug: 'evacuation-shelter-basics', rank: 'B' },
+  { slug: 'mansion-disaster-prep',    rank: 'B' },
+  { slug: 'family-children-disaster', rank: 'B' },
+  { slug: 'family-elderly-disaster',  rank: 'B' },
+  { slug: 'evacuation-health-checklist', rank: 'B' },
   {
     slug: 'musashino',
     rank: 'B',
