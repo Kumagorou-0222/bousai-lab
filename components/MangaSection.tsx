@@ -32,20 +32,6 @@ export default function MangaSection({ article }: Props) {
           <span>🎨</span><span>4コマ漫画</span>
         </div>
         <MangaImageGallery images={article.mangaImages!} />
-        {/* パネルが定義されていればセリフ確認を追加表示 */}
-        {hasPanels && (
-          <div style={{ marginTop: 12 }}>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              fontSize: 12, fontWeight: 700, color: '#15803D',
-              background: '#F0FDF4', border: '1px solid #BBF7D0',
-              borderRadius: 20, padding: '4px 12px', marginBottom: 10,
-            }}>
-              <span>💬</span><span>セリフで確認</span>
-            </div>
-            <MangaDialogue panels={completePanels(rawPanels)} />
-          </div>
-        )}
       </div>
     )
   }
