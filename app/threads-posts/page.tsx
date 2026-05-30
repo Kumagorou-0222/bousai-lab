@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { readHistory } from '@/lib/xAutoPost'
-import { generateThreadsPost } from '@/lib/threadsPost'
+import { generateThreadsPost } from '@/lib/threadsPostUtils'
 import { MANGA_LIST } from '@/lib/manga'
 import ThreadsPostCard from '@/components/ThreadsPostCard'
 

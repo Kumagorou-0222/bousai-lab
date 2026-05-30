@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { buildThreadsIntentUrl } from '@/lib/threadsPost'
+import { buildThreadsIntentUrl } from '@/lib/threadsPostUtils'
 
 type Props = {
   slug: string

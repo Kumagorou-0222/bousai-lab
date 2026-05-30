@@ -13,6 +13,60 @@ export default function MangaImageGallery({ images }: Props) {
 
   const panels = images.slice(0, 4)
 
+  if (panels.length === 1) {
+    return (
+      <>
+        <button
+          onClick={() => setLightboxIndex(0)}
+          style={{
+            border: 'none', background: 'transparent', padding: 0,
+            cursor: 'zoom-in', display: 'block', width: '100%',
+            borderRadius: 12, overflow: 'hidden',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.12)',
+            marginBottom: 24,
+          }}
+          aria-label="4コマ漫画を拡大"
+        >
+          <Image
+            src={images[0]}
+            alt="4コマ漫画"
+            width={800}
+            height={800}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
+        </button>
+        {lightboxIndex === 0 && (
+          <div
+            onClick={() => setLightboxIndex(null)}
+            style={{
+              position: 'fixed', inset: 0,
+              background: 'rgba(0,0,0,0.92)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              zIndex: 9999, cursor: 'zoom-out', padding: '16px',
+            }}
+          >
+            <div style={{ position: 'relative', width: '90vmin', height: '90vmin', maxWidth: '90vw', maxHeight: '90vh' }}>
+              <Image
+                src={images[0]}
+                alt="4コマ漫画"
+                fill
+                sizes="90vw"
+                style={{ objectFit: 'contain', borderRadius: 12 }}
+                priority
+              />
+            </div>
+            <div style={{
+              position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)',
+              color: 'rgba(255,255,255,0.6)', fontSize: 12,
+            }}>
+              タップして閉じる
+            </div>
+          </div>
+        )}
+      </>
+    )
+  }
+
   return (
     <>
       <div style={{
