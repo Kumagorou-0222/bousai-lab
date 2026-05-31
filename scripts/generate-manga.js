@@ -1441,13 +1441,913 @@ const ARTICLES2 = [
   },
 ];
 
+// ── 保存版10記事 ────────────────────────────────────────
+
+const ARTICLES3 = [
+  {
+    slug: 'kansei-breaker',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FDECC8',
+        msg: '避難するとき\nブレーカーって\n落とさないといけないの？',
+        sceneEmojis: [{ emoji: '🏠', x: W*0.72, y: H*0.4, size: 130, alpha: 0.25 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // 玄関ドア
+          ctx.fillStyle = '#8B5E3C'; ctx.fillRect(W*0.6, H*0.35, 90, 150);
+          ctx.fillStyle = '#6B4423'; ctx.fillRect(W*0.63, H*0.38, 40, 80); ctx.fillRect(W*0.73, H*0.38, 40, 80);
+          ctx.fillStyle = '#FFD700'; ctx.beginPath(); ctx.arc(W*0.73, H*0.52, 6, 0, Math.PI*2); ctx.fill();
+          // リュック
+          ctx.font = '50px serif'; ctx.textAlign = 'center'; ctx.fillText('🎒', W*0.84, H*0.7);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#EFF6FF', bg2: '#DBEAFE',
+        msg: '停電が復旧したとき\n壊れた配線に\n電気が流れて火事になる！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8F0FA'; ctx.fillRect(0, 0, W*0.5, H);
+          // 通電火災の図
+          // 家（停電中）
+          ctx.fillStyle = '#555'; ctx.fillRect(30, H*0.25, 110, 90);
+          ctx.fillStyle = '#777'; ctx.fillRect(32, H*0.27, 106, 86);
+          ctx.fillStyle = '#444';
+          ctx.beginPath(); ctx.moveTo(25, H*0.25); ctx.lineTo(85, H*0.12); ctx.lineTo(145, H*0.25); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = '#888'; ctx.font = '18px "Yu Gothic"'; ctx.textAlign = 'center';
+          ctx.fillText('停電中', 85, H*0.38);
+          // 矢印（停電復旧→火事）
+          ctx.strokeStyle = '#FFD700'; ctx.lineWidth = 5; ctx.globalAlpha = 0.8;
+          ctx.beginPath(); ctx.moveTo(145, H*0.32); ctx.lineTo(200, H*0.32); ctx.stroke();
+          ctx.fillStyle = '#FFD700'; ctx.font = '20px serif'; ctx.fillText('⚡', 205, H*0.33);
+          ctx.globalAlpha = 1;
+          // 火事の家
+          ctx.fillStyle = '#B84030'; ctx.fillRect(220, H*0.25, 110, 90);
+          ctx.fillStyle = '#9A3020';
+          ctx.beginPath(); ctx.moveTo(215, H*0.25); ctx.lineTo(275, H*0.12); ctx.lineTo(335, H*0.25); ctx.closePath(); ctx.fill();
+          ctx.font = '36px serif'; ctx.fillText('🔥', 275, H*0.38);
+          ctx.font = 'bold 16px "Yu Gothic"'; ctx.fillStyle = '#DC2626';
+          ctx.fillText('通電火災！', W*0.24, H*0.6);
+          ctx.fillStyle = '#C0D0E0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF3E0', bg2: '#FFE0B2',
+        msg: 'でも地震のパニックで\n忘れそう…\nどうすれば？',
+        sceneEmojis: [{ emoji: '😰', x: W*0.72, y: H*0.35, size: 90, alpha: 0.3 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // ブレーカー（忘れている）
+          ctx.fillStyle = '#888'; ctx.fillRect(W*0.52, H*0.28, 100, 160);
+          ctx.fillStyle = '#AAA'; ctx.fillRect(W*0.54, H*0.3, 96, 156);
+          // スイッチ（ON のまま）
+          [[W*0.59, H*0.36], [W*0.73, H*0.36], [W*0.59, H*0.48], [W*0.73, H*0.48]].forEach(([x, y]) => {
+            ctx.fillStyle = '#16A34A'; ctx.fillRect(x, y, 20, 10);
+          });
+          ctx.font = 'bold 14px "Yu Gothic"'; ctx.fillStyle = '#16A34A';
+          ctx.textAlign = 'center'; ctx.fillText('ON', W*0.62, H*0.59);
+          // ？
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 50px "Yu Gothic"';
+          ctx.fillText('？', W*0.82, H*0.45);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: '感震ブレーカーを\n付けておけば自動で遮断\n1,000円から設置できる！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          // 感震ブレーカー（コンセント型）
+          ctx.fillStyle = '#F0F0F0'; ctx.fillRect(30, H*0.22, 130, 90);
+          ctx.strokeStyle = '#CCC'; ctx.lineWidth = 3; ctx.strokeRect(30, H*0.22, 130, 90);
+          ctx.fillStyle = '#555'; ctx.fillRect(55, H*0.35, 25, 30); ctx.fillRect(105, H*0.35, 25, 30);
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 13px "Yu Gothic"'; ctx.textAlign = 'center';
+          ctx.fillText('感震', 95, H*0.27);
+          // 矢印（揺れ→自動OFF）
+          ctx.strokeStyle = '#16A34A'; ctx.lineWidth = 4; ctx.globalAlpha = 0.7;
+          ctx.beginPath(); ctx.moveTo(165, H*0.33); ctx.lineTo(220, H*0.33); ctx.stroke();
+          ctx.globalAlpha = 1;
+          // ブレーカー（OFF）
+          ctx.fillStyle = '#888'; ctx.fillRect(230, H*0.22, 80, 120);
+          [[255, H*0.3], [255, H*0.42], [255, H*0.54]].forEach(([x, y]) => {
+            ctx.fillStyle = '#EEE'; ctx.fillRect(x, y, 30, 8);
+          });
+          ctx.fillStyle = '#16A34A'; ctx.font = 'bold 14px "Yu Gothic"';
+          ctx.textAlign = 'center'; ctx.fillText('自動OFF✅', W*0.37, H*0.55);
+          // 価格
+          ctx.fillStyle = '#1E3A8A'; ctx.fillRect(15, H*0.64, 170, 44);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 20px "Yu Gothic"';
+          ctx.fillText('1,000円〜', W*0.22, H*0.64+28);
+          ctx.fillStyle = '#C0E8D0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'car-evacuation',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FDECC8',
+        msg: '避難所に行ったら\n満員で入れなかった…\nどうしよう！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // 避難所（体育館）
+          ctx.fillStyle = '#B0C8A0'; ctx.fillRect(W*0.5, H*0.18, 175, 130);
+          ctx.fillStyle = '#90A880'; ctx.fillRect(W*0.5, H*0.18, 175, 14);
+          // 満員看板
+          ctx.fillStyle = '#DC2626'; ctx.fillRect(W*0.56, H*0.24, 110, 40);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 22px "Yu Gothic"';
+          ctx.textAlign = 'center'; ctx.fillText('満 員', W*0.62, H*0.27);
+          // 人々（はみ出している）
+          ctx.font = '28px serif';
+          [[W*0.55,H*0.52],[W*0.65,H*0.53],[W*0.75,H*0.5],[W*0.85,H*0.53]].forEach(([x,y]) => ctx.fillText('🚶', x, y));
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#EFF6FF', bg2: '#DBEAFE',
+        msg: '車中泊避難という\n選択肢がある。\n雨・プライバシー・移動手段を確保できる。',
+        sceneEmojis: [{ emoji: '🚗', x: W*0.25, y: H*0.48, size: 150, alpha: 0.3 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8F0FA'; ctx.fillRect(0, 0, W*0.5, H);
+          // 車のシルエット
+          ctx.fillStyle = '#4A90D9'; ctx.fillRect(20, H*0.5, 220, 80);
+          ctx.fillStyle = '#3A70B9'; ctx.fillRect(40, H*0.38, 160, 120);
+          ctx.fillStyle = '#87CEEB'; ctx.fillRect(50, H*0.41, 140, 70);
+          // タイヤ
+          ctx.fillStyle = '#222';
+          ctx.beginPath(); ctx.arc(65, H*0.64, 20, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath(); ctx.arc(195, H*0.64, 20, 0, Math.PI*2); ctx.fill();
+          // メリットアイコン
+          ctx.font = '22px serif'; ctx.textAlign = 'center';
+          ctx.fillText('☔', 30, H*0.3); ctx.fillText('🔒', 90, H*0.3); ctx.fillText('🚗', 150, H*0.3);
+          ctx.fillStyle = '#1E40AF'; ctx.font = 'bold 12px "Yu Gothic"';
+          ctx.fillText('雨除け', 30, H*0.35); ctx.fillText('プライバシー', 90, H*0.35); ctx.fillText('移動手段', 150, H*0.35);
+          ctx.fillStyle = '#C0D0E0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#F5F5F5', bg2: '#E8E8E8',
+        msg: 'でも車の中で\n寝るのって\n体に悪くないの？',
+        sceneEmojis: [{ emoji: '🤔', x: W*0.72, y: H*0.32, size: 90, alpha: 0.3 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#EDEDEB'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // 車内（シート）
+          ctx.fillStyle = '#808070'; ctx.fillRect(W*0.5, H*0.28, 165, 200);
+          ctx.fillStyle = '#606050'; ctx.fillRect(W*0.52, H*0.38, 145, 100);
+          ctx.fillStyle = '#707060'; ctx.fillRect(W*0.52, H*0.3, 70, 80);
+          ctx.fillStyle = '#707060'; ctx.fillRect(W*0.77, H*0.3, 70, 80);
+          // ハンドル
+          ctx.strokeStyle = '#444'; ctx.lineWidth = 8; ctx.globalAlpha = 0.35;
+          ctx.beginPath(); ctx.arc(W*0.7, H*0.62, 40, 0, Math.PI*2); ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = '#B0B0B0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#FEF2F2', bg2: '#FEE2E2',
+        msg: '1〜2時間ごとに\n歩く。エンジンかけたまま\n寝るのは絶対NG！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#FFDEDE'; ctx.fillRect(0, 0, W*0.5, H);
+          // エコノミー症候群（赤×）
+          ctx.font = '38px serif'; ctx.textAlign = 'center';
+          ctx.fillText('🚶', W*0.14, H*0.22);
+          ctx.fillStyle = '#16A34A'; ctx.font = 'bold 14px "Yu Gothic"';
+          ctx.fillText('1〜2時間ごとに歩く', W*0.24, H*0.3);
+          // エンジン×
+          ctx.font = '38px serif'; ctx.fillText('🚗', W*0.14, H*0.48);
+          ctx.strokeStyle = '#DC2626'; ctx.lineWidth = 7; ctx.globalAlpha = 0.8;
+          ctx.beginPath(); ctx.moveTo(20, H*0.38); ctx.lineTo(100, H*0.58); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(100, H*0.38); ctx.lineTo(20, H*0.58); ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 13px "Yu Gothic"';
+          ctx.fillText('エンジンかけたまま寝ない', W*0.24, H*0.63);
+          // 一酸化炭素
+          ctx.font = '34px serif'; ctx.fillText('💨', W*0.14, H*0.74);
+          ctx.fillStyle = '#7F1D1D'; ctx.font = 'bold 12px "Yu Gothic"';
+          ctx.fillText('一酸化炭素中毒に注意', W*0.24, H*0.8);
+          ctx.fillStyle = '#FFCECE'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'evacuation-shelter-goods',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#F5F5F5', bg2: '#E8E8E8',
+        msg: '避難所に来たけど\n騒がしくて眠れない…\n明るいし、床は硬いし…',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          // 体育館の床
+          ctx.fillStyle = '#D4A56A'; ctx.fillRect(W*0.44, H*0.6, W*0.56, H*0.4);
+          // 人々（周囲）
+          ctx.font = '26px serif'; ctx.textAlign = 'center';
+          [[W*0.58,H*0.54],[W*0.72,H*0.56],[W*0.86,H*0.53]].forEach(([x,y]) => ctx.fillText('👤', x, y));
+          // 騒音線
+          ctx.strokeStyle = '#F59E0B'; ctx.lineWidth = 2; ctx.globalAlpha = 0.4;
+          [[W*0.62,H*0.45],[W*0.76,H*0.43],[W*0.68,H*0.47]].forEach(([x,y]) => {
+            ctx.beginPath(); ctx.arc(x, y, 15, 0, Math.PI); ctx.stroke();
+            ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI); ctx.stroke();
+          });
+          ctx.globalAlpha = 1;
+          // 天井（明るい照明）
+          ctx.fillStyle = '#E0D8D0'; ctx.fillRect(W*0.44, 0, W*0.56, H*0.12);
+          ctx.fillStyle = 'rgba(255,255,200,0.5)'; [W*0.56, W*0.72, W*0.88].forEach(x => ctx.fillRect(x, 10, 50, 10));
+          ctx.fillStyle = '#B0B0A8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#EFF6FF', bg2: '#DBEAFE',
+        msg: '避難所生活は\nホテルじゃない。\n事前準備が快適さを変える。',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8F0FA'; ctx.fillRect(0, 0, W*0.5, H);
+          // 準備あり vs なし
+          // なし側
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 16px "Yu Gothic"'; ctx.textAlign = 'center';
+          ctx.fillText('準備なし', W*0.12, H*0.22);
+          ctx.font = '30px serif';
+          ctx.fillText('😩', W*0.12, H*0.35);
+          ctx.fillStyle = '#DC2626'; ctx.font = '12px "Yu Gothic"'; ctx.fillText('眠れない', W*0.12, H*0.44);
+          // 区切り
+          ctx.strokeStyle = '#BFDBFE'; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(W*0.24, H*0.15); ctx.lineTo(W*0.24, H*0.75); ctx.stroke();
+          // あり側
+          ctx.fillStyle = '#16A34A'; ctx.font = 'bold 16px "Yu Gothic"';
+          ctx.fillText('準備あり', W*0.37, H*0.22);
+          ctx.font = '30px serif';
+          ctx.fillText('😊', W*0.37, H*0.35);
+          ctx.fillStyle = '#16A34A'; ctx.font = '12px "Yu Gothic"'; ctx.fillText('快適！', W*0.37, H*0.44);
+          // グッズアイコン
+          ctx.font = '22px serif';
+          [[W*0.31,H*0.58],[W*0.39,H*0.62],[W*0.47,H*0.58]].forEach(([x,y]) => ctx.fillText(['👂','😷','🩴'][Math.floor((x-W*0.31)/(W*0.08))], x, y));
+          ctx.fillStyle = '#C0D0E0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FEF3C7',
+        msg: '何を持ってくれば\nよかったの？',
+        sceneEmojis: [{ emoji: '😢', x: W*0.72, y: H*0.32, size: 90, alpha: 0.3 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // 忘れたグッズが吹き出しに
+          ctx.font = '36px serif'; ctx.textAlign = 'center';
+          const icons = ['👂','😎','🩴','🧻','🪥'];
+          icons.forEach((e, i) => {
+            ctx.fillText(e, W*0.58 + (i%3)*48, H*0.38 + Math.floor(i/3)*55);
+          });
+          // ×
+          ctx.strokeStyle = '#DC2626'; ctx.lineWidth = 4; ctx.globalAlpha = 0.5;
+          ctx.beginPath(); ctx.moveTo(W*0.48, H*0.28); ctx.lineTo(W*0.95, H*0.28); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(W*0.48, H*0.55); ctx.lineTo(W*0.95, H*0.55); ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 14px "Yu Gothic"';
+          ctx.fillText('持ってくればよかった…', W*0.68, H*0.66);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: '耳栓・アイマスク\nスリッパ・ウェットシート\n首まくら。これで快適！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          // グッズ5点
+          const goods = [['👂','耳栓',W*0.12,H*0.22],['😎','アイマスク',W*0.37,H*0.22],
+                         ['🩴','スリッパ',W*0.12,H*0.46],['🧻','ウェットシート',W*0.37,H*0.46],
+                         ['🛏️','首まくら',W*0.24,H*0.68]];
+          goods.forEach(([e, label, x, y]) => {
+            ctx.font = '36px serif'; ctx.textAlign = 'center'; ctx.fillText(e, x, y);
+            ctx.fillStyle = '#16A34A'; ctx.font = 'bold 11px "Yu Gothic"'; ctx.fillText(label, x, y+22);
+          });
+          ctx.strokeStyle = '#BBF7D0'; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(W*0.25, H*0.12); ctx.lineTo(W*0.25, H*0.78); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, H*0.35); ctx.lineTo(W*0.5, H*0.35); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, H*0.58); ctx.lineTo(W*0.5, H*0.58); ctx.stroke();
+          ctx.fillStyle = '#B8E8C8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'women-disaster-prep',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF0F6', bg2: '#FFE0EE',
+        msg: '防災リュックを\n準備したけど…\n女性として必要なものが入ってない気がする。',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F8EEF4'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // チェックリスト
+          ctx.fillStyle = 'white'; ctx.fillRect(W*0.5, H*0.18, 165, 220);
+          ctx.strokeStyle = '#F9A8D4'; ctx.lineWidth = 2; ctx.strokeRect(W*0.5, H*0.18, 165, 220);
+          ctx.fillStyle = '#1E293B'; ctx.font = 'bold 15px "Yu Gothic"';
+          ctx.textAlign = 'left'; ctx.fillText('□ 水', W*0.52, H*0.27);
+          ctx.fillText('□ 非常食', W*0.52, H*0.34);
+          ctx.fillText('□ 懐中電灯', W*0.52, H*0.41);
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 14px "Yu Gothic"';
+          ctx.fillText('← ないもの', W*0.65, H*0.5);
+          ctx.fillText('生理用品？', W*0.62, H*0.57);
+          ctx.fillText('プライバシー？', W*0.62, H*0.63);
+          ctx.textAlign = 'center';
+          ctx.fillStyle = '#F8D4E4'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#EFF6FF', bg2: '#DBEAFE',
+        msg: '一般的な防災リストは\n女性のニーズを\n見落としがちだ。',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8F0FA'; ctx.fillRect(0, 0, W*0.5, H);
+          // 必需品リスト
+          const items = ['生理用品 1ヶ月分','防犯ブザー','プライバシーポンチョ','使い捨て下着'];
+          items.forEach((text, i) => {
+            ctx.fillStyle = i < 2 ? '#DC2626' : '#7C3AED';
+            ctx.fillRect(15, H*0.24+i*70, 210, 54);
+            ctx.fillStyle = 'white'; ctx.font = 'bold 14px "Yu Gothic"';
+            ctx.textAlign = 'center'; ctx.fillText('✅ '+text, 120, H*0.24+i*70+32);
+          });
+          ctx.fillStyle = '#C0D0E0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF0F6', bg2: '#FFE0EE',
+        msg: '他にはどんな\nものが必要？',
+        sceneEmojis: [{ emoji: '🤔', x: W*0.72, y: H*0.32, size: 90, alpha: 0.3 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F8EEF4'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // 吹き出しアイコン群
+          ctx.font = '38px serif'; ctx.textAlign = 'center';
+          [['🔕',W*0.56,H*0.32],['👙',W*0.74,H*0.32],['🛡️',W*0.88,H*0.32],
+           ['💊',W*0.62,H*0.55],['🪪',W*0.8,H*0.55]].forEach(([e,x,y]) => ctx.fillText(e, x, y));
+          ctx.fillStyle = '#F8D4E4'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: '防犯ブザー・着替え多め\n着替えポンチョ・常備薬\n母子手帳コピーも！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          const items2 = [['🔕','防犯ブザー',W*0.12,H*0.22],['👚','着替え多め',W*0.37,H*0.22],
+                          ['🧥','ポンチョ',W*0.12,H*0.46],['💊','常備薬',W*0.37,H*0.46],
+                          ['📒','母子手帳コピー',W*0.24,H*0.68]];
+          items2.forEach(([e, label, x, y]) => {
+            ctx.font = '36px serif'; ctx.textAlign = 'center'; ctx.fillText(e, x, y);
+            ctx.fillStyle = '#16A34A'; ctx.font = 'bold 11px "Yu Gothic"'; ctx.fillText(label, x, y+22);
+          });
+          ctx.strokeStyle = '#BBF7D0'; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(W*0.25, H*0.12); ctx.lineTo(W*0.25, H*0.78); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, H*0.35); ctx.lineTo(W*0.5, H*0.35); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, H*0.58); ctx.lineTo(W*0.5, H*0.58); ctx.stroke();
+          ctx.fillStyle = '#B8E8C8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'disaster-food-menu',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FEF3C7',
+        msg: '7日分の食料って\n何をどのくらい\n買えばいいの？',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // スーパーの棚
+          [H*0.22, H*0.4, H*0.58, H*0.72].forEach(y => {
+            ctx.fillStyle = '#8B5E3C'; ctx.fillRect(W*0.46, y, W*0.54, 8);
+          });
+          // 商品アイコン
+          ctx.font = '28px serif'; ctx.textAlign = 'center';
+          [['🥫',W*0.56,H*0.35],['🍜',W*0.7,H*0.35],['🥫',W*0.84,H*0.35],
+           ['🍝',W*0.56,H*0.53],['🍱',W*0.7,H*0.53],['🥤',W*0.84,H*0.53]].forEach(([e,x,y]) => ctx.fillText(e, x, y));
+          // ？？？
+          ctx.fillStyle = '#92400E'; ctx.font = 'bold 36px "Yu Gothic"';
+          ctx.fillText('？', W*0.65, H*0.68);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#EFF6FF', bg2: '#DBEAFE',
+        msg: '1人1日2,000kcal\n×7日=14,000kcal\n4人家族で56,000kcal！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8F0FA'; ctx.fillRect(0, 0, W*0.5, H);
+          // 黒板
+          ctx.fillStyle = '#2D6A3F'; ctx.fillRect(15, H*0.18, 215, 200);
+          ctx.strokeStyle = '#1A4228'; ctx.lineWidth = 4; ctx.strokeRect(15, H*0.18, 215, 200);
+          ctx.fillStyle = 'rgba(255,255,255,0.85)'; ctx.font = 'bold 18px "Yu Gothic"';
+          ctx.textAlign = 'center';
+          ctx.fillText('2,000kcal', 120, H*0.28);
+          ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.font = '14px "Yu Gothic"';
+          ctx.fillText('× 7日 = 14,000kcal', 120, H*0.36);
+          ctx.fillText('× 4人 = 56,000kcal', 120, H*0.43);
+          ctx.fillStyle = '#FFD700'; ctx.font = 'bold 16px "Yu Gothic"';
+          ctx.fillText('が必要！', 120, H*0.5);
+          ctx.fillStyle = '#C0D0E0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FEF3C7',
+        msg: '具体的に\n何を買えばいいの？',
+        sceneEmojis: [{ emoji: '🛒', x: W*0.72, y: H*0.42, size: 110, alpha: 0.35 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: 'レトルト・缶詰・乾麺\nアルファ米を組み合わせ\nカセットコンロで温食も！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          const foods = [['🥫','缶詰',W*0.1,H*0.22],['🍜','乾麺',W*0.3,H*0.22],
+                         ['🍱','レトルト',W*0.1,H*0.46],['🍚','アルファ米',W*0.3,H*0.46]];
+          foods.forEach(([e,label,x,y]) => {
+            ctx.font = '38px serif'; ctx.textAlign = 'center'; ctx.fillText(e, x, y);
+            ctx.fillStyle = '#16A34A'; ctx.font = 'bold 12px "Yu Gothic"'; ctx.fillText(label, x, y+22);
+          });
+          ctx.font = '32px serif'; ctx.fillText('🔥', W*0.2, H*0.7);
+          ctx.fillStyle = '#16A34A'; ctx.font = 'bold 14px "Yu Gothic"';
+          ctx.fillText('カセットコンロで調理◎', W*0.24, H*0.77);
+          ctx.fillStyle = '#B8E8C8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'earthquake-72h',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FDECC8',
+        msg: '大地震が来た！\n何から始めれば\nいいの？！',
+        quake: true,
+        sceneEmojis: [{ emoji: '💥', x: W*0.7, y: H*0.3, size: 90, alpha: 0.35 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // ひび割れた壁
+          ctx.strokeStyle = '#DC2626'; ctx.lineWidth = 3; ctx.globalAlpha = 0.5;
+          ctx.beginPath(); ctx.moveTo(W*0.5, 0); ctx.lineTo(W*0.54, H*0.2); ctx.lineTo(W*0.5, H*0.35); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(W*0.7, 0); ctx.lineTo(W*0.66, H*0.15); ctx.lineTo(W*0.72, H*0.3); ctx.stroke();
+          ctx.globalAlpha = 1;
+          // 倒れた家具
+          ctx.save(); ctx.translate(W*0.8, H*0.5); ctx.rotate(0.4);
+          ctx.fillStyle = '#8B5E3C'; ctx.fillRect(-15, -70, 30, 140); ctx.restore();
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#EFF6FF', bg2: '#DBEAFE',
+        msg: '揺れ中は\n頭を守って動くな。\n収まったら出口確保・火の元確認。',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8F0FA'; ctx.fillRect(0, 0, W*0.5, H);
+          // ①頭を守る
+          ctx.fillStyle = '#1E3A8A'; ctx.fillRect(15, H*0.18, 215, 50);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 17px "Yu Gothic"';
+          ctx.textAlign = 'center'; ctx.fillText('① 頭を守る・動かない', 120, H*0.18+32);
+          // ②出口確保
+          ctx.fillStyle = '#1E3A8A'; ctx.fillRect(15, H*0.34, 215, 50);
+          ctx.fillStyle = 'white'; ctx.fillText('② 出口を確保する', 120, H*0.34+32);
+          // ③火の元
+          ctx.fillStyle = '#DC2626'; ctx.fillRect(15, H*0.5, 215, 50);
+          ctx.fillStyle = 'white'; ctx.fillText('③ 火の元を確認', 120, H*0.5+32);
+          ctx.font = '28px serif';
+          [[W*0.06,H*0.22],[W*0.06,H*0.38],[W*0.06,H*0.54]].forEach(([x,y]) => ctx.fillText(['🛡️','🚪','🔥'][Math.floor((y-H*0.22)/(H*0.16))], x, y));
+          ctx.fillStyle = '#C0D0E0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FDECC8',
+        msg: 'その後は？\n避難は？\n家族は？',
+        sceneEmojis: [{ emoji: '😰', x: W*0.72, y: H*0.3, size: 90, alpha: 0.3 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // 吹き出し（家族・避難所・スマホ）
+          ctx.font = '36px serif'; ctx.textAlign = 'center';
+          [['👨‍👩‍👧',W*0.6,H*0.32],['🏫',W*0.8,H*0.32],['📱',W*0.7,H*0.55]].forEach(([e,x,y]) => ctx.fillText(e, x, y));
+          ctx.fillStyle = '#92400E'; ctx.font = 'bold 40px "Yu Gothic"';
+          ctx.fillText('？', W*0.62, H*0.65); ctx.fillText('？', W*0.82, H*0.62);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: '安否確認→情報収集\n→避難判断の順に\n行動する！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          // タイムライン
+          const steps = [['0〜30分','身の安全・火の元','#DC2626'],
+                         ['〜3時間','安否確認・情報収集','#1D4ED8'],
+                         ['〜24時間','避難判断','#D97706'],
+                         ['72時間','生活態勢確立','#16A34A']];
+          steps.forEach(([time, label, color], i) => {
+            const y = H*0.18 + i*100;
+            ctx.fillStyle = color; ctx.fillRect(15, y, 215, 80);
+            ctx.fillStyle = 'white'; ctx.font = 'bold 12px "Yu Gothic"'; ctx.textAlign = 'center';
+            ctx.fillText(time, 120, y+26);
+            ctx.font = '13px "Yu Gothic"'; ctx.fillText(label, 120, y+50);
+          });
+          ctx.fillStyle = '#B8E8C8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'disaster-storage',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FEF3C7',
+        msg: '防災グッズを全部\nクローゼットの奥に\nしまったけど正しい？',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // クローゼット（ぎゅうぎゅう）
+          ctx.fillStyle = '#8B5E3C'; ctx.fillRect(W*0.5, H*0.18, 170, 200);
+          ctx.fillStyle = '#A0D0A0'; ctx.fillRect(W*0.52, H*0.2, 80, 196);
+          ctx.fillStyle = '#90B890'; ctx.fillRect(W*0.63, H*0.2, 75, 196);
+          ctx.fillStyle = '#555'; ctx.fillRect(W*0.5 + 75, H*0.18, 6, 200);
+          // 詰め込まれたグッズ（奥）
+          ctx.font = '20px serif'; ctx.textAlign = 'center';
+          [['💧',W*0.58,H*0.32],['🥫',W*0.7,H*0.32],['🔦',W*0.58,H*0.45],['🎒',W*0.7,H*0.45]].forEach(([e,x,y]) => ctx.fillText(e, x, y));
+          ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.fillRect(W*0.52, H*0.2, 160, 196);
+          ctx.fillStyle = '#8B5E3C'; ctx.font = 'bold 14px "Yu Gothic"'; ctx.textAlign = 'center';
+          ctx.fillText('奥…', W*0.63, H*0.52);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#FEF2F2', bg2: '#FEE2E2',
+        msg: '危険だ！地震で\n家が散乱したとき\n奥のグッズに手が届かなくなる。',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#FFDEDE'; ctx.fillRect(0, 0, W*0.5, H);
+          // 瓦礫でクローゼットが塞がれている
+          ctx.fillStyle = '#888'; ctx.fillRect(30, H*0.18, 200, 180);
+          ctx.fillStyle = '#666'; ctx.fillRect(32, H*0.2, 196, 176);
+          // 瓦礫
+          ctx.fillStyle = '#8B7355'; [[20,H*0.4,80,30],[60,H*0.38,70,35],[15,H*0.5,90,25],[80,H*0.46,60,40]].forEach(([x,y,w,h]) => ctx.fillRect(x,y,w,h));
+          // 赤×
+          ctx.strokeStyle = '#DC2626'; ctx.lineWidth = 10; ctx.globalAlpha = 0.75;
+          ctx.beginPath(); ctx.moveTo(15, H*0.15); ctx.lineTo(235, H*0.52); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(235, H*0.15); ctx.lineTo(15, H*0.52); ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 14px "Yu Gothic"'; ctx.textAlign = 'center';
+          ctx.fillText('取り出せない！', W*0.24, H*0.66);
+          ctx.fillStyle = '#FFCECE'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FEF3C7',
+        msg: 'じゃあどこに\n置けばいいの？',
+        sceneEmojis: [{ emoji: '🤔', x: W*0.72, y: H*0.32, size: 90, alpha: 0.3 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: '玄関・寝室・リビング・車\n4か所に分散！\nどこで被災しても手が届く！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          // 間取り図（簡易）
+          ctx.strokeStyle = '#16A34A'; ctx.lineWidth = 3;
+          ctx.strokeRect(15, H*0.14, 215, 250);
+          // 玄関
+          ctx.fillStyle = '#EF9A34'; ctx.fillRect(15, H*0.32, 50, 32);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 10px "Yu Gothic"'; ctx.textAlign = 'center';
+          ctx.fillText('玄関🎒', 40, H*0.32+20);
+          // 寝室
+          ctx.fillStyle = '#3B82F6'; ctx.fillRect(15, H*0.14, 100, 70);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 10px "Yu Gothic"'; ctx.fillText('寝室🔦', 65, H*0.14+38);
+          // リビング
+          ctx.fillStyle = '#16A34A'; ctx.fillRect(130, H*0.14, 100, 130);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 10px "Yu Gothic"'; ctx.fillText('リビング💧', 180, H*0.14+65);
+          // 車
+          ctx.fillStyle = '#7C3AED'; ctx.fillRect(130, H*0.32, 100, 70);
+          ctx.fillStyle = 'white'; ctx.fillText('車🚗', 180, H*0.32+38);
+          // ✅
+          ctx.font = '28px serif'; ctx.fillText('✅', W*0.24, H*0.72);
+          ctx.fillStyle = '#16A34A'; ctx.font = 'bold 12px "Yu Gothic"';
+          ctx.fillText('分散収納が正解！', W*0.24, H*0.78);
+          ctx.fillStyle = '#B8E8C8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'family-disaster-plan',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FEF3C7',
+        msg: 'もし学校にいるとき\n大地震が来たら\n家族とどこで会えばいいの？',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // 家族がバラバラ（吹き出し）
+          ctx.font = '28px serif'; ctx.textAlign = 'center';
+          [['🏫',W*0.58,H*0.28],['🏢',W*0.8,H*0.28],['🏠',W*0.68,H*0.52]].forEach(([e,x,y]) => ctx.fillText(e, x, y));
+          // ？
+          ctx.strokeStyle = '#F59E0B'; ctx.lineWidth = 2; ctx.setLineDash([8,6]);
+          ctx.beginPath(); ctx.moveTo(W*0.58, H*0.35); ctx.lineTo(W*0.68, H*0.45); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(W*0.8, H*0.35); ctx.lineTo(W*0.68, H*0.45); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = '#92400E'; ctx.font = 'bold 28px "Yu Gothic"'; ctx.fillText('？', W*0.68, H*0.45);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#EFF6FF', bg2: '#DBEAFE',
+        msg: 'それを事前に決めておく\nのが家族の防災計画だ。\n3点セットを今決めよう。',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8F0FA'; ctx.fillRect(0, 0, W*0.5, H);
+          // 3点チェックリスト
+          const pts = [['📍','集合場所'],['📞','連絡方法'],['👥','役割分担']];
+          pts.forEach(([e, label], i) => {
+            const y = H*0.22 + i*90;
+            ctx.fillStyle = '#1E3A8A'; ctx.fillRect(15, y, 215, 70);
+            ctx.font = '26px serif'; ctx.textAlign = 'left'; ctx.fillText(e, 25, y+44);
+            ctx.fillStyle = 'white'; ctx.font = 'bold 16px "Yu Gothic"';
+            ctx.fillText('✅ '+label, 58, y+44);
+          });
+          ctx.fillStyle = '#C0D0E0'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FEF3C7',
+        msg: 'どうやって\n決めればいいの？',
+        sceneEmojis: [{ emoji: '✍️', x: W*0.72, y: H*0.42, size: 90, alpha: 0.35 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: '公園を集合場所に決め\n171の練習をする\n9月1日に年1回見直す！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          // 地図（集合場所）
+          ctx.fillStyle = '#C8D8B8'; ctx.fillRect(15, H*0.16, 215, 140);
+          ctx.font = '24px serif'; ctx.textAlign = 'center';
+          ctx.fillText('🌳', 120, H*0.26); ctx.fillText('🏠', 55, H*0.38); ctx.fillText('🏫', 185, H*0.38);
+          ctx.strokeStyle = '#16A34A'; ctx.lineWidth = 4; ctx.setLineDash([8,5]);
+          ctx.beginPath(); ctx.moveTo(55, H*0.35); ctx.lineTo(120, H*0.28); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(185, H*0.35); ctx.lineTo(120, H*0.28); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = '#DC2626'; ctx.font = '20px serif'; ctx.fillText('📍', 120, H*0.25);
+          // 171
+          ctx.fillStyle = '#1E3A8A'; ctx.fillRect(15, H*0.44, 100, 50);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 18px "Yu Gothic"'; ctx.fillText('171', 65, H*0.44+32);
+          // カレンダー
+          ctx.fillStyle = '#D97706'; ctx.fillRect(130, H*0.44, 100, 50);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 14px "Yu Gothic"'; ctx.fillText('9/1 見直し', 180, H*0.44+32);
+          ctx.fillStyle = '#B8E8C8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'disaster-communication',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FDECC8',
+        msg: '大地震！家族に\n連絡しなきゃ！\nあれ電話がつながらない！',
+        quake: true,
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // スマホ（つながらない）
+          ctx.fillStyle = '#333'; ctx.fillRect(W*0.6, H*0.22, 85, 150);
+          ctx.fillStyle = '#444'; ctx.fillRect(W*0.62, H*0.24, 81, 130);
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 20px "Yu Gothic"'; ctx.textAlign = 'center';
+          ctx.fillText('通話不可', W*0.65, H*0.4);
+          ctx.font = '30px serif'; ctx.fillText('📵', W*0.82, H*0.35);
+          // ×
+          ctx.strokeStyle = '#DC2626'; ctx.lineWidth = 8; ctx.globalAlpha = 0.7;
+          ctx.beginPath(); ctx.moveTo(W*0.58, H*0.2); ctx.lineTo(W*0.78, H*0.4); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(W*0.78, H*0.2); ctx.lineTo(W*0.58, H*0.4); ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#FEF2F2', bg2: '#FEE2E2',
+        msg: '大規模地震後は\n電話回線がパンクして\nつながらなくなる。171を使え！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#FFDEDE'; ctx.fillRect(0, 0, W*0.5, H);
+          // 回線パンクの図
+          ctx.font = '20px serif'; ctx.textAlign = 'center';
+          const phones = [[W*0.08,H*0.22],[W*0.22,H*0.18],[W*0.36,H*0.22],[W*0.08,H*0.38],[W*0.22,H*0.42],[W*0.36,H*0.38]];
+          phones.forEach(([x,y]) => ctx.fillText('📱', x, y));
+          // 矢印が中央に集中
+          ctx.strokeStyle = '#DC2626'; ctx.lineWidth = 2; ctx.globalAlpha = 0.5;
+          phones.forEach(([x,y]) => {
+            ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(W*0.22, H*0.58); ctx.stroke();
+          });
+          ctx.globalAlpha = 1;
+          // パンク！
+          ctx.fillStyle = '#DC2626'; ctx.fillRect(75, H*0.56, 85, 35);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 14px "Yu Gothic"'; ctx.fillText('パンク！', 118, H*0.56+22);
+          ctx.fillStyle = '#FFCECE'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFF9E6', bg2: '#FEF3C7',
+        msg: '171って何？\nどうやって\n使うの？',
+        sceneEmojis: [{ emoji: '❓', x: W*0.72, y: H*0.35, size: 90, alpha: 0.35 }],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#F5EDD8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: '171に電話→録音\n→家族が再生\nLINEテキストも有効！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          // 手順図
+          const steps2 = [['① 171 に電話','#1E3A8A'],['② メッセージを録音','#1E3A8A'],['③ 家族が再生','#16A34A']];
+          steps2.forEach(([label, color], i) => {
+            ctx.fillStyle = color; ctx.fillRect(15, H*0.18+i*85, 215, 65);
+            ctx.fillStyle = 'white'; ctx.font = 'bold 16px "Yu Gothic"'; ctx.textAlign = 'center';
+            ctx.fillText(label, 120, H*0.18+i*85+36);
+          });
+          // 矢印（下へ）
+          ctx.fillStyle = '#94A3B8'; ctx.font = '24px serif';
+          ctx.fillText('↓', 120, H*0.38); ctx.fillText('↓', 120, H*0.48);
+          // LINE
+          ctx.fillStyle = '#06C755'; ctx.fillRect(15, H*0.56+H*0.04, 215, 55);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 15px "Yu Gothic"'; ctx.fillText('+ LINEテキストも有効！', 120, H*0.56+H*0.04+32);
+          ctx.fillStyle = '#B8E8C8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+
+  {
+    slug: 'disaster-heat-summer',
+    panels: [
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFFBEB', bg2: '#FEF3C7',
+        msg: '停電してエアコンが\n使えない！室温が\nどんどん上がってる！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#FDECC8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // エアコン（×）
+          ctx.fillStyle = '#888'; ctx.fillRect(W*0.5, 60, 165, 60);
+          ctx.fillStyle = '#AAA'; ctx.fillRect(W*0.52, 64, 161, 52);
+          ctx.strokeStyle = '#DC2626'; ctx.lineWidth = 8; ctx.globalAlpha = 0.8;
+          ctx.beginPath(); ctx.moveTo(W*0.48, 50); ctx.lineTo(W*0.82, 130); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(W*0.82, 50); ctx.lineTo(W*0.48, 130); ctx.stroke();
+          ctx.globalAlpha = 1;
+          // 温度計（高温）
+          ctx.font = '40px serif'; ctx.textAlign = 'center'; ctx.fillText('🌡️', W*0.68, H*0.4);
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 24px "Yu Gothic"'; ctx.fillText('37℃', W*0.82, H*0.38);
+          // 陽炎
+          ctx.strokeStyle = '#F59E0B'; ctx.lineWidth = 2; ctx.globalAlpha = 0.35;
+          for (let i = 0; i < 5; i++) {
+            const x = W*0.5 + i*35;
+            ctx.beginPath(); ctx.moveTo(x, H*0.5);
+            ctx.bezierCurveTo(x-10, H*0.55, x+10, H*0.6, x, H*0.65); ctx.stroke();
+          }
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#FEF2F2', bg2: '#FEE2E2',
+        msg: '夏の停電は\n熱中症で命を落とすリスクがある。\n特に高齢者・子どもは注意！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#FFDEDE'; ctx.fillRect(0, 0, W*0.5, H);
+          // 要注意グループ
+          ctx.font = '36px serif'; ctx.textAlign = 'center';
+          [['👴',W*0.1,H*0.28],['👵',W*0.26,H*0.28],['👶',W*0.42,H*0.28]].forEach(([e,x,y]) => ctx.fillText(e, x, y));
+          ctx.fillStyle = '#DC2626'; ctx.font = 'bold 14px "Yu Gothic"';
+          ctx.fillText('高齢者・子どもは特に注意', W*0.24, H*0.4);
+          // 危険温度
+          ctx.fillStyle = '#7F1D1D'; ctx.fillRect(15, H*0.46, 215, 60);
+          ctx.fillStyle = 'white'; ctx.font = 'bold 16px "Yu Gothic"';
+          ctx.fillText('車内は1時間で60℃以上！', W*0.24, H*0.46+38);
+          // 警告
+          ctx.font = '40px serif'; ctx.fillText('⚠️', W*0.24, H*0.7);
+          ctx.fillStyle = '#FFCECE'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: RISS, charSide: 'left',
+        bg1: '#FFFBEB', bg2: '#FEF3C7',
+        msg: '電気なしで\nどうやって涼めば\nいいの？',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#FDECC8'; ctx.fillRect(W*0.44, 0, W*0.56, H);
+          // うちわで扇ぐが効かない（汗）
+          ctx.font = '40px serif'; ctx.textAlign = 'center';
+          ctx.fillText('🪭', W*0.7, H*0.38);
+          // 汗
+          ctx.font = '24px serif';
+          ctx.fillText('💧', W*0.58, H*0.3); ctx.fillText('💧', W*0.82, H*0.28); ctx.fillText('💧', W*0.62, H*0.45);
+          // まだ暑い（温度計）
+          ctx.fillText('🌡️', W*0.8, H*0.48);
+          ctx.fillStyle = '#C8B090'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+      {
+        char: ROBOT, charSide: 'right',
+        bg1: '#F0FDF4', bg2: '#DCFCE7',
+        msg: '涼しい場所に移動\n水分と塩分補給\n冷却グッズで乗り切る！',
+        sceneEmojis: [],
+        extraDraw(ctx) {
+          ctx.fillStyle = '#E8FAF0'; ctx.fillRect(0, 0, W*0.5, H);
+          // 3つの対策
+          const measures = [['🏫','涼しい場所へ移動',W*0.12,H*0.22],
+                            ['💧','水分・塩分補給',W*0.37,H*0.22],
+                            ['🧊','冷却グッズ',W*0.24,H*0.52]];
+          measures.forEach(([e, label, x, y]) => {
+            ctx.font = '38px serif'; ctx.textAlign = 'center'; ctx.fillText(e, x, y);
+            ctx.fillStyle = '#16A34A'; ctx.font = 'bold 12px "Yu Gothic"'; ctx.fillText(label, x, y+22);
+          });
+          // 区切り線
+          ctx.strokeStyle = '#BBF7D0'; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(W*0.25, H*0.12); ctx.lineTo(W*0.25, H*0.42); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, H*0.42); ctx.lineTo(W*0.5, H*0.42); ctx.stroke();
+          // 経口補水液
+          ctx.font = '28px serif'; ctx.fillText('🧉', W*0.14, H*0.72);
+          ctx.fillStyle = '#16A34A'; ctx.font = 'bold 11px "Yu Gothic"'; ctx.fillText('経口補水液', W*0.14, H*0.78);
+          ctx.fillStyle = '#B8E8C8'; ctx.fillRect(0, H*0.82, W, H*0.18);
+        },
+      },
+    ],
+  },
+];
+
 // ── 実行 ─────────────────────────────────────────────
 
 async function main() {
   const rissImg  = await loadImage(fs.readFileSync(path.join(__dirname, '../public/img/riss.png')));
   const robotImg = await loadImage(fs.readFileSync(path.join(__dirname, '../public/img/robot.png')));
 
-  for (const article of [...ARTICLES, ...ARTICLES2]) {
+  for (const article of [...ARTICLES, ...ARTICLES2, ...ARTICLES3]) {
     const dir = path.join(__dirname, `../public/manga/${article.slug}`);
     fs.mkdirSync(dir, { recursive: true });
 
