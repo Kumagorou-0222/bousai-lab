@@ -58,6 +58,31 @@ const CATEGORY_STYLES: Record<string, {
     urgentBg: 'linear-gradient(135deg, #1E293B 0%, #475569 100%)',
     dangerText: '今日から少しずつ準備を始めましょう',
   },
+  'heavy-rain': {
+    accent: '#0EA5E9', accentBg: '#F0F9FF', accentLight: '#BAE6FD',
+    urgentBg: 'linear-gradient(135deg, #075985 0%, #0EA5E9 100%)',
+    dangerText: 'アンダーパス・冠水道路には絶対に入らないでください',
+  },
+  flood: {
+    accent: '#1D4ED8', accentBg: '#EFF6FF', accentLight: '#BFDBFE',
+    urgentBg: 'linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 100%)',
+    dangerText: '浸水30cmを超えたら徒歩避難を断念し上層階へ',
+  },
+  tsunami: {
+    accent: '#0891B2', accentBg: '#ECFEFF', accentLight: '#A5F3FC',
+    urgentBg: 'linear-gradient(135deg, #155E75 0%, #0891B2 100%)',
+    dangerText: '揺れを感じたら今すぐ海から離れ高台へ逃げてください',
+  },
+  landslide: {
+    accent: '#B45309', accentBg: '#FFF7ED', accentLight: '#FED7AA',
+    urgentBg: 'linear-gradient(135deg, #7C2D12 0%, #B45309 100%)',
+    dangerText: '崖・川の様子を見に行かず今すぐ避難してください',
+  },
+  volcano: {
+    accent: '#B91C1C', accentBg: '#FEF2F2', accentLight: '#FECACA',
+    urgentBg: 'linear-gradient(135deg, #7F1D1D 0%, #B91C1C 100%)',
+    dangerText: 'マスクを着用し外出を最小限にしてください',
+  },
 }
 
 export default async function CategoryPage({ params }: Props) {
@@ -67,9 +92,7 @@ export default async function CategoryPage({ params }: Props) {
   const cat = CATEGORY_MAP[category as ArticleCategory]
   const articles = getArticlesByCategory(category as ArticleCategory)
   const styles = CATEGORY_STYLES[category] ?? CATEGORY_STYLES['disaster-prep']
-  const urgentActions = MAIN_CATEGORIES.includes(category as (typeof MAIN_CATEGORIES)[number])
-    ? CATEGORY_URGENT_ACTIONS[category as (typeof MAIN_CATEGORIES)[number]]
-    : null
+  const urgentActions = (CATEGORY_URGENT_ACTIONS as Record<string, { icon: string; text: string }[]>)[category] ?? null
 
   const itemListJsonLd = {
     '@context': 'https://schema.org',

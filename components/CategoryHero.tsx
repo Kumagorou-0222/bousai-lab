@@ -44,6 +44,41 @@ const HERO_COLORS: Record<string, {
     robotBubbleBorder: 'rgba(71,85,105,0.4)',
     robotTextColor: '#94A3B8',
   },
+  'heavy-rain': {
+    bg: 'linear-gradient(160deg, #061525 0%, #0C2D4A 100%)',
+    accent: '#0EA5E9',
+    robotBubbleBg: 'rgba(14,165,233,0.15)',
+    robotBubbleBorder: 'rgba(14,165,233,0.4)',
+    robotTextColor: '#38BDF8',
+  },
+  flood: {
+    bg: 'linear-gradient(160deg, #06172A 0%, #0C2040 100%)',
+    accent: '#1D4ED8',
+    robotBubbleBg: 'rgba(29,78,216,0.15)',
+    robotBubbleBorder: 'rgba(29,78,216,0.4)',
+    robotTextColor: '#60A5FA',
+  },
+  tsunami: {
+    bg: 'linear-gradient(160deg, #04111F 0%, #082535 100%)',
+    accent: '#0891B2',
+    robotBubbleBg: 'rgba(8,145,178,0.15)',
+    robotBubbleBorder: 'rgba(8,145,178,0.4)',
+    robotTextColor: '#22D3EE',
+  },
+  landslide: {
+    bg: 'linear-gradient(160deg, #1A0E08 0%, #3D2010 100%)',
+    accent: '#B45309',
+    robotBubbleBg: 'rgba(180,83,9,0.15)',
+    robotBubbleBorder: 'rgba(180,83,9,0.4)',
+    robotTextColor: '#FBBF24',
+  },
+  volcano: {
+    bg: 'linear-gradient(160deg, #1A0800 0%, #3D1500 100%)',
+    accent: '#B91C1C',
+    robotBubbleBg: 'rgba(185,28,28,0.15)',
+    robotBubbleBorder: 'rgba(185,28,28,0.4)',
+    robotTextColor: '#FCA5A5',
+  },
 }
 
 export default function CategoryHero({ category, title, rissMessage, robotMessage, subtitle }: CategoryHeroProps) {

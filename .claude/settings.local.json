@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:happy.engineering)"
+      "WebFetch(domain:happy.engineering)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

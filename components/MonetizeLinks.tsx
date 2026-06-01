@@ -27,6 +27,31 @@ const DEFAULT_LINKS: Record<ArticleCategory, MonetizeItem[]> = {
     { emoji: '📋', label: '防災チェックリストを確認する', href: '/checklist', description: '今すぐ準備できているか確認しよう' },
     { emoji: '🎒', label: 'おすすめ防災グッズを見る', href: '/best-disaster-items', description: '医師が選んだ防災グッズ完全版' },
   ],
+  'heavy-rain': [
+    { emoji: '📋', label: '防災チェックリストを確認する', href: '/checklist', description: '豪雨への備えを今すぐ確認しよう' },
+    { emoji: '🔦', label: '懐中電灯を準備する', href: '/best-disaster-items', description: '防水・長寿命LEDタイプを選ぼう' },
+    { emoji: '🔋', label: 'モバイルバッテリーを準備する', href: '/best-disaster-items', description: '20,000mAh以上が防災の基準' },
+  ],
+  flood: [
+    { emoji: '📋', label: '防災チェックリストを確認する', href: '/checklist', description: '浸水への備えを今すぐ確認しよう' },
+    { emoji: '🎒', label: '防災リュックを確認する', href: '/best-disaster-items', description: '医師監修の中身リストあり' },
+    { emoji: '🔋', label: 'モバイルバッテリーを準備する', href: '/best-disaster-items', description: '20,000mAh以上が防災の基準' },
+  ],
+  tsunami: [
+    { emoji: '📋', label: '防災チェックリストを確認する', href: '/checklist', description: '津波への備えを今すぐ確認しよう' },
+    { emoji: '🎒', label: '防災リュックを確認する', href: '/best-disaster-items', description: '逃げる時間がない場合に備える' },
+    { emoji: '🔋', label: 'モバイルバッテリーを準備する', href: '/best-disaster-items', description: '避難先での通信手段を確保' },
+  ],
+  landslide: [
+    { emoji: '📋', label: '防災チェックリストを確認する', href: '/checklist', description: '土砂災害への備えを確認しよう' },
+    { emoji: '🎒', label: '防災リュックを確認する', href: '/best-disaster-items', description: '夜間避難を想定した準備を' },
+    { emoji: '🔦', label: 'ヘッドライトを準備する', href: '/best-disaster-items', description: '夜間の避難に両手が使えるタイプ' },
+  ],
+  volcano: [
+    { emoji: '📋', label: '防災チェックリストを確認する', href: '/checklist', description: '降灰への備えを今すぐ確認しよう' },
+    { emoji: '😷', label: 'N95マスクを準備する', href: '/best-disaster-items', description: '火山灰には必ずN95以上を使用' },
+    { emoji: '🎒', label: '防災リュックを確認する', href: '/best-disaster-items', description: '医師監修の中身リストあり' },
+  ],
 }
 
 type Props = {

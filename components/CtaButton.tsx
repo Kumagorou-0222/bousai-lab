@@ -36,6 +36,41 @@ const CATEGORY_CTA: Record<ArticleCategory, { text: string; subText: string; urg
     emoji: '🎒', color: '#475569',
     href: '/earthquake-items',
   },
+  'heavy-rain': {
+    text: '豪雨に備える — これだけでOK',
+    subText: '懐中電灯・モバイルバッテリー・非常食の3点',
+    urgency: '線状降水帯は予告なく発生します。準備は今日のうちに。',
+    emoji: '🌧️', color: '#0EA5E9',
+    href: '/best-disaster-items',
+  },
+  flood: {
+    text: '浸水に備える — これだけでOK',
+    subText: '防災リュック・モバイルバッテリー・懐中電灯',
+    urgency: '浸水は突然起きます。避難のタイミングを逃さないために。',
+    emoji: '🌊', color: '#1D4ED8',
+    href: '/best-disaster-items',
+  },
+  tsunami: {
+    text: '津波に備える — これだけでOK',
+    subText: '防災リュック・ヘルメット・モバイルバッテリー',
+    urgency: '津波は見てから逃げても間に合いません。準備が命を救います。',
+    emoji: '🌊', color: '#0891B2',
+    href: '/best-disaster-items',
+  },
+  landslide: {
+    text: '土砂災害に備える — これだけでOK',
+    subText: '防災リュック・ヘッドライト・モバイルバッテリー',
+    urgency: '夜間の避難を想定した準備が必要です。',
+    emoji: '⛰️', color: '#B45309',
+    href: '/best-disaster-items',
+  },
+  volcano: {
+    text: '降灰に備える — これだけでOK',
+    subText: 'N95マスク・ゴーグル・防災リュック',
+    urgency: '火山灰は予告なく降ります。マスクは常備しておきましょう。',
+    emoji: '🌋', color: '#B91C1C',
+    href: '/best-disaster-items',
+  },
 }
 
 export default function CtaButton({
