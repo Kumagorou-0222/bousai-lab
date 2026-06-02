@@ -256,5 +256,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/product-water-storage/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-06-03T08:29:34.567+09:00",
+    "slug": "emergency-food",
+    "title": "非常食の正しい選び方と7日分の備蓄リスト【医師監修】",
+    "slot": "morning",
+    "tweetId": "2061953399537414211",
+    "tweetUrl": "https://x.com/i/web/status/2061953399537414211",
+    "text": "【今日の備え】①アルファ米（5〜10年保存）②レトルト食品（1〜3年）③缶詰（3〜5年）。大人1人が1日1,800〜2,000kcal必要。ローリングストックで日常的に消費・補充するのが一番続くコツ。👉 https://bousai-lab.vercel.app/articles/emergency-food\n\n#防災 #備蓄 #防災グッズ #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/product-preserved-food/panel-01.png",
+    "success": true
   }
 ]
