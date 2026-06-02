@@ -17,7 +17,9 @@ export default function Footer() {
   ]
 
   const subLinks = [
-    { href: '/about', label: '著者について' },
+    { href: '/about',   label: '著者について' },
+    { href: '/privacy', label: 'プライバシーポリシー' },
+    { href: '/contact', label: 'お問い合わせ' },
   ]
 
   return (
