@@ -268,5 +268,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/product-preserved-food/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-06-03T17:25:02.076+09:00",
+    "slug": "mobile-battery",
+    "title": "防災用モバイルバッテリーの正しい選び方【容量・個数・管理】",
+    "slot": "noon",
+    "tweetId": "2062088152286920949",
+    "tweetUrl": "https://x.com/i/web/status/2062088152286920949",
+    "text": "【1分防災】【防災モバイルバッテリーの選び方】❌ 家族全員で1台共有 ⭕ 1人1台・20,000mAh以上・PD対応・PSEマーク付き 停電中スマホは唯一の情報源。大規模災害では1週間以上続く場合も。👉 https://bousai-lab.vercel.app/articles/mobile-battery\n\n#防災 #停電 #停電対策 #備蓄 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/mobile-battery/panel-01.png",
+    "success": true
   }
 ]
