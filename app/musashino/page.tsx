@@ -168,7 +168,11 @@ export default function MusashinoPage() {
             </div>
             武蔵野市の防災を漫画で理解する
           </h2>
-          <MangaDialogue panels={introManPanels} />
+          <img
+            src="/manga/musashino-bousai.png"
+            alt="武蔵野市の防災4コマ漫画"
+            style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 12, boxShadow: '0 2px 10px rgba(0,0,0,0.12)' }}
+          />
         </section>
 
         {/* 武蔵野市の特徴 */}
