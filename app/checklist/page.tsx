@@ -100,6 +100,33 @@ const CHECKLISTS: {
   },
 ]
 
+const PURCHASE_GUIDES: Record<string, { emoji: string; label: string; href: string; desc: string }> = {
+  stock: {
+    emoji: '🏠',
+    label: '家庭備蓄をまとめて揃える',
+    href: '/best-disaster-items#cat-toilet',
+    desc: 'トイレ・水・食料を優先',
+  },
+  bag: {
+    emoji: '🎒',
+    label: '防災バッグの中身を見る',
+    href: '/best-disaster-items#cat-shelter',
+    desc: '避難所で困りやすいものを確認',
+  },
+  blackout: {
+    emoji: '⚡',
+    label: '停電対策グッズを見る',
+    href: '/best-disaster-items#cat-blackout',
+    desc: '充電・灯り・情報収集を優先',
+  },
+  shelter: {
+    emoji: '🏃',
+    label: '避難所グッズを見る',
+    href: '/best-disaster-items#cat-shelter',
+    desc: '衛生・睡眠・プライバシー対策',
+  },
+}
+
 const BASE = 'https://bousai-lab.vercel.app'
 
 export default function ChecklistPage() {
@@ -123,6 +150,14 @@ export default function ChecklistPage() {
   const displaySections = activeTab === 'all'
     ? CHECKLISTS
     : CHECKLISTS.filter((c) => c.id === activeTab)
+
+  const missingGuides = CHECKLISTS.flatMap((section) => {
+    const guide = PURCHASE_GUIDES[section.id]
+    const missing = section.items.filter((_, i) => !checked[`${section.id}-${i}`]).length
+    return guide && missing > 0
+      ? [{ ...guide, id: section.id, missing, color: section.color }]
+      : []
+  })
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 80px' }}>
@@ -169,6 +204,63 @@ export default function ChecklistPage() {
           </p>
         )}
       </div>
+
+      {/* 未チェックから購入導線 */}
+      {missingGuides.length > 0 && (
+        <div style={{
+          background: '#FFF7ED',
+          border: '1.5px solid #FED7AA',
+          borderRadius: 16,
+          padding: '18px 20px',
+          marginBottom: 24,
+        }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            gap: 12, marginBottom: 12, flexWrap: 'wrap',
+          }}>
+            <div>
+              <div style={{ color: '#EA580C', fontWeight: 900, fontSize: 12, marginBottom: 3 }}>
+                未チェックの項目があります
+              </div>
+              <div style={{ color: '#0F172A', fontWeight: 900, fontSize: 16 }}>
+                足りないものだけ、優先して揃える
+              </div>
+            </div>
+            <Link href="/best-disaster-items" style={{
+              color: '#EA580C',
+              fontWeight: 900,
+              fontSize: 12,
+              textDecoration: 'none',
+            }}>
+              グッズ一覧 →
+            </Link>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
+            {missingGuides.map((guide) => (
+              <Link key={guide.id} href={guide.href} style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                background: 'white',
+                border: `1px solid ${guide.color}30`,
+                borderRadius: 12,
+                padding: '12px 14px',
+                color: '#0F172A',
+                textDecoration: 'none',
+              }}>
+                <span style={{ fontSize: 24, flexShrink: 0 }}>{guide.emoji}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 13, fontWeight: 900 }}>{guide.label}</div>
+                  <div style={{ fontSize: 11, color: '#64748B', marginTop: 2 }}>
+                    未チェック {guide.missing}件・{guide.desc}
+                  </div>
+                </div>
+                <span style={{ color: guide.color, fontWeight: 900 }}>›</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* タブ */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 24 }}>

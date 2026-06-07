@@ -47,6 +47,27 @@ const CARD_CONFIG: Record<string, {
   evacuation: { bg: '#F0FFF4', border: '#1E9E50', accent: '#1E9E50', desc: '避難指示が出たら即行動' },
 }
 
+const STARTER_ITEMS = [
+  {
+    emoji: '🚽',
+    title: '携帯トイレ',
+    reason: '断水時に一番困る。まず50回分以上。',
+    href: '/best-disaster-items#cat-toilet',
+  },
+  {
+    emoji: '💧',
+    title: '保存水',
+    reason: '1人1日3Lを7日分。置き場所から決める。',
+    href: '/best-disaster-items#cat-water',
+  },
+  {
+    emoji: '🔦',
+    title: '灯り・充電',
+    reason: 'ランタンとモバイルバッテリーで夜と情報を守る。',
+    href: '/best-disaster-items#cat-lantern',
+  },
+]
+
 export default function HomePage() {
   const recentArticles = getAllArticlesMeta().slice(0, 10)
 
@@ -326,6 +347,60 @@ export default function HomePage() {
             }}>
               すべて見る →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 最低限3点セット ── */}
+      <section style={{
+        background: '#FFF',
+        borderBottom: '1px solid #E2E8F0',
+        padding: '22px 16px',
+      }}>
+        <div style={{ maxWidth: 800, margin: '0 auto' }}>
+          <div style={{
+            display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+            gap: 12, marginBottom: 14, flexWrap: 'wrap',
+          }}>
+            <div>
+              <div style={{ fontSize: 12, color: '#EA580C', fontWeight: 900, marginBottom: 3 }}>
+                まず買うなら
+              </div>
+              <h2 style={{
+                fontSize: 'clamp(18px, 4vw, 23px)', color: '#0F172A',
+                fontWeight: 900, margin: 0, fontFamily: 'Kaisei Decol, serif',
+              }}>
+                最低限この3点だけ確認
+              </h2>
+            </div>
+            <Link href="/checklist" style={{
+              color: '#2563EB', fontSize: 12, fontWeight: 800,
+              textDecoration: 'none',
+            }}>
+              先に不足品をチェック →
+            </Link>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
+            {STARTER_ITEMS.map((item) => (
+              <Link key={item.title} href={item.href} style={{
+                textDecoration: 'none',
+                background: '#F8FAFC',
+                border: '1.5px solid #E2E8F0',
+                borderRadius: 14,
+                padding: '14px 12px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 7,
+                minHeight: 130,
+              }}>
+                <span style={{ fontSize: 28 }}>{item.emoji}</span>
+                <span style={{ fontSize: 14, fontWeight: 900, color: '#0F172A' }}>{item.title}</span>
+                <span style={{ fontSize: 12, lineHeight: 1.55, color: '#475569' }}>{item.reason}</span>
+                <span style={{ marginTop: 'auto', fontSize: 12, fontWeight: 800, color: '#EA580C' }}>
+                  選び方を見る →
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

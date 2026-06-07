@@ -425,6 +425,37 @@ const ITEMS: Category[] = [
   },
 ]
 
+const PICK_GUIDE = [
+  {
+    type: '最小セット',
+    bestFor: '今日まず備えたい人',
+    items: '携帯トイレ・保存水・LEDランタン',
+    budget: '5,000〜12,000円',
+    href: '#cat-toilet',
+  },
+  {
+    type: 'マンション向け',
+    bestFor: '断水・エレベーター停止が不安',
+    items: '携帯トイレ100回分・保存水・耐震ラッチ',
+    budget: '10,000〜20,000円',
+    href: '#cat-mansion',
+  },
+  {
+    type: '停電重視',
+    bestFor: 'スマホ・冷蔵庫・夜の不安を減らす',
+    items: 'モバイルバッテリー・ランタン・防災ラジオ',
+    budget: '8,000〜18,000円',
+    href: '#cat-battery',
+  },
+  {
+    type: '家族向け',
+    bestFor: '子供・高齢者と在宅避難する',
+    items: '水7日分・非常食・薬/おむつ/液体ミルク',
+    budget: '20,000円〜',
+    href: '#cat-kids',
+  },
+]
+
 function PriorityBadge({ priority }: { priority: string }) {
   const style: Record<string, { bg: string; color: string }> = {
     '必須':       { bg: '#FEF2F2', color: '#DC2626' },
@@ -504,6 +535,91 @@ export default function BestDisasterItemsPage() {
         </div>
         <span style={{ color: '#16A34A', fontSize: 20 }}>›</span>
       </Link>
+
+      {/* 選び方比較 */}
+      <section style={{
+        background: 'white',
+        border: '1.5px solid #E2E8F0',
+        borderRadius: 18,
+        padding: '20px 22px',
+        marginBottom: 32,
+        boxShadow: '0 2px 14px rgba(0,0,0,0.05)',
+      }}>
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ color: '#EA580C', fontSize: 12, fontWeight: 900, marginBottom: 4 }}>
+            迷ったらここから
+          </div>
+          <h2 style={{
+            color: '#0F172A',
+            fontSize: 'clamp(17px, 4vw, 22px)',
+            fontWeight: 900,
+            margin: 0,
+            fontFamily: 'Kaisei Decol, serif',
+          }}>
+            家庭タイプ別・買う順番
+          </h2>
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{
+            width: '100%',
+            borderCollapse: 'separate',
+            borderSpacing: 0,
+            minWidth: 620,
+            fontSize: 12,
+          }}>
+            <thead>
+              <tr>
+                {['タイプ', '向いている人', 'まず買うもの', '予算目安', ''].map((head) => (
+                  <th key={head} style={{
+                    background: '#F8FAFC',
+                    color: '#334155',
+                    textAlign: 'left',
+                    padding: '10px 12px',
+                    borderBottom: '1px solid #E2E8F0',
+                    fontWeight: 900,
+                  }}>
+                    {head}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {PICK_GUIDE.map((row) => (
+                <tr key={row.type}>
+                  <td style={{ padding: '12px', borderBottom: '1px solid #F1F5F9', fontWeight: 900, color: '#0F172A' }}>
+                    {row.type}
+                  </td>
+                  <td style={{ padding: '12px', borderBottom: '1px solid #F1F5F9', color: '#475569', lineHeight: 1.5 }}>
+                    {row.bestFor}
+                  </td>
+                  <td style={{ padding: '12px', borderBottom: '1px solid #F1F5F9', color: '#334155', lineHeight: 1.5 }}>
+                    {row.items}
+                  </td>
+                  <td style={{ padding: '12px', borderBottom: '1px solid #F1F5F9', color: '#64748B', whiteSpace: 'nowrap' }}>
+                    {row.budget}
+                  </td>
+                  <td style={{ padding: '12px', borderBottom: '1px solid #F1F5F9', textAlign: 'right' }}>
+                    <a href={row.href} style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: '#FF6B00',
+                      color: 'white',
+                      borderRadius: 10,
+                      padding: '8px 12px',
+                      textDecoration: 'none',
+                      fontWeight: 800,
+                      whiteSpace: 'nowrap',
+                    }}>
+                      見る →
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       {/* カテゴリナビ */}
       <div style={{ marginBottom: 32 }}>
