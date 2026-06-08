@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { CATEGORY_MAP, MAIN_CATEGORIES } from '@/lib/categories'
 import { MANGA_LIST } from '@/lib/manga'
 import { getAllArticlesMeta } from '@/lib/articles'
+import RakutenBanner from '@/components/RakutenBanner'
 
 export const metadata: Metadata = {
   title: '防災Lab｜まんがで学ぶ在宅避難ガイド【武蔵野市対応】',
@@ -68,6 +69,12 @@ const STARTER_ITEMS = [
   },
 ]
 
+const HERO_TRUST_ITEMS = [
+  { label: '医師監修', detail: '医療目線で優先順位を整理' },
+  { label: '武蔵野市対応', detail: '地域の避難情報へすぐ移動' },
+  { label: '買う順番つき', detail: '不足品だけ選べる導線' },
+]
+
 export default function HomePage() {
   const recentArticles = getAllArticlesMeta().slice(0, 10)
 
@@ -80,10 +87,16 @@ export default function HomePage() {
 
       {/* ── HERO ── */}
       <section style={{
-        background: 'linear-gradient(180deg, #4FC3F7 0%, #81D4FA 18%, #B3E5FC 48%, #E1F5FE 72%, #F5FBFF 100%)',
+        background: 'linear-gradient(180deg, #42BFF2 0%, #8AD7F8 34%, #DDF5FF 74%, #F8FCFF 100%)',
         position: 'relative',
         overflow: 'hidden',
+        borderBottom: '1px solid #D7EEF8',
       }}>
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0) 26%, rgba(255,255,255,0.28) 100%)',
+          pointerEvents: 'none',
+        }} />
         {/* 太陽 */}
         <div style={{
           position: 'absolute', top: 20, right: '13%',
@@ -124,70 +137,96 @@ export default function HomePage() {
         </div>
 
         {/* テキストコンテンツ */}
-        <div style={{ maxWidth: 680, margin: '0 auto', padding: '46px 20px 20px', textAlign: 'center', position: 'relative' }}>
+        <div style={{ maxWidth: 760, margin: '0 auto', padding: '50px 20px 18px', textAlign: 'center', position: 'relative' }}>
           {/* バッジ */}
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
-            background: 'rgba(255,255,255,0.88)', border: '1.5px solid rgba(255,255,255,0.95)',
-            color: '#1565C0', padding: '5px 16px', borderRadius: 50,
-            fontWeight: 700, fontSize: 12, marginBottom: 18,
-            boxShadow: '0 2px 10px rgba(0,0,0,0.09)',
+            background: 'rgba(255,255,255,0.94)', border: '1.5px solid rgba(255,255,255,0.98)',
+            color: '#0F5EA8', padding: '7px 17px', borderRadius: 50,
+            fontWeight: 900, fontSize: 12, marginBottom: 18,
+            boxShadow: '0 6px 20px rgba(13,68,110,0.12)',
           }}>
             🏥 武蔵野市在住の現役医師が監修
           </div>
 
           <h1 style={{
-            color: '#0D2B4E', fontSize: 'clamp(20px, 5vw, 34px)',
-            fontWeight: 900, lineHeight: 1.3, marginBottom: 12,
+            color: '#0B2A44', fontSize: 'clamp(25px, 5vw, 42px)',
+            fontWeight: 900, lineHeight: 1.24, marginBottom: 13,
             fontFamily: 'Kaisei Decol, serif',
             textShadow: '0 1px 4px rgba(255,255,255,0.8)',
           }}>
             こわがるためではなく、<br />
-            <span style={{ color: '#1565C0' }}>守るための防災</span>
+            <span style={{ color: '#0F62A8' }}>守るための防災</span>
           </h1>
 
           <p style={{
-            color: '#1A3A5C', fontSize: 14, lineHeight: 1.85, marginBottom: 26,
+            color: '#1A3A5C', fontSize: 15, lineHeight: 1.9, margin: '0 auto 20px',
+            maxWidth: 560,
             textShadow: '0 1px 3px rgba(255,255,255,0.7)',
           }}>
-            地震・停電・避難所を、まんがとやさしい解説で学ぼう。
+            地震・停電・避難所を、まんがとやさしい解説で学ぼう。足りない備えは、買う順番まで迷わず確認できます。
           </p>
 
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: 8,
+            maxWidth: 600,
+            margin: '0 auto 24px',
+          }}>
+            {HERO_TRUST_ITEMS.map((item) => (
+              <div key={item.label} style={{
+                background: 'rgba(255,255,255,0.8)',
+                border: '1px solid rgba(255,255,255,0.95)',
+                borderRadius: 12,
+                padding: '9px 10px',
+                boxShadow: '0 4px 16px rgba(13,68,110,0.09)',
+              }}>
+                <div style={{ color: '#0F62A8', fontSize: 12, fontWeight: 900 }}>
+                  {item.label}
+                </div>
+                <div style={{ color: '#476174', fontSize: 11, fontWeight: 700, marginTop: 2 }}>
+                  {item.detail}
+                </div>
+              </div>
+            ))}
+          </div>
+
           {/* CTAボタン */}
-          <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/musashino" style={{
+          <div style={{ display: 'flex', gap: 11, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/checklist" style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
-              background: '#1565C0', color: 'white',
-              padding: '12px 22px', borderRadius: 50,
-              textDecoration: 'none', fontSize: 13, fontWeight: 700,
-              boxShadow: '0 4px 14px rgba(21,101,192,0.38)',
+              background: '#FF6B00', color: 'white',
+              padding: '13px 24px', borderRadius: 50,
+              textDecoration: 'none', fontSize: 14, fontWeight: 900,
+              boxShadow: '0 8px 22px rgba(255,107,0,0.35)',
             }}>
-              📍 武蔵野市の防災
+              📋 足りない備えを確認
+            </Link>
+            <Link href="/best-disaster-items" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              background: '#0F62A8', color: 'white',
+              padding: '13px 24px', borderRadius: 50,
+              textDecoration: 'none', fontSize: 14, fontWeight: 900,
+              boxShadow: '0 8px 22px rgba(15,98,168,0.28)',
+            }}>
+              🎒 買う順番を見る
             </Link>
             <Link href="/manga" style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
-              background: '#2E7D32', color: 'white',
+              background: 'rgba(255,255,255,0.92)', color: '#0F62A8',
+              border: '2px solid rgba(15,98,168,0.65)',
               padding: '12px 22px', borderRadius: 50,
-              textDecoration: 'none', fontSize: 13, fontWeight: 700,
-              boxShadow: '0 4px 14px rgba(46,125,50,0.38)',
+              textDecoration: 'none', fontSize: 13, fontWeight: 900,
+              boxShadow: '0 4px 14px rgba(15,98,168,0.12)',
             }}>
               📖 まんがで学ぶ
-            </Link>
-            <Link href="/checklist" style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              background: 'rgba(255,255,255,0.92)', color: '#1565C0',
-              border: '2px solid #1565C0',
-              padding: '11px 22px', borderRadius: 50,
-              textDecoration: 'none', fontSize: 13, fontWeight: 700,
-              boxShadow: '0 2px 10px rgba(0,0,0,0.09)',
-            }}>
-              📋 防災チェックリスト
             </Link>
           </div>
         </div>
 
         {/* キャラクター＋街並みゾーン */}
-        <div style={{ position: 'relative', height: 300, maxWidth: 680, margin: '0 auto' }}>
+        <div style={{ position: 'relative', height: 290, maxWidth: 720, margin: '0 auto' }}>
           {/* 防災リス（左） */}
           <div style={{
             position: 'absolute', bottom: 68, left: '4%',
@@ -403,6 +442,14 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px' }}>
+        <RakutenBanner
+          title="🛍️ 防災Labの楽天ROOM"
+          description="携帯トイレ・保存水・ランタンなど、最初に揃えたい防災グッズを優先順でまとめています。"
+          amazonQuery="防災グッズ セット 携帯トイレ 保存水 ランタン"
+        />
       </section>
 
       {/* ── まず何を知りたい？ ── */}
