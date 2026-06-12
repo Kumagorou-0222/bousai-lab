@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
 
 export const metadata: Metadata = {
   title: 'おすすめ防災グッズ完全版【医師監修】',
@@ -719,7 +720,7 @@ export default function BestDisasterItemsPage() {
                   {/* 購入リンク */}
                   <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                     <a
-                      href={`https://www.amazon.co.jp/s?k=${encodeURIComponent(product.amazonQuery)}&tag=bousailab-22`}
+                      href={amazonProductUrl(product.amazonQuery)}
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       style={{
@@ -732,7 +733,7 @@ export default function BestDisasterItemsPage() {
                       🛒 Amazonで見る
                     </a>
                     <a
-                      href={`https://search.rakuten.co.jp/search/mall/${encodeURIComponent(product.rakutenQuery)}/?f=1&RankingId=3&grp=product&scid=af_pc_etc&sc2id=af_103_-1_10000619`}
+                      href={rakutenRoomUrl(product.rakutenQuery)}
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       style={{
@@ -742,7 +743,7 @@ export default function BestDisasterItemsPage() {
                         textDecoration: 'none', fontWeight: 700, fontSize: 13,
                       }}
                     >
-                      🛒 楽天で見る
+                      🛒 楽天ROOMで見る
                     </a>
                   </div>
                 </div>

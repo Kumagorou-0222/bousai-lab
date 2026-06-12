@@ -1,3 +1,5 @@
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
+
 type Props = {
   amazonUrl: string
   rakutenUrl: string
@@ -13,6 +15,9 @@ export default function AffiliateButtons({
   rakutenLabel = '楽天で見る',
   trustText,
 }: Props) {
+  const resolvedAmazonUrl = amazonProductUrl(amazonUrl)
+  const resolvedRakutenUrl = rakutenRoomUrl(rakutenUrl)
+
   return (
     <div>
       {trustText && (
@@ -38,7 +43,7 @@ export default function AffiliateButtons({
         flexWrap: 'wrap',
       }}>
         <a
-          href={amazonUrl}
+          href={resolvedAmazonUrl}
           target="_blank"
           rel="noopener noreferrer sponsored"
           style={{
@@ -61,7 +66,7 @@ export default function AffiliateButtons({
           🛒 {amazonLabel}
         </a>
         <a
-          href={rakutenUrl}
+          href={resolvedRakutenUrl}
           target="_blank"
           rel="noopener noreferrer sponsored"
           style={{
@@ -81,7 +86,7 @@ export default function AffiliateButtons({
             minHeight: 48,
           }}
         >
-          🛍️ {rakutenLabel}
+          🛍️ {rakutenLabel.replace('楽天で見る', '楽天ROOMで見る')}
         </a>
       </div>
     </div>

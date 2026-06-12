@@ -1,3 +1,5 @@
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
+
 type Props = {
   name: string
   price: string
@@ -20,7 +22,8 @@ export default function ProductCard({
   featured = false,
   url,
 }: Props) {
-  const resolvedAmazonUrl = amazonUrl ?? url ?? ''
+  const resolvedAmazonUrl = amazonUrl || url ? amazonProductUrl(amazonUrl ?? url ?? '') : ''
+  const resolvedRakutenUrl = rakutenUrl ? rakutenRoomUrl(rakutenUrl) : ''
   const lightBg = accent === '#DC2626' ? '#FEF2F2'
     : accent === '#D97706' ? '#FFFBEB'
     : accent === '#16A34A' ? '#F0FDF4'
@@ -123,8 +126,8 @@ export default function ProductCard({
                 🛒 Amazonで見る
               </a>
             )}
-            {rakutenUrl && (
-              <a href={rakutenUrl} target="_blank" rel="noopener noreferrer sponsored"
+            {resolvedRakutenUrl && (
+              <a href={resolvedRakutenUrl} target="_blank" rel="noopener noreferrer sponsored"
                 style={{
                   flex: '1 1 140px',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
@@ -135,7 +138,7 @@ export default function ProductCard({
                   boxShadow: '0 4px 14px rgba(191,0,0,0.3)',
                 }}
               >
-                🛍️ 楽天で見る
+                🛍️ 楽天ROOMで見る
               </a>
             )}
           </div>
@@ -226,8 +229,8 @@ export default function ProductCard({
             🛒 Amazonで見る
           </a>
         )}
-        {rakutenUrl && (
-          <a href={rakutenUrl} target="_blank" rel="noopener noreferrer sponsored"
+        {resolvedRakutenUrl && (
+          <a href={resolvedRakutenUrl} target="_blank" rel="noopener noreferrer sponsored"
             style={{
               flex: '1 1 120px',
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
@@ -238,7 +241,7 @@ export default function ProductCard({
               boxShadow: '0 2px 8px rgba(191,0,0,0.2)',
             }}
           >
-            🛍️ 楽天で見る
+            🛍️ 楽天ROOMで見る
           </a>
         )}
       </div>

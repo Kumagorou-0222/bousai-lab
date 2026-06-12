@@ -2,11 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import AffiliateButtons from '@/components/AffiliateButtons'
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
-const RAKUTEN_ID = '1400711'
-const rkt = (keyword: string) =>
-  `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_ID}/?pc=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${keyword}/`)}`
+const rkt = (keyword: string) => rakutenRoomUrl(keyword)
 const ACCENT = '#DC2626'
 const ACCENT_BG = '#FEF2F2'
 const ACCENT_LIGHT = '#FECACA'
@@ -33,7 +32,7 @@ const PRODUCTS = [
     reason: '何か1つだけ買うなら防災リュックセット。水・食料・ライト・救急用品が揃っている。中身を揃える手間がない。',
     spec: '15L以上・防水・反射材付き・中身入りセット',
     price: '5,000〜15,000円',
-    amazonUrl: `https://www.amazon.co.jp/s?k=防災リュック+セット+中身入り&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('防災リュック セット 中身入り'),
     rakutenUrl: rkt('防災リュック セット 中身入り'),
     badgeText: '第1優先',
     trustText: '防災グッズの中で最初に買われる定番品',
@@ -46,7 +45,7 @@ const PRODUCTS = [
     reason: '地震で一番多い死因は「家屋倒壊による圧死」と「落下物による頭部外傷」。ヘルメット1つで生存率が変わる。',
     spec: '折りたたみ式・軽量・防災規格適合',
     price: '3,000〜8,000円',
-    amazonUrl: `https://www.amazon.co.jp/s?k=防災ヘルメット+折りたたみ+軽量&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('防災ヘルメット 折りたたみ 軽量'),
     rakutenUrl: rkt('防災ヘルメット 折りたたみ 軽量'),
     badgeText: '第2優先',
     trustText: '地震の多い地域で多くの家庭が備えている',
@@ -59,7 +58,7 @@ const PRODUCTS = [
     reason: 'ほとんどの怪我は避難中ではなく「自宅内での倒壊物による」もの。本棚・タンス・冷蔵庫を固定するだけで命を守れる。',
     spec: '突っ張り棒＋転倒防止板のセット',
     price: '1,500〜4,000円',
-    amazonUrl: `https://www.amazon.co.jp/s?k=家具転倒防止+突っ張り棒+セット&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('家具転倒防止 突っ張り棒 セット'),
     rakutenUrl: rkt('家具転倒防止 突っ張り棒 セット'),
     badgeText: '在宅必須',
     trustText: '阪神・東日本大震災で証明された転倒防止効果',
@@ -300,7 +299,7 @@ export default function EarthquakeItemsPage() {
               🎒 まず防災リュックから揃える
             </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <a href={`https://www.amazon.co.jp/s?k=防災リュック+セット+中身入り&tag=bousailab0c-22`}
+              <a href={amazonProductUrl('防災リュック セット 中身入り')}
                 target="_blank" rel="noopener noreferrer sponsored"
                 style={{
                   flex: '1 1 140px',
@@ -322,7 +321,7 @@ export default function EarthquakeItemsPage() {
                   textDecoration: 'none', fontWeight: 900, fontSize: 14,
                   boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
                 }}>
-                🛍️ 楽天で見る
+                🛍️ 楽天ROOMで見る
               </a>
             </div>
           </div>

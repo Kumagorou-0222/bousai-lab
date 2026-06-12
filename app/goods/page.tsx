@@ -30,7 +30,8 @@ const CATEGORIES = [
         emoji: '🎒',
         badge: '初心者に最適',
         painText: 'これがないと「何を持って逃げればいいか」がわからない',
-        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/%E9%98%B2%E7%81%BD%E3%83%AA%E3%83%A5%E3%83%83%E3%82%AF+%E3%82%BB%E3%83%83%E3%83%88/',
+        amazonUrl: '防災リュック セット 中身入り',
+        rakutenUrl: '防災リュック セット',
         accent: '#DC2626',
       },
     ],
@@ -49,7 +50,8 @@ const CATEGORIES = [
         emoji: '💧',
         badge: '最優先で確保',
         painText: 'これがないと断水時に飲み水がなくなる',
-        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/%E9%95%B7%E6%9C%9F%E4%BF%9D%E5%AD%98%E6%B0%B4+2L/',
+        amazonUrl: '保存水 2L 5年 ケース',
+        rakutenUrl: '保存水 長期 防災 2L',
         accent: '#2563EB',
       },
     ],
@@ -68,7 +70,8 @@ const CATEGORIES = [
         emoji: '🚽',
         badge: '盲点になりやすい',
         painText: 'これがないと断水時にトイレが使えなくなる',
-        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/%E6%90%BA%E5%B8%AF%E3%83%88%E3%82%A4%E3%83%AC+%E9%98%B2%E7%81%BD/',
+        amazonUrl: '携帯トイレ 防災 100回分',
+        rakutenUrl: '携帯トイレ 防災',
         accent: '#16A34A',
       },
     ],
@@ -87,7 +90,8 @@ const CATEGORIES = [
         emoji: '🔋',
         badge: '情報収集に必須',
         painText: 'これがないとスマホが切れて情報収集・連絡ができなくなる',
-        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC+20000mAh+%E9%98%B2%E7%81%BD/',
+        amazonUrl: 'モバイルバッテリー 20000mAh PSE',
+        rakutenUrl: 'モバイルバッテリー 20000mAh 防災',
         accent: '#7C3AED',
       },
     ],
@@ -106,7 +110,8 @@ const CATEGORIES = [
         emoji: '⚡',
         badge: '長期停電に有効',
         painText: 'これがないと停電が1週間以上続いたとき冷蔵庫・医療機器が使えなくなる',
-        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AB%E9%9B%BB%E6%BA%90+500Wh/',
+        amazonUrl: 'ポータブル電源 500Wh AC出力',
+        rakutenUrl: 'ポータブル電源 500Wh',
         accent: '#D97706',
       },
     ],
@@ -205,6 +210,7 @@ export default function GoodsPage() {
                 emoji={p.emoji}
                 badge={p.badge}
                 painText={p.painText}
+                amazonUrl={p.amazonUrl}
                 rakutenUrl={p.rakutenUrl}
                 accent={p.accent}
                 featured={i === 0}
