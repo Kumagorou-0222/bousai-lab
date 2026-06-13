@@ -2,11 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import AffiliateButtons from '@/components/AffiliateButtons'
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
-const RAKUTEN_ID = '1400711'
-const rkt = (keyword: string) =>
-  `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_ID}/?pc=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${keyword}/`)}`
+const rkt = (keyword: string) => rakutenRoomUrl(keyword)
 const ACCENT = '#D97706'
 const ACCENT_BG = '#FFFBEB'
 const ACCENT_LIGHT = '#FDE68A'
@@ -33,7 +32,7 @@ const PRODUCTS = [
     reason: 'スマホが死ぬと情報が途絶える。充電できる状態を維持するのが最優先。',
     spec: '容量20,000mAh以上・USB-C対応',
     price: '3,000〜6,000円',
-    amazonUrl: `https://www.amazon.co.jp/s?k=モバイルバッテリー+20000mAh+USB-C&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('モバイルバッテリー 20000mAh USB-C'),
     rakutenUrl: rkt('モバイルバッテリー 20000mAh USB-C'),
     badgeText: '第1優先',
     trustText: '停電時にまず求められる定番品',
@@ -46,7 +45,7 @@ const PRODUCTS = [
     reason: '暗闇での移動・生活に必須。懐中電灯より両手が使えるランタン型が実用的。',
     spec: '充電式・防水・明るさ調整付き',
     price: '2,000〜5,000円',
-    amazonUrl: `https://www.amazon.co.jp/s?k=LEDランタン+充電式+防水+防災&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('LEDランタン 充電式 防水 防災'),
     rakutenUrl: rkt('LEDランタン 充電式 防水 防災'),
     badgeText: '第2優先',
     trustText: '防災備蓄済みの家庭の多くが持っている',
@@ -59,7 +58,7 @@ const PRODUCTS = [
     reason: '3日以上の停電で冷蔵庫・医療機器・スマホ複数台の充電に対応できる。',
     spec: '容量500Wh以上・AC出力付き',
     price: '30,000〜70,000円',
-    amazonUrl: `https://www.amazon.co.jp/s?k=ポータブル電源+500Wh+AC出力&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('ポータブル電源 500Wh AC出力'),
     rakutenUrl: rkt('ポータブル電源 500Wh AC出力'),
     badgeText: '長期備え',
     trustText: '長期停電・在宅医療のある家庭に支持',
@@ -302,7 +301,7 @@ export default function BlackoutItemsPage() {
               🔋 まずモバイルバッテリーから揃える
             </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <a href={`https://www.amazon.co.jp/s?k=モバイルバッテリー+20000mAh&tag=bousailab0c-22`}
+              <a href={amazonProductUrl('モバイルバッテリー 20000mAh')}
                 target="_blank" rel="noopener noreferrer sponsored"
                 style={{
                   flex: '1 1 140px',
@@ -324,7 +323,7 @@ export default function BlackoutItemsPage() {
                   textDecoration: 'none', fontWeight: 900, fontSize: 14,
                   boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
                 }}>
-                🛍️ 楽天で見る
+                🛍️ 楽天ROOMで見る
               </a>
             </div>
           </div>

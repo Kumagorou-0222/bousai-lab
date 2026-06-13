@@ -58,6 +58,8 @@ jobs:
 
       # ── 5. X 投稿
       - name: X 投稿実行
+        id: post
+        continue-on-error: true
         env:
           POST_SLOT:            ${{ steps.slot.outputs.slot }}
           X_API_KEY:            ${{ secrets.X_API_KEY }}
@@ -66,8 +68,33 @@ jobs:
           X_ACCESS_SECRET:      ${{ secrets.X_ACCESS_SECRET }}
         run: npx tsx scripts/postToX.ts
 
-      # ── 6. 履歴ファイルをコミット
+      # ── 6. X API失敗時は手動投稿用のLINE通知へフォールバック
+      - name: X投稿失敗時のLINEフォールバック通知
+        if: steps.post.outcome == 'failure'
+        env:
+          POST_SLOT:     ${{ steps.slot.outputs.slot }}
+          NOTIFY_SECRET: ${{ secrets.NOTIFY_SECRET }}
+        run: |
+          echo "[x-auto-post] X API投稿に失敗したため、LINE通知へフォールバックします slot=$POST_SLOT"
+
+          HTTP_STATUS=$(curl -sS -w "%{http_code}" -o /tmp/response.json \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -d "{\"slot\":\"$POST_SLOT\",\"secret\":\"$NOTIFY_SECRET\"}" \
+            "https://bousai-lab.vercel.app/api/notify-x-post")
+
+          cat /tmp/response.json
+          echo ""
+          echo "HTTP status: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "[ERROR] LINEフォールバック通知に失敗しました (HTTP $HTTP_STATUS)"
+            exit 1
+          fi
+
+      # ── 7. 履歴ファイルをコミット
       - name: 投稿履歴をコミット
+        if: always()
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -75,3 +102,8 @@ jobs:
           # 変更がある場合のみコミット
           git diff --cached --quiet || git commit -m "chore: X投稿ログ更新 ${{ steps.slot.outputs.slot }} [skip ci]"
           git push
+
+      # ── 8. 自動投稿に失敗したことはActions上でも失敗として残す
+      - name: X投稿失敗を反映
+        if: steps.post.outcome == 'failure'
+        run: exit 1

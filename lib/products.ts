@@ -1,3 +1,5 @@
+import { amazonProductUrl, rakutenRoomUrl } from './affiliateLinks'
+
 export type ComparisonRow = {
   cols: string[]
   recommended?: boolean
@@ -5,11 +7,8 @@ export type ComparisonRow = {
 
 /**
  * URLフィールドの設定方法:
- * - amazonUrl: Amazon検索URLをそのまま記載（tag= 不要、lib/affiliateConfig.ts で自動付与）
- *   例: 'https://www.amazon.co.jp/s?k=携帯トイレ+防災+100回分'
- * - rakutenUrl: 楽天アフィリエイトポータルで生成した完全URLを貼る
- *   例: 'https://hb.afl.rakuten.co.jp/hgc/1400711/?pc=https%3A%2F%2F...'
- *   または通常の search.rakuten.co.jp URL（NEXT_PUBLIC_RAKUTEN_AFFILIATE_ID が設定されていれば自動変換）
+ * - amazonUrl: amazonProductUrl('商品キーワード') でAmazon商品ページへ解決する
+ * - rakutenUrl: rakutenRoomUrl('商品キーワード') で楽天ROOMの商品ページへ解決する
  * - undefined にすると「準備中」表示になり、リンクは出力されない
  */
 export type ProductData = {
@@ -76,8 +75,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — 2人家庭の最低ライン',
       trustText: '断水時に最も困るのがトイレ問題（医師監修）',
       painText: '携帯トイレなしで断水7日間は、想像以上に過酷です',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=携帯トイレ+防災+100回分',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/携帯トイレ+防災+100回分/',
+      amazonUrl: amazonProductUrl('携帯トイレ 防災 100回分'),
+      rakutenUrl: rakutenRoomUrl('携帯トイレ 防災 100回分'),
     },
     alternatives: [
       {
@@ -85,8 +84,8 @@ export const PRODUCTS: ProductData[] = [
         description: '携帯トイレの使用後に必須。三層構造でにおいゼロ。',
         price: '〜2,500円前後',
         badge: 'セットで準備',
-        amazonUrl: 'https://www.amazon.co.jp/s?k=BOS+防臭袋+防災',
-        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/BOS+防臭袋/',
+        amazonUrl: amazonProductUrl('BOS 防臭袋 防災 携帯トイレ用'),
+        rakutenUrl: rakutenRoomUrl('BOS 防臭袋 LL 200枚'),
       },
     ],
   },
@@ -122,8 +121,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — 防災の基本の1台',
       trustText: '停電時の情報収集・家族連絡に必須（医師監修）',
       painText: '「充電切れで家族と連絡できなかった」は実際に起きています',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=モバイルバッテリー+20000mAh+PSE',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/モバイルバッテリー+20000mAh+防災/',
+      amazonUrl: amazonProductUrl('モバイルバッテリー 20000mAh PSE'),
+      rakutenUrl: rakutenRoomUrl('モバイルバッテリー 20000mAh 防災'),
     },
     alternatives: [
       {
@@ -131,8 +130,8 @@ export const PRODUCTS: ProductData[] = [
         description: '長期停電・家族向け。家電・医療機器も動かせる最終手段。',
         price: '30,000〜100,000円',
         badge: '在宅避難・長期向け',
-        amazonUrl: 'https://www.amazon.co.jp/s?k=ポータブル電源+1000wh',
-        rakutenUrl: 'https://search.rakuten.co.jp/search/mall/ポータブル電源+1000wh+大容量/',
+        amazonUrl: amazonProductUrl('ポータブル電源 1000Wh'),
+        rakutenUrl: rakutenRoomUrl('ポータブル電源 1000Wh'),
       },
     ],
   },
@@ -168,8 +167,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — 乾電池式200lm以上',
       trustText: '夜の停電で部屋全体を照らせるのはランタンだけ（医師監修）',
       painText: 'ロウソクは火災リスク大。スマホライトは電池を急速消耗します',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=LEDランタン+乾電池式+防災+200lm',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/LEDランタン+乾電池+防災/',
+      amazonUrl: amazonProductUrl('LEDランタン 乾電池式 防災 200lm'),
+      rakutenUrl: rakutenRoomUrl('LEDランタン 乾電池 防災'),
     },
   },
   {
@@ -204,8 +203,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — 2人家庭の5日分セット',
       trustText: '断水は地震後3〜7日続くことが多い（医師監修）',
       painText: 'ペットボトルの水は断水直後にスーパーから消えます',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=備蓄水+2L+長期保存+防災',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/保存水+2L+防災+長期/',
+      amazonUrl: amazonProductUrl('備蓄水 2L 長期保存 防災'),
+      rakutenUrl: rakutenRoomUrl('保存水 2L 防災 長期'),
     },
   },
   {
@@ -240,8 +239,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — コンロ+缶12本セット',
       trustText: 'ガスの復旧は平均2週間。カセットコンロは必須備品（医師監修）',
       painText: '「ガスが止まって2週間、温かいものが食べられなかった」は実話です',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=カセットコンロ+ガス缶+防災+セット',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/カセットコンロ+防災+ガス缶/',
+      amazonUrl: amazonProductUrl('カセットコンロ ガス缶 防災 セット'),
+      rakutenUrl: rakutenRoomUrl('カセットコンロ 防災 ガス缶'),
     },
   },
   {
@@ -276,8 +275,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — 在宅避難の最終手段',
       trustText: '医療機器を持つ家庭・長期停電対策に1000Wh以上が必要（医師監修）',
       painText: 'CPAP・酸素濃縮器が止まったら命に関わります',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=ポータブル電源+1000wh+防災',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/ポータブル電源+1000wh/',
+      amazonUrl: amazonProductUrl('ポータブル電源 1000Wh 防災'),
+      rakutenUrl: rakutenRoomUrl('ポータブル電源 1000Wh'),
     },
     alternatives: [
       {
@@ -285,7 +284,8 @@ export const PRODUCTS: ProductData[] = [
         description: '太陽光で充電できれば長期停電でも電力が確保できる。',
         price: '20,000〜40,000円前後',
         badge: 'セット購入推奨',
-        amazonUrl: 'https://www.amazon.co.jp/s?k=ソーラーパネル+ポータブル電源+防災',
+        amazonUrl: amazonProductUrl('ソーラーパネル ポータブル電源 防災'),
+        rakutenUrl: rakutenRoomUrl('ソーラーパネル ポータブル電源 防災'),
       },
     ],
   },
@@ -321,8 +321,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — 2人用7日分セット',
       trustText: '食料備蓄は「3日分」では不足。7日分が現在の推奨（医師監修）',
       painText: '災害後のスーパーの棚は数時間で空になります',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=非常食+7日分+2人+セット',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/非常食+セット+7日分/',
+      amazonUrl: amazonProductUrl('非常食 7日分 2人 セット'),
+      rakutenUrl: rakutenRoomUrl('非常食 セット 7日分'),
     },
   },
   {
@@ -357,8 +357,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — 家族用30〜40L',
       trustText: '夏の停電ではクーラーボックスが食品と薬を守る（医師監修）',
       painText: 'インスリン・薬が無駄になった事例は夏の停電で多発しています',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=クーラーボックス+30L+防災+保冷剤',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/クーラーボックス+保冷剤+防災/',
+      amazonUrl: amazonProductUrl('クーラーボックス 30L 防災 保冷剤'),
+      rakutenUrl: rakutenRoomUrl('クーラーボックス 保冷剤 防災'),
     },
   },
   {
@@ -392,8 +392,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — LLサイズ200枚',
       trustText: '防臭袋なしでは携帯トイレの廃棄が困難（医師監修）',
       painText: '普通のゴミ袋では臭いが漏れて避難生活が崩壊します',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=BOS+防臭袋+LL+200枚',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/BOS+防臭袋+LL/',
+      amazonUrl: amazonProductUrl('BOS 防臭袋 LL 200枚'),
+      rakutenUrl: rakutenRoomUrl('BOS 防臭袋 LL'),
     },
   },
   {
@@ -428,8 +428,8 @@ export const PRODUCTS: ProductData[] = [
       badge: '✅ 迷ったらこれ — 赤ちゃん家庭の必須備蓄',
       trustText: '断水・停電時に粉ミルクは使えない。液体ミルクが命綱（医師監修）',
       painText: 'お湯が使えなくなった瞬間、粉ミルクは赤ちゃんに与えられません',
-      amazonUrl: 'https://www.amazon.co.jp/s?k=液体ミルク+防災+備蓄+ほほえみ',
-      rakutenUrl: 'https://search.rakuten.co.jp/search/mall/液体ミルク+防災+備蓄/',
+      amazonUrl: amazonProductUrl('液体ミルク 防災 備蓄 ほほえみ'),
+      rakutenUrl: rakutenRoomUrl('液体ミルク 防災 備蓄'),
     },
   },
 ]

@@ -31,6 +31,16 @@ import { buildPriorityCandidates } from '../lib/xPostQueue'
 import { getAllArticlesMeta } from '../lib/articles'
 import { generateHashtags, applyHashtags, applySlotLabel } from '../lib/xHashtags'
 
+type XApiLikeError = {
+  code?: number
+  data?: {
+    detail?: string
+    title?: string
+    type?: string
+  }
+  message?: string
+}
+
 // =====================================================
 // X クライアント初期化
 // =====================================================
@@ -48,6 +58,19 @@ function initXClient(): TwitterApi {
     accessToken: X_ACCESS_TOKEN,
     accessSecret: X_ACCESS_SECRET,
   })
+}
+
+function describePostError(err: unknown): string {
+  const xError = err as XApiLikeError
+  const detail = xError.data?.detail
+  const title = xError.data?.title
+  const message = err instanceof Error ? err.message : String(err)
+
+  if (xError.code === 402 || title === 'CreditsDepleted') {
+    return 'X API の投稿クレジットが不足しています（402 CreditsDepleted）。X Developer Portal の利用枠・課金設定を確認してください。'
+  }
+
+  return [title, detail, message].filter(Boolean).join(' / ')
 }
 
 // =====================================================
@@ -94,39 +117,64 @@ async function main(): Promise<void> {
   let mediaId: string | undefined
   const imagePath = resolveMangaImagePath(selected.mangaImages)
 
-  if (imagePath) {
-    console.log(`[postToX] 画像: ${path.relative(process.cwd(), imagePath)}`)
-    const imageBuffer = fs.readFileSync(imagePath)
-    mediaId = await client.v1.uploadMedia(imageBuffer, { mimeType: 'image/png' })
-    console.log(`[postToX] media_id: ${mediaId}`)
-  } else {
-    console.log('[postToX] 画像なし — テキストのみ投稿')
+  try {
+    if (imagePath) {
+      console.log(`[postToX] 画像: ${path.relative(process.cwd(), imagePath)}`)
+      const imageBuffer = fs.readFileSync(imagePath)
+      mediaId = await client.v1.uploadMedia(imageBuffer, { mimeType: 'image/png' })
+      console.log(`[postToX] media_id: ${mediaId}`)
+    } else {
+      console.log('[postToX] 画像なし — テキストのみ投稿')
+    }
+
+    // ── 6. ツイート投稿
+    const tweetPayload: Parameters<typeof client.v2.tweet>[0] = { text: postText }
+    if (mediaId) {
+      tweetPayload.media = { media_ids: [mediaId] }
+    }
+
+    const { data: tweet } = await client.v2.tweet(tweetPayload)
+    console.log(`[postToX] ✅ 投稿成功  tweet_id=${tweet.id}`)
+
+    // ── 7. 投稿履歴を更新
+    appendHistory({
+      postedAt:       nowJST(),
+      slug:           selected.slug,
+      title:          selected.title,
+      slot,
+      tweetId:        tweet.id,
+      tweetUrl:       `https://x.com/i/web/status/${tweet.id}`,
+      text:           postText,
+      hasImage:       !!mediaId,
+      imageLocalPath: imagePath
+        ? path.relative(process.cwd(), imagePath)
+        : null,
+      success:        true,
+    })
+  } catch (err: unknown) {
+    const errorMessage = describePostError(err)
+    const fallbackUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postText)}`
+
+    appendHistory({
+      postedAt:       nowJST(),
+      slug:           selected.slug,
+      title:          selected.title,
+      slot,
+      tweetUrl:       fallbackUrl,
+      text:           postText,
+      hasImage:       !!imagePath,
+      imageLocalPath: imagePath
+        ? path.relative(process.cwd(), imagePath)
+        : null,
+      success:        false,
+      error:          errorMessage,
+      fallbackUrl,
+    })
+
+    console.error(`[postToX] ❌ 投稿失敗: ${errorMessage}`)
+    console.error(`[postToX] 手動投稿URL: ${fallbackUrl}`)
+    throw err
   }
-
-  // ── 6. ツイート投稿
-  const tweetPayload: Parameters<typeof client.v2.tweet>[0] = { text: postText }
-  if (mediaId) {
-    tweetPayload.media = { media_ids: [mediaId] }
-  }
-
-  const { data: tweet } = await client.v2.tweet(tweetPayload)
-  console.log(`[postToX] ✅ 投稿成功  tweet_id=${tweet.id}`)
-
-  // ── 7. 投稿履歴を更新
-  appendHistory({
-    postedAt:       nowJST(),
-    slug:           selected.slug,
-    title:          selected.title,
-    slot,
-    tweetId:        tweet.id,
-    tweetUrl:       `https://x.com/i/web/status/${tweet.id}`,
-    text:           postText,
-    hasImage:       !!mediaId,
-    imageLocalPath: imagePath
-      ? path.relative(process.cwd(), imagePath)
-      : null,
-    success:        true,
-  })
 
   console.log(`=== [postToX] 完了 ===\n`)
 }

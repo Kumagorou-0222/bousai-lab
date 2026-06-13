@@ -23,6 +23,8 @@ export type PostRecord = {
   hasImage: boolean
   imageLocalPath: string | null
   success: boolean
+  error?: string
+  fallbackUrl?: string
 }
 
 // =====================================================

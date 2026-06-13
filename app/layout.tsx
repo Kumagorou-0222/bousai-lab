@@ -75,19 +75,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             });
           `}
         </Script>
-        {/* もしもアフィリエイト（楽天） */}
-        <Script id="rakuten-affiliate" strategy="afterInteractive">
-          {`
-            (function() {
-              const a_id='5428468', p_id='54', pc_id='54', pl_id='616';
-              document.querySelectorAll('a[href*="rakuten.co.jp"]:not([href*="room.rakuten.co.jp"]), a[href*="rakuten.com"]').forEach(function(el) {
-                const orig = el.href;
-                el.href = 'https://af.moshimo.com/af/c/click?a_id='+a_id+'&p_id='+p_id+'&pc_id='+pc_id+'&pl_id='+pl_id+'&url='+encodeURIComponent(orig);
-                el.setAttribute('rel','nofollow');
-              });
-            })();
-          `}
-        </Script>
       </body>
     </html>
   )

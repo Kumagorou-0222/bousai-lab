@@ -1,3 +1,5 @@
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
+
 type Props = {
   title?: string
   description?: string
@@ -9,8 +11,8 @@ export default function RakutenBanner({
   description = '実際に使えるものだけをピックアップ。楽天市場でカンタンに購入できます！',
   amazonQuery = '防災グッズ',
 }: Props) {
-  const amazonUrl = `https://www.amazon.co.jp/s?k=${encodeURIComponent(amazonQuery)}&tag=bousailab0c-22`
-  const rakutenUrl = 'https://room.rakuten.co.jp/room_e510207d9c/items'
+  const amazonUrl = amazonProductUrl(amazonQuery)
+  const rakutenUrl = rakutenRoomUrl()
 
   return (
     <div style={{
@@ -47,7 +49,7 @@ export default function RakutenBanner({
             boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
           }}
         >
-          🛍️ 楽天で見る
+          🛍️ 楽天ROOMで見る
         </a>
         <a
           href={amazonUrl}

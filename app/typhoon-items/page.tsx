@@ -2,11 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import AffiliateButtons from '@/components/AffiliateButtons'
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
 
 const BASE_URL = 'https://bousai-lab.vercel.app'
-const RAKUTEN_ID = '1400711'
-const rkt = (keyword: string) =>
-  `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN_ID}/?pc=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${keyword}/`)}`
+const rkt = (keyword: string) => rakutenRoomUrl(keyword)
 const ACCENT = '#2563EB'
 const ACCENT_BG = '#EFF6FF'
 const ACCENT_LIGHT = '#BFDBFE'
@@ -33,7 +32,7 @@ const PRODUCTS = [
     reason: '台風通過後の断水は数日続くことがある。1人1日3Lが目安。家族3人なら最低9L（3日分）を確保。',
     spec: '保存期間5年以上・2Lペット×6本以上',
     price: '1,500〜3,500円（12本ケース）',
-    amazonUrl: `https://www.amazon.co.jp/s?k=保存水+2L+5年+ケース&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('保存水 2L 5年 ケース'),
     rakutenUrl: rkt('保存水 2L 5年 ケース'),
     badgeText: '第1優先',
     trustText: '防災備蓄の基本中の基本',
@@ -46,7 +45,7 @@ const PRODUCTS = [
     reason: '台風後のスーパーは即座に棚が空になる。最低5日分あれば落ち着いて行動できる。カロリーと食べやすさで選ぶ。',
     spec: '5年以上保存・加熱不要・1人5日分',
     price: '3,000〜8,000円',
-    amazonUrl: `https://www.amazon.co.jp/s?k=非常食+セット+5日分+加熱不要&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('非常食 セット 5日分 加熱不要'),
     rakutenUrl: rkt('非常食 セット 5日分 加熱不要'),
     badgeText: '第2優先',
     trustText: '行政も推奨する最低限の備蓄食',
@@ -59,7 +58,7 @@ const PRODUCTS = [
     reason: '台風の強風で窓ガラスが割れると室内に破片が飛び散る。養生テープを×字に貼るだけで飛散を大幅に抑えられる。',
     spec: '養生テープ（幅50mm）＋窓ガラス飛散防止フィルム',
     price: '1,000〜3,000円',
-    amazonUrl: `https://www.amazon.co.jp/s?k=養生テープ+窓ガラス飛散防止&tag=bousailab0c-22`,
+    amazonUrl: amazonProductUrl('養生テープ 窓ガラス飛散防止'),
     rakutenUrl: rkt('養生テープ 窓ガラス飛散防止'),
     badgeText: '窓対策必須',
     trustText: '台風シーズン前に毎年売り切れる必需品',
@@ -300,7 +299,7 @@ export default function TyphoonItemsPage() {
               💧 まず保存水から揃える
             </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <a href={`https://www.amazon.co.jp/s?k=保存水+2L+5年+ケース&tag=bousailab0c-22`}
+              <a href={amazonProductUrl('保存水 2L 5年 ケース')}
                 target="_blank" rel="noopener noreferrer sponsored"
                 style={{
                   flex: '1 1 140px',
@@ -322,7 +321,7 @@ export default function TyphoonItemsPage() {
                   textDecoration: 'none', fontWeight: 900, fontSize: 14,
                   boxShadow: '0 4px 16px rgba(0,0,0,0.2)', minHeight: 48,
                 }}>
-                🛍️ 楽天で見る
+                🛍️ 楽天ROOMで見る
               </a>
             </div>
           </div>
