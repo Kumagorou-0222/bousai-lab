@@ -7,6 +7,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import MangaImageGallery from '@/components/MangaImageGallery'
 import ProductCard from '@/components/ProductCard'
 import ComparisonTable from '@/components/ComparisonTable'
+import AdSense from '@/components/AdSense'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -94,7 +95,35 @@ export default async function MangaPage({ params }: Props) {
   const catHref = CAT_HREF[manga.category] ?? '/'
   const product = manga.category === 'goods' ? getProductByMangaSlug(manga.slug) : undefined
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: BASE_URL },
+      { '@type': 'ListItem', position: 2, name: 'マンガで学ぶ防災', item: `${BASE_URL}/manga` },
+      { '@type': 'ListItem', position: 3, name: manga.title, item: `${BASE_URL}/manga/${slug}` },
+    ],
+  }
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: `${manga.title}【4コマ漫画】`,
+    description: manga.description,
+    author: {
+      '@type': 'Person',
+      name: 'くまごろう',
+      jobTitle: '医師',
+      url: `${BASE_URL}/about`,
+    },
+    publisher: { '@type': 'Organization', name: '防災Lab', url: BASE_URL },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${BASE_URL}/manga/${slug}` },
+  }
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 80px' }}>
       <Breadcrumb items={[
         { label: 'ホーム', href: '/' },
@@ -255,6 +284,9 @@ export default async function MangaPage({ params }: Props) {
         </div>
       </div>
 
+      {/* 漫画直後広告 */}
+      <AdSense slot="2847651930" format="auto" />
+
       {/* グッズ専用セクション */}
       {product && (
         <>
@@ -370,6 +402,9 @@ export default async function MangaPage({ params }: Props) {
         </Link>
       </div>
 
+      {/* 他のマンガ前広告 */}
+      <AdSense slot="5193847620" format="auto" />
+
       {/* 他のマンガ */}
       <section>
         <h2 style={{ fontSize: 15, fontWeight: 700, color: '#0F172A', marginBottom: 14 }}>
@@ -404,5 +439,6 @@ export default async function MangaPage({ params }: Props) {
         </Link>
       </div>
     </div>
+    </>
   )
 }

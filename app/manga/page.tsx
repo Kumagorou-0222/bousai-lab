@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { MANGA_LIST } from '@/lib/manga'
 import Breadcrumb from '@/components/Breadcrumb'
+import AdSense from '@/components/AdSense'
 
 export const metadata: Metadata = {
   title: 'マンガで学ぶ防災｜防災Lab',
@@ -169,6 +170,9 @@ export default function MangaIndexPage() {
           {learnManga.map((manga) => <MangaCard key={manga.slug} manga={manga} />)}
         </div>
       </section>
+
+      {/* セクション間広告 */}
+      <AdSense slot="2847651930" format="auto" />
 
       {/* 🛒 グッズを知る */}
       <section style={{ marginBottom: 48 }}>
