@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import type { PrepItem } from '@/lib/articles'
 import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
 

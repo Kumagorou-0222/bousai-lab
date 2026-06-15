@@ -1,4 +1,4 @@
-﻿import { amazonProductUrl, RAKUTEN_ROOM_URL } from '@/lib/affiliateLinks'
+import { amazonProductUrl, RAKUTEN_ROOM_URL } from '@/lib/affiliateLinks'
 
 type Props = {
   title?: string

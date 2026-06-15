@@ -1,4 +1,4 @@
-﻿import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
 
 export function amazonUrl(query: string) {
   return amazonProductUrl(query)
