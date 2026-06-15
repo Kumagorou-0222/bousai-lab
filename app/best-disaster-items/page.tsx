@@ -478,6 +478,17 @@ function PriorityBadge({ priority }: { priority: string }) {
 export default function BestDisasterItemsPage() {
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 80px' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://bousai-lab.vercel.app/' },
+            { '@type': 'ListItem', position: 2, name: 'おすすめ防災グッズ', item: 'https://bousai-lab.vercel.app/best-disaster-items' },
+          ],
+        }) }}
+      />
       <Breadcrumb items={[{ label: 'ホーム', href: '/' }, { label: 'おすすめ防災グッズ' }]} />
 
       {/* ヘッダー */}

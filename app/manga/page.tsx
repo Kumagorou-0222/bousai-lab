@@ -101,6 +101,17 @@ export default function MangaIndexPage() {
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 80px' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://bousai-lab.vercel.app/' },
+            { '@type': 'ListItem', position: 2, name: 'マンガで学ぶ防災', item: 'https://bousai-lab.vercel.app/manga' },
+          ],
+        }) }}
+      />
       <Breadcrumb items={[
         { label: 'ホーム', href: '/' },
         { label: 'マンガで学ぶ防災' },

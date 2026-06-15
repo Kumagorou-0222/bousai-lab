@@ -108,9 +108,19 @@ export default async function CategoryPage({ params }: Props) {
     })),
   }
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://bousai-lab.vercel.app/' },
+      { '@type': 'ListItem', position: 2, name: cat.label, item: `https://bousai-lab.vercel.app/category/${category}` },
+    ],
+  }
+
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 16px 80px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <Breadcrumb items={[
         { label: 'ホーム', href: '/' },
         { label: cat.label },
