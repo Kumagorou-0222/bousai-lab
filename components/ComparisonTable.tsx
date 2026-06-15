@@ -3,9 +3,11 @@ import type { ProductData } from '@/lib/products'
 type Props = {
   comparison: ProductData['comparison']
   accentColor?: string
+  amazonUrl?: string
+  rakutenUrl?: string
 }
 
-export default function ComparisonTable({ comparison, accentColor = '#1E40AF' }: Props) {
+export default function ComparisonTable({ comparison, accentColor = '#1E40AF', amazonUrl, rakutenUrl }: Props) {
   return (
     <div style={{ marginBottom: 28 }}>
       <div style={{ overflowX: 'auto', borderRadius: 12, border: '1.5px solid #E2E8F0' }}>
@@ -59,6 +61,45 @@ export default function ComparisonTable({ comparison, accentColor = '#1E40AF' }:
         <p style={{ fontSize: 12, color: '#64748B', marginTop: 8, lineHeight: 1.6 }}>
           💡 {comparison.note}
         </p>
+      )}
+
+      {(amazonUrl || rakutenUrl) && (
+        <div style={{ display: 'flex', gap: 10, marginTop: 14, flexWrap: 'wrap' }}>
+          {amazonUrl && (
+            <a
+              href={amazonUrl}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              style={{
+                flex: 1, minWidth: 140,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                background: '#FF9900', color: 'white',
+                borderRadius: 10, padding: '12px 16px',
+                textDecoration: 'none', fontWeight: 700, fontSize: 13,
+                boxShadow: '0 2px 8px rgba(255,153,0,0.35)',
+              }}
+            >
+              🛒 Amazonで見る
+            </a>
+          )}
+          {rakutenUrl && (
+            <a
+              href={rakutenUrl}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              style={{
+                flex: 1, minWidth: 140,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                background: '#BF0000', color: 'white',
+                borderRadius: 10, padding: '12px 16px',
+                textDecoration: 'none', fontWeight: 700, fontSize: 13,
+                boxShadow: '0 2px 8px rgba(191,0,0,0.3)',
+              }}
+            >
+              🛍 楽天ROOMで見る
+            </a>
+          )}
+        </div>
       )}
     </div>
   )

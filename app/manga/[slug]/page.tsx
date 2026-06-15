@@ -337,7 +337,11 @@ export default async function MangaPage({ params }: Props) {
             <h2 style={{ fontSize: 16, fontWeight: 800, color: '#0F172A', marginBottom: 14 }}>
               📊 {product.name}の選び方
             </h2>
-            <ComparisonTable comparison={product.comparison} />
+            <ComparisonTable
+              comparison={product.comparison}
+              amazonUrl={product.featured.amazonUrl}
+              rakutenUrl={product.featured.rakutenUrl}
+            />
           </div>
 
           {/* おすすめ商品 */}
