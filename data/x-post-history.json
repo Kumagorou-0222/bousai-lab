@@ -331,5 +331,53 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-refrigerator/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-06-14T07:56:54.765+09:00",
+    "slug": "earthquake-elevator",
+    "title": "地震のときエレベーターは使ってはいけない【理由3つ・完全版】",
+    "slot": "morning",
+    "tweetId": "2065931446418870272",
+    "tweetUrl": "https://x.com/i/web/status/2065931446418870272",
+    "text": "【今日の備え】停電による閉じ込め・余震での急停止・点検完了まで使用禁止の3つが理由。大規模地震では1週間以上使えないことも。詳しくは→ https://bousai-lab.vercel.app/articles/earthquake-elevator\n\n#防災 #地震 #エレベーター #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/earthquake-elevator/panel-01.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-06-14T16:53:31.365+09:00",
+    "slug": "earthquake-toilet",
+    "title": "地震のときトイレは流していい？排水管確認と正しい対処法",
+    "slot": "noon",
+    "tweetId": "2066066488596001006",
+    "tweetUrl": "https://x.com/i/web/status/2066066488596001006",
+    "text": "【保存版】【地震のときトイレは流していい？】❌ 確認せずにそのまま流す ⭕ 排水管が無事か確認してから使う 配管が損傷していると汚水が逆流して大惨事に。迷ったら携帯トイレを使おう。👉 https://bousai-lab.vercel.app/articles/earthquake-toilet\n\n#防災 #地震 #断水 #保存版 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/earthquake-toilet/panel-01.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-06-14T22:57:50.424+09:00",
+    "slug": "evacuation-items",
+    "title": "避難所に持っていくべきもの完全リスト【医師監修】",
+    "slot": "night",
+    "tweetId": "2066158172025319552",
+    "tweetUrl": "https://x.com/i/web/status/2066158172025319552",
+    "text": "【家族で確認】❌ 避難所に行けば全部用意してもらえると思う ⭕ 水・食料・薬・衛生用品・充電器は自分で持参する 持病の薬・アレルギー対応食品は避難所では手に入らない。事前準備が命を守る。👉 https://bousai-lab.vercel.app/articles/evacuation-items\n\n#防災 #避難所 #在宅避難 #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/evacuation-items/panel-01.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-06-15T08:00:58.544+09:00",
+    "slug": "mobile-battery",
+    "title": "防災用モバイルバッテリーの正しい選び方【容量・個数・管理】",
+    "slot": "morning",
+    "tweetId": "2066294856583197113",
+    "tweetUrl": "https://x.com/i/web/status/2066294856583197113",
+    "text": "【今日の備え】【防災モバイルバッテリーの選び方】❌ 家族全員で1台共有 ⭕ 1人1台・20,000mAh以上・PD対応・PSEマーク付き 停電中スマホは唯一の情報源。大規模災害では1週間以上続く場合も。👉 https://bousai-lab.vercel.app/articles/mobile-battery\n\n#防災 #停電 #停電対策 #備蓄 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/mobile-battery/panel-01.png",
+    "success": true
   }
 ]
