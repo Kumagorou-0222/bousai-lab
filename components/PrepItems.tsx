@@ -1,14 +1,12 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import type { PrepItem } from '@/lib/articles'
-
-const AMAZON_TAG = process.env.NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG ?? 'bousailab-22'
-const RAKUTEN_AFF = process.env.NEXT_PUBLIC_RAKUTEN_AFFILIATE_ID ?? '103_-1_10000619'
+import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
 
 function amazonUrl(query: string) {
-  return `https://www.amazon.co.jp/s?k=${encodeURIComponent(query)}&tag=${AMAZON_TAG}`
+  return amazonProductUrl(query)
 }
-function rakutenUrl(query: string) {
-  return `https://search.rakuten.co.jp/search/mall/${encodeURIComponent(query)}/?f=1&RankingId=3&grp=product&scid=af_pc_etc&sc2id=af_${RAKUTEN_AFF}`
+function rakutenUrl(_query: string) {
+  return rakutenRoomUrl()
 }
 
 type Props = {
@@ -141,3 +139,5 @@ export default function PrepItems({ items, relatedSlugs, relatedTitles }: Props)
     </div>
   )
 }
+
+

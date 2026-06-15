@@ -1,5 +1,17 @@
 <!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# これはあなたが知っている通常の Next.js ではありません
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+このバージョンには破壊的な変更が含まれています。API、規約、およびファイル構造はすべて、あなたの学習データとは異なる可能性があります。コードを記述する前に、`node_modules/next/dist/docs/` にある関連ガイドを読んでください。非推奨の警告（Deprecation notices）に従ってください。
 <!-- END:nextjs-agent-rules -->
+
+# AI アシスタント（Antigravity / Claude）向け設定
+
+## 応答およびコミュニケーションのルール
+- **言語方針**: ユーザーへの返答、質問、説明はすべて**日本語**で行ってください。
+- **ドキュメント作成**: 以下のドキュメントを生成・更新する指示がある場合は、必ず**日本語**で作成してください：
+  - 実装計画 (`implementation_plan.md`)
+  - 修正内容の確認 (`walkthrough.md`)
+  - タスクリスト (`task.md`)
+- **ドキュメント保存ルール**: チャット内で作成した上記3つのドキュメントファイルは、プロジェクト内の `docs` フォルダの下に新規フォルダ（フォルダ名はこのチャットのトピックを表す英語名とし、スペースはアンダースコアで区切る）を作成して保存してください。
+- **簡潔な回答**: ユーザーへの応答は簡潔にまとめてください。
+

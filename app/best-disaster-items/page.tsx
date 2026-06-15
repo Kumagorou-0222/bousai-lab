@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
@@ -733,7 +733,7 @@ export default function BestDisasterItemsPage() {
                       🛒 Amazonで見る
                     </a>
                     <a
-                      href={rakutenRoomUrl(product.rakutenQuery)}
+                      href={rakutenRoomUrl()}
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       style={{
@@ -743,7 +743,7 @@ export default function BestDisasterItemsPage() {
                         textDecoration: 'none', fontWeight: 700, fontSize: 13,
                       }}
                     >
-                      🛒 楽天ROOMで見る
+                      🛍️ 楽天ROOMで見る
                     </a>
                   </div>
                 </div>
@@ -789,3 +789,4 @@ export default function BestDisasterItemsPage() {
     </div>
   )
 }
+

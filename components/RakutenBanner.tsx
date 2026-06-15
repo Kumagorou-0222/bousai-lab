@@ -1,4 +1,4 @@
-import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
+﻿import { amazonProductUrl, RAKUTEN_ROOM_URL } from '@/lib/affiliateLinks'
 
 type Props = {
   title?: string
@@ -12,7 +12,7 @@ export default function RakutenBanner({
   amazonQuery = '防災グッズ',
 }: Props) {
   const amazonUrl = amazonProductUrl(amazonQuery)
-  const rakutenUrl = rakutenRoomUrl()
+  const rakutenUrl = RAKUTEN_ROOM_URL
 
   return (
     <div style={{
@@ -75,3 +75,4 @@ export default function RakutenBanner({
     </div>
   )
 }
+
