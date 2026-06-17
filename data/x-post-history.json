@@ -475,5 +475,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-refrigerator/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-06-18T08:18:14.926+09:00",
+    "slug": "lantern",
+    "title": "停電の暗闇を乗り切るLEDランタンの選び方【防災の基準】",
+    "slot": "morning",
+    "tweetId": "2067386366317429240",
+    "tweetUrl": "https://x.com/i/web/status/2067386366317429240",
+    "text": "【今日の備え】懐中電灯は1方向だけ→ランタンは部屋全体OK。選ぶ基準は①乾電池式（充電不要）②200lm以上（4畳〜6畳分）③連続20時間以上。充電式は停電中に充電できないので注意。👉 https://bousai-lab.vercel.app/articles/lantern\n\n#防災 #停電 #停電対策 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/lantern-manga.png",
+    "success": true
   }
 ]
