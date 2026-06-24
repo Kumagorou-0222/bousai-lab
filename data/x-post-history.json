@@ -751,5 +751,17 @@
     "success": false,
     "error": "X API の投稿クレジットが不足しています（402 CreditsDepleted）。X Developer Portal の利用枠・課金設定を確認してください。",
     "fallbackUrl": "https://twitter.com/intent/tweet?text=%E3%80%90%E4%BB%8A%E6%97%A5%E3%81%AE%E5%82%99%E3%81%88%E3%80%91%E2%9D%8C%20%E9%81%BF%E9%9B%A3%E6%89%80%E3%81%AB%E8%A1%8C%E3%81%91%E3%81%B0%E5%85%A8%E9%83%A8%E7%94%A8%E6%84%8F%E3%81%97%E3%81%A6%E3%82%82%E3%82%89%E3%81%88%E3%82%8B%E3%81%A8%E6%80%9D%E3%81%86%20%E2%AD%95%20%E6%B0%B4%E3%83%BB%E9%A3%9F%E6%96%99%E3%83%BB%E8%96%AC%E3%83%BB%E8%A1%9B%E7%94%9F%E7%94%A8%E5%93%81%E3%83%BB%E5%85%85%E9%9B%BB%E5%99%A8%E3%81%AF%E8%87%AA%E5%88%86%E3%81%A7%E6%8C%81%E5%8F%82%E3%81%99%E3%82%8B%20%E6%8C%81%E7%97%85%E3%81%AE%E8%96%AC%E3%83%BB%E3%82%A2%E3%83%AC%E3%83%AB%E3%82%AE%E3%83%BC%E5%AF%BE%E5%BF%9C%E9%A3%9F%E5%93%81%E3%81%AF%E9%81%BF%E9%9B%A3%E6%89%80%E3%81%A7%E3%81%AF%E6%89%8B%E3%81%AB%E5%85%A5%E3%82%89%E3%81%AA%E3%81%84%E3%80%82%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99%E3%81%8C%E5%91%BD%E3%82%92%E5%AE%88%E3%82%8B%E3%80%82%F0%9F%91%89%20https%3A%2F%2Fbousai-lab.vercel.app%2Farticles%2Fevacuation-items%0A%0A%23%E9%98%B2%E7%81%BD%20%23%E9%81%BF%E9%9B%A3%E6%89%80%20%23%E5%9C%A8%E5%AE%85%E9%81%BF%E9%9B%A3%20%23%E4%BB%8A%E6%97%A5%E3%81%AE%E5%82%99%E3%81%88"
+  },
+  {
+    "postedAt": "2026-06-25T06:30:24.870+09:00",
+    "slug": "family-children-disaster",
+    "title": "子どもがいる家庭の防災チェックリスト【家族で確認】",
+    "slot": "morning",
+    "tweetId": "2069895944427204727",
+    "tweetUrl": "https://x.com/i/web/status/2069895944427204727",
+    "text": "【今日の備え】❌ 大人と同じ備蓄だけで安心する ⭕ 子ども専用の備蓄＋学校引き渡しルール確認＋集合場所を決める 液体ミルク・おむつは避難所では入手困難。今すぐ家族で確認を。→ https://bousai-lab.vercel.app/articles/family-children-disaster\n\n#防災 #備蓄 #防災グッズ #家族で確認 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/family_children_checklist.png",
+    "success": true
   }
 ]
