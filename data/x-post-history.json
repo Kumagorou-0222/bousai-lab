@@ -931,5 +931,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/earthquake-toilet/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-06-30T00:41:49.410+09:00",
+    "slug": "blackout-refrigerator",
+    "title": "停電したら冷蔵庫は何時間もつ？",
+    "slot": "night",
+    "tweetId": "2071620158217736698",
+    "tweetUrl": "https://x.com/i/web/status/2071620158217736698",
+    "text": "【家族で確認】【停電したら冷蔵庫は何時間もつ？】❌ 何度も開ける ⭕ なるべく開けない 目安：冷蔵4〜6時間、冷凍48時間。開けるたびに温度上昇。保冷バッグ+保冷剤で移動させれば時間を稼げる。→ https://bousai-lab.vercel.app/articles/blackout-refrigerator\n\n#防災 #停電 #冷蔵庫 #1分防災 #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-refrigerator/panel-01.png",
+    "success": true
   }
 ]
