@@ -943,5 +943,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-refrigerator/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-06-30T07:49:10.576+09:00",
+    "slug": "musashino",
+    "title": "武蔵野市の防災",
+    "slot": "morning",
+    "tweetId": "2071727705180295367",
+    "tweetUrl": "https://x.com/i/web/status/2071727705180295367",
+    "text": "【今日の備え】\n\n避難所に行く？\n在宅避難する？\n\n状況で選ぶことが大切です。\n\n保存して確認👇\nhttps://bousai-lab.vercel.app/musashino\n\n#防災 #武蔵野市 #東京防災 #今日の備え",
+    "hasImage": false,
+    "imageLocalPath": null,
+    "success": true
   }
 ]
