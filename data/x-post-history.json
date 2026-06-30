@@ -979,5 +979,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-basics/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-01T08:04:16.054+09:00",
+    "slug": "blackout-water",
+    "title": "停電中に断水したらどうする？水の確保と使い方",
+    "slot": "morning",
+    "tweetId": "2072093890350370837",
+    "tweetUrl": "https://x.com/i/web/status/2072093890350370837",
+    "text": "【今日の備え】停電でマンションのポンプが止まると同時に断水します。①飲料水：1人2L×3日分②トイレ用水：10L以上③給水車情報は自治体アプリで確認。備蓄があれば焦らずに済みます。👉 https://bousai-lab.vercel.app/articles/blackout-water\n\n#防災 #停電 #停電対策 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-water-manga.png",
+    "success": true
   }
 ]
