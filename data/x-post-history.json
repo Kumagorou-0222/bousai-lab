@@ -1075,5 +1075,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-water-manga.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-03T22:57:49.932+09:00",
+    "slug": "family-elderly-disaster",
+    "title": "高齢者がいる家庭の防災チェックリスト【家族で確認】",
+    "slot": "night",
+    "tweetId": "2073043538653094131",
+    "tweetUrl": "https://x.com/i/web/status/2073043538653094131",
+    "text": "【家族で確認】❌ 薬を常備しない・補聴器を忘れる ⭕ 持病の薬1週間分＋補聴器・眼鏡・義歯を防災リュックに 避難行動要支援者名簿への登録も忘れずに。家族で今すぐ確認を。→ https://bousai-lab.vercel.app/articles/family-elderly-disaster\n\n#防災 #備蓄 #防災グッズ #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/shelter_checklist.png",
+    "success": true
   }
 ]
