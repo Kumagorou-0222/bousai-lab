@@ -1099,5 +1099,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/earthquake-cooking/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-04T15:25:47.198+09:00",
+    "slug": "earthquake-bath",
+    "title": "地震後にお風呂は使っていい？ガス・水道別の確認手順",
+    "slot": "noon",
+    "tweetId": "2073292165430624256",
+    "tweetUrl": "https://x.com/i/web/status/2073292165430624256",
+    "text": "【1分防災】❌ ガスをそのまま使う ⭕ ガス会社の安全確認が終わってから使う ガス管が損傷していると引火・爆発のリスクがある。水道は排水管確認後ならOK。👉 https://bousai-lab.vercel.app/articles/earthquake-bath\n\n#防災 #地震 #地震対策 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/地震後の水はいつ使える？.png",
+    "success": true
   }
 ]
