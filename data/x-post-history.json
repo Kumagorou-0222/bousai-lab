@@ -1183,5 +1183,41 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-toilet/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-07T00:26:02.577+09:00",
+    "slug": "mansion-disaster-prep",
+    "title": "マンション防災で最初に確認すること3つ【保存版】",
+    "slot": "night",
+    "tweetId": "2074152901606609257",
+    "tweetUrl": "https://x.com/i/web/status/2074152901606609257",
+    "text": "【保存版】❌ 戸建てと同じ感覚で準備する ⭕ エレベーター停止・断水・在宅避難の長期化を前提にした備蓄を 水7日分・携帯トイレ50回分・モバイルバッテリーが最低ライン。詳しくは→ https://bousai-lab.vercel.app/articles/mansion-disaster-prep\n\n#防災 #備蓄 #防災グッズ #保存版 #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/mansion_disaster_checklist.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-07-07T07:59:40.333+09:00",
+    "slug": "earthquake-bath",
+    "title": "地震後にお風呂は使っていい？ガス・水道別の確認手順",
+    "slot": "morning",
+    "tweetId": "2074267061212041307",
+    "tweetUrl": "https://x.com/i/web/status/2074267061212041307",
+    "text": "【今日の備え】❌ ガスをそのまま使う ⭕ ガス会社の安全確認が終わってから使う ガス管が損傷していると引火・爆発のリスクがある。水道は排水管確認後ならOK。👉 https://bousai-lab.vercel.app/articles/earthquake-bath\n\n#防災 #地震 #地震対策 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/地震後の水はいつ使える？.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-07-07T15:52:37.768+09:00",
+    "slug": "blackout-smartphone",
+    "title": "停電したときスマホを長持ちさせる方法【今すぐやる】",
+    "slot": "noon",
+    "tweetId": "2074386084964753772",
+    "tweetUrl": "https://x.com/i/web/status/2074386084964753772",
+    "text": "【1分防災】①低電力モードON②画面輝度を最低③Wi-Fi・Bluetooth・位置情報をオフ。スマホは避難情報と家族連絡の命綱。詳しくは→ https://bousai-lab.vercel.app/articles/blackout-smartphone\n\n#防災 #停電 #モバイルバッテリー #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-basics/panel-01.png",
+    "success": true
   }
 ]
