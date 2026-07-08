@@ -393,3 +393,253 @@ riss: 必死にうちわで扇いでいるが汗が止まらない「電気な�
 
 **panel-04.png**
 robot: 穏やかな説明表情、3つのアイコン（建物＝涼しい場所・水分・冷却タオル＆保冷剤）「涼しい場所に移動・水分と塩分補給・冷却グッズ。この3つが命を守る！」
+
+---
+
+## 地震保険・火災保険（disaster-insurance）
+保存先: `public/manga/disaster-insurance/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, confident relieved expression, holding a fire insurance policy document labeled "火災保険". House with flames in thought bubble. Speech bubble: "火災保険に入ってるから地震が来ても大丈夫！家が燃えたら出るんでしょ？". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with very serious stern expression, big red X over fire insurance document, earthquake crack splitting ground beneath a house. Speech bubble: "違う！地震が原因の火災は火災保険から出ない。地震保険が別途必要だ！". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi squirrel "riss" with shocked open-mouth surprised expression, sweat drops, looking at two documents: fire insurance (red X) and earthquake insurance (green check). Speech bubble: "え！？地震で家が壊れたとき、地震保険がないとどうなるの？". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi blue-white robot "Q" with serious instructing expression, holding checklist with three items: 地震保険、家財保険、水災特約. Speech bubble: "補償ゼロ。まず保険証券を開いて、地震保険・家財・水災特約を今すぐ確認しろ！". Number "4" in top-right corner. White background.
+```
+
+---
+
+## ハザードマップの読み方（hazard-map）
+保存先: `public/manga/hazard-map/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, worried confused expression, holding a colorful map with question marks around head, city background. Speech bubble: "ハザードマップって名前は聞くけど、どこで見るの？難しそうで…". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with calm helpful expression, pointing to a laptop/smartphone screen showing a colorful map website with address input field. Speech bubble: "国土交通省のサイトに住所を入れるだけだ。無料・登録なし・今すぐできる。". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi squirrel "riss" with overwhelmed confused expression, staring at a complex colorful map with many different colored zones, multiple sweat drops. Speech bubble: "色がいっぱいあって何を見ればいいかわからない！". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi blue-white robot "Q" with clear explaining expression, pointing to three icons: flood wave (洪水), mountain landslide (土砂), tsunami wave (津波). Simple colored zones on mini-map behind. Speech bubble: "まず洪水・土砂・津波の3つを確認しろ。自宅が色付きエリアなら要注意だ！". Number "4" in top-right corner. White background.
+```
+
+---
+
+## 被災後の生活再建（disaster-recovery）
+保存先: `public/manga/disaster-recovery/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, distressed crying expression, standing in front of a collapsed cracked damaged house, debris around. Speech bubble: "家が壊れた！助けてほしいけど、どこに相談すればいいの？". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with serious authoritative expression, pointing to an official document labeled "罹災証明書" with a city hall building icon. Arrow showing document → many support icons. Speech bubble: "まず市区町村に『罹災証明書』を申請しろ。これが全支援の入り口だ。". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi squirrel "riss" with curious surprised expression, thought bubbles showing: money (支援金), house (公営住宅), document (ローン猶予). Speech bubble: "罹災証明って何？申請するとどうなるの？". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi blue-white robot "Q" with urgent serious expression, holding smartphone showing photos of damaged house, big red warning: 先に写真を撮れ！. Speech bubble: "被害の程度が証明され、支援金・公営住宅・ローン猶予などが受けられる。申請前に被害写真を必ず撮れ！". Number "4" in top-right corner. White background.
+```
+
+---
+
+## 高齢者・子どもの夏停電熱中症（blackout-heat-elderly）
+保存先: `public/manga/blackout-heat-elderly/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, very worried panicked expression, kneeling next to an elderly chibi character (small, grey hair, sitting in chair) with red face and no sweat, thermometer showing high temperature, electric fan stopped, broken power symbol. Speech bubble: "おじいちゃんが停電でエアコン使えなくて、顔が真っ赤で汗もかいてない…！". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with extremely urgent alarmed expression, red warning triangle with exclamation mark, diagram showing elderly person's reduced body temperature regulation ability (arrows pointing down: 発汗↓ 感覚↓ 口渇↓). Speech bubble: "危険！高齢者は暑さを感じにくく、本人が気づかないうちに重症化する。すぐ冷やせ！". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi squirrel "riss" with desperate worried expression, looking around the hot room with heat haze effect, no electricity. Speech bubble: "どうやって冷やすの？電気も使えないのに。". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi blue-white robot "Q" with calm instructing expression, showing body diagram with three cooling points highlighted in blue: neck (首), armpits (わきの下), groin (股). Ice pack icons at each point. Water bottle with salt icon. Speech bubble: "首・わきの下を保冷剤で冷やす。水分と塩分を補給。室温33℃超えたら涼しい場所に連れて行け！". Number "4" in top-right corner. White background.
+```
+
+---
+
+## EPUB導入① 大家として（intro-landlord）
+保存先: `public/manga/intro-landlord/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, curious questioning expression, standing in front of a small apartment building, tilting head with question mark. Speech bubble: "ねえロボ！大家さんって建物を管理するだけじゃダメ？". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with serious thoughtful expression, pointing at apartment building with small icons around it: broken elevator, water drop with X, power outage symbol. Speech bubble: "発災後に入居者が生き延びるか…そこまで考える必要があるぞ！". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi squirrel "riss" with worried anxious expression, sweat drop, looking at elevator with big red X and an elderly chibi character (grey hair, cane) standing by stairs looking up helplessly. Speech bubble: "エレベーターが止まったら高齢の入居者さんはどうするの？". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi blue-white robot "Q" with determined confident expression, fist raised, holding a clipboard with checklist, apartment building with shield icon in background. Speech bubble: "だから大家こそ「その後」の備えを先頭に立って考えるべきだ！". Number "4" in top-right corner. White background.
+```
+
+---
+
+## EPUB導入② 父として（intro-father）
+保存先: `public/manga/intro-father/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, wide-eyed shocked expression coming back from training, gymnasium building in background with banner. Speech bubble: "地域の防災会の訓練に出たら衝撃だったよ…". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with curious concerned expression, leaning forward attentively, hand near face. Speech bubble: "何が衝撃だったんだ？教えてくれ！". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi squirrel "riss" with panicked alarmed expression, arms spread wide, large pie chart showing only 30% filled (labeled 3割) next to gymnasium icon with overflowing people icons. Speech bubble: "避難所の定員…市民全員の3割しかない！どうするの？！". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi blue-white robot "Q" with resolute instructing expression, pointing at a cozy house filled with supply icons: water bottles, food cans, portable toilet, lantern. Speech bubble: "だから「自宅で生き延びる」備えが必要なんだ！". Number "4" in top-right corner. White background.
+```
+
+---
+
+## EPUB導入③ 医師として（intro-doctor）
+保存先: `public/manga/intro-doctor/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, curious worried expression, standing in a clinic hallway with red cross sign. Speech bubble: "先生！発災後の外来に大変な患者さんが続くって本当？". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" wearing a small white doctor coat and stethoscope, tired serious expression, waiting room behind with several distressed chibi patient silhouettes, icons floating: washed-away pills, missing medicine notebook with question mark. Speech bubble: "薬を流された…お薬手帳がない…そんな方が次々と来るんだ". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi squirrel "riss" with concerned sympathetic expression, paw on chin thinking, small clock icon and long queue of patient icons. Speech bubble: "医師として何ができるの？一人ずつ診るのは限界があるよね". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi blue-white robot "Q" in white doctor coat with warm determined smile, holding up a book, gentle glow around the book, heart and shield icons. Speech bubble: "「事前に伝えること」だからこの本を書いたんだ！備えが命を守る". Number "4" in top-right corner. White background.
+```
+
+---
+
+## EPUBおわりに 地域の力（closing-community）
+保存先: `public/manga/closing-community/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, excited impressed expression with sparkling eyes, watching an elderly chibi woman (grey hair bun, apron) confidently stirring a large cooking pot on a cassette stove at an outdoor soup kitchen. Speech bubble: "防災会で82歳のお婆さんが炊き出しを仕切ってたよ！". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with warm gentle expression, small flashback bubble showing the elderly woman handing a steaming cup to a grateful person, warm light. Speech bubble: "「阪神のときお湯一杯でどれだけ人が救われたか見てたから」だって". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi squirrel "riss" with touched moved expression, paws clasped together, small tears of emotion, chain of helping hands icons connecting people. Speech bubble: "備えた人が次に被災した誰かを助けるんだね！素敵だな…". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi blue-white robot "Q" with bright encouraging expression, pointing directly at the reader, circle of diverse chibi neighbors holding hands around a house, sunrise in background. Speech bubble: "そう！地域の防災力はあなたから始まるんだ！". Number "4" in top-right corner. White background.
+```
+
+---
+
+## 地震のときエレベーター（earthquake-elevator・高解像度再生成）
+保存先: `public/manga/earthquake-elevator/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, panicked expression, running toward elevator doors in an apartment hallway, ground shaking with motion lines, small falling debris. Speech bubble: "じしんがきた！エレベーターで逃げよう！". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with urgent stern expression, arm outstretched in stop gesture, big red X over the elevator doors. Speech bubble: "待て！エレベーターはだめだ！". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi blue-white robot "Q" with serious explaining expression, diagram showing cross-section of dark elevator shaft with a trapped chibi figure inside stopped cab, warning icons: power outage symbol, aftershock waves, alarm. Speech bubble: "停電で閉じ込め…余震で急停止…危険がいっぱい". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi squirrel "riss" with confident relieved smile, thumbs up, walking down a bright stairwell with green exit stairs sign. Speech bubble: "わかった！階段を使うんだね！覚えた！". Number "4" in top-right corner. White background.
+```
+
+---
+
+## 避難所の基本（evacuation-basics・高解像度再生成）
+保存先: `public/manga/evacuation-basics/`
+
+**panel-01.png**
+```
+4-koma manga panel 1/4. Chibi squirrel "riss" wearing yellow helmet, anxious uneasy expression, hugging own tail nervously, dark gymnasium silhouette with question marks in thought bubble. Speech bubble: "ひなんじょって、こわそう…何を持っていけばいいの？". Number "1" in top-right corner. White background, clean manga style.
+```
+
+**panel-02.png**
+```
+4-koma manga panel 2/4. Chibi blue-white robot "Q" with calm reassuring expression, gentle hand on the squirrel's shoulder, soft warm lighting. Speech bubble: "怖くない。準備さえすれば大丈夫だ". Number "2" in top-right corner. White background.
+```
+
+**panel-03.png**
+```
+4-koma manga panel 3/4. Chibi blue-white robot "Q" with clear instructing expression, pointing at five labeled icons in a row: water bottle (水), food cans (食料3日分), medicine (薬), wallet and documents (貴重品), phone charger (充電器). Speech bubble: "水・食料3日分・薬・貴重品・充電器が最優先". Number "3" in top-right corner. White background.
+```
+
+**panel-04.png**
+```
+4-koma manga panel 4/4. Chibi squirrel "riss" with cheerful motivated expression, happily packing a red backpack with the five items, checkmark sparkles. Speech bubble: "リュックに入れておけばいいんだね！準備しよう！". Number "4" in top-right corner. White background.
+```

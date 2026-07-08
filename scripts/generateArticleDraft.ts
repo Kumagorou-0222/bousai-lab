@@ -7,7 +7,8 @@
  * 実行例:
  *   npx tsx scripts/generateArticleDraft.ts
  *   npx tsx scripts/generateArticleDraft.ts --slug blackout-smartphone-battery
- *   npx tsx scripts/generateArticleDraft.ts --force   # 既存下書きを上書き
+ *   npx tsx scripts/generateArticleDraft.ts --force     # 既存下書きを上書き
+ *   npx tsx scripts/generateArticleDraft.ts --limit 1   # 未生成のアイデアから1件だけ生成（毎日の自動実行用）
  */
 
 import fs from 'fs'
@@ -63,8 +64,8 @@ function getSameCategoryRelated(category: string, currentSlug: string): string[]
 // プロンプト
 // =====================================================
 
-const SYSTEM_PROMPT = `あなたは防災専門の記事ライターです。
-日本語で、武蔵野市在住の現役医師が監修する防災情報サイト「防災Lab」向けの記事下書きを生成します。
+const SYSTEM_PROMPT = `あなたは防災・防犯専門の記事ライターです。
+日本語で、武蔵野市在住の現役医師が監修する防災・防犯情報サイト「防災Lab」向けの記事下書きを生成します。
 
 守るべきルール：
 - 誤情報を書かない。不確かな情報は「〜といわれています」「〜が推奨されています」と表現する
@@ -175,22 +176,29 @@ async function main(): Promise<void> {
   const force = args.includes('--force')
   const slugIndex = args.indexOf('--slug')
   const targetSlug = slugIndex >= 0 ? args[slugIndex + 1] : null
+  const limitIndex = args.indexOf('--limit')
+  const limit = limitIndex >= 0 ? parseInt(args[limitIndex + 1], 10) : Infinity
 
   const client = initClient()
 
   const ideas: ArticleIdea[] = JSON.parse(fs.readFileSync(IDEAS_PATH, 'utf-8'))
   const existingDrafts = new Set(getAllDraftSlugs())
+  const publishedSlugs = new Set(getAllSlugs())
 
   if (!fs.existsSync(DRAFTS_DIR)) fs.mkdirSync(DRAFTS_DIR, { recursive: true })
 
   const targets = ideas.filter((idea) => {
     if (targetSlug && idea.slug !== targetSlug) return false
+    if (!force && publishedSlugs.has(idea.slug)) {
+      console.log(`[skip] ${idea.slug} — 公開済み記事あり`)
+      return false
+    }
     if (!force && existingDrafts.has(idea.slug)) {
       console.log(`[skip] ${idea.slug} — 既存の下書きあり（--force で上書き可）`)
       return false
     }
     return true
-  })
+  }).slice(0, limit)
 
   if (targets.length === 0) {
     console.log('生成対象がありません。')

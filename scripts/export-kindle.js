@@ -11,7 +11,9 @@ const { createCanvas, loadImage } = require('canvas');
 const fs   = require('fs');
 const path = require('path');
 const JSZip = require('jszip');
-const matter = require('gray-matter');
+// gray-matter はバージョンにより default エクスポート形式が異なるため両対応
+const grayMatterModule = require('gray-matter');
+const matter = grayMatterModule.default || grayMatterModule;
 
 // ── パス定数 ──────────────────────────────────────────────────────
 const ROOT    = path.resolve(__dirname, '..');
@@ -275,6 +277,28 @@ const CATEGORY_LABEL = {
   evacuation: '避難が必要なとき',
   goods:      '防災グッズを知る',
 };
+
+// ── ハンドブック構成用の掲載順 ────────────────────────────────────
+// 第1章：発災直後の行動（シーン別：地震→停電→避難）
+const ACTION_MANGA_ORDER = [
+  'earthquake-elevator',
+  'blackout-basics',
+  'evacuation-basics',
+];
+// 第3章：備蓄グッズ（優先度順：水→トイレ→衛生→灯り→電源→調理→食料→大型電源→季節→乳幼児）
+const GOODS_MANGA_ORDER = [
+  'product-water-storage',
+  'product-portable-toilet',
+  'product-odor-bag',
+  'product-led-lantern',
+  'product-mobile-battery',
+  'product-cassette-stove',
+  'product-preserved-food',
+  'product-portable-power',
+  'product-cooler-box',
+  'product-liquid-milk',
+];
+const mangaBySlug = (slug) => MANGA_LIST.find((m) => m.slug === slug);
 
 // ── 1. 4パネル → 2×2 JPG合成 ─────────────────────────────────────
 /**
@@ -719,10 +743,10 @@ ${bodyContent}
 }
 
 function makePrologue() {
-  return xhtml('フィクション・プロローグ', '../css/style.css', `
+  return xhtml('序章　もし明日、地震が来たら', '../css/style.css', `
 <div class="prose-page">
-  <p class="chapter-label">フィクション・プロローグ</p>
-  <h1>2026年X月X日、午前6時42分</h1>
+  <p class="chapter-label">序章（フィクション）</p>
+  <h1>もし明日、地震が来たら<br/>——二つの家族の朝</h1>
   <p class="note">※以下は架空のストーリーです。実際の地震に基づくものではありません。</p>
 
   <p>武蔵野市の朝は、いつも静かに始まる。</p>
@@ -795,30 +819,39 @@ function makeIntro() {
   <hr/>
   <p><strong>「こわがるためではなく、守るための防災」</strong></p>
   <p>災害はいつ来るか分からない。でも「少しだけ知っていること」で、結果は大きく変わる。</p>
-  <p>この本は、まんがと解説と実践リストで、その「少しだけ」を届けるために書きました。</p>
+  <p>この本は、まんがと解説と実践リストで、その「少しだけ」を届けるために書きました。まず次のページから、この3つの出来事をまんがで紹介します。</p>
   <p class="sign">くまごろう<br/>（武蔵野市在住・現役勤務医師・マンションオーナー）</p>
 </div>`);
 }
 
-function makeChapter01() {
-  return xhtml('第1章 医師が見た「発災後」', '../css/style.css', `
+function makeChapter1() {
+  return xhtml('第1章 発災直後——最初の行動', '../css/style.css', `
 <div class="prose-page">
   <p class="chapter-label">第1章</p>
-  <h1>医師が見た「発災後」<br/>——なぜ備えが命を分けるのか</h1>
+  <h1>発災直後——最初の行動</h1>
 
-  <h2>発災から72時間のタイムライン</h2>
-  <p>大きな地震が起きた後、何が、いつ止まるのか。医療の現場と防災会の経験から整理した。</p>
+  <p>プロローグの田中家と佐藤家を分けたのは、発災直後の「最初の数分」の行動だった。この章では、誰もが直面する3つの場面について、まんがと解説で「最初にとるべき行動」を示す。</p>
 
   <table class="timeline">
-    <tr><th>時間</th><th>インフラ・行政</th><th>体・生活への影響</th></tr>
-    <tr><td>0〜3時間</td><td>電気・ガス・水道が停止／道路が混雑し救急車が来ない</td><td>怪我の処置が自力になる。暗闇でのパニックが起きやすい</td></tr>
-    <tr><td>3〜24時間</td><td>コンビニ・スーパーの棚が空になる／断水が続く</td><td>水・食料・トイレ問題が深刻化。慢性疾患の悪化が始まる</td></tr>
-    <tr><td>24〜72時間</td><td>行政の支援物資が一部届き始める（量は不足）</td><td>エコノミークラス症候群のリスク。感染症が広がり始める</td></tr>
-    <tr><td>72時間以降</td><td>ライフラインの一部復旧が始まる（地域差あり）</td><td>精神的疲労のピーク。持病の管理が限界に近づく</td></tr>
+    <tr><th>場面</th><th>最初の行動</th><th>まんが</th></tr>
+    <tr><td>🏢 地震が起きた</td><td>エレベーターは使わない。階段で逃げる</td><td>1-1</td></tr>
+    <tr><td>🔦 停電した</td><td>灯り→スマホ充電確認→ブレーカーの順で確認</td><td>1-2</td></tr>
+    <tr><td>🏃 避難が必要になった</td><td>持ち物5点を確認し、避難所の基本を知る</td><td>1-3</td></tr>
   </table>
 
+  <p>各話は<strong>「まんが → 3つのポイント → 詳しい解説」</strong>の順に並んでいる。時間がなければ、まんがとポイントだけ読み進めても構わない。</p>
+</div>`);
+}
+
+function makeChapter2() {
+  return xhtml('第2章 72時間を生き延びる', '../css/style.css', `
+<div class="prose-page">
+  <p class="chapter-label">第2章</p>
+  <h1>72時間を生き延びる<br/>——医師が見た「発災後」</h1>
+
+  <p>行政の支援が本格的に届くまで、およそ72時間。この間は基本的に「自分たちで何とかするしかない」。まず、医師として、また防災会の訓練を通じて知った「避難所で実際に起きること」から話したい。</p>
+
   <h2>避難所で実際に多い「体の問題」</h2>
-  <p>医師として、また防災会の訓練を通じて知った、避難所での健康リスクを挙げる。</p>
 
   <h3>エコノミークラス症候群（深部静脈血栓症）</h3>
   <p>狭いスペースに長時間同じ姿勢でいることで、足の血管に血栓ができる。最悪の場合、肺塞栓（肺に血栓が飛ぶ）で命を落とす。阪神・淡路大震災では多数の犠牲者が出た。</p>
@@ -832,17 +865,27 @@ function makeChapter01() {
 
   <h2>だから「在宅避難」が最善策になりえる</h2>
   <p>建物が安全であれば、自宅に留まることが体への負担が最も少ない。避難所のリスクを知った上で、「行かなくて済む準備」をすることが、賢い防災の第一歩だ。</p>
-  <p>次章のまんがと解説は、その「準備」を具体的に示したものだ。</p>
+  <p>次のページから、在宅避難の72時間を4つのフェーズに分けて、時間の流れに沿ってやるべきことを示す。</p>
 </div>`);
 }
 
-function makeChapter03() {
-  return xhtml('第3章 在宅避難72時間タイムライン', '../css/style.css', `
+function makeChapter2Timeline() {
+  return xhtml('在宅避難72時間タイムライン', '../css/style.css', `
 <div class="prose-page">
-  <p class="chapter-label">第3章</p>
+  <p class="chapter-label">第2章</p>
   <h1>在宅避難72時間タイムライン<br/>——「家で生き延びる」具体的な行動</h1>
 
-  <p>建物が安全なら、自宅が最良の避難場所になる。72時間を4つのフェーズに分けて、やるべきことを整理する。</p>
+  <p>大きな地震が起きた後、何が、いつ止まるのか。まず全体像を頭に入れてほしい。</p>
+
+  <table class="timeline">
+    <tr><th>時間</th><th>インフラ・行政</th><th>体・生活への影響</th></tr>
+    <tr><td>0〜3時間</td><td>電気・ガス・水道が停止／道路が混雑し救急車が来ない</td><td>怪我の処置が自力になる。暗闇でのパニックが起きやすい</td></tr>
+    <tr><td>3〜24時間</td><td>コンビニ・スーパーの棚が空になる／断水が続く</td><td>水・食料・トイレ問題が深刻化。慢性疾患の悪化が始まる</td></tr>
+    <tr><td>24〜72時間</td><td>行政の支援物資が一部届き始める（量は不足）</td><td>エコノミークラス症候群のリスク。感染症が広がり始める</td></tr>
+    <tr><td>72時間以降</td><td>ライフラインの一部復旧が始まる（地域差あり）</td><td>精神的疲労のピーク。持病の管理が限界に近づく</td></tr>
+  </table>
+
+  <p>この流れを4つのフェーズに分けて、やるべきことを整理する。</p>
 
   <div class="phase-block phase-0">
     <h2>フェーズ０：0〜3時間「命を守る」</h2>
@@ -887,6 +930,39 @@ function makeChapter03() {
       <li>🏘️ <strong>地域の自主防災会・町内会と連携</strong>——情報共有・助け合い</li>
     </ul>
   </div>
+</div>`);
+}
+
+function makeChapter3() {
+  return xhtml('第3章 命を守る備蓄グッズ10', '../css/style.css', `
+<div class="prose-page">
+  <p class="chapter-label">第3章</p>
+  <h1>命を守る備蓄グッズ10<br/>——優先度の高い順に揃える</h1>
+
+  <p>防災グッズは「全部揃えよう」とすると挫折する。医師として、また2つの家族の分かれ道を見てきた経験から、<strong>優先度の高い順</strong>に10個へ絞り込んだ。上から順に揃えてほしい。</p>
+
+  <table class="timeline">
+    <tr><th>順位</th><th>グッズ</th><th>目安</th></tr>
+    <tr><td>1</td><td>💧 備蓄水</td><td>1人1日2〜3L×7日分（21L以上）</td></tr>
+    <tr><td>2</td><td>🚽 携帯トイレ</td><td>1人50回分以上</td></tr>
+    <tr><td>3</td><td>🛍️ 防臭袋</td><td>携帯トイレとセットで</td></tr>
+    <tr><td>4</td><td>🏮 LEDランタン</td><td>乾電池式・200lm以上</td></tr>
+    <tr><td>5</td><td>🔋 モバイルバッテリー</td><td>20,000mAh以上</td></tr>
+    <tr><td>6</td><td>🔥 カセットコンロ</td><td>ガス缶12本以上</td></tr>
+    <tr><td>7</td><td>🍱 保存食</td><td>7日分・ローリングストック</td></tr>
+    <tr><td>8</td><td>⚡ ポータブル電源</td><td>1,000Wh以上（余裕があれば）</td></tr>
+    <tr><td>9</td><td>🧊 クーラーボックス</td><td>夏の停電対策・薬の保管</td></tr>
+    <tr><td>10</td><td>🍼 液体ミルク</td><td>0〜1歳の子がいる家庭は必須</td></tr>
+  </table>
+
+  <h2>予算の目安</h2>
+  <ul>
+    <li><strong>まず揃える（1〜2万円）：</strong>順位1〜6（水・トイレ・防臭袋・灯り・電池・コンロ）</li>
+    <li><strong>次に揃える（1〜3万円）：</strong>順位7＋救急セット・常備薬7日分・ヘッドライト</li>
+    <li><strong>余裕があれば（3万円以上）：</strong>順位8〜（ポータブル電源・ソーラーパネル）</li>
+  </ul>
+
+  <p>それぞれのグッズについて、「なぜ必要か」「どう選ぶか」「どう使うか」を、まんがと解説で1つずつ紹介する。</p>
 </div>`);
 }
 
@@ -1063,29 +1139,8 @@ function makeAppendix() {
     <tr><td>武蔵野市消防署</td><td>0422-51-0119（緊急時は119）</td></tr>
   </table>
 
-  <h2>優先度別 防災グッズリスト</h2>
-  <h3>まず揃えるべきもの（1〜2万円以内）</h3>
-  <ul>
-    <li>携帯トイレ 50回分以上</li>
-    <li>保存水 2L×人数×10本</li>
-    <li>LEDランタン（乾電池式・200lm以上）</li>
-    <li>モバイルバッテリー 20,000mAh以上</li>
-    <li>カセットコンロ＋ガス缶12本</li>
-  </ul>
-  <h3>次に揃えるもの（1〜3万円）</h3>
-  <ul>
-    <li>アルファ米・レトルト食品 7日分</li>
-    <li>防臭袋（携帯トイレの処理用）</li>
-    <li>ヘッドライト（家族人数分）</li>
-    <li>救急セット・常備薬7日分</li>
-    <li>クーラーボックス＋保冷剤</li>
-  </ul>
-  <h3>余裕があれば（3万円以上）</h3>
-  <ul>
-    <li>ポータブル電源 1,000Wh以上</li>
-    <li>太陽光パネル（ポータブル電源対応）</li>
-    <li>防災リュック（家族分）</li>
-  </ul>
+  <h2>備蓄グッズの優先度リスト</h2>
+  <p>第3章の冒頭（優先度表・予算の目安）を参照。買い物の際は第3章の表をそのまま持っていけばよい。</p>
 
   <h2>防災Lab ウェブサイト</h2>
   <p>最新情報・まんがの追加・地域別情報は、防災Lab ウェブサイトで随時更新しています。</p>
@@ -1192,76 +1247,80 @@ async function main() {
   ];
   const chapters = [];
 
+  // まんが1話分（画像合成＋ページ追加）を処理する共通ヘルパー
+  async function addMangaSet(manga, pageId, tocLabel) {
+    const imgBuf      = await combinePanels(manga);
+    const imgFileName = `manga-${manga.slug}.jpg`;
+    zip.file(`OEBPS/images/${imgFileName}`, imgBuf);
+    manifestItems.push({ id: `img-${manga.slug}`, href: `images/${imgFileName}`, mediaType: 'image/jpeg' });
+
+    const mangaHref = `pages/manga-${pageId}.xhtml`;
+    addPage(zip, manifestItems, chapters, `manga-${pageId}`, mangaHref,
+      mangaPage(manga, imgFileName, 0), tocLabel);
+
+    const article = manga.articleSlug ? loadArticle(manga.articleSlug) : null;
+    if (article) {
+      const artHref = `pages/article-${pageId}.xhtml`;
+      addPage(zip, manifestItems, chapters, `article-${pageId}`, artHref,
+        articlePage(article.title, article.html), `    └ 解説：${article.title}`);
+    }
+    return !!article;
+  }
+
   // ── 前付け ───────────────────────────────────────────────────────
   console.log('  前付け生成中...');
-  addPage(zip, manifestItems, chapters, 'cover',    'pages/cover.xhtml',    makeCoverPage(), '表紙');
-  addPage(zip, manifestItems, chapters, 'prologue', 'pages/prologue.xhtml', makePrologue(),  'フィクション・プロローグ');
+  addPage(zip, manifestItems, chapters, 'cover', 'pages/cover.xhtml', makeCoverPage(), '表紙');
+  addPage(zip, manifestItems, chapters, 'intro', 'pages/intro.xhtml', makeIntro(), 'はじめに');
 
   // はじめに用まんが3本（大家・父・医師）
   console.log('  はじめに用まんが生成中...');
   for (let i = 0; i < 3; i++) {
     const m = INTRO_CLOSING_MANGA[i];
     process.stdout.write(`    ${m.emoji} ${m.title.slice(0, 20)}... `);
-    const imgBuf      = await combinePanels(m);
-    const imgFileName = `manga-${m.slug}.jpg`;
-    zip.file(`OEBPS/images/${imgFileName}`, imgBuf);
-    manifestItems.push({ id: `img-${m.slug}`, href: `images/${imgFileName}`, mediaType: 'image/jpeg' });
-    const href = `pages/intro-manga-${i + 1}.xhtml`;
-    addPage(zip, manifestItems, chapters, `intro-manga-${i + 1}`, href,
-      mangaPage(m, imgFileName, i), `  ${m.emoji} ${m.title}`);
+    await addMangaSet(m, `intro-${i + 1}`, `  ${m.emoji} ${m.title}`);
     process.stdout.write('✅\n');
   }
 
-  addPage(zip, manifestItems, chapters, 'intro',    'pages/intro.xhtml',    makeIntro(),     'はじめに');
-  addPage(zip, manifestItems, chapters, 'ch01',     'pages/chapter01.xhtml',makeChapter01(), '第1章　医師が見た「発災後」');
+  addPage(zip, manifestItems, chapters, 'prologue', 'pages/prologue.xhtml', makePrologue(), '序章　もし明日、地震が来たら——二つの家族');
 
-  // ── 第2章：まんが13話 ＋ 対応記事 ──────────────────────────────
-  console.log('\n  第2章：まんが処理中...');
-  chapters.push({ href: 'pages/manga-01-earthquake-elevator.xhtml', label: '第2章　まんがで学ぶ基本の備え' });
+  // ── 第1章：発災直後の行動（シーン別まんが3話＋解説） ────────────
+  console.log('\n  第1章：発災直後の行動...');
+  addPage(zip, manifestItems, chapters, 'ch1', 'pages/chapter1.xhtml', makeChapter1(), '第1章　発災直後——最初の行動');
 
-  for (let idx = 0; idx < MANGA_LIST.length; idx++) {
-    const manga = MANGA_LIST[idx];
-    process.stdout.write(`    [${idx + 1}/${MANGA_LIST.length}] ${manga.title} ...`);
-
-    const imgBuf      = await combinePanels(manga);
-    const imgFileName = `manga-${manga.slug}.jpg`;
-    zip.file(`OEBPS/images/${imgFileName}`, imgBuf);
-    manifestItems.push({ id: `img-${manga.slug}`, href: `images/${imgFileName}`, mediaType: 'image/jpeg' });
-
-    const mangaHref = `pages/manga-${String(idx + 1).padStart(2, '0')}-${manga.slug}.xhtml`;
-    addPage(zip, manifestItems, chapters,
-      `manga-${idx + 1}`, mangaHref, mangaPage(manga, imgFileName, idx),
-      `  ${manga.emoji} ${manga.title}`);
-
-    const article = loadArticle(manga.articleSlug);
-    if (article) {
-      const artHref = `pages/article-${String(idx + 1).padStart(2, '0')}-${manga.articleSlug}.xhtml`;
-      addPage(zip, manifestItems, chapters,
-        `article-${idx + 1}`, artHref, articlePage(article.title, article.html),
-        `    └ ${article.title}`);
-      process.stdout.write(` 記事あり\n`);
-    } else {
-      process.stdout.write(` 記事なし\n`);
-    }
+  for (let i = 0; i < ACTION_MANGA_ORDER.length; i++) {
+    const manga = mangaBySlug(ACTION_MANGA_ORDER[i]);
+    process.stdout.write(`    [1-${i + 1}] ${manga.title} ...`);
+    const hasArticle = await addMangaSet(manga, `1-${i + 1}-${manga.slug}`, `  1-${i + 1}　${manga.emoji} ${manga.title}`);
+    process.stdout.write(hasArticle ? ' 記事あり\n' : ' 記事なし\n');
   }
 
-  // ── 後付け ───────────────────────────────────────────────────────
+  // ── 第2章：72時間を生き延びる ───────────────────────────────────
+  console.log('\n  第2章：72時間タイムライン...');
+  addPage(zip, manifestItems, chapters, 'ch2', 'pages/chapter2.xhtml', makeChapter2(), '第2章　72時間を生き延びる');
+  addPage(zip, manifestItems, chapters, 'ch2-timeline', 'pages/chapter2-timeline.xhtml', makeChapter2Timeline(), '  在宅避難72時間タイムライン');
+
+  // ── 第3章：命を守る備蓄グッズ10（優先度順まんが10話＋解説） ─────
+  console.log('\n  第3章：備蓄グッズ10...');
+  addPage(zip, manifestItems, chapters, 'ch3', 'pages/chapter3.xhtml', makeChapter3(), '第3章　命を守る備蓄グッズ10');
+
+  for (let i = 0; i < GOODS_MANGA_ORDER.length; i++) {
+    const manga = mangaBySlug(GOODS_MANGA_ORDER[i]);
+    process.stdout.write(`    [グッズ${i + 1}/10] ${manga.title} ...`);
+    const hasArticle = await addMangaSet(manga, `3-${i + 1}-${manga.slug}`, `  グッズ${i + 1}　${manga.emoji} ${manga.title}`);
+    process.stdout.write(hasArticle ? ' 記事あり\n' : ' 記事なし\n');
+  }
+
+  // ── 第4・5章／後付け ─────────────────────────────────────────────
   console.log('\n  後付け生成中...');
-  addPage(zip, manifestItems, chapters, 'ch03',     'pages/chapter03.xhtml', makeChapter03(), '第3章　在宅避難72時間タイムライン');
   addPage(zip, manifestItems, chapters, 'ch04',     'pages/chapter04.xhtml', makeChapter04(), '第4章　立場別チェックリスト');
   addPage(zip, manifestItems, chapters, 'ch05',     'pages/chapter05.xhtml', makeChapter05(), '第5章　わが家の防災カルテ');
-  addPage(zip, manifestItems, chapters, 'epilogue', 'pages/epilogue.xhtml',  makeEpilogue(),  'エピローグ');
+  addPage(zip, manifestItems, chapters, 'epilogue', 'pages/epilogue.xhtml',  makeEpilogue(),  'エピローグ　その後の二つの家族');
 
   // おわりに用まんが（地域の力）
   console.log('  おわりに用まんが生成中...');
   const closingM = INTRO_CLOSING_MANGA[3];
   process.stdout.write(`    ${closingM.emoji} ${closingM.title.slice(0, 20)}... `);
-  const closingImgBuf = await combinePanels(closingM);
-  const closingImgFile = `manga-${closingM.slug}.jpg`;
-  zip.file(`OEBPS/images/${closingImgFile}`, closingImgBuf);
-  manifestItems.push({ id: `img-${closingM.slug}`, href: `images/${closingImgFile}`, mediaType: 'image/jpeg' });
-  addPage(zip, manifestItems, chapters, 'closing-manga', 'pages/closing-manga.xhtml',
-    mangaPage(closingM, closingImgFile, 0), `  ${closingM.emoji} ${closingM.title}`);
+  await addMangaSet(closingM, 'closing', `  ${closingM.emoji} ${closingM.title}`);
   process.stdout.write('✅\n');
 
   addPage(zip, manifestItems, chapters, 'closing',  'pages/closing.xhtml',   makeClosing(),   'おわりに');
@@ -1282,7 +1341,7 @@ async function main() {
   fs.writeFileSync(outPath, buf);
 
   const sizeMB = (buf.length / 1024 / 1024).toFixed(2);
-  const mangaCount   = MANGA_LIST.length;
+  const mangaCount   = chapters.filter(c => c.href.includes('manga-')).length;
   const articleCount = chapters.filter(c => c.href.includes('article-')).length;
   const totalPages   = chapters.length;
 
@@ -1291,7 +1350,7 @@ async function main() {
   console.log(`   総ページ数: ${totalPages}`);
   console.log(`   まんが:  ${mangaCount} 話`);
   console.log(`   記事:    ${articleCount} 件`);
-  console.log(`   新規章:  プロローグ・はじめに・第1/3/4/5章・エピローグ・おわりに・付録`);
+  console.log(`   構成:  はじめに→序章→第1章 発災直後→第2章 72時間→第3章 グッズ10→第4章 チェックリスト→第5章 カルテ→エピローグ→おわりに→付録`);
   console.log('\nKindle Previewer または https://kdp.amazon.co.jp でアップロードできます。');
 }
 

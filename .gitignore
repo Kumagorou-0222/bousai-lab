@@ -41,3 +41,11 @@ yarn-error.log*
 next-env.d.ts
 .claude/worktrees/
 .env*.local
+
+# ローカル専用・生成物（コミットしない）
+node_modules_broken_gdrive/
+__pycache__/
+*.epub
+*.local
+amazon_asins.csv
+amazon_queries.txt

@@ -25,5 +25,194 @@
     "intent": "台風が来る前日に何をすべきか優先順位つきで知りたい",
     "xSeries": "家族で確認",
     "monetizeItems": ["水", "非常食", "モバイルバッテリー", "ランタン"]
+  },
+  {
+    "title": "空き巣に狙われやすい家の特徴と今すぐできる対策",
+    "slug": "burglary-prevention-basics",
+    "category": "crime-prevention",
+    "targetKeyword": "空き巣 対策 一戸建て",
+    "intent": "自宅が空き巣に狙われないために何をすればいいか知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": ["防犯カメラ", "センサーライト", "補助錠"]
+  },
+  {
+    "title": "特殊詐欺から親を守る——今日から家族でできる対策",
+    "slug": "phone-scam-elderly",
+    "category": "crime-prevention",
+    "targetKeyword": "特殊詐欺 高齢者 対策",
+    "intent": "離れて暮らす高齢の親を電話詐欺から守る方法を知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": ["防犯電話機", "見守りカメラ"]
+  },
+  {
+    "title": "子どもの通学路の防犯——親ができる見守りの基本",
+    "slug": "child-safety-school-route",
+    "category": "crime-prevention",
+    "targetKeyword": "子ども 通学路 防犯",
+    "intent": "登下校中の子どもを犯罪から守るために親ができることを知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": ["防犯ブザー", "GPS見守り"]
+  },
+  {
+    "title": "女性の一人暮らしの防犯——今日からできる7つの習慣",
+    "slug": "women-living-alone-security",
+    "category": "crime-prevention",
+    "targetKeyword": "一人暮らし 女性 防犯",
+    "intent": "一人暮らしの女性が住まいで実践できる防犯習慣を知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": ["補助錠", "防犯フィルム", "センサーライト"]
+  },
+  {
+    "title": "災害後の犯罪から身を守る——避難中の防犯対策",
+    "slug": "post-disaster-crime",
+    "category": "crime-prevention",
+    "targetKeyword": "災害後 犯罪 防犯",
+    "intent": "被災後の空き巣・詐欺・避難所でのトラブルから身を守る方法を知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": ["防犯カメラ", "南京錠", "防犯ブザー"]
+  },
+  {
+    "title": "フィッシング詐欺の見分け方——災害に便乗する偽メールに注意",
+    "slug": "phishing-scam-disaster",
+    "category": "crime-prevention",
+    "targetKeyword": "フィッシング詐欺 見分け方",
+    "intent": "災害義援金や給付金をかたる詐欺メール・SMSの見分け方を知りたい",
+    "xSeries": "1分防災",
+    "monetizeItems": []
+  },
+  {
+    "title": "マンションの防犯対策——オートロックだけでは守れない理由",
+    "slug": "apartment-security",
+    "category": "crime-prevention",
+    "targetKeyword": "マンション 防犯 対策",
+    "intent": "オートロック付きマンションでも必要な防犯対策を知りたい",
+    "xSeries": "これだけでOK",
+    "monetizeItems": ["補助錠", "防犯フィルム", "ドアスコープカバー"]
+  },
+  {
+    "title": "車上荒らし・自転車盗難を防ぐ——駐車場の防犯対策",
+    "slug": "vehicle-theft-prevention",
+    "category": "crime-prevention",
+    "targetKeyword": "車上荒らし 対策",
+    "intent": "車や自転車の盗難・車上荒らしを防ぐ具体策を知りたい",
+    "xSeries": "1分防災",
+    "monetizeItems": ["ハンドルロック", "防犯カメラ", "自転車ロック"]
+  },
+  {
+    "title": "帰宅が夜遅い人の防犯——夜道で身を守る歩き方",
+    "slug": "night-walking-safety",
+    "category": "crime-prevention",
+    "targetKeyword": "夜道 防犯 歩き方",
+    "intent": "夜間の帰宅時につきまといや犯罪から身を守る方法を知りたい",
+    "xSeries": "1分防災",
+    "monetizeItems": ["防犯ブザー", "LEDライト"]
+  },
+  {
+    "title": "地震のとき赤ちゃんをどう守る？月齢別の対応",
+    "slug": "earthquake-baby-protection",
+    "category": "earthquake",
+    "targetKeyword": "地震 赤ちゃん 守り方",
+    "intent": "地震発生時に乳幼児をどう守るか、月齢別に知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": ["液体ミルク", "おむつ", "抱っこ紐"]
+  },
+  {
+    "title": "停電時のペットの守り方——夏・冬の温度管理",
+    "slug": "blackout-pet-care",
+    "category": "blackout",
+    "targetKeyword": "停電 ペット 対策",
+    "intent": "停電時にペットの熱中症・低体温を防ぐ方法を知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": ["ポータブル電源", "保冷剤"]
+  },
+  {
+    "title": "マンション高層階の地震対策——揺れが大きくなる理由と備え",
+    "slug": "highrise-earthquake-prep",
+    "category": "earthquake",
+    "targetKeyword": "高層マンション 地震 対策",
+    "intent": "高層階特有の長周期地震動への備えを知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": ["家具固定", "備蓄セット", "携帯トイレ"]
+  },
+  {
+    "title": "冬の停電で凍えないために——電気なしの防寒術",
+    "slug": "blackout-winter-warmth",
+    "category": "blackout",
+    "targetKeyword": "停電 冬 寒さ対策",
+    "intent": "冬の停電で暖房が使えないときの防寒方法を知りたい",
+    "xSeries": "これだけでOK",
+    "monetizeItems": ["寝袋", "カセットストーブ", "カイロ"]
+  },
+  {
+    "title": "避難所に行かない選択——在宅避難の条件と限界",
+    "slug": "home-evacuation-criteria",
+    "category": "evacuation",
+    "targetKeyword": "在宅避難 条件",
+    "intent": "避難所に行くべきか在宅避難できるかの判断基準を知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": ["備蓄セット", "携帯トイレ", "ポータブル電源"]
+  },
+  {
+    "title": "非常食は何をどれだけ？家族4人・7日分の現実的リスト",
+    "slug": "emergency-food-list-family",
+    "category": "disaster-prep",
+    "targetKeyword": "非常食 おすすめ 家族",
+    "intent": "家族分の非常食の種類と量を具体的に知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": ["非常食", "水", "カセットコンロ"]
+  },
+  {
+    "title": "防災グッズの置き場所——玄関・寝室・車のどこに何を置く？",
+    "slug": "disaster-goods-placement",
+    "category": "disaster-prep",
+    "targetKeyword": "防災グッズ 置き場所",
+    "intent": "防災グッズをどこに分散して置くべきか知りたい",
+    "xSeries": "これだけでOK",
+    "monetizeItems": ["防災リュック", "収納ボックス"]
+  },
+  {
+    "title": "断水時のお風呂・洗濯どうする？衛生を保つ工夫",
+    "slug": "water-outage-hygiene",
+    "category": "disaster-prep",
+    "targetKeyword": "断水 お風呂 洗濯",
+    "intent": "断水が続くときに体や衣類の清潔を保つ方法を知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": ["ドライシャンプー", "ウェットティッシュ", "給水タンク"]
+  },
+  {
+    "title": "エレベーターに閉じ込められたら——地震時の正しい行動",
+    "slug": "elevator-trapped-earthquake",
+    "category": "earthquake",
+    "targetKeyword": "エレベーター 地震 閉じ込め",
+    "intent": "地震でエレベーターに閉じ込められたときの対処法を知りたい",
+    "xSeries": "1分防災",
+    "monetizeItems": ["携帯トイレ", "防災ボトル"]
+  },
+  {
+    "title": "台風で窓ガラスが割れるのを防ぐ——飛散防止の正しい方法",
+    "slug": "typhoon-window-protection",
+    "category": "typhoon",
+    "targetKeyword": "台風 窓ガラス 対策",
+    "intent": "台風の飛来物から窓を守る正しい方法を知りたい",
+    "xSeries": "1分防災",
+    "monetizeItems": ["飛散防止フィルム", "養生テープ"]
+  },
+  {
+    "title": "災害時のデマ・誤情報に騙されない——情報の確かめ方",
+    "slug": "disaster-misinformation",
+    "category": "disaster-prep",
+    "targetKeyword": "災害 デマ 見分け方",
+    "intent": "災害時にSNSで流れるデマを見分ける方法を知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": ["防災ラジオ"]
+  },
+  {
+    "title": "ペットと一緒に避難できる？同行避難の準備と手順",
+    "slug": "pet-evacuation-guide",
+    "category": "evacuation",
+    "targetKeyword": "ペット 避難 同行",
+    "intent": "災害時にペットと避難する方法と事前準備を知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": ["ペットキャリー", "ペットフード"]
   }
 ]

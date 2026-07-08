@@ -9,6 +9,7 @@ export type ArticleCategory =
   | 'tsunami'
   | 'landslide'
   | 'volcano'
+  | 'crime-prevention'
 
 export type MainCategory = 'earthquake' | 'typhoon' | 'blackout' | 'evacuation'
 
@@ -72,6 +73,11 @@ export const CATEGORY_MAP: Record<
     label: '火山・降灰',
     emoji: '🌋',
     description: '火山灰の危険性と対策。車・停電・水道・マスクの正しい知識。',
+  },
+  'crime-prevention': {
+    label: '防犯',
+    emoji: '🔒',
+    description: '空き巣・特殊詐欺・子どもの見守りなど、暮らしを守る防犯対策を医師目線で解説。',
   },
 }
 
