@@ -52,6 +52,10 @@ const DEFAULT_LINKS: Record<ArticleCategory, MonetizeItem[]> = {
     { emoji: '😷', label: 'N95マスクを準備する', href: '/best-disaster-items', description: '火山灰には必ずN95以上を使用' },
     { emoji: '🎒', label: '防災リュックを確認する', href: '/best-disaster-items', description: '医師監修の中身リストあり' },
   ],
+  'crime-prevention': [
+    { emoji: '📋', label: '防犯チェックリストを確認する', href: '/checklist', description: '空き巣・不審者対策を今すぐ確認しよう' },
+    { emoji: '🔒', label: '防犯グッズを見る', href: '/best-disaster-items', description: '防犯カメラ・センサーライト・補助錠' },
+  ],
 }
 
 type Props = {
