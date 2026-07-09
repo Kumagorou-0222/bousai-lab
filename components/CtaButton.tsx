@@ -71,6 +71,13 @@ const CATEGORY_CTA: Record<ArticleCategory, { text: string; subText: string; urg
     emoji: '🌋', color: '#B91C1C',
     href: '/best-disaster-items',
   },
+  'crime-prevention': {
+    text: '防犯対策を今すぐ始める',
+    subText: '防犯カメラ・センサーライト・補助錠の3点',
+    urgency: '空き巣・侵入は予告なく起きます。対策は「今日」から。',
+    emoji: '🔒', color: '#334155',
+    href: '/best-disaster-items',
+  },
 }
 
 export default function CtaButton({
