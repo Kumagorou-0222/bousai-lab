@@ -49,3 +49,4 @@ __pycache__/
 *.local
 amazon_asins.csv
 amazon_queries.txt
+kindle-export/

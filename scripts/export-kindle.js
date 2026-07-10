@@ -14,6 +14,8 @@ const JSZip = require('jszip');
 // gray-matter はバージョンにより default エクスポート形式が異なるため両対応
 const grayMatterModule = require('gray-matter');
 const matter = grayMatterModule.default || grayMatterModule;
+// 表紙画像生成（generate-kindle-cover.js を再利用。sharp が必要）
+const { renderCoverJpeg } = require('./generate-kindle-cover');
 
 // ── パス定数 ──────────────────────────────────────────────────────
 const ROOT    = path.resolve(__dirname, '..');
@@ -501,7 +503,7 @@ function makeOpf(items) {
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xml:lang="ja">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
     <dc:identifier id="uid">bousai-lab-kindle-${now}</dc:identifier>
-    <dc:title>防災Lab まんがで学ぶ在宅避難ガイド</dc:title>
+    <dc:title>こわがるためではなく、守るための防災――避難所に行かない「在宅避難」まんがガイド</dc:title>
     <dc:creator>くまごろう（現役勤務医師）</dc:creator>
     <dc:language>ja</dc:language>
     <dc:date>${now}</dc:date>
@@ -555,7 +557,7 @@ function makeNcx(chapters) {
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
-  <docTitle><text>防災Lab まんがで学ぶ在宅避難ガイド</text></docTitle>
+  <docTitle><text>こわがるためではなく、守るための防災――避難所に行かない「在宅避難」まんがガイド</text></docTitle>
   <navMap>
   <navPoint id="nav0" playOrder="1">
     <navLabel><text>表紙</text></navLabel>
@@ -1156,16 +1158,17 @@ function makeCoverPage() {
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 <head>
   <meta charset="UTF-8"/>
-  <title>防災Lab まんがで学ぶ在宅避難ガイド</title>
+  <title>こわがるためではなく、守るための防災――避難所に行かない「在宅避難」まんがガイド</title>
   <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+  <style type="text/css">
+    body { margin: 0; padding: 0; }
+    .cover-full { text-align: center; margin: 0; padding: 0; }
+    .cover-full img { width: 100%; height: 100%; max-width: 100%; }
+  </style>
 </head>
 <body>
-<div class="cover-page">
-  <p style="font-size:4em; margin:0;">🛡️</p>
-  <h1>防災Lab<br/>まんがで学ぶ<br/>在宅避難ガイド</h1>
-  <p class="subtitle">地震・停電・避難所を、まんがとやさしい解説で学ぼう</p>
-  <p class="author">くまごろう（武蔵野市在住・現役勤務医師）監修</p>
-  <p style="font-size:0.8em; color:#888; margin-top:3em;">© 防災Lab / https://bousai-lab.vercel.app</p>
+<div class="cover-full">
+  <img src="../images/cover.jpg" alt="こわがるためではなく、守るための防災――避難所に行かない「在宅避難」まんがガイド 表紙"/>
 </div>
 </body>
 </html>`;
@@ -1269,6 +1272,10 @@ async function main() {
 
   // ── 前付け ───────────────────────────────────────────────────────
   console.log('  前付け生成中...');
+  console.log('    表紙画像を生成中...');
+  const coverJpeg = await renderCoverJpeg();
+  zip.file('OEBPS/images/cover.jpg', coverJpeg);
+  manifestItems.push({ id: 'img-cover', href: 'images/cover.jpg', mediaType: 'image/jpeg', properties: 'cover-image' });
   addPage(zip, manifestItems, chapters, 'cover', 'pages/cover.xhtml', makeCoverPage(), '表紙');
   addPage(zip, manifestItems, chapters, 'intro', 'pages/intro.xhtml', makeIntro(), 'はじめに');
 
