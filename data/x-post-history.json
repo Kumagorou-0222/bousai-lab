@@ -1471,5 +1471,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-water-manga.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-14T22:28:36.578+09:00",
+    "slug": "evacuation-illness",
+    "title": "避難所で気をつける病気・感染症対策【医師監修】",
+    "slot": "night",
+    "tweetId": "2077022451796513058",
+    "tweetUrl": "https://x.com/i/web/status/2077022451796513058",
+    "text": "【家族で確認】❌ 避難所に入れば安全と思い込む ⭕ マスク・手洗い・換気を入所直後から徹底する 避難所は感染症のリスクが高い環境。ノロ・インフル・コロナは避難所で拡大しやすい。👉 https://bousai-lab.vercel.app/articles/evacuation-illness\n\n#防災 #避難所 #感染症対策 #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/evacuation-illness/panel-01.png",
+    "success": true
   }
 ]
