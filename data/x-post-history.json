@@ -1495,5 +1495,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/evacuation-items/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-15T14:38:39.374+09:00",
+    "slug": "musashino",
+    "title": "武蔵野市の防災",
+    "slot": "noon",
+    "tweetId": "2077266572260098262",
+    "tweetUrl": "https://x.com/i/web/status/2077266572260098262",
+    "text": "【1分防災】\n\n避難所に行く？\n在宅避難する？\n\n状況で選ぶことが大切です。\n\n保存して確認👇\nhttps://bousai-lab.vercel.app/musashino\n\n#防災 #武蔵野市 #東京防災 #1分防災",
+    "hasImage": false,
+    "imageLocalPath": null,
+    "success": true
   }
 ]
