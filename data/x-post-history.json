@@ -1627,5 +1627,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/lantern-manga.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-19T07:41:55.566+09:00",
+    "slug": "disaster-water",
+    "title": "災害時の飲料水はどう確保する？備蓄・給水・浄水の全方法",
+    "slot": "morning",
+    "tweetId": "2078611249529549115",
+    "tweetUrl": "https://x.com/i/web/status/2078611249529549115",
+    "text": "【今日の備え】①備蓄：1人21L以上（2Lペットボトル×11本）②給水車：自治体アプリで場所確認③浄水器：川・雨水も使える製品を準備。大規模災害は断水が1〜2週間続くことも。今すぐ確認を。👉 https://bousai-lab.vercel.app/articles/disaster-water\n\n#防災 #備蓄 #防災グッズ #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/disaster_water_checklist.png",
+    "success": true
   }
 ]
