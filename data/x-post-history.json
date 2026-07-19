@@ -1639,5 +1639,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/disaster_water_checklist.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-19T15:06:19.517+09:00",
+    "slug": "blackout-smartphone",
+    "title": "停電したときスマホを長持ちさせる方法【今すぐやる】",
+    "slot": "noon",
+    "tweetId": "2078723086384279797",
+    "tweetUrl": "https://x.com/i/web/status/2078723086384279797",
+    "text": "【1分防災】①低電力モードON②画面輝度を最低③Wi-Fi・Bluetooth・位置情報をオフ。スマホは避難情報と家族連絡の命綱。詳しくは→ https://bousai-lab.vercel.app/articles/blackout-smartphone\n\n#防災 #停電 #モバイルバッテリー #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-basics/panel-01.png",
+    "success": true
   }
 ]
