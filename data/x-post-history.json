@@ -1699,5 +1699,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/地震後の水はいつ使える？.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-21T07:51:06.974+09:00",
+    "slug": "evacuation-items",
+    "title": "避難所に持っていくべきもの完全リスト【医師監修】",
+    "slot": "morning",
+    "tweetId": "2079338338306449781",
+    "tweetUrl": "https://x.com/i/web/status/2079338338306449781",
+    "text": "【今日の備え】❌ 避難所に行けば全部用意してもらえると思う ⭕ 水・食料・薬・衛生用品・充電器は自分で持参する 持病の薬・アレルギー対応食品は避難所では手に入らない。事前準備が命を守る。👉 https://bousai-lab.vercel.app/articles/evacuation-items\n\n#防災 #避難所 #在宅避難 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/evacuation-items/panel-01.png",
+    "success": true
   }
 ]
