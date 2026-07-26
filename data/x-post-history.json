@@ -1903,5 +1903,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/evacuation-items/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-07-26T22:15:03.935+09:00",
+    "slug": "evacuation-shelter-basics",
+    "title": "避難所の基本を知る【持ち物・ルール・生活のコツ】",
+    "slot": "night",
+    "tweetId": "2081367697632506234",
+    "tweetUrl": "https://x.com/i/web/status/2081367697632506234",
+    "text": "【家族で確認】避難所は安全だが快適ではありません。①持ち物：水・食料3日分・薬・貴重品・充電器・マット②ルール：受付→場所取り→共用スペースの使い方③注意：感染症・DVT・プライバシー確保。事前に一度調べておくだけで全然違います。👉 https://bousai-lab.vercel.app/articles/evacuation-shelter-basics\n\n#防災 #避難所 #在宅避難 #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/evacuation-basics/panel-01.png",
+    "success": true
   }
 ]
