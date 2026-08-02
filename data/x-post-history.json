@@ -2145,5 +2145,17 @@
     "success": false,
     "error": "Forbidden / Your monthly spend cap has been reached. / Request failed with code 403",
     "fallbackUrl": "https://twitter.com/intent/tweet?text=%E3%80%90%E4%BB%8A%E6%97%A5%E3%81%AE%E5%82%99%E3%81%88%E3%80%91%E2%91%A0%E4%BD%8E%E9%9B%BB%E5%8A%9B%E3%83%A2%E3%83%BC%E3%83%89ON%E2%91%A1%E7%94%BB%E9%9D%A2%E8%BC%9D%E5%BA%A6%E3%82%92%E6%9C%80%E4%BD%8E%E2%91%A2Wi-Fi%E3%83%BBBluetooth%E3%83%BB%E4%BD%8D%E7%BD%AE%E6%83%85%E5%A0%B1%E3%82%92%E3%82%AA%E3%83%95%E3%80%82%E3%82%B9%E3%83%9E%E3%83%9B%E3%81%AF%E9%81%BF%E9%9B%A3%E6%83%85%E5%A0%B1%E3%81%A8%E5%AE%B6%E6%97%8F%E9%80%A3%E7%B5%A1%E3%81%AE%E5%91%BD%E7%B6%B1%E3%80%82%E8%A9%B3%E3%81%97%E3%81%8F%E3%81%AF%E2%86%92%20https%3A%2F%2Fbousai-lab.vercel.app%2Farticles%2Fblackout-smartphone%0A%0A%23%E9%98%B2%E7%81%BD%20%23%E5%81%9C%E9%9B%BB%20%23%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%23%E4%BB%8A%E6%97%A5%E3%81%AE%E5%82%99%E3%81%88"
+  },
+  {
+    "postedAt": "2026-08-02T15:08:22.805+09:00",
+    "slug": "blackout-refrigerator",
+    "title": "停電したら冷蔵庫は何時間もつ？",
+    "slot": "noon",
+    "tweetId": "2083797033840762954",
+    "tweetUrl": "https://x.com/i/web/status/2083797033840762954",
+    "text": "【1分防災】【停電したら冷蔵庫は何時間もつ？】❌ 何度も開ける ⭕ なるべく開けない 目安：冷蔵4〜6時間、冷凍48時間。開けるたびに温度上昇。保冷バッグ+保冷剤で移動させれば時間を稼げる。→ https://bousai-lab.vercel.app/articles/blackout-refrigerator\n\n#防災 #停電 #冷蔵庫 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-refrigerator/panel-01.png",
+    "success": true
   }
 ]
