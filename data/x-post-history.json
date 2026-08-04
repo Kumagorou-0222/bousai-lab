@@ -2217,5 +2217,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/evacuation-items/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-08-04T14:54:39.420+09:00",
+    "slug": "disaster-backpack",
+    "title": "防災リュックに本当に必要なもの【医師監修・優先度つき】",
+    "slot": "noon",
+    "tweetId": "2084518356020080876",
+    "tweetUrl": "https://x.com/i/web/status/2084518356020080876",
+    "text": "【1分防災】【防災リュックに本当に必要なもの】❌ あれもこれも詰め込んで10kg超え ⭕ 必需品5種に絞って7kg以内を目標に 重すぎると逃げられない。水・食料・携帯トイレ・薬・モバイルバッテリーが最優先。家族で今すぐ確認を！→ https://bousai-lab.vercel.app/articles/disaster-backpack\n\n#防災 #備蓄 #防災グッズ #家族で確認 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/disaster-backpack/panel-01.png",
+    "success": true
   }
 ]
