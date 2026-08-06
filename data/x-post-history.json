@@ -2289,5 +2289,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/earthquake-toilet/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-08-06T14:55:27.650+09:00",
+    "slug": "emergency-toilet",
+    "title": "防災用携帯トイレの選び方と正しい使い方【備蓄量の計算も】",
+    "slot": "noon",
+    "tweetId": "2085243334046724501",
+    "tweetUrl": "https://x.com/i/web/status/2085243334046724501",
+    "text": "【保存版】【防災用携帯トイレの選び方と備蓄量】❌ 家族まとめて50個でOK ⭕ 1人50回分以上（できれば100回分）を準備する 水道復旧まで最大20日。凝固剤タイプ＋防臭袋がセット。→ https://bousai-lab.vercel.app/articles/emergency-toilet\n\n#防災 #備蓄 #防災グッズ #保存版 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/emergency-toilet/panel-01.png",
+    "success": true
   }
 ]
