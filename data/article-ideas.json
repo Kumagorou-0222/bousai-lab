@@ -421,5 +421,133 @@
       "クーラーボックス",
       "冷凍用保存袋"
     ]
+  },
+  {
+    "title": "地震の停電でオートロックが止まったら——マンションの出入りと防犯",
+    "slug": "earthquake-autolock-failure",
+    "category": "crime-prevention",
+    "targetKeyword": "オートロック 停電 防犯",
+    "intent": "停電でオートロックが解除されたときの防犯リスクと対処法を知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": [
+      "ドア用補助錠",
+      "防犯アラーム",
+      "センサーライト"
+    ]
+  },
+  {
+    "title": "回覧板・アンケートを装った訪問詐欺——手口と断り方",
+    "slug": "survey-visit-scam",
+    "category": "crime-prevention",
+    "targetKeyword": "訪問 アンケート 詐欺",
+    "intent": "個人情報を狙う訪問者の手口と安全な対応方法を知りたい",
+    "xSeries": "これだけでOK",
+    "monetizeItems": [
+      "ドアスコープカバー",
+      "ワイヤレスドアホン"
+    ]
+  },
+  {
+    "title": "子どもの留守番を安全に——鍵っ子の防犯ルール",
+    "slug": "kids-home-alone-safety",
+    "category": "crime-prevention",
+    "targetKeyword": "子ども 留守番 防犯",
+    "intent": "子どもが一人で留守番するときの安全対策とルール作りを知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": [
+      "見守りカメラ",
+      "キッズGPS",
+      "室内モニター"
+    ]
+  },
+  {
+    "title": "地震で夜に停電したら——真っ暗な家で最初にすべきこと",
+    "slug": "earthquake-night-blackout-action",
+    "category": "earthquake",
+    "targetKeyword": "地震 夜 停電",
+    "intent": "夜間の地震停電時にケガや二次災害を防ぐ行動順序を知りたい",
+    "xSeries": "1分防災",
+    "monetizeItems": [
+      "足元灯",
+      "ヘッドライト",
+      "スリッパ型防災シューズ"
+    ]
+  },
+  {
+    "title": "断水中に食器を洗えないとき——衛生的に食事する工夫",
+    "slug": "water-outage-dishes",
+    "category": "disaster-prep",
+    "targetKeyword": "断水 食器 衛生",
+    "intent": "断水で洗い物ができないときに衛生を保って食事する方法を知りたい",
+    "xSeries": "これだけでOK",
+    "monetizeItems": [
+      "使い捨て食器",
+      "食品用ラップ",
+      "ウェットティッシュ"
+    ]
+  },
+  {
+    "title": "浸水した家に戻ったら——片付けと消毒の正しい手順",
+    "slug": "flood-house-cleanup",
+    "category": "flood",
+    "targetKeyword": "浸水 片付け 消毒",
+    "intent": "浸水後の自宅を安全に片付け・消毒する手順と注意点を知りたい",
+    "xSeries": "保存版",
+    "monetizeItems": [
+      "消毒用アルコール",
+      "防水手袋",
+      "長靴"
+    ]
+  },
+  {
+    "title": "台風で車を守るには——冠水・飛来物から愛車を守る駐車場所",
+    "slug": "typhoon-car-protection",
+    "category": "typhoon",
+    "targetKeyword": "台風 車 対策",
+    "intent": "台風時に車を冠水や飛来物の被害から守る駐車方法を知りたい",
+    "xSeries": "これだけでOK",
+    "monetizeItems": [
+      "車用ボディカバー",
+      "窓ガラス飛散防止フィルム"
+    ]
+  },
+  {
+    "title": "土砂災害の前兆を見逃さない——避難のタイミング判断",
+    "slug": "landslide-warning-signs",
+    "category": "landslide",
+    "targetKeyword": "土砂災害 前兆 避難",
+    "intent": "土砂災害の危険サインと避難すべきタイミングを知りたい",
+    "xSeries": "1分防災",
+    "monetizeItems": [
+      "防災ラジオ",
+      "ヘルメット",
+      "懐中電灯"
+    ]
+  },
+  {
+    "title": "高齢の親が離れて暮らすなら——災害時の安否確認の仕組み",
+    "slug": "elderly-parents-safety-check",
+    "category": "disaster-prep",
+    "targetKeyword": "高齢 親 安否確認",
+    "intent": "離れて暮らす高齢の親と災害時に連絡を取る方法と備えを知りたい",
+    "xSeries": "家族で確認",
+    "monetizeItems": [
+      "見守りセンサー",
+      "GPS端末",
+      "簡単操作の携帯電話"
+    ]
+  },
+  {
+    "title": "災害備蓄の賞味期限を切らさない——ローリングストック管理術",
+    "slug": "rolling-stock-expiry-management",
+    "category": "disaster-prep",
+    "targetKeyword": "備蓄 賞味期限 管理",
+    "intent": "備蓄食品の期限切れを防ぎ効率よく管理する方法を知りたい",
+    "xSeries": "これだけでOK",
+    "monetizeItems": [
+      "長期保存食",
+      "収納ラベル",
+      "備蓄管理アプリ"
+    ]
   }
 ]
