@@ -47,10 +47,6 @@ def _within_rate_limit() -> bool:
 
 def main() -> None:
     init_db()
-    # デバッグ: 環境変数の設定状況を確認
-    import os
-    print(f"[DEBUG] TELEGRAM_BOT_TOKEN: {'Set' if os.getenv('TELEGRAM_BOT_TOKEN') else 'Not Set'}")
-    print(f"[DEBUG] X_CONSUMER_KEY: {'Set' if os.getenv('X_CONSUMER_KEY') else 'Not Set'}")
     # Telegramで「投稿」返信があれば pending_posts を X に投稿する
     check_and_execute_commands()
     try:
