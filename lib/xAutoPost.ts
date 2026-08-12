@@ -32,7 +32,7 @@ export type PostRecord = {
 // =====================================================
 
 const HISTORY_PATH = path.join(process.cwd(), 'data', 'x-post-history.json')
-const DUPLICATE_WINDOW_HOURS = 48  // 直近 48 時間以内に投稿したスラッグは避ける
+const DUPLICATE_WINDOW_HOURS = 168 // 直近 1週間(168時間) 以内に投稿したスラッグは避ける
 const RANK_WEIGHTS: Record<XRank, number> = { S: 5, A: 3, B: 1 }
 
 // =====================================================
@@ -52,8 +52,8 @@ export function readHistory(): PostRecord[] {
 export function writeHistory(records: PostRecord[]): void {
   const dir = path.dirname(HISTORY_PATH)
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
-  // 最大 500 件保持
-  const trimmed = records.slice(-500)
+  // 最大 1000 件保持（履歴分析のため少し増やす）
+  const trimmed = records.slice(-1000)
   fs.writeFileSync(HISTORY_PATH, JSON.stringify(trimmed, null, 2) + '\n', 'utf-8')
 }
 
@@ -71,16 +71,33 @@ export function selectCandidate(
   candidates: XPostCandidate[],
 ): XPostCandidate | null {
   const history = readHistory()
+  
+  // 1. 直近の重複防止（1週間）
   const cutoffMs = Date.now() - DUPLICATE_WINDOW_HOURS * 3_600_000
   const recentSlugs = new Set(
     history
-      .filter((r) => new Date(r.postedAt).getTime() >= cutoffMs)
+      .filter((r) => r.success && new Date(r.postedAt).getTime() >= cutoffMs)
       .map((r) => r.slug),
   )
 
-  // 直近 48h を除外。除外後が空なら全候補から選ぶ
+  // 候補から直近のものを除外
   let pool = candidates.filter((c) => !recentSlugs.has(c.slug))
-  if (pool.length === 0) pool = [...candidates]
+  
+  // 2. もし候補が空になったら、重複防止期間を短くして再試行（48時間）
+  if (pool.length === 0) {
+    const shortCutoffMs = Date.now() - 48 * 3_600_000
+    const veryRecentSlugs = new Set(
+      history
+        .filter((r) => r.success && new Date(r.postedAt).getTime() >= shortCutoffMs)
+        .map((r) => r.slug),
+    )
+    pool = candidates.filter((c) => !veryRecentSlugs.has(c.slug))
+  }
+
+  // 3. それでも空なら全候補から選ぶ
+  if (pool.length === 0) {
+    pool = [...candidates]
+  }
 
   // 重み付き候補プール展開
   const weighted: XPostCandidate[] = []
@@ -90,6 +107,13 @@ export function selectCandidate(
   }
 
   if (weighted.length === 0) return null
+  
+  // 4. シャッフルしてランダム性を高める
+  for (let i = weighted.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [weighted[i], weighted[j]] = [weighted[j], weighted[i]]
+  }
+  
   return weighted[Math.floor(Math.random() * weighted.length)]
 }
 
