@@ -16,6 +16,7 @@ from datetime import datetime, timedelta
 from fetchers.jma_feed import fetch_all_entries, fetch_max_int_keyword
 from filters.important import get_level, is_target_area, is_auto_post_entry
 from generators.post_text import build_telegram_message, generate_x_post, build_x_intent_url
+from generators.emergency_articles import get_related_article_url, build_emergency_post_with_article
 from notifiers.console import notify_console
 from notifiers.discord import notify_discord
 from notifiers.telegram_notify import notify_telegram
@@ -100,6 +101,11 @@ def main() -> None:
 
         # 投稿文生成
         x_post       = generate_x_post(title, full_text)
+        
+        # 関連記事の紐付け（緊急投稿システム拡張）
+        related_url = get_related_article_url(f"{title} {full_text}")
+        x_post = build_emergency_post_with_article(x_post, related_url)
+
         if update_prefix:
             x_post = f"{update_prefix}\n{x_post}"
         telegram_msg = build_telegram_message(title, full_text, level=level)
