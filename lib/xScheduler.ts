@@ -2,8 +2,6 @@
  * X投稿スケジューラー
  * Telegram とは完全に分離した X 専用の朝昼夜3枠スケジュール管理
  */
-import fs from 'fs'
-import path from 'path'
 import type { XPostCandidate, XRank } from './xPostQueue'
 import { RANK_WEIGHTS } from './xPostQueue'
 
@@ -73,35 +71,9 @@ function pickWithSeed(
   rng: () => number,
   exclude: string[],
 ): XPostCandidate | null {
-  // 履歴の読み込み（重複防止のため）
-  let recentSlugs: string[] = []
-  try {
-    const historyPath = path.join(process.cwd(), 'data', 'x-post-history.json')
-    if (fs.existsSync(historyPath)) {
-      const history = JSON.parse(fs.readFileSync(historyPath, 'utf-8'))
-      // 直近100件の成功した投稿を取得
-      recentSlugs = history
-        .filter((r: any) => r.success)
-        .slice(-100)
-        .map((r: any) => r.slug)
-    }
-  } catch (e) {
-    console.error('[pickWithSeed] 履歴読み込み失敗:', e)
-  }
-
-  // 1. 履歴 + 今回のセッションでの除外
-  const allExclude = [...new Set([...exclude, ...recentSlugs])]
-  let pool = candidates.filter((c) => !allExclude.includes(c.slug))
-  
-  // 2. もし候補が空になったら、今回のセッションでの除外のみにする
-  if (pool.length === 0) {
-    pool = candidates.filter((c) => !exclude.includes(c.slug))
-  }
-  
-  // 3. それでも空なら全候補から
-  if (pool.length === 0) {
-    pool = [...candidates]
-  }
+  // 同一日の朝・昼・夜では同じ記事を重複させない
+  let pool = candidates.filter((c) => !exclude.includes(c.slug))
+  if (pool.length === 0) pool = [...candidates]
 
   const expanded: XPostCandidate[] = []
   for (const c of pool) {

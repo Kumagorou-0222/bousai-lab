@@ -2,7 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import type { ArticleCategory } from './categories'
-export type { ArticleCategory }
+import { validateArticle } from './validateArticle'
+export type { ArticleCategory } from './categories'
 export { CATEGORY_MAP } from './categories'
 
 // =====================================================
@@ -56,6 +57,15 @@ export type RegionBlock = {
   content: string
 }
 
+export type DoctorPerspective = {
+  summary: string
+  points: string[]
+  redFlags?: string[]
+  sourceLinks?: Array<{ label: string; href: string }>
+  reviewed?: boolean
+  reviewer?: string
+}
+
 export type XSeriesLabel =
   | '保存版'
   | 'これだけでOK'
@@ -98,6 +108,7 @@ export type ArticleFrontmatter = {
   prepItems?: PrepItem[]
   monetizeItems?: MonetizeItem[]
   region?: RegionBlock
+  doctorPerspective?: DoctorPerspective
 }
 
 // =====================================================
@@ -194,10 +205,10 @@ export function getArticleBySlug(slug: string): Article {
     prepItems: data.prepItems,
     monetizeItems: normalizeMonetizeItems(data.monetizeItems),
     region: data.region,
+    doctorPerspective: data.doctorPerspective,
     content,
   } satisfies Article
   if (process.env.NODE_ENV === 'development') {
-    const { validateArticle } = require('./validateArticle')
     validateArticle(slug, article)
   }
   return article
@@ -229,6 +240,7 @@ export function getAllArticlesMeta(): ArticleMeta[] {
         carousel: data.carousel,
         prepItems: data.prepItems,
         monetizeItems: normalizeMonetizeItems(data.monetizeItems),
+        doctorPerspective: data.doctorPerspective,
       } satisfies ArticleMeta
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1))

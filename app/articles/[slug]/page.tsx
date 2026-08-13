@@ -22,6 +22,7 @@ import XPostBox from '@/components/XPostBox'
 import MangaImageGallery from '@/components/MangaImageGallery'
 import SeriesNav from '@/components/SeriesNav'
 import ComparisonTable from '@/components/ComparisonTable'
+import DoctorPerspective from '@/components/DoctorPerspective'
 import { getProductByMangaSlug } from '@/lib/products'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -256,6 +257,11 @@ export default async function ArticlePage({ params }: Props) {
               結論：{article.conclusion}
             </p>
           </div>
+        )}
+
+        {/* 医師目線の要点（公開前レビューが必要な草稿は明示） */}
+        {article.doctorPerspective && (
+          <DoctorPerspective data={article.doctorPerspective} />
         )}
 
         {/* ③④ 4コマ漫画（MangaSection が画像/テキスト/デフォルトを自動判定） */}
