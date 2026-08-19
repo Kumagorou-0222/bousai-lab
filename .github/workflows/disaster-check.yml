@@ -53,6 +53,7 @@ jobs:
           X_CONSUMER_SECRET:     ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN:        ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          LINE_NOTIFY_TOKEN:     ${{ secrets.LINE_NOTIFY_TOKEN }}
           AUTO_POST_ENABLED:     "true"
         run: |
           MODE="${{ github.event.inputs.mode || 'normal' }}"

@@ -11,16 +11,20 @@ disaster-bot / main.py
   7. AUTO_POST_ENABLED=true かつレベル3のみ X自動投稿
 """
 
+import os
 from datetime import datetime, timedelta
 
 from fetchers.jma_feed import fetch_all_entries, fetch_max_int_keyword
 from filters.important import get_level, is_target_area, is_auto_post_entry
 from generators.post_text import build_telegram_message, generate_x_post, build_x_intent_url
 from generators.emergency_articles import get_related_article_url, build_emergency_post_with_article
+from generators.emergency_advice import get_emergency_advice
+from generators.emergency_image import generate_emergency_image
 from notifiers.console import notify_console
 from notifiers.discord import notify_discord
 from notifiers.telegram_notify import notify_telegram
 from notifiers.error_notify import notify_error
+from notifiers.line_notify_simple import notify_line
 from posters.x_poster import post_to_x
 from posters.telegram_commander import check_and_execute_commands
 from storage.state import (
@@ -110,6 +114,18 @@ def main() -> None:
             x_post = f"{update_prefix}\n{x_post}"
         telegram_msg = build_telegram_message(title, full_text, level=level)
 
+        # 緊急画像の生成（レベル2以上）
+        image_path = None
+        if level >= 2:
+            try:
+                os.makedirs("temp_images", exist_ok=True)
+                image_path = f"temp_images/emergency_{entry_id.replace('/', '_')}.png"
+                advice = get_emergency_advice(f"{title} {full_text}")
+                generate_emergency_image(title, level, advice, image_path)
+            except Exception as e:
+                print(f"[画像生成失敗] {e}")
+                image_path = None
+
         # Telegram通知
         # レベル3 + AUTO_POST_ENABLED は自動投稿。それ以外はXボタン + pending保存→「投稿」返信待ち
         auto_post = AUTO_POST_ENABLED and level >= 3 and is_auto_post_entry(title, full_text)
@@ -117,12 +133,14 @@ def main() -> None:
         pending_text = "" if auto_post else x_post
 
         try:
+            # 画像があれば画像付きで通知（Telegramは画像+キャプションに対応させる必要があるが、現状はテキストのみ）
             notify_telegram(telegram_msg, x_intent_url=x_intent_url, pending_post_text=pending_text)
         except Exception as e:
             notify_error("Telegram送信失敗", e)
             log_error("telegram", str(e))
 
         notify_discord(x_post, title=title)
+        notify_line(telegram_msg, image_path=image_path)
         notify_console(telegram_msg)
 
         # ログ保存
@@ -131,7 +149,7 @@ def main() -> None:
 
         if auto_post:
             try:
-                post_to_x(x_post)
+                post_to_x(x_post, image_path=image_path)
             except Exception as e:
                 notify_error("X投稿失敗", e)
                 log_error("x_post", str(e))
