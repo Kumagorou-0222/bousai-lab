@@ -2865,5 +2865,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/disaster-backpack/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-08-22T12:48:08.366+09:00",
+    "slug": "mansion-disaster-prep",
+    "title": "マンション防災で最初に確認すること3つ【保存版】",
+    "slot": "noon",
+    "tweetId": "2091009497971970491",
+    "tweetUrl": "https://x.com/i/web/status/2091009497971970491",
+    "text": "【保存版】❌ 戸建てと同じ感覚で準備する ⭕ エレベーター停止・断水・在宅避難の長期化を前提にした備蓄を 水7日分・携帯トイレ50回分・モバイルバッテリーが最低ライン。詳しくは→ https://bousai-lab.vercel.app/articles/mansion-disaster-prep\n\n#防災 #備蓄 #防災グッズ #保存版 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/mansion_disaster_checklist.png",
+    "success": true
   }
 ]
