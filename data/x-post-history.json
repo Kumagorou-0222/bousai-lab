@@ -2961,5 +2961,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/evacuation-basics/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-08-25T07:17:24.001+09:00",
+    "slug": "portable-power-station",
+    "title": "長期停電に備えるポータブル電源の選び方【1000Wh以上推奨】",
+    "slot": "morning",
+    "tweetId": "2092013427916939540",
+    "tweetUrl": "https://x.com/i/web/status/2092013427916939540",
+    "text": "【今日の備え】1000Wh以上＋AC100V対応を選べばスマホ約50回・扇風機6時間・電気毛布10時間以上使えます。CPAP等の医療機器がある家庭は必須。太陽光パネルと組み合わせれば無限に使用可能。👉 https://bousai-lab.vercel.app/articles/portable-power-station\n\n#防災 #停電 #停電対策 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/portable_power_station_checklist.png",
+    "success": true
   }
 ]
