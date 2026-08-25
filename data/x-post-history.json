@@ -2985,5 +2985,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/family_children_checklist.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-08-25T21:41:06.409+09:00",
+    "slug": "evacuation-items",
+    "title": "避難所に持っていくべきもの完全リスト【医師監修】",
+    "slot": "night",
+    "tweetId": "2092230786967646225",
+    "tweetUrl": "https://x.com/i/web/status/2092230786967646225",
+    "text": "【家族で確認】❌ 避難所に行けば全部用意してもらえると思う ⭕ 水・食料・薬・衛生用品・充電器は自分で持参する 持病の薬・アレルギー対応食品は避難所では手に入らない。事前準備が命を守る。👉 https://bousai-lab.vercel.app/articles/evacuation-items\n\n#防災 #避難所 #在宅避難 #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/evacuation-items/panel-01.png",
+    "success": true
   }
 ]
