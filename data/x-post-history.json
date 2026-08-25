@@ -2973,5 +2973,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/portable_power_station_checklist.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-08-25T12:53:43.738+09:00",
+    "slug": "family-children-disaster",
+    "title": "子どもがいる家庭の防災チェックリスト【家族で確認】",
+    "slot": "noon",
+    "tweetId": "2092098068191592460",
+    "tweetUrl": "https://x.com/i/web/status/2092098068191592460",
+    "text": "【1分防災】❌ 大人と同じ備蓄だけで安心する ⭕ 子ども専用の備蓄＋学校引き渡しルール確認＋集合場所を決める 液体ミルク・おむつは避難所では入手困難。今すぐ家族で確認を。→ https://bousai-lab.vercel.app/articles/family-children-disaster\n\n#防災 #備蓄 #防災グッズ #家族で確認 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/family_children_checklist.png",
+    "success": true
   }
 ]
