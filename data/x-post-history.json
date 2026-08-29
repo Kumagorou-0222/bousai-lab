@@ -3117,5 +3117,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/地震後の水はいつ使える？.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-08-29T18:55:52.511+09:00",
+    "slug": "blackout-toilet",
+    "title": "停電したらトイレは使える？マンション・戸建ての違い",
+    "slot": "noon",
+    "tweetId": "2093638756951527529",
+    "tweetUrl": "https://x.com/i/web/status/2093638756951527529",
+    "text": "【1分防災】❌ マンションで普通にトイレを使い続ける ⭕ 停電後すぐ携帯トイレに切り替える マンションの給水ポンプは電動。停電→断水→トイレ不可の流れを知っておこう。👉 https://bousai-lab.vercel.app/articles/blackout-toilet\n\n#防災 #停電 #停電対策 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-toilet/panel-01.png",
+    "success": true
   }
 ]
