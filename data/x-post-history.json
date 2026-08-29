@@ -3141,5 +3141,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/disaster-backpack/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-08-30T08:46:15.700+09:00",
+    "slug": "cassette-stove",
+    "title": "停電・ガス停止時の調理に！カセットコンロの選び方と備蓄量",
+    "slot": "morning",
+    "tweetId": "2093847730292404623",
+    "tweetUrl": "https://x.com/i/web/status/2093847730292404623",
+    "text": "【今日の備え】地震後はガス停止が数週間続くことも。カセットコンロ1台＋ガス缶12本以上で①お湯②炊飯③缶詰加熱が可能。ガス缶の保管期限は製造から7年が目安。ローリングストックで管理を。👉 https://bousai-lab.vercel.app/articles/cassette-stove\n\n#防災 #備蓄 #防災グッズ #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/cassette_stove_checklist.png",
+    "success": true
   }
 ]
