@@ -3237,5 +3237,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/family_children_checklist.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-09-02T01:02:07.835+09:00",
+    "slug": "earthquake-cooking",
+    "title": "地震後に料理はできる？ガスが止まったときの調理方法",
+    "slot": "night",
+    "tweetId": "2094818091918368821",
+    "tweetUrl": "https://x.com/i/web/status/2094818091918368821",
+    "text": "【家族で確認】❌ ガスや電子レンジで普通に調理しようとする ⭕ カセットコンロ＋ガスボンベで調理する 地震でガスは自動遮断、停電で電子レンジも使えない。カセットコンロの備蓄は必須。👉 https://bousai-lab.vercel.app/articles/earthquake-cooking\n\n#防災 #地震 #地震対策 #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/earthquake-cooking/panel-01.png",
+    "success": true
   }
 ]
