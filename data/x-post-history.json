@@ -3357,5 +3357,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/disaster_water_checklist.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-09-05T08:35:50.004+09:00",
+    "slug": "evacuation-health-checklist",
+    "title": "避難所で体調を崩さないためのチェックリスト【保存版】",
+    "slot": "morning",
+    "tweetId": "2096019433097756765",
+    "tweetUrl": "https://x.com/i/web/status/2096019433097756765",
+    "text": "【保存版】❌ 知らずに体を壊す ⭕ エコノミークラス症候群・感染症・食事・睡眠・ストレスを事前に理解して備える 避難所の死亡原因の多くは環境による二次被害。保存して確認を→ https://bousai-lab.vercel.app/articles/evacuation-health-checklist\n\n#防災 #避難所 #在宅避難 #保存版 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/shelter-drug.png",
+    "success": true
   }
 ]
