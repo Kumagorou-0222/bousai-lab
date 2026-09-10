@@ -3549,5 +3549,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-refrigerator/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-09-10T17:01:20.177+09:00",
+    "slug": "earthquake-toilet",
+    "title": "地震のときトイレは流していい？排水管確認と正しい対処法",
+    "slot": "noon",
+    "tweetId": "2097958586513084654",
+    "tweetUrl": "https://x.com/i/web/status/2097958586513084654",
+    "text": "【保存版】【地震のときトイレは流していい？】❌ 確認せずにそのまま流す ⭕ 排水管が無事か確認してから使う 配管が損傷していると汚水が逆流して大惨事に。迷ったら携帯トイレを使おう。👉 https://bousai-lab.vercel.app/articles/earthquake-toilet\n\n#防災 #地震 #断水 #保存版 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/earthquake-toilet/panel-01.png",
+    "success": true
   }
 ]
