@@ -4005,5 +4005,17 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/blackout-water-manga.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-09-23T08:55:50.220+09:00",
+    "slug": "musashino",
+    "title": "武蔵野市の防災",
+    "slot": "morning",
+    "tweetId": "2102547449499774980",
+    "tweetUrl": "https://x.com/i/web/status/2102547449499774980",
+    "text": "【今日の備え】\n\n避難所に行く？\n在宅避難する？\n\n状況で選ぶことが大切です。\n\n保存して確認👇\nhttps://bousai-lab.vercel.app/musashino\n\n#防災 #武蔵野市 #東京防災 #今日の備え",
+    "hasImage": false,
+    "imageLocalPath": null,
+    "success": true
   }
 ]
