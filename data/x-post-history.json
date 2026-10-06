@@ -4497,5 +4497,17 @@
     "hasImage": false,
     "imageLocalPath": null,
     "success": true
+  },
+  {
+    "postedAt": "2026-10-07T02:54:22.440+09:00",
+    "slug": "blackout-toilet",
+    "title": "停電したらトイレは使える？マンション・戸建ての違い",
+    "slot": "night",
+    "tweetId": "2107529914207682947",
+    "tweetUrl": "https://x.com/i/web/status/2107529914207682947",
+    "text": "【家族で確認】❌ マンションで普通にトイレを使い続ける ⭕ 停電後すぐ携帯トイレに切り替える マンションの給水ポンプは電動。停電→断水→トイレ不可の流れを知っておこう。👉 https://bousai-lab.vercel.app/articles/blackout-toilet\n\n#防災 #停電 #停電対策 #家族で確認",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-toilet/panel-01.png",
+    "success": true
   }
 ]
