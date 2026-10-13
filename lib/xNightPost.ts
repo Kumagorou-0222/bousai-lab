@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import twitterText from 'twitter-text'
+import type { TwitterApi } from 'twitter-api-v2'
 
 export type NightApproval = {
   imageId: string
@@ -15,6 +16,7 @@ export type NightApproval = {
   height: number
   reviewedAt: string
   reviewer: string
+  altText: string
 }
 
 export type NightSelection =
@@ -35,6 +37,12 @@ export function nightPostingWindow(now = new Date()): boolean {
   return jstHour === 21
 }
 
+export async function uploadNightImage(client: TwitterApi, image: Buffer, altText: string): Promise<string> {
+  const mediaId = await client.v1.uploadMedia(image, { mimeType: 'image/png' })
+  await client.v1.createMediaMetadata(mediaId, { alt_text: { text: altText } })
+  return mediaId
+}
+
 export function selectNightPost(
   history: Array<{ success: boolean; nightImageId?: string; slug?: string }>,
   root = process.cwd(),
@@ -51,10 +59,10 @@ export function selectNightPost(
   if (matching.length !== 1) return { ok: false, reason: matching.length ? '対象日の承認投稿が重複しています' : '対象日の新作は未承認です' }
   const entry = matching[0]
   if (!entry.imageId || !entry.libraryFileId?.startsWith('libfile_') || !entry.theme?.trim() ||
-      !entry.text?.trim() || !entry.reviewer?.trim() || !/^\d{4}-\d{2}-\d{2}$/.test(entry.reviewedAt) ||
+      !entry.text?.trim() || !entry.reviewer?.trim() || !entry.altText?.trim() || entry.altText.length > 1000 || !/^\d{4}-\d{2}-\d{2}$/.test(entry.reviewedAt) ||
       !/^[a-f0-9]{64}$/.test(entry.imageSha256) ||
-      entry.imagePath !== `/manga/daily/${slotDate}.png` ||
-      !twitterText.parseTweet(entry.text).valid) return { ok: false, reason: '対象日の承認情報が不完全です（投稿文が長すぎます）' }
+      entry.imagePath !== `/manga/daily/${slotDate}.png`) return { ok: false, reason: '対象日の承認情報が不完全です' }
+  if (!twitterText.parseTweet(entry.text).valid) return { ok: false, reason: '対象日の投稿文が長すぎます' }
   if (history.some((record) => record.success && (record.nightImageId === entry.imageId || record.slug === `night-${slotDate}`))) {
     return { ok: false, reason: '対象日の新作は投稿済みです' }
   }

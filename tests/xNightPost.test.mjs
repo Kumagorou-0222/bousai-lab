@@ -4,7 +4,8 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import test from 'node:test'
-import { jstDate, nightPostingWindow, selectNightPost, xTextLength } from '../lib/xNightPost.ts'
+import { fileURLToPath } from 'node:url'
+import { jstDate, nightPostingWindow, selectNightPost, uploadNightImage, xTextLength } from '../lib/xNightPost.ts'
 
 test('夜枠はJST21:00以上22:00未満だけ許可し、翌朝に持ち越さない', () => {
   assert.equal(nightPostingWindow(new Date('2026-10-13T11:59:59Z')), false)
@@ -19,6 +20,18 @@ test('X公式ライブラリの重み付き文字数で確認する', () => {
   assert.equal(xTextLength('防災A'), 5)
   const reviewedDraft = '停電後は、復旧時の「通電火災」に注意。\n安全にできる範囲で電源を切り、プラグを抜く。避難で家を離れる際は、安全と時間に余裕があればブレーカーを切る。\n再使用前に機器・コード・周囲を確認。濡れた機器や傷んだコードは使わない。\n危険なら操作せず避難を。\n#防災 #通電火災'
   assert.equal(xTextLength(reviewedDraft), 261)
+})
+
+test('画像を投稿する前にALT metadataを設定し、失敗時は先へ進めない', async () => {
+  const events = []
+  const client = { v1: {
+    uploadMedia: async () => { events.push('upload'); return 'media-1' },
+    createMediaMetadata: async (id, metadata) => { events.push(['alt', id, metadata.alt_text.text]) },
+  } }
+  assert.equal(await uploadNightImage(client, Buffer.from('image'), '4コマのALT'), 'media-1')
+  assert.deepEqual(events, ['upload', ['alt', 'media-1', '4コマのALT']])
+  client.v1.createMediaMetadata = async () => { throw new Error('ALT登録失敗') }
+  await assert.rejects(uploadNightImage(client, Buffer.from('image'), 'ALT'), /ALT登録失敗/)
 })
 
 test('対象日のレビュー済み新作のみ選び、旧画像や重複投稿を拒否する', (t) => {
@@ -41,7 +54,7 @@ test('対象日のレビュー済み新作のみ選び、旧画像や重複投�
     imageId: 'example-reviewed-id', libraryFileId: 'libfile_example', slotDate: '2026-10-13',
     theme: '停電後の通電火災', text: '確認済みの投稿文', imagePath: '/manga/daily/2026-10-13.png',
     imageSha256: createHash('sha256').update(image).digest('hex'), width: 1086, height: 1448,
-    reviewedAt: '2026-10-13', reviewer: '編集者',
+    reviewedAt: '2026-10-13', reviewer: '編集者', altText: '4コマのALT',
   }
   fs.writeFileSync(manifest, JSON.stringify([entry]))
   assert.equal(check().ok, true)
@@ -55,4 +68,18 @@ test('対象日のレビュー済み新作のみ選び、旧画像や重複投�
   fs.writeFileSync(imagePath, image)
   fs.writeFileSync(manifest, JSON.stringify([{ ...entry, slotDate: '2026-10-12' }]))
   assert.match(JSON.stringify(check()), /未承認/)
+})
+
+test('10月13日の原本と承認台帳を実ファイルで照合する', () => {
+  const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
+  const history = JSON.parse(fs.readFileSync(path.join(root, 'data/x-post-history.json'), 'utf8'))
+  const selected = selectNightPost(history, root, '2026-10-13')
+  assert.equal(selected.ok, true)
+  assert.equal(selected.entry.libraryFileId, 'libfile_c4a3d93adae48191aea41185827d9a22')
+  assert.equal(selected.entry.imageSha256, 'dc0a13210ffc0f42d3a9651076364e4ae1d6c3dc70bf18fe21d22ebdaa3eb586')
+  assert.equal(selected.entry.width, 1086)
+  assert.equal(selected.entry.height, 1448)
+  assert.equal(xTextLength(selected.entry.text), 261)
+  assert.equal(selectNightPost([{ success: true, nightImageId: selected.entry.imageId }], root, '2026-10-13').ok, false)
+  assert.equal(selectNightPost(history, root, '2026-10-14').ok, false)
 })
