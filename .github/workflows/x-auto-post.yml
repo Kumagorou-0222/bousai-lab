@@ -20,6 +20,10 @@ on:
 permissions:
   contents: write   # 履歴ファイルを commit/push するために必要
 
+concurrency:
+  group: x-auto-post-main
+  cancel-in-progress: false
+
 jobs:
   post:
     runs-on: ubuntu-latest
@@ -59,6 +63,7 @@ jobs:
       # ── 5. X 投稿
       - name: X 投稿実行
         id: post
+        if: steps.slot.outputs.slot != 'night'
         continue-on-error: true
         env:
           POST_SLOT:            ${{ steps.slot.outputs.slot }}
@@ -67,6 +72,17 @@ jobs:
           X_ACCESS_TOKEN:       ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_SECRET:      ${{ secrets.X_ACCESS_SECRET }}
         run: npx tsx scripts/postToX.ts
+
+      - name: 夜枠のレビュー済み新作投稿
+        id: night_post
+        if: steps.slot.outputs.slot == 'night'
+        continue-on-error: true
+        env:
+          X_API_KEY:       ${{ secrets.X_API_KEY }}
+          X_API_SECRET:    ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN:  ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: npx tsx scripts/postNightToX.ts
 
       # ── 6. X API失敗時は手動投稿用のLINE通知へフォールバック
       - name: X投稿失敗時のLINEフォールバック通知
@@ -105,5 +121,5 @@ jobs:
 
       # ── 8. 自動投稿に失敗したことはActions上でも失敗として残す
       - name: X投稿失敗を反映
-        if: steps.post.outcome == 'failure'
+        if: steps.post.outcome == 'failure' || steps.night_post.outcome == 'failure'
         run: exit 1

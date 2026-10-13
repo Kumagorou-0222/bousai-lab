@@ -28,6 +28,7 @@ def notify_telegram(
     text: str,
     x_intent_url: str = "",
     pending_post_text: str = "",
+    pending_entry_id: str = "",
     manga_slug: str = "",
 ) -> None:
     """Telegram Bot でメッセージを送信する。
@@ -40,8 +41,8 @@ def notify_telegram(
         print("[Telegram通知スキップ] TELEGRAM_BOT_TOKEN または TELEGRAM_CHAT_ID が未設定です")
         return
 
-    if pending_post_text:
-        add_pending_post(pending_post_text)
+    if pending_post_text and pending_entry_id:
+        add_pending_post(pending_post_text, pending_entry_id)
         text = text + "\n\n📤 「投稿」と返信するとXにAPI投稿されます。"
 
     buttons = []

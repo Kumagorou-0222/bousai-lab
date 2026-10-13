@@ -13,6 +13,9 @@ from storage.state import (
     get_pending_posts, mark_post_executed,
 )
 from posters.x_poster import post_to_x
+from posters.emergency_window import emergency_x_hours
+from fetchers.jma_feed import fetch_all_entries
+from filters.important import get_level, is_target_area
 from notifiers.telegram_notify import notify_telegram
 
 # これらの返信でXへの投稿が実行される
@@ -54,15 +57,36 @@ def check_and_execute_commands() -> None:
     if not triggered:
         return
 
+    if not emergency_x_hours():
+        notify_telegram("緊急X投稿の受付時間外です。最新情報を確認してください。")
+        return
+
     pending = get_pending_posts()
     if not pending:
         notify_telegram("投稿待ちの防災情報はありません。")
         return
 
     succeeded = 0
-    for post_id, post_text in pending:
+    try:
+        current_entries = fetch_all_entries()
+    except Exception as e:
+        print(f"[最新警報の再確認失敗] {e}")
+        return
+    current_ids = set()
+    for entry in current_entries:
+        entry_id = getattr(entry, "id", "") or getattr(entry, "link", "")
+        title = getattr(entry, "title", "")
+        summary = getattr(entry, "summary", "")
+        if entry_id and get_level(title, summary) >= 2 and is_target_area(summary):
+            current_ids.add(entry_id)
+
+    for post_id, post_text, entry_id in pending:
+        if entry_id not in current_ids:
+            mark_post_executed(post_id)
+            print(f"[X投稿見送り] 最新フィードに有効情報がありません: id={post_id}")
+            continue
         try:
-            post_to_x(post_text)
+            post_to_x(post_text, emergency=True)
             mark_post_executed(post_id)
             succeeded += 1
         except Exception as e:

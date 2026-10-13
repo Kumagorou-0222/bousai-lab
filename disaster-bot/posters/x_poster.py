@@ -1,4 +1,5 @@
 import tweepy
+from posters.emergency_window import emergency_x_hours
 from config import (
     X_CONSUMER_KEY,
     X_CONSUMER_SECRET,
@@ -7,8 +8,12 @@ from config import (
 )
 
 
-def post_to_x(text: str, image_path: str = None) -> None:
+def post_to_x(text: str, image_path: str = None, emergency: bool = False) -> None:
+    if emergency and not emergency_x_hours():
+        raise RuntimeError("緊急X投稿の受付時間外です（日本時間08:00〜22:00）")
     if not all([X_CONSUMER_KEY, X_CONSUMER_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET]):
+        if emergency:
+            raise RuntimeError("緊急X投稿に必要なAPIキーが未設定です")
         print("[X投稿スキップ] APIキーが未設定です")
         return
 
@@ -36,6 +41,8 @@ def post_to_x(text: str, image_path: str = None) -> None:
             # 画像アップロードに失敗しても、テキストのみで続行を試みる
 
     try:
+        if emergency and not emergency_x_hours():
+            raise RuntimeError("緊急X投稿の受付時間外です（日本時間08:00〜22:00）")
         if media_ids:
             response = client.create_tweet(text=text, media_ids=media_ids)
         else:
