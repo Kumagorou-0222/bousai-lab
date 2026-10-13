@@ -8,7 +8,7 @@ const attemptId = process.env.GITHUB_RUN_ID
 const mode = process.argv[2]
 
 function assertWindow(date: string): void {
-  if (!nightPostingWindow() || jstDate() !== date) throw new Error('日本時間21:00〜22:00の夜枠外、または素材日付不一致です')
+  if (!nightPostingWindow() || jstDate() !== date) throw new Error('日本時間20:00〜22:00の夜枠外、または素材日付不一致です')
 }
 
 function readNightHistory(): PostRecord[] {

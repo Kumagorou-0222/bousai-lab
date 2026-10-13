@@ -34,7 +34,7 @@ export function jstDate(now = new Date()): string {
 
 export function nightPostingWindow(now = new Date()): boolean {
   const jstHour = (now.getUTCHours() + 9) % 24
-  return jstHour === 21
+  return jstHour >= 20 && jstHour < 22
 }
 
 export async function uploadNightImage(client: TwitterApi, image: Buffer, altText: string): Promise<string> {

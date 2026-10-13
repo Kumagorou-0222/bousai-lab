@@ -7,8 +7,10 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { jstDate, nightPostingWindow, selectNightPost, uploadNightImage, xTextLength } from '../lib/xNightPost.ts'
 
-test('夜枠はJST21:00以上22:00未満だけ許可し、翌朝に持ち越さない', () => {
-  assert.equal(nightPostingWindow(new Date('2026-10-13T11:59:59Z')), false)
+test('夜枠はJST20:00以上22:00未満だけ許可し、翌朝に持ち越さない', () => {
+  assert.equal(nightPostingWindow(new Date('2026-10-13T10:59:59Z')), false)
+  assert.equal(nightPostingWindow(new Date('2026-10-13T11:00:00Z')), true)
+  assert.equal(nightPostingWindow(new Date('2026-10-13T11:59:59Z')), true)
   assert.equal(nightPostingWindow(new Date('2026-10-13T12:00:00Z')), true)
   assert.equal(nightPostingWindow(new Date('2026-10-13T12:59:59Z')), true)
   assert.equal(nightPostingWindow(new Date('2026-10-13T13:00:00Z')), false)
