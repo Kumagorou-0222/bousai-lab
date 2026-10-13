@@ -7,8 +7,10 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { jstDate, nightPostingWindow, selectNightPost, uploadNightImage, xTextLength } from '../lib/xNightPost.ts'
 
-test('夜枠はJST21:00以上22:00未満だけ許可し、翌朝に持ち越さない', () => {
-  assert.equal(nightPostingWindow(new Date('2026-10-13T11:59:59Z')), false)
+test('夜枠はJST20:00以上22:00未満だけ許可し、翌朝に持ち越さない', () => {
+  assert.equal(nightPostingWindow(new Date('2026-10-13T10:59:59Z')), false)
+  assert.equal(nightPostingWindow(new Date('2026-10-13T11:00:00Z')), true)
+  assert.equal(nightPostingWindow(new Date('2026-10-13T11:59:59Z')), true)
   assert.equal(nightPostingWindow(new Date('2026-10-13T12:00:00Z')), true)
   assert.equal(nightPostingWindow(new Date('2026-10-13T12:59:59Z')), true)
   assert.equal(nightPostingWindow(new Date('2026-10-13T13:00:00Z')), false)
@@ -63,6 +65,9 @@ test('対象日のレビュー済み新作のみ選び、旧画像や重複投�
   fs.writeFileSync(manifest, JSON.stringify([entry]))
   assert.match(JSON.stringify(check([{ success: true, nightImageId: entry.imageId }])), /投稿済み/)
   assert.match(JSON.stringify(check([{ success: true, slug: 'night-2026-10-13' }])), /投稿済み/)
+  assert.match(JSON.stringify(check([{ success: false, slug: 'night-2026-10-13', nightAttemptId: '123', nightStatus: 'reserved' }])), /未確定/)
+  assert.match(JSON.stringify(check([{ success: false, nightImageId: entry.imageId, nightAttemptId: '123', nightStatus: 'unknown' }])), /未確定/)
+  assert.equal(check([{ success: false, nightImageId: entry.imageId, nightAttemptId: '123', nightStatus: 'failed_before_send' }]).ok, true)
   fs.writeFileSync(imagePath, Buffer.concat([image, Buffer.from('変更')]))
   assert.match(JSON.stringify(check()), /変更されています/)
   fs.writeFileSync(imagePath, image)

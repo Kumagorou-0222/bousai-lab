@@ -4,7 +4,9 @@ on:
   schedule:
     - cron: "0 22 * * *"   # 朝 07:00 JST  (UTC 22:00 前日)
     - cron: "0 3 * * *"    # 昼 12:00 JST  (UTC 03:00)
-    - cron: "0 12 * * *"   # 夜 21:00 JST  (UTC 12:00)
+    - cron: "0 11 * * *"   # 夜 20:00 JST  (UTC 11:00)
+    - cron: "35 11 * * *"  # 夜の再試行 20:35 JST  (UTC 11:35)
+    - cron: "35 12 * * *"  # 夜の再試行 21:35 JST  (UTC 12:35)
   workflow_dispatch:
     inputs:
       slot:
@@ -55,7 +57,7 @@ jobs:
 
           if   [ "$SCHEDULE" = "0 22 * * *" ]; then echo "slot=morning" >> "$GITHUB_OUTPUT"
           elif [ "$SCHEDULE" = "0 3 * * *"  ]; then echo "slot=noon"    >> "$GITHUB_OUTPUT"
-          elif [ "$SCHEDULE" = "0 12 * * *" ]; then echo "slot=night"   >> "$GITHUB_OUTPUT"
+          elif [ "$SCHEDULE" = "0 11 * * *" ] || [ "$SCHEDULE" = "35 11 * * *" ] || [ "$SCHEDULE" = "35 12 * * *" ]; then echo "slot=night" >> "$GITHUB_OUTPUT"
           elif [ -n "$MANUAL" ];               then echo "slot=$MANUAL"  >> "$GITHUB_OUTPUT"
           else                                      echo "slot=morning"  >> "$GITHUB_OUTPUT"
           fi
@@ -73,8 +75,8 @@ jobs:
           X_ACCESS_SECRET:      ${{ secrets.X_ACCESS_SECRET }}
         run: npx tsx scripts/postToX.ts
 
-      - name: 夜枠のレビュー済み新作投稿
-        id: night_post
+      - name: 夜枠の投稿予約
+        id: night_prepare
         if: steps.slot.outputs.slot == 'night'
         continue-on-error: true
         env:
@@ -82,7 +84,27 @@ jobs:
           X_API_SECRET:    ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN:  ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
-        run: npx tsx scripts/postNightToX.ts
+        run: npx tsx scripts/postNightToX.ts prepare
+
+      - name: 夜枠の投稿予約を確定
+        if: steps.night_prepare.outputs.ready == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/x-post-history.json
+          git commit -m "chore: 夜枠の投稿予約 [skip ci]"
+          git push
+
+      - name: 夜枠のレビュー済み新作投稿
+        id: night_post
+        if: steps.night_prepare.outputs.ready == 'true'
+        continue-on-error: true
+        env:
+          X_API_KEY:       ${{ secrets.X_API_KEY }}
+          X_API_SECRET:    ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN:  ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: npx tsx scripts/postNightToX.ts send
 
       # ── 6. X API失敗時は手動投稿用のLINE通知へフォールバック
       - name: X投稿失敗時のLINEフォールバック通知
@@ -121,5 +143,5 @@ jobs:
 
       # ── 8. 自動投稿に失敗したことはActions上でも失敗として残す
       - name: X投稿失敗を反映
-        if: steps.post.outcome == 'failure' || steps.night_post.outcome == 'failure'
+        if: steps.post.outcome == 'failure' || steps.night_prepare.outcome == 'failure' || steps.night_post.outcome == 'failure'
         run: exit 1

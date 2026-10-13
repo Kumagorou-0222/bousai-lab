@@ -26,6 +26,8 @@ export type PostRecord = {
   error?: string
   fallbackUrl?: string
   nightImageId?: string
+  nightAttemptId?: string
+  nightStatus?: 'reserved' | 'posted' | 'unknown' | 'failed_before_send'
 }
 
 // =====================================================
