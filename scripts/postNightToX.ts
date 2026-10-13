@@ -1,6 +1,6 @@
 import { TwitterApi } from 'twitter-api-v2'
 import { appendHistory, nowJST, readHistory } from '../lib/xAutoPost'
-import { jstDate, nightPostingWindow, selectNightPost } from '../lib/xNightPost'
+import { jstDate, nightPostingWindow, selectNightPost, uploadNightImage } from '../lib/xNightPost'
 
 async function main(): Promise<void> {
   const date = jstDate()
@@ -21,7 +21,7 @@ async function main(): Promise<void> {
   const { entry, image } = selected
   try {
     if (!nightPostingWindow() || jstDate() !== entry.slotDate) throw new Error('夜枠外または素材日付不一致のため投稿を見送りました')
-    const mediaId = await client.v1.uploadMedia(image, { mimeType: 'image/png' })
+    const mediaId = await uploadNightImage(client, image, entry.altText)
     if (!nightPostingWindow() || jstDate() !== entry.slotDate) throw new Error('夜枠外または素材日付不一致のため投稿を見送りました')
     const { data: tweet } = await client.v2.tweet({ text: entry.text, media: { media_ids: [mediaId] } })
     appendHistory({ postedAt: nowJST(), slug: `night-${date}`, title: entry.theme, slot: 'night', tweetId: tweet.id, tweetUrl: `https://x.com/i/web/status/${tweet.id}`, text: entry.text, hasImage: true, imageLocalPath: `public${entry.imagePath}`, nightImageId: entry.imageId, success: true })
