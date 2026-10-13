@@ -44,7 +44,7 @@ export async function uploadNightImage(client: TwitterApi, image: Buffer, altTex
 }
 
 export function selectNightPost(
-  history: Array<{ success: boolean; nightImageId?: string; slug?: string; nightAttemptId?: string }>,
+  history: Array<{ success: boolean; nightImageId?: string; slug?: string; nightAttemptId?: string; nightStatus?: string }>,
   root = process.cwd(),
   slotDate = jstDate(),
 ): NightSelection {
@@ -63,7 +63,8 @@ export function selectNightPost(
       !/^[a-f0-9]{64}$/.test(entry.imageSha256) ||
       entry.imagePath !== `/manga/daily/${slotDate}.png`) return { ok: false, reason: '対象日の承認情報が不完全です' }
   if (!twitterText.parseTweet(entry.text).valid) return { ok: false, reason: '対象日の投稿文が長すぎます' }
-  if (history.some((record) => (record.success || record.nightAttemptId) && (record.nightImageId === entry.imageId || record.slug === `night-${slotDate}`))) {
+  if (history.some((record) => (record.success || (record.nightAttemptId && record.nightStatus !== 'failed_before_send')) &&
+      (record.nightImageId === entry.imageId || record.slug === `night-${slotDate}`))) {
     return { ok: false, reason: '対象日の新作は投稿済み、または送信結果が未確定です' }
   }
   let image: Buffer

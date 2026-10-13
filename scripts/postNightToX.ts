@@ -50,11 +50,13 @@ async function main(): Promise<void> {
   }
 
   const client = new TwitterApi({ appKey: X_API_KEY, appSecret: X_API_SECRET, accessToken: X_ACCESS_TOKEN, accessSecret: X_ACCESS_SECRET })
+  let sendStarted = false
   try {
     assertWindow(date)
     const mediaId = await uploadNightImage(client, image, entry.altText)
     assertWindow(date)
     // 送信結果が不明な場合も予約を保持し、自動再送を防ぐ。
+    sendStarted = true
     const { data: tweet } = await client.v2.tweet({ text: entry.text, media: { media_ids: [mediaId] } })
     ownReservation!.postedAt = nowJST()
     ownReservation!.tweetId = tweet.id
@@ -64,7 +66,7 @@ async function main(): Promise<void> {
     writeHistory(history)
     console.log(`夜枠の新作を投稿しました: ${tweet.id}`)
   } catch (error) {
-    ownReservation!.nightStatus = 'unknown'
+    ownReservation!.nightStatus = sendStarted ? 'unknown' : 'failed_before_send'
     ownReservation!.error = error instanceof Error ? error.message : String(error)
     writeHistory(history)
     throw error

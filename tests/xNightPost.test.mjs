@@ -67,6 +67,7 @@ test('対象日のレビュー済み新作のみ選び、旧画像や重複投�
   assert.match(JSON.stringify(check([{ success: true, slug: 'night-2026-10-13' }])), /投稿済み/)
   assert.match(JSON.stringify(check([{ success: false, slug: 'night-2026-10-13', nightAttemptId: '123', nightStatus: 'reserved' }])), /未確定/)
   assert.match(JSON.stringify(check([{ success: false, nightImageId: entry.imageId, nightAttemptId: '123', nightStatus: 'unknown' }])), /未確定/)
+  assert.equal(check([{ success: false, nightImageId: entry.imageId, nightAttemptId: '123', nightStatus: 'failed_before_send' }]).ok, true)
   fs.writeFileSync(imagePath, Buffer.concat([image, Buffer.from('変更')]))
   assert.match(JSON.stringify(check()), /変更されています/)
   fs.writeFileSync(imagePath, image)
