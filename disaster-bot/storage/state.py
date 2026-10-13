@@ -1,5 +1,7 @@
 import sqlite3
 import os
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "..", "seen_entries.db")
 
@@ -35,10 +37,14 @@ def init_db() -> None:
         CREATE TABLE IF NOT EXISTS pending_posts (
             id         INTEGER PRIMARY KEY AUTOINCREMENT,
             post_text  TEXT NOT NULL,
+            entry_id   TEXT,
             executed   INTEGER DEFAULT 0,
-            created_at TEXT DEFAULT (datetime('now', 'localtime'))
+            created_at TEXT DEFAULT (datetime('now'))
         )
     """)
+    cur.execute("PRAGMA table_info(pending_posts)")
+    if not any(column[1] == 'entry_id' for column in cur.fetchall()):
+        cur.execute("ALTER TABLE pending_posts ADD COLUMN entry_id TEXT")
     cur.execute("""
         CREATE TABLE IF NOT EXISTS meta (
             key   TEXT PRIMARY KEY,
@@ -120,19 +126,26 @@ def get_recent_notified_titles(hours: int = 24) -> list[str]:
 
 # ── pending_posts (Telegram確認→X投稿) ───────────────────────────
 
-def add_pending_post(post_text: str) -> None:
+def add_pending_post(post_text: str, entry_id: str) -> None:
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
-    cur.execute("INSERT INTO pending_posts (post_text) VALUES (?)", (post_text,))
+    created_at = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    cur.execute("INSERT INTO pending_posts (post_text, entry_id, created_at) VALUES (?, ?, ?)", (post_text, entry_id, created_at))
     conn.commit()
     conn.close()
 
 
-def get_pending_posts() -> list[tuple[int, str]]:
+def get_pending_posts(now: datetime | None = None) -> list[tuple[int, str, str]]:
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
-    cur.execute("SELECT id, post_text FROM pending_posts WHERE executed = 0 ORDER BY id")
+    # 前日の承認待ちは翌朝にまとめて投稿しない。
+    start_jst = (now or datetime.now(ZoneInfo('Asia/Tokyo'))).astimezone(ZoneInfo('Asia/Tokyo')).replace(hour=8, minute=0, second=0, microsecond=0)
+    cutoff_utc = start_jst.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    cur.execute("UPDATE pending_posts SET executed = 1 WHERE executed = 0 AND (created_at < ? OR entry_id IS NULL)", (cutoff_utc,))
+    cur.execute("SELECT id, post_text, entry_id FROM pending_posts WHERE executed = 0 ORDER BY id DESC LIMIT 1")
     rows = cur.fetchall()
+    cur.execute("UPDATE pending_posts SET executed = 1 WHERE executed = 0 AND id NOT IN (SELECT id FROM pending_posts WHERE executed = 0 ORDER BY id DESC LIMIT 1)")
+    conn.commit()
     conn.close()
     return rows
 

@@ -26,6 +26,7 @@ from notifiers.telegram_notify import notify_telegram
 from notifiers.error_notify import notify_error
 from notifiers.line_notify_simple import notify_line
 from posters.x_poster import post_to_x
+from posters.emergency_window import emergency_x_hours
 from posters.telegram_commander import check_and_execute_commands
 from storage.state import (
     init_db, has_seen, mark_seen, log_notify, log_error,
@@ -128,13 +129,14 @@ def main() -> None:
 
         # Telegram通知
         # レベル3 + AUTO_POST_ENABLED は自動投稿。それ以外はXボタン + pending保存→「投稿」返信待ち
-        auto_post = AUTO_POST_ENABLED and level >= 3 and is_auto_post_entry(title, full_text)
-        x_intent_url = build_x_intent_url(x_post) if level >= 2 else ""
-        pending_text = "" if auto_post else x_post
+        in_x_hours = emergency_x_hours()
+        auto_post = AUTO_POST_ENABLED and level >= 3 and is_auto_post_entry(title, full_text) and in_x_hours
+        x_intent_url = build_x_intent_url(x_post) if level >= 2 and in_x_hours else ""
+        pending_text = "" if auto_post or not in_x_hours else x_post
 
         try:
             # 画像があれば画像付きで通知（Telegramは画像+キャプションに対応させる必要があるが、現状はテキストのみ）
-            notify_telegram(telegram_msg, x_intent_url=x_intent_url, pending_post_text=pending_text)
+            notify_telegram(telegram_msg, x_intent_url=x_intent_url, pending_post_text=pending_text, pending_entry_id=entry_id)
         except Exception as e:
             notify_error("Telegram送信失敗", e)
             log_error("telegram", str(e))
@@ -149,10 +151,12 @@ def main() -> None:
 
         if auto_post:
             try:
-                post_to_x(x_post, image_path=image_path)
+                post_to_x(x_post, image_path=image_path, emergency=True)
             except Exception as e:
                 notify_error("X投稿失敗", e)
                 log_error("x_post", str(e))
+        elif not in_x_hours:
+            print(f"[X投稿見送り] 日本時間08:00〜22:00の時間外: {title}")
         else:
             print(f"[X投稿] レベル{level} — Telegramで「投稿」と返信するとXへ投稿します")
 

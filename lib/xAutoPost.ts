@@ -25,6 +25,7 @@ export type PostRecord = {
   success: boolean
   error?: string
   fallbackUrl?: string
+  nightImageId?: string
 }
 
 // =====================================================
