@@ -86,5 +86,5 @@ test('10月13日の原本と承認台帳を実ファイルで照合する', () =
   assert.equal(selected.entry.height, 1448)
   assert.equal(xTextLength(selected.entry.text), 261)
   assert.equal(selectNightPost([{ success: true, nightImageId: selected.entry.imageId }], root, '2026-10-13').ok, false)
-  assert.equal(selectNightPost(history, root, '2026-10-14').ok, false)
+  assert.equal(selectNightPost(history, root, '2026-10-15').ok, false)
 })
