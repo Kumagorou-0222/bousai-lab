@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## SNS運用
+
+Bousai-LabのInstagram・Threads・Xの投稿方針と現在の接続状況は [SNS運用の引継ぎ](docs/sns_operations/README.md) を参照してください。Facebookには投稿しません。
+
 ## Getting Started
 
 First, run the development server:
