@@ -2,7 +2,7 @@
  * アフィリエイト設定
  *
  * 環境変数:
- *   NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG  … Amazonアソシエイトタグ (例: bousailab0c-22)
+ *   NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG  … 有効なAmazonアソシエイトタグ
  *   NEXT_PUBLIC_RAKUTEN_AFFILIATE_ID  … 楽天アフィリエイトID (例: 1400711)
  *
  * 楽天リンクは、楽天アフィリエイトポータルで生成した完全URLを
@@ -11,8 +11,10 @@
  * 通常の search.rakuten.co.jp URLを自動的にアフィリエイトURLへ変換します。
  */
 
+import { activeAmazonTag, sanitizeAmazonUrl } from './amazonTag'
+
 export const affiliateConfig = {
-  amazonTag: process.env.NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG ?? '',
+  amazonTag: activeAmazonTag() ?? '',
   rakutenAffiliateId: process.env.NEXT_PUBLIC_RAKUTEN_AFFILIATE_ID ?? '',
 }
 
@@ -24,15 +26,7 @@ export const affiliateConfig = {
  */
 export function buildAmazonUrl(url: string | undefined): string | undefined {
   if (!url) return undefined
-  const tag = affiliateConfig.amazonTag
-  if (!tag) return url
-  try {
-    const u = new URL(url)
-    if (!u.searchParams.get('tag')) u.searchParams.set('tag', tag)
-    return u.toString()
-  } catch {
-    return url
-  }
+  return sanitizeAmazonUrl(url)
 }
 
 /**

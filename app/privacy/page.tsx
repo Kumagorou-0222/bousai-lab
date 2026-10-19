@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import { activeAmazonTag } from '@/lib/amazonTag'
 
 export const metadata: Metadata = {
   title: 'プライバシーポリシー',
@@ -77,10 +78,11 @@ export default function PrivacyPage() {
 
       <Section title="アフィリエイトリンクについて">
         <p>
-          当サイトは、Amazon.co.jpおよび楽天市場のアフィリエイトプログラムに参加しています。
-          商品リンクをクリックして購入された場合、当サイトに紹介報酬が発生することがあります。
-          これによって、購入者の方に追加費用が発生することはありません。
-          収益はサイトの維持・運営費に充てています。
+          楽天ROOMへの商品リンクを掲載しています。購入により紹介報酬が発生する場合があります。
+          {activeAmazonTag()
+            ? 'Amazonのアソシエイトとして、防災Labは適格販売により収入を得ています。'
+            : 'Amazonアソシエイトの利用状況は確認中で、現在のAmazonリンクにはアソシエイトタグを設定していません。'}
+          購入者の方に追加費用が発生することはありません。
         </p>
       </Section>
 

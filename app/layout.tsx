@@ -6,6 +6,7 @@ import KidsModeButton from '@/components/KidsModeButton'
 import KidsModeTransformer from '@/components/KidsModeTransformer'
 import KidsCharacter from '@/components/KidsCharacter'
 import Script from 'next/script'
+import SocialOutboundTracking from '@/components/SocialOutboundTracking'
 
 const SITE_URL = 'https://bousai-lab.vercel.app'
 const SITE_NAME = '防災Lab'
@@ -63,18 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <KidsModeButton />
         <KidsModeTransformer />
         <KidsCharacter />
-        {/* Amazonアソシエイト タグ付与 */}
-        <Script id="amazon-affiliate" strategy="afterInteractive">
-          {`
-            document.querySelectorAll('a[href*="amazon.co.jp"], a[href*="amzn.to"]').forEach(function(el) {
-              try {
-                const url = new URL(el.href);
-                url.searchParams.set('tag', 'bousailab0c-22');
-                el.href = url.toString();
-              } catch(e) {}
-            });
-          `}
-        </Script>
+        <SocialOutboundTracking />
       </body>
     </html>
   )

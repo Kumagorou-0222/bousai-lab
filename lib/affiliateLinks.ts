@@ -1,4 +1,4 @@
-const AMAZON_TAG = 'bousailab0c-22'
+import { activeAmazonTag } from './amazonTag'
 const RAKUTEN_ROOM_USER_ID = '1000000575653283'
 const RAKUTEN_ROOM_USER_NAME = 'くまごろう'
 const RAKUTEN_ROOM_BASE = 'https://room.rakuten.co.jp/room_e510207d9c'
@@ -182,10 +182,11 @@ function findMappedValue(map: Record<string, string>, keywordOrUrl: string) {
 export function amazonProductUrl(keywordOrUrl: string) {
   const directAsin = keywordOrUrl.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/i)?.[1]
   const asin = directAsin ?? findMappedValue(AMAZON_ASIN_BY_QUERY, keywordOrUrl)
-  if (asin) return `https://www.amazon.co.jp/dp/${asin}?tag=${AMAZON_TAG}`
+  const tag = activeAmazonTag()
+  if (asin) return `https://www.amazon.co.jp/dp/${asin}${tag ? `?tag=${tag}` : ''}`
 
   const keyword = extractSearchKeyword(keywordOrUrl)
-  return `https://www.amazon.co.jp/s?k=${encodeURIComponent(keyword)}&tag=${AMAZON_TAG}`
+  return `https://www.amazon.co.jp/s?k=${encodeURIComponent(keyword)}${tag ? `&tag=${tag}` : ''}`
 }
 
 export function rakutenRoomUrl(keywordOrUrl?: string) {

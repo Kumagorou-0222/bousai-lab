@@ -24,6 +24,8 @@ import SeriesNav from '@/components/SeriesNav'
 import ComparisonTable from '@/components/ComparisonTable'
 import DoctorPerspective from '@/components/DoctorPerspective'
 import { getProductByMangaSlug } from '@/lib/products'
+import { amazonProductUrl } from '@/lib/affiliateLinks'
+import { sanitizeAmazonUrl, activeAmazonTag } from '@/lib/amazonTag'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -35,6 +37,12 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; light: string 
   blackout:        { bg: '#FFFBEB', text: '#D97706', light: '#FDE68A' },
   evacuation:      { bg: '#F0FDF4', text: '#16A34A', light: '#BBF7D0' },
   'disaster-prep': { bg: '#F8FAFC', text: '#475569', light: '#CBD5E1' },
+}
+
+function ArticleLink({ href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  const resolved = href ? sanitizeAmazonUrl(href) : undefined
+  const amazon = resolved ? /^https:\/\/(?:www\.)?amazon\.co\.jp\//.test(resolved) : false
+  return <a {...props} href={resolved} rel={amazon ? 'noopener noreferrer sponsored' : props.rel} />
 }
 
 export async function generateStaticParams() {
@@ -322,7 +330,7 @@ export default async function ArticlePage({ params }: Props) {
         <article className="prose-bousai">
           <MDXRemote
             source={article.content}
-            components={{ ProductCard, CtaButton, Dialogue, MangaDialogue }}
+            components={{ a: ArticleLink, ProductCard, CtaButton, Dialogue, MangaDialogue }}
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           />
         </article>
@@ -417,6 +425,17 @@ export default async function ArticlePage({ params }: Props) {
           category={article.category}
           items={article.monetizeItems}
         />
+
+        <section style={{ marginTop: 24, padding: 20, border: '1px solid #E2E8F0', borderRadius: 12 }}>
+          <h2 style={{ fontSize: 16, marginBottom: 8 }}>関連する防災書籍</h2>
+          <p style={{ fontSize: 13 }}>このテーマを本でも確認したい方は、出版年や監修者を確かめて選んでください。</p>
+          <a href={amazonProductUrl(`防災 ${cat.label} 本`)} target="_blank" rel="noopener noreferrer sponsored">
+            {cat.label}の書籍をAmazonで探す
+          </a>
+          <p style={{ fontSize: 11 }}>{activeAmazonTag()
+            ? 'Amazonのアソシエイトとして、防災Labは適格販売により収入を得ています。'
+            : 'Amazonの紹介リンクは現在準備中です。上のリンクはタグなしの商品検索です。'}</p>
+        </section>
 
         {/* 中盤CTA（カテゴリ別） */}
         <CtaButton category={article.category} />

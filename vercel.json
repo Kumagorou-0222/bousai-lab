@@ -2,5 +2,6 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "ignoreCommand": "if [ \"$VERCEL_GIT_COMMIT_REF\" = \"social-ledger\" ]; then exit 0; else exit 1; fi"
 }
