@@ -3,7 +3,6 @@ import assert from 'node:assert/strict'
 import { publishMetaPost, PostRecordError, checkMetaContainerStatus, waitForContainerReady, inspectPostReservation } from '../lib/metaPublisher.ts'
 import { campaignUrl } from '../lib/socialCampaign.ts'
 import { GithubSocialPostLedger } from '../lib/socialPostLedger.ts'
-import { readFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 
 const ready = { checkStatus: async () => 'FINISHED', wait: async () => {} }
@@ -181,8 +180,7 @@ test('台帳とMetaの状態を読み取り専用で照合する', async () => {
 })
 
 test('台帳専用ブランチのVercelビルドをスキップする', () => {
-  const command = JSON.parse(readFileSync('vercel.json', 'utf8')).ignoreCommand
-  const run = (branch) => spawnSync('sh', ['-c', command], { env: { ...process.env, VERCEL_GIT_COMMIT_REF: branch } }).status
+  const run = (branch) => spawnSync('sh', ['scripts/skip-social-ledger-build.sh'], { env: { ...process.env, VERCEL_GIT_COMMIT_REF: branch } }).status
   assert.equal(run('social-ledger'), 0)
   assert.equal(run('main'), 1)
   assert.equal(run('feat/social-funnel'), 1)

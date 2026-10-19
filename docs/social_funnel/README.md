@@ -15,7 +15,9 @@
 1. Amazon管理画面でアカウントの現況と新申請タグの利用可否を確認してから、環境変数を設定し、リンクと参加者表示を確認する。最終審査完了を一律の前提にしない。停止済みIDを使わない。
 2. Instagramプロフィールに `/from/instagram` を登録する。Instagram Loginはプロアカウントと `instagram_business_basic`・`instagram_business_content_publish` が必要です。Threads・InstagramのOAuth、公開アカウントID、画像要件をMetaの現行資料とテスト環境で確認する。Facebook Loginのトークンと混用しない。
 3. GA4でUTM付き記事ビューと `affiliate_click` の受信を確認し、Amazon管理画面の注文・紹介料とは区別して集計する。
-4. Meta投稿を有効にする際は、mainを基点とする専用ブランチ `social-ledger` を作成し、`SOCIAL_LEDGER_BRANCH=social-ledger` と `SOCIAL_LEDGER_GITHUB_TOKEN`（このリポジトリのContents書込権限）を設定する。`vercel.json` の `ignoreCommand` はこのブランチのビルドをスキップします。Vercelのプロジェクト設定でもこの分岐が有効か確認する。mainに台帳を書かない。担当者が画像と本文を承認してから送信する。Facebookには投稿しない。Xの既存投稿workflowは変更しない。
+4. Meta投稿を有効にする際は、mainを基点とする専用ブランチ `social-ledger` を作成し、`SOCIAL_LEDGER_BRANCH=social-ledger` と `SOCIAL_LEDGER_GITHUB_TOKEN`（このリポジトリのContents書込権限）を設定する。Vercel管理画面の既存Ignored Build Stepを先に確認し、`scripts/skip-social-ledger-build.sh` の条件と統合する。`vercel.json` には除外設定を入れていないため、現時点では台帳ブランチの不要なデプロイ防止を保証できない。mainに台帳を書かない。担当者が画像と本文を承認してから送信する。Facebookには投稿しない。Xの既存投稿workflowは変更しない。
+
+通信の `fetch` には現在タイムアウトがありません。コンテナ準備の判定は6回のポーリング間に約5秒待つ設計ですが、ネットワーク待機時間はその上限に含まれません。本番送信の有効化前に各API呼び出しのタイムアウトと合計実行時間の上限を追加・検証する必要があります。
 
 ## 結果不明時の復旧
 
