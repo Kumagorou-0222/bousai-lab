@@ -23,3 +23,9 @@ GitHub の固定 HTTPS エンドポイントにのみPOSTし、リダイレク�
 3. 別途キー作成の承認を得た後、ボス本人が GitHub の fine-grained PAT を対象リポジトリ **`Kumagorou-0222/bousai-lab` のみ**に限定し、`Actions: write` を与え、期限を短く設定する。`Actions: write` は**個別workflowだけには限定できず**、対象リポジトリ内の他のActions操作も許す権限です。Workerの固定宛先は漏えいしたキーの権限自体を狭めません。[GitHub workflow dispatch API](https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event)・[トークン管理](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 4. ボス本人がCloudflareのSecret `GITHUB_DISPATCH_TOKEN` に安全に入力する。値をチャット、PR、設定ファイル、シェル履歴、ログへ貼らない。Wranglerを使う場合は `npx wrangler secret put GITHUB_DISPATCH_TOKEN --config cloudflare/night-dispatcher/wrangler.jsonc` の対話入力を使う。
 5. 別途本番有効化の承認を得て `DRY_RUN` を `false` に変更・デプロイし、翌日の Actions run と履歴を読み取り確認する。今夜分の手動投稿や過去素材の持ち越しはしない。既存GitHub cronの停止は本変更に含まない。
+
+## 既存夜枠との切替確認
+
+既存 workflow は20:00、20:35、21:35 JSTの3つの夜枠起動を持ち、朝昼枠も同じファイルにあります。Workerを有効化すると20:00 JSTの起動要求が追加されますが、投稿判定は既存 workflow 内で行います。`concurrency.group: x-auto-post-main` は同時実行を直列化し、夜枠の投稿前予約・同日承認画像・投稿履歴の照合が二重投稿を防ぐ条件です。Actionsの実行順序やCloudflareの起動時刻だけに重複防止を依存しません。
+
+切替時は、まずdry-runのログだけを確認します。その後、別途有効化が認められた場合に限り、既存cronを維持したまま一日分のWorker起動、Actions実行、当日の投稿予約とX投稿IDを照合します。通信結果が不明、予約が残る、または重複実行の扱いが確認できない日は再送せず、次の有効化や既存cronの変更を保留します。既存cronの停止や削除は独立した変更として、朝昼枠への影響と夜枠の代替起動が確認できてから判断します。
