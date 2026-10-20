@@ -8,6 +8,8 @@
 
 投稿時は `SOCIAL_PUBLISH_ENABLED=true`、`META_DRY_RUN=false` と、対象媒体の `THREADS_PUBLISH_ENABLED=true` または `INSTAGRAM_PUBLISH_ENABLED=true` がすべて必要です。アダプターも同じ条件を再確認します。専用 `social-ledger` ブランチへの予約を送信前に作り、媒体・記事・campaign別に二重送信を止めます。コンテナIDを保存し、公開結果が不明なら自動再送しません。Xの投稿台帳とworkflowは独立しており、XとMeta間で同じ記事を投稿すること自体は抑止しません。各媒体での再送を止めます。
 
+有効化後の各送信でも、予約と書き込みAPIより前に対象媒体の `/me` をGETし、トークンのアカウントIDとVariableのIDが一致することを確認します。不一致や読み取り失敗なら送信しません。
+
 ## 最小権限と保存先
 
 | 媒体 | OAuth方式と最小権限 | GitHub Actions Secret | GitHub Actions Variable |

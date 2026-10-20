@@ -50,6 +50,16 @@ test('既定ドライランと媒体別停止では送信関数を呼ばない',
   assert.equal(calls, 0)
 })
 
+test('全フラグが有効でも空台帳と期限切れ投稿は送信しない', async () => {
+  let calls = 0
+  const publish = async () => { calls++; return 'id' }
+  const enabled = { META_DRY_RUN: 'false', SOCIAL_PUBLISH_ENABLED: 'true', THREADS_PUBLISH_ENABLED: 'true' }
+  assert.equal((await runApprovedMetaPosts({ version: 1, posts: [] }, now, enabled, publish)).sentCount, 0)
+  assert.equal((await runApprovedMetaPosts({ version: 1, posts: [approved('threads')] },
+    new Date('2026-10-21T13:00:00Z'), enabled, publish)).sentCount, 0)
+  assert.equal(calls, 0)
+})
+
 test('有効化した媒体だけを別キーで一度送る', async () => {
   const manifest = { version: 1, posts: [approved('threads'), approved('instagram')] }
   const calls = []
@@ -66,10 +76,12 @@ test('認証の照合はGETだけを使い、投稿フラグを参照しない',
   process.env.SOCIAL_PUBLISH_ENABLED = 'false'
   const calls = []
   const fetchImpl = async (url, options) => {
-    calls.push({ url: String(url), method: options.method })
+    calls.push({ url: String(url), method: options.method, authorization: options.headers.Authorization })
     return { ok: true, json: async () => ({ id: '12345' }) }
   }
   assert.equal(await checkMetaConnection('threads', fetchImpl), true)
   assert.deepEqual(calls.map((call) => call.method), ['GET'])
   assert.match(calls[0].url, /graph\.threads\.net\/v1\.0\/me/)
+  assert.equal(calls[0].url.includes('mock-token'), false)
+  assert.equal(calls[0].authorization, 'Bearer mock-token')
 })

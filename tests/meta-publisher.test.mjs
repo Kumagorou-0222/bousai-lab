@@ -5,7 +5,7 @@ import { campaignUrl } from '../lib/socialCampaign.ts'
 import { GithubSocialPostLedger } from '../lib/socialPostLedger.ts'
 import { spawnSync } from 'node:child_process'
 
-const ready = { checkStatus: async () => 'FINISHED', wait: async () => {} }
+const ready = { checkStatus: async () => 'FINISHED', checkConnection: async () => true, wait: async () => {} }
 
 process.env.META_DRY_RUN = 'false'
 process.env.THREADS_PUBLISH_ENABLED = 'true'
@@ -66,6 +66,26 @@ test('未有効化と未認証では台帳を予約せず送信しない', async
   assert.equal(sends, 0)
 })
 
+test('別アカウントのトークンなら予約と投稿APIより先に停止する', async () => {
+  process.env.SOCIAL_PUBLISH_ENABLED = 'true'
+  process.env.THREADS_ACCOUNT_ID = '12345'
+  process.env.THREADS_ACCESS_TOKEN = 'mock-token'
+  const ledger = memoryLedger()
+  let sends = 0
+  const originalFetch = globalThis.fetch
+  globalThis.fetch = async (_url, options) => {
+    assert.equal(options.method, 'GET')
+    return { ok: true, json: async () => ({ id: '99999' }) }
+  }
+  try {
+    await assert.rejects(publishMetaPost(input, { ledger, transport: async () => { sends++; return 'id' } }), /アカウントIDが一致/)
+    assert.equal(ledger.records.size, 0)
+    assert.equal(sends, 0)
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+})
+
 test('並行送信で同一キーを二重予約できない', async () => {
   process.env.SOCIAL_PUBLISH_ENABLED = 'true'
   process.env.THREADS_ACCOUNT_ID = '12345'
@@ -103,6 +123,35 @@ test('コンテナ作成の応答が不明でも予約を残して再作成し�
   assert.equal([...ledger.records.values()][0].status, 'reserved')
   await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /予約済み/)
   assert.equal(sends, 1)
+})
+
+test('予約失敗と履歴更新失敗では投稿APIを進めず再送しない', async () => {
+  const reservationFailure = memoryLedger()
+  reservationFailure.reserve = async () => { throw new Error('予約失敗') }
+  let sends = 0
+  const transport = async () => { sends++; return '67890' }
+  await assert.rejects(publishMetaPost(input, { ledger: reservationFailure, transport, ...ready }), /予約失敗/)
+  assert.equal(sends, 0)
+
+  const historyFailure = memoryLedger()
+  historyFailure.markContainer = async () => { throw new Error('履歴更新失敗') }
+  await assert.rejects(publishMetaPost(input, { ledger: historyFailure, transport, ...ready }), /履歴更新失敗/)
+  await assert.rejects(publishMetaPost(input, { ledger: historyFailure, transport, ...ready }), /予約済み/)
+  assert.equal(sends, 1)
+})
+
+test('公開APIのタイムアウト後は予約を保持して再送しない', async () => {
+  const ledger = memoryLedger()
+  let sends = 0
+  const transport = async () => {
+    sends++
+    if (sends === 2) throw new DOMException('時間切れ', 'TimeoutError')
+    return '67890'
+  }
+  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /時間切れ/)
+  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /予約済み/)
+  assert.equal(sends, 2)
+  assert.equal([...ledger.records.values()][0].status, 'container_ready')
 })
 
 test('公開成功後の台帳記録失敗は投稿IDを返して再送を止める', async () => {
@@ -181,7 +230,7 @@ test('コンテナ準備が未完了なら公開APIを呼ばない', async () =>
   const ledger = memoryLedger()
   let sends = 0
   const transport = async () => { sends++; return '67890' }
-  await assert.rejects(publishMetaPost(input, { ledger, transport, checkStatus: async () => 'ERROR' }), /公開可能な状態ではありません/)
+  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready, checkStatus: async () => 'ERROR' }), /公開可能な状態ではありません/)
   assert.equal(sends, 1)
   assert.equal([...ledger.records.values()][0].status, 'container_ready')
 })

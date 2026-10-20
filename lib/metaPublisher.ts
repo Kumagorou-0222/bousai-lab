@@ -118,7 +118,7 @@ export async function waitForContainerReady(
 
 export async function publishMetaPost(
   input: PublishInput,
-  options: { ledger?: SocialPostLedger; transport?: MetaPostTransport; checkStatus?: MetaStatusTransport; wait?: (ms: number) => Promise<void> } = {},
+  options: { ledger?: SocialPostLedger; transport?: MetaPostTransport; checkStatus?: MetaStatusTransport; checkConnection?: (channel: MetaChannel) => Promise<boolean>; wait?: (ms: number) => Promise<void> } = {},
 ): Promise<string> {
   if (process.env.META_DRY_RUN !== 'false') throw new Error('Meta投稿はドライランです')
   if (process.env.SOCIAL_PUBLISH_ENABLED !== 'true') throw new Error('Meta投稿は無効です')
@@ -148,6 +148,10 @@ export async function publishMetaPost(
   const ledger = options.ledger ?? new GithubSocialPostLedger()
   const transport = options.transport ?? postForm
   const key = { channel: input.channel, slug: input.slug, campaign: input.campaign }
+  // 送信直前にトークンの所有者を照合し、別アカウントへの投稿を防ぐ。
+  if (!await (options.checkConnection ?? checkMetaConnection)(input.channel)) {
+    throw new Error('Meta認証のアカウントIDが一致しません')
+  }
   await ledger.reserve(key)
   const media: Record<string, string> = input.channel === 'threads'
     ? { media_type: 'TEXT', text: input.text }
