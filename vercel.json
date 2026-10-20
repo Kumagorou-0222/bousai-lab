@@ -1,6 +1,5 @@
 {
   "framework": "nextjs",
-  "ignoreCommand": "node scripts/ignore-history-only-build.mjs",
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "installCommand": "npm install"
