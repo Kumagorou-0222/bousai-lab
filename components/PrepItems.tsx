@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { PrepItem } from '@/lib/articles'
 import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
+import { affiliateDisclosureText } from '@/lib/affiliateDisclosure'
 
 function amazonUrl(query: string) {
   return amazonProductUrl(query)
@@ -134,7 +135,7 @@ export default function PrepItems({ items, relatedSlugs, relatedTitles }: Props)
       )}
 
       <div style={{ fontSize: 10, color: '#A8A29E', marginTop: 14, lineHeight: 1.7 }}>
-        ※ Amazon・楽天リンクはアフィリエイトリンクです。購入価格は変わりません。
+        ※ {affiliateDisclosureText()}
       </div>
     </div>
   )

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { COMPARE_DATA, amazonUrl, rakutenUrl } from '@/lib/compareData'
+import { affiliateDisclosureText } from '@/lib/affiliateDisclosure'
 
 type Props = { params: Promise<{ product: string }> }
 
@@ -387,8 +388,7 @@ export default async function ComparePage({ params }: Props) {
       </div>
 
       <p style={{ fontSize: 11, color: '#94A3B8', textAlign: 'center', lineHeight: 1.8 }}>
-        ※ Amazon・楽天リンクはアフィリエイトリンクです。
-        ご購入価格は通常と変わりません。
+        ※ {affiliateDisclosureText()}
       </p>
     </main>
   )

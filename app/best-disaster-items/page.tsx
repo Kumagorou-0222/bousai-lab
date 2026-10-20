@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import { amazonProductUrl, rakutenRoomUrl } from '@/lib/affiliateLinks'
+import { affiliateDisclosureText } from '@/lib/affiliateDisclosure'
 
 export const metadata: Metadata = {
   title: 'おすすめ防災グッズ完全版【医師監修】',
@@ -770,8 +771,7 @@ export default function BestDisasterItemsPage() {
         border: '1px solid #E2E8F0', padding: '16px 20px',
         fontSize: 12, color: '#94A3B8', lineHeight: 1.8,
       }}>
-        ※ 本ページのAmazon・楽天リンクはアフィリエイトリンクです。購入価格は変わりません。
-        収益はサイト運営・記事作成に使用しています。商品の選定は医師の視点に基づき独立して行っています。
+        ※ {affiliateDisclosureText()} 商品の選定は医師の視点に基づき独立して行っています。
       </div>
 
       {/* チェックリストへ誘導（末尾） */}
