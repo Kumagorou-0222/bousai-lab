@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { readHistory } from '@/lib/xAutoPost'
+import { fetchThreadsHistory } from '@/lib/threadsHistory'
 import { generateThreadsPost } from '@/lib/threadsPostUtils'
 import { MANGA_LIST } from '@/lib/manga'
 import ThreadsPostCard from '@/components/ThreadsPostCard'
@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+export const dynamic = 'force-dynamic'
+
 const BASE_URL = 'https://bousai-lab.vercel.app'
 
 // MANGA_LIST から articleSlug → 最初の mangaImage を引く
@@ -17,8 +19,9 @@ function getMangaImageBySlug(slug: string): string | undefined {
   return manga?.mangaImages?.[0]
 }
 
-export default function ThreadsPostsPage() {
-  const history = readHistory()
+export default async function ThreadsPostsPage() {
+  const result = await fetchThreadsHistory()
+  const history = result.ok ? result.records : []
   // 直近30件（新しい順）
   const recent = [...history].reverse().slice(0, 30)
 
@@ -75,14 +78,18 @@ export default function ThreadsPostsPage() {
         </div>
       </div>
 
-      {/* 件数 */}
-      <div style={{
+      {result.ok ? <div style={{
         fontSize: 13, color: '#64748B', marginBottom: 20, fontWeight: 600,
       }}>
-        直近 {posts.length} 件のX投稿から生成
-      </div>
+        直近 {posts.length} 件のX投稿から生成 · 履歴取得 {new Date(result.fetchedAt).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })} JST
+      </div> : <div role="alert" style={{
+        background: '#FFF7ED', color: '#9A3412', border: '1px solid #FDBA74',
+        padding: '16px 20px', borderRadius: 12, marginBottom: 20,
+      }}>
+        最新のX投稿履歴を取得できませんでした。投稿案は表示していません。時間をおいて再読み込みしてください。
+      </div>}
 
-      {posts.length === 0 ? (
+      {!result.ok ? null : posts.length === 0 ? (
         <div style={{
           background: '#F8FAFC', border: '1.5px dashed #CBD5E1',
           borderRadius: 16, padding: '40px 24px', textAlign: 'center',
