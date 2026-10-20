@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { activeAmazonTag } from '@/lib/amazonTag'
 
 export default function Footer() {
   const categoryLinks = [
@@ -88,6 +89,9 @@ export default function Footer() {
 
         {/* 区切り */}
         <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: 20, textAlign: 'center' }}>
+          {activeAmazonTag() && <p style={{ fontSize: 12, color: '#334155', marginBottom: 8 }}>
+            Amazonのアソシエイトとして、防災Labは適格販売により収入を得ています。
+          </p>}
           <p style={{ fontSize: 11, color: '#94A3B8', marginBottom: 6, lineHeight: 1.7 }}>
             ※本サイトの情報は医師の監修のもと作成していますが、緊急時は必ず行政機関・医療機関の情報を優先してください。
           </p>
