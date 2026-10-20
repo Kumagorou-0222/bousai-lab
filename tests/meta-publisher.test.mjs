@@ -7,6 +7,12 @@ import { spawnSync } from 'node:child_process'
 
 const ready = { checkStatus: async () => 'FINISHED', wait: async () => {} }
 
+process.env.META_DRY_RUN = 'false'
+process.env.THREADS_PUBLISH_ENABLED = 'true'
+process.env.INSTAGRAM_PUBLISH_ENABLED = 'true'
+process.env.THREADS_TOKEN_EXPIRES_AT = '2099-01-01T00:00:00Z'
+process.env.INSTAGRAM_TOKEN_EXPIRES_AT = '2099-01-01T00:00:00Z'
+
 const input = { channel: 'threads', slug: 'typhoon-prep-goods', campaign: 'article', approved: true,
   text: `備えを確認\n${campaignUrl('typhoon-prep-goods', 'threads')}` }
 
@@ -27,6 +33,24 @@ function memoryLedger() {
     },
   }
 }
+
+test('ドライランと媒体別停止、期限不足なら台帳もAPIも使わない', async () => {
+  const ledger = memoryLedger()
+  let sends = 0
+  const transport = async () => { sends++; return '123' }
+  process.env.SOCIAL_PUBLISH_ENABLED = 'true'
+  process.env.META_DRY_RUN = 'true'
+  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /ドライラン/)
+  process.env.META_DRY_RUN = 'false'
+  process.env.THREADS_PUBLISH_ENABLED = 'false'
+  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /媒体別/)
+  process.env.THREADS_PUBLISH_ENABLED = 'true'
+  process.env.THREADS_TOKEN_EXPIRES_AT = '2026-10-20T00:00:00Z'
+  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /期限/)
+  process.env.THREADS_TOKEN_EXPIRES_AT = '2099-01-01T00:00:00Z'
+  assert.equal(ledger.records.size, 0)
+  assert.equal(sends, 0)
+})
 
 test('未有効化と未認証では台帳を予約せず送信しない', async () => {
   const ledger = memoryLedger()

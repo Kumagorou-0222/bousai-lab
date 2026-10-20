@@ -18,7 +18,30 @@ function credentials(channel: MetaChannel): MetaCredentials {
   const accountId = process.env[`${prefix}_ACCOUNT_ID`]
   const token = process.env[`${prefix}_ACCESS_TOKEN`]
   if (!accountId || !token) throw new Error('Meta認証が設定されていません')
+  if (!/^\d+$/.test(accountId)) throw new Error('MetaアカウントIDが不正です')
   return { accountId, token }
+}
+
+export async function checkMetaConnection(
+  channel: MetaChannel,
+  fetchImpl: typeof fetch = fetch,
+): Promise<boolean> {
+  const { accountId, token } = credentials(channel)
+  const graphVersion = process.env.META_GRAPH_VERSION
+  if (channel === 'instagram' && (!graphVersion || !/^v\d+\.\d+$/.test(graphVersion))) {
+    throw new Error('Instagram Graph APIの確認済みバージョンが未設定です')
+  }
+  const base = channel === 'threads' ? 'https://graph.threads.net/v1.0' : `https://graph.instagram.com/${graphVersion}`
+  const url = new URL(`${base}/me`)
+  url.searchParams.set('fields', 'id,username')
+  const response = await fetchImpl(url, {
+    method: 'GET', headers: { Authorization: `Bearer ${token}` },
+    cache: 'no-store', signal: AbortSignal.timeout(10000),
+  })
+  if (!response.ok) throw new Error(`Meta認証の読み取り確認に失敗しました (${response.status})`)
+  const profile = await response.json() as { id?: unknown }
+  if (profile.id !== accountId) throw new Error('Meta認証のアカウントIDが一致しません')
+  return true
 }
 
 export type MetaPostTransport = (endpoint: string, fields: Record<string, string>, token: string) => Promise<string>
@@ -30,6 +53,7 @@ async function postForm(endpoint: string, fields: Record<string, string>, token:
     headers: { Authorization: `Bearer ${token}` },
     body: new URLSearchParams(fields),
     cache: 'no-store',
+    signal: AbortSignal.timeout(10000),
   })
   if (!response.ok) throw new Error(`Meta投稿APIが失敗しました (${response.status})。重複防止のため自動再試行しません`)
   const payload: unknown = await response.json()
@@ -51,7 +75,9 @@ async function fetchContainerStatus(channel: MetaChannel, containerId: string, t
   const base = channel === 'threads' ? 'https://graph.threads.net/v1.0' : `https://graph.instagram.com/${graphVersion}`
   const url = new URL(`${base}/${containerId}`)
   url.searchParams.set('fields', channel === 'threads' ? 'id,status,error_message' : 'id,status_code')
-  const response = await fetch(url, { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' })
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` }, cache: 'no-store', signal: AbortSignal.timeout(10000),
+  })
   if (!response.ok) throw new Error(`Metaコンテナの状態確認に失敗しました (${response.status})`)
   const result = await response.json() as { status?: string; status_code?: string }
   const status = channel === 'threads' ? result.status : result.status_code
@@ -94,7 +120,16 @@ export async function publishMetaPost(
   input: PublishInput,
   options: { ledger?: SocialPostLedger; transport?: MetaPostTransport; checkStatus?: MetaStatusTransport; wait?: (ms: number) => Promise<void> } = {},
 ): Promise<string> {
+  if (process.env.META_DRY_RUN !== 'false') throw new Error('Meta投稿はドライランです')
   if (process.env.SOCIAL_PUBLISH_ENABLED !== 'true') throw new Error('Meta投稿は無効です')
+  const prefix = input.channel === 'threads' ? 'THREADS' : 'INSTAGRAM'
+  if (process.env[`${prefix}_PUBLISH_ENABLED`] !== 'true') throw new Error('媒体別のMeta投稿は無効です')
+  const expiresAt = process.env[`${prefix}_TOKEN_EXPIRES_AT`]
+  const expiry = expiresAt && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(expiresAt)
+    ? Date.parse(expiresAt) : NaN
+  if (!Number.isFinite(expiry) || expiry <= Date.now() + 7 * 24 * 60 * 60 * 1000) {
+    throw new Error('Metaトークンの期限が未設定または7日以内です。更新を確認するまで投稿しません')
+  }
   if (!input.approved) throw new Error('投稿内容と画像の承認が必要です')
   if (!input.text.includes(campaignUrl(input.slug, input.channel, input.campaign)) && input.channel === 'threads') {
     throw new Error('記事への計測リンクがありません')

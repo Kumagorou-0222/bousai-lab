@@ -61,6 +61,7 @@ export class GithubSocialPostLedger implements SocialPostLedger {
         ...(sha ? { sha } : {}),
       }),
       cache: 'no-store',
+      signal: AbortSignal.timeout(10000),
     })
     if (!response.ok) throw new Error(`投稿台帳の更新に失敗しました (${response.status})。再送は禁止です`)
   }
@@ -73,7 +74,7 @@ export class GithubSocialPostLedger implements SocialPostLedger {
 
   private async readReserved(key: SocialPostKey) {
     const response = await fetch(`${this.url(key)}?ref=${encodeURIComponent(this.branch)}`, {
-      headers: this.headers(), cache: 'no-store',
+      headers: this.headers(), cache: 'no-store', signal: AbortSignal.timeout(10000),
     })
     if (!response.ok) throw new Error('投稿台帳の予約を読み取れません。再送は禁止です')
     const file = await response.json() as GithubFile
