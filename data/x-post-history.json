@@ -4845,5 +4845,77 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/earthquake-elevator/comic.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-10-18T08:40:26.573+09:00",
+    "slug": "emergency-food",
+    "title": "非常食の正しい選び方と7日分の備蓄リスト【医師監修】",
+    "slot": "morning",
+    "tweetId": "2111603271416660055",
+    "tweetUrl": "https://x.com/i/web/status/2111603271416660055",
+    "text": "【今日の備え】①アルファ米（5〜10年保存）②レトルト食品（1〜3年）③缶詰（3〜5年）。大人1人が1日1,800〜2,000kcal必要。ローリングストックで日常的に消費・補充するのが一番続くコツ。👉 https://bousai-lab.vercel.app/articles/emergency-food\n\n#防災 #備蓄 #防災グッズ #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/emergency_food_checklist.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-10-18T16:55:46.137+09:00",
+    "slug": "evacuation-shelter-basics",
+    "title": "避難所の基本を知る【持ち物・ルール・生活のコツ】",
+    "slot": "noon",
+    "tweetId": "2111727924315369588",
+    "tweetUrl": "https://x.com/i/web/status/2111727924315369588",
+    "text": "【1分防災】避難所は安全だが快適ではありません。①持ち物：水・食料3日分・薬・貴重品・充電器・マット②ルール：受付→場所取り→共用スペースの使い方③注意：感染症・DVT・プライバシー確保。事前に一度調べておくだけで全然違います。👉 https://bousai-lab.vercel.app/articles/evacuation-shelter-basics\n\n#防災 #避難所 #在宅避難 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/evacuation-basics/panel-01.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-10-19T08:49:26.515+09:00",
+    "slug": "disaster-backpack",
+    "title": "防災リュックに本当に必要なもの【医師監修・優先度つき】",
+    "slot": "morning",
+    "tweetId": "2111967924324020311",
+    "tweetUrl": "https://x.com/i/web/status/2111967924324020311",
+    "text": "【今日の備え】【防災リュックに本当に必要なもの】❌ あれもこれも詰め込んで10kg超え ⭕ 必需品5種に絞って7kg以内を目標に 重すぎると逃げられない。水・食料・携帯トイレ・薬・モバイルバッテリーが最優先。家族で今すぐ確認を！→ https://bousai-lab.vercel.app/articles/disaster-backpack\n\n#防災 #備蓄 #防災グッズ #家族で確認 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/disaster-backpack/panel-01.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-10-19T17:42:25.239+09:00",
+    "slug": "blackout-smartphone",
+    "title": "停電したときスマホを長持ちさせる方法【今すぐやる】",
+    "slot": "noon",
+    "tweetId": "2112102052801171730",
+    "tweetUrl": "https://x.com/i/web/status/2112102052801171730",
+    "text": "【1分防災】①低電力モードON②画面輝度を最低③Wi-Fi・Bluetooth・位置情報をオフ。スマホは避難情報と家族連絡の命綱。詳しくは→ https://bousai-lab.vercel.app/articles/blackout-smartphone\n\n#防災 #停電 #モバイルバッテリー #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-basics/panel-01.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-10-20T09:51:03.373+09:00",
+    "slug": "earthquake-bath",
+    "title": "地震後にお風呂は使っていい？ガス・水道別の確認手順",
+    "slot": "morning",
+    "tweetId": "2112345817650528545",
+    "tweetUrl": "https://x.com/i/web/status/2112345817650528545",
+    "text": "【今日の備え】❌ ガスをそのまま使う ⭕ ガス会社の安全確認が終わってから使う ガス管が損傷していると引火・爆発のリスクがある。水道は排水管確認後ならOK。👉 https://bousai-lab.vercel.app/articles/earthquake-bath\n\n#防災 #地震 #地震対策 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/地震後の水はいつ使える？.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-10-20T17:23:04.394+09:00",
+    "slug": "evacuation-illness",
+    "title": "避難所で気をつける病気・感染症対策【医師監修】",
+    "slot": "noon",
+    "tweetId": "2112459571843252616",
+    "tweetUrl": "https://x.com/i/web/status/2112459571843252616",
+    "text": "【1分防災】❌ 避難所に入れば安全と思い込む ⭕ マスク・手洗い・換気を入所直後から徹底する 避難所は感染症のリスクが高い環境。ノロ・インフル・コロナは避難所で拡大しやすい。👉 https://bousai-lab.vercel.app/articles/evacuation-illness\n\n#防災 #避難所 #感染症対策 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/evacuation-illness/panel-01.png",
+    "success": true
   }
 ]

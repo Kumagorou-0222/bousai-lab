@@ -243,7 +243,7 @@ export default function AffiliateAuditPage() {
           📋 URL設定ガイド
         </div>
         <div style={{ fontSize: 12, color: '#1E3A8A', lineHeight: 1.8 }}>
-          <div><strong>Amazon:</strong> <code>.env.local</code> に <code>NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG=bousailab0c-22</code> を設定すると全Amazon URLに自動付与されます。</div>
+          <div><strong>Amazon:</strong> 管理画面で利用可否を確認したタグを <code>NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG</code> に設定し、<code>NEXT_PUBLIC_AMAZON_TAG_USABLE=true</code> を指定するとAmazon URLに付与されます。停止済みのタグは無効です。</div>
           <div style={{ marginTop: 6 }}><strong>楽天:</strong> 楽天アフィリエイトポータルで生成した <code>hb.afl.rakuten.co.jp/hgc/...</code> URLを <code>lib/products.ts</code> の <code>rakutenUrl</code> に直接貼ってください。または <code>NEXT_PUBLIC_RAKUTEN_AFFILIATE_ID</code> を設定すると通常の楽天URLを自動変換します。</div>
           <div style={{ marginTop: 6 }}><strong>準備中:</strong> <code>amazonUrl</code> または <code>rakutenUrl</code> を <code>undefined</code> にすると「準備中」と表示し、壊れたリンクは出力されません。</div>
         </div>
