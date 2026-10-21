@@ -14,7 +14,7 @@
 
 `scripts/buildXDayCandidates.ts` は既存の `getAllArticlesMeta`、`buildPriorityCandidates`、`applySlotLabel`、`generateHashtags`、`applyHashtags` で24件の候補マニフェストを生成します。武蔵野市の記事も保持します。画像は生成時にSHA-256とPNG寸法を記録し、Worker側で取得時に再照合します。**生成物の本番公開・記事変更時の更新経路は未接続**です。
 
-夜は `candidate-source.mjs` が `data/x-night-approved.json` から当日1件だけを選び、画像SHA-256・PNG寸法を確認します。`publisher.mjs` は画像アップロード後にALTを設定してから送信する接続口で、モックのみでテストしています。X API認証と本番Workerへの接続は未実装です。
+夜は `candidate-source.mjs` が `data/x-night-approved.json` から当日1件だけを選び、画像SHA-256・PNG寸法を確認します。`publisher.mjs` は画像アップロード後にALTを設定してから送信する接続口で、モックのみでテストしています。`oauth1.mjs` と `x-api.mjs` にOAuth 1.0a署名、画像アップロード、ALT登録、投稿APIの接続口を用意し、偽の認証情報とモック通信で確認しています。本番Workerへの接続と実API互換性の検証は未実施です。
 
 `core.mjs` は、送信より先に `data/x-post-history.json` に予約を記録します。`github-store.mjs` はGitHub Contents APIのファイルSHAを指定して更新し、競合したら再読します。既存の投稿成功・予約・結果不明を同日同枠の重複として扱います。X送信後のtimeoutは「結果不明」のまま保持し、自動再送しません。送信成功後の履歴確定に失敗した場合も予約を保持して人が照合します。GitHub履歴とX APIを単一トランザクションにはできず、「必ず1回」の保証はありません。
 
@@ -29,7 +29,7 @@ Cloudflare画面でWorkers Freeが有効、支払方法未登録と確認しま�
 ## 秘密値不要のテスト
 
 ```sh
-node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs tests/cloudflareDirectXCandidateSource.test.mjs
+node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs tests/cloudflareDirectXCandidateSource.test.mjs tests/cloudflareDirectXOAuth.test.mjs tests/cloudflareDirectXApi.test.mjs
 ```
 
 時刻・日付・重複・GitHub CAS競合・送信timeout・送信直前の時間切れをモックで確認します。
