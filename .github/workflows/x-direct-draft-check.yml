@@ -5,6 +5,7 @@ on:
     paths:
       - 'cloudflare/direct-x/**'
       - 'tests/cloudflareDirectX*.test.mjs'
+      - 'scripts/buildXDayCandidates.ts'
       - '.github/workflows/x-direct-draft-check.yml'
 
 permissions:
@@ -18,4 +19,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - run: node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs
+      - run: npm ci
+      - run: npx tsx scripts/buildXDayCandidates.ts
+      - run: node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs tests/cloudflareDirectXCandidateSource.test.mjs
