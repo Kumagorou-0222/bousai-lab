@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import test from 'node:test'
 import { blocksSlot, chooseDayCandidate, resolveScheduledSlot, runPostAttempt } from '../cloudflare/direct-x/core.mjs'
+import { runScheduled } from '../cloudflare/direct-x/worker.mjs'
 
 const nightController = { cron: '*/15 9-12 * * *', scheduledTime: Date.parse('2026-10-22T09:00:00Z') }
 const night = { slug: 'night-2026-10-22', title: '�m�F�ςݖ���', text: '�m�F�ςݓ��e', slotDate: '2026-10-22',
@@ -14,6 +15,15 @@ test('���J�ݒ��4��Cron�ƃh���C�����̂�', (
   ])
   assert.equal(config.vars.DRY_RUN, 'true')
   assert.equal(config.workers_dev, false)
+})
+
+test('Worker��dry-run�������L�^���A�������Ă����ڑ��Ȃ瓊�e���Ȃ�', async () => {
+  const logs = []
+  const options = { now: new Date('2026-10-22T09:00:01Z'), log: value => logs.push(JSON.parse(value)) }
+  await runScheduled(nightController, { DRY_RUN: 'true' }, options)
+  assert.equal(logs[0].result, '�h���C����')
+  await assert.rejects(runScheduled(nightController, { DRY_RUN: 'false' }, options), /�ڑ���������/)
+  assert.equal(logs.length, 1)
 })
 
 function fakeStore(start = []) {
