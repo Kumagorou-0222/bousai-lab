@@ -19,12 +19,16 @@ test('欠損した朝昼候補は採用しない', async () => {
 })
 
 test('夜枠は当日1件のみ、ALTと画像パスを検証する', async () => {
-  const entry = { imageId: 'approved', slotDate: '2026-10-22', text: '夜', altText: '図解',
+  const entry = { imageId: 'approved', libraryFileId: 'libfile_approved', theme: '防災',
+    reviewer: '確認者', reviewedAt: '2026-10-22', slotDate: '2026-10-22', text: '夜', altText: '図解',
     imageSha256: 'a'.repeat(64), imagePath: '/manga/daily/2026-10-22.png', width: 1086, height: 1448 }
   assert.equal((await loadNightApproval('2026-10-22', json([entry]))).imageId, 'approved')
   await assert.rejects(loadNightApproval('2026-10-22', json([entry, entry])), /一意/)
   await assert.rejects(loadNightApproval('2026-10-23', json([entry])), /一意/)
   await assert.rejects(loadNightApproval('2026-10-22', json([{ ...entry, altText: '' }])), /不完全/)
+  await assert.rejects(getCandidateForEvent({ slot: 'night', slotDate: '2026-10-22' },
+    [{ slot: 'night', slug: 'night-2026-10-21', nightImageId: 'approved', success: true }],
+    json([entry])), /投稿済み/)
 })
 
 test('夜画像のPNG寸法・SHAを照合する', async () => {
