@@ -5,10 +5,10 @@ import { blocksSlot, chooseDayCandidate, resolveScheduledSlot, runPostAttempt } 
 import { runScheduled } from '../cloudflare/direct-x/worker.mjs'
 
 const nightController = { cron: '*/15 9-12 * * *', scheduledTime: Date.parse('2026-10-22T09:00:00Z') }
-const night = { slug: 'night-2026-10-22', title: '�m�F�ςݖ���', text: '�m�F�ςݓ��e', slotDate: '2026-10-22',
+const night = { slug: 'night-2026-10-22', title: '確認済み漫画', text: '確認済み投稿', slotDate: '2026-10-22',
   nightImageId: 'libfile_approved:v1', imageSha256: 'a'.repeat(64), imagePath: '/manga/daily/2026-10-22.png' }
 
-test('���J�ݒ��4��Cron�ƃh���C�����̂�', () => {
+test('公開設定は4個のCronとドライランのみ', () => {
   const config = JSON.parse(fs.readFileSync(new URL('../cloudflare/direct-x/wrangler.jsonc', import.meta.url), 'utf8'))
   assert.deepEqual(config.triggers.crons, [
     '0,15,30 22 * * *', '0,15,30 3 * * *', '*/15 9-12 * * *', '55 12 * * *',
@@ -17,12 +17,12 @@ test('���J�ݒ��4��Cron�ƃh���C�����̂�', (
   assert.equal(config.workers_dev, false)
 })
 
-test('Worker��dry-run�������L�^���A�������Ă����ڑ��Ȃ瓊�e���Ȃ�', async () => {
+test('Workerはdry-runだけを記録し、解除しても未接続なら投稿しない', async () => {
   const logs = []
   const options = { now: new Date('2026-10-22T09:00:01Z'), log: value => logs.push(JSON.parse(value)) }
   await runScheduled(nightController, { DRY_RUN: 'true' }, options)
-  assert.equal(logs[0].result, '�h���C����')
-  await assert.rejects(runScheduled(nightController, { DRY_RUN: 'false' }, options), /�ڑ���������/)
+  assert.equal(logs[0].result, 'ドライラン')
+  await assert.rejects(runScheduled(nightController, { DRY_RUN: 'false' }, options), /接続が未完了/)
   assert.equal(logs.length, 1)
 })
 
@@ -53,7 +53,7 @@ function fixture(overrides = {}) {
     attemptId: 'run-1', getCandidate: async () => night, dryRun: false, ...overrides }
 }
 
-test('��07���E��12���E��18���ƍĎ��s�������󂯁A�������̊O�Ɨ����͎~�߂�', () => {
+test('朝07時・昼12時・夜18時と再試行だけを受け、当日窓の外と翌日は止める', () => {
   const rows = [
     [{ cron: '0,15,30 22 * * *', scheduledTime: Date.parse('2026-10-21T22:00:00Z') }, '2026-10-21T22:00:00Z', 'morning'],
     [{ cron: '0,15,30 3 * * *', scheduledTime: Date.parse('2026-10-22T03:00:00Z') }, '2026-10-22T03:00:00Z', 'noon'],
@@ -70,14 +70,14 @@ test('��07���E��12���E��18���ƍĎ��s����
   }
 })
 
-test('dry-run�ł͗\������e�����Ȃ�', async () => {
+test('dry-runでは予約も投稿もしない', async () => {
   const f = fixture({ dryRun: true })
   assert.equal((await runPostAttempt(f)).status, 'dry_run')
   assert.deepEqual(f.store.records(), [])
   assert.deepEqual(f.calls, [])
 })
 
-test('���e�O�\��A���M�A�����m��������ǂ���ɍs��', async () => {
+test('投稿前予約、送信、成功確定を順序どおりに行う', async () => {
   const f = fixture()
   f.publisher.send = async () => {
     assert.equal(f.store.records()[0].nightStatus, 'reserved')
@@ -91,7 +91,7 @@ test('���e�O�\��A���M�A�����m�������
   assert.equal((await runPostAttempt(f)).status, 'already_reserved')
 })
 
-test('�����\��E�����E���ʕs���𓯓��g�̏d���Ƃ��ċ��ۂ��A���M�O���s�����Ď��s��', () => {
+test('既存予約・成功・結果不明を同日枠の重複として拒否し、送信前失敗だけ再試行可', () => {
   for (const status of ['reserved', 'posted', 'unknown']) {
     assert.equal(blocksSlot({ slot: 'night', postedAt: '2026-10-22T18:00:00+09:00', nightStatus: status, success: status === 'posted' }, 'night', '2026-10-22'), true)
   }
@@ -100,7 +100,7 @@ test('�����\��E�����E���ʕs���𓯓��g�
   assert.equal(blocksSlot({ slot: 'night', slotDate: '2026-10-21', nightStatus: 'unknown' }, 'night', '2026-10-22'), false)
 })
 
-test('���e�v����timeout�͌��ʕs���Ƃ��ĕێ����A�ӖړI�đ���h��', async () => {
+test('投稿要求のtimeoutは結果不明として保持し、盲目的再送を防ぐ', async () => {
   const f = fixture()
   f.publisher.send = async () => { f.calls.push('send'); throw new Error('timeout') }
   await assert.rejects(runPostAttempt(f), /timeout/)
@@ -109,14 +109,14 @@ test('���e�v����timeout�͌��ʕs���Ƃ��ĕێ��
   assert.deepEqual(f.calls, ['prepare', 'send'])
 })
 
-test('���M�O��22�����z�����瑗�炸�A���M�O���s�Ƃ��ċL�^����', async () => {
+test('送信前に22時を越えたら送らず、送信前失敗として記録する', async () => {
   const f = fixture({ clock: () => new Date('2026-10-22T13:00:00Z') })
-  await assert.rejects(runPostAttempt(f), /���e���ԊO/)
+  await assert.rejects(runPostAttempt(f), /投稿時間外/)
   assert.deepEqual(f.calls, ['prepare'])
   assert.equal(f.store.records()[0].nightStatus, 'failed_before_send')
 })
 
-test('GitHub������CAS������͍ēǂ��A���҂̗\���D�悷��', async () => {
+test('GitHub履歴のCAS競合後は再読し、他者の予約を優先する', async () => {
   const f = fixture()
   const originalWrite = f.store.write
   let first = true
@@ -132,11 +132,10 @@ test('GitHub������CAS������͍ēǂ��A���҂̗\�
   assert.deepEqual(f.calls, [])
 })
 
-test('�������͊�����1�T�ԁE48���Ԃ̏d������Əd�݂�ۂ�', () => {
+test('朝昼候補は既存の1週間・48時間の重複回避と重みを保つ', () => {
   const candidates = [{ slug: 'a', rank: 'S' }, { slug: 'b', rank: 'B' }]
   const recent = [{ slug: 'a', success: true, postedAt: new Date().toISOString() }]
   assert.equal(chooseDayCandidate(candidates, recent, () => 0).slug, 'b')
   assert.equal(chooseDayCandidate(candidates, [], () => 0).slug, 'a')
   assert.equal(chooseDayCandidate(candidates, [], () => 0.99).slug, 'b')
 })
-
