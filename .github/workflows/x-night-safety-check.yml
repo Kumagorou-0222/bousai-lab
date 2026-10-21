@@ -1,0 +1,28 @@
+name: X夜枠の安全性テスト
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/x-auto-post.yml'
+      - '.github/workflows/x-night-safety-check.yml'
+      - 'lib/xNightPost.ts'
+      - 'scripts/postNightToX.ts'
+      - 'tests/xNightPost.test.mjs'
+      - 'data/x-night-approved.json'
+      - 'public/manga/daily/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node --test tests/xNightPost.test.mjs
