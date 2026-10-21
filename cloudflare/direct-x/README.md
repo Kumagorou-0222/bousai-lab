@@ -12,7 +12,7 @@
 
 ## 候補と共有予約
 
-`scripts/buildXDayCandidates.ts` は既存の `getAllArticlesMeta`、`buildPriorityCandidates`、`applySlotLabel`、`generateHashtags`、`applyHashtags` で24件の候補マニフェストを生成します。武蔵野市の記事も保持します。画像は生成時にSHA-256とPNG寸法を記録し、Worker側で取得時に再照合します。**生成物の本番公開・記事変更時の更新経路は未接続**です。
+`scripts/buildXDayCandidates.ts` は既存の `getAllArticlesMeta`、`buildPriorityCandidates`、`applySlotLabel`、`generateHashtags`、`applyHashtags` で24件の候補マニフェストを生成します。武蔵野市の記事も保持します。画像は生成時にSHA-256とPNG寸法を記録し、Worker側で取得時に再照合します。`.github/workflows/x-day-candidates.yml` がmainの記事・画像・生成関数変更後に候補台帳を生成してcommitする下書きです。mainでの実行と生成物の公開は未確認です。
 
 夜は `candidate-source.mjs` が `data/x-night-approved.json` から当日1件だけを選び、画像SHA-256・PNG寸法を確認します。`publisher.mjs` は画像アップロード後にALTを設定してから送信する接続口で、モックのみでテストしています。`oauth1.mjs` と `x-api.mjs` にOAuth 1.0a署名、画像アップロード、ALT登録、投稿APIの接続口を用意し、偽の認証情報とモック通信で確認しています。本番Workerへの接続と実API互換性の検証は未実施です。
 
