@@ -1,0 +1,21 @@
+name: X外部直接実行の下書きテスト
+
+on:
+  pull_request:
+    paths:
+      - 'cloudflare/direct-x/**'
+      - 'tests/cloudflareDirectX*.test.mjs'
+      - '.github/workflows/x-direct-draft-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs
