@@ -2,9 +2,9 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { githubHistoryStore } from '../cloudflare/direct-x/github-store.mjs'
 
-test('GitHub Contents API��SHA�t���X�V�������g���A�������͑��M����false��Ԃ�', async () => {
+test('GitHub Contents APIのSHA付き更新だけを使い、競合時は送信側へfalseを返す', async () => {
   const token = 'test-secret-do-not-log'
-  const records = [{ slot: 'night', text: '���{��', success: false }]
+  const records = [{ slot: 'night', text: '日本語', success: false }]
   const calls = []
   const fetchImpl = async (url, init) => {
     calls.push({ url, init })
@@ -20,11 +20,10 @@ test('GitHub Contents API��SHA�t���X�V�������g��
   const body = JSON.parse(calls[1].init.body)
   assert.equal(body.branch, 'main')
   assert.equal(body.sha, 'blob-1')
-  assert.equal(JSON.parse(decodeURIComponent(escape(atob(body.content))))[0].text, '���{��')
+  assert.equal(JSON.parse(decodeURIComponent(escape(atob(body.content))))[0].text, '日本語')
   assert.equal(JSON.stringify(body).includes(token), false)
 })
 
-test('�F�؏�񂪂Ȃ���ΒʐM������~����', () => {
-  assert.throws(() => githubHistoryStore({ token: '' }), /���ݒ�/)
+test('認証情報がなければ通信せず停止する', () => {
+  assert.throws(() => githubHistoryStore({ token: '' }), /未設定/)
 })
-
