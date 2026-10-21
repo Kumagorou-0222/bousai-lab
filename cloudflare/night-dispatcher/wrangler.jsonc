@@ -1,0 +1,12 @@
+{
+  "name": "bousai-lab-night-dispatcher",
+  "main": "./worker.mjs",
+  "compatibility_date": "2026-10-14",
+  "workers_dev": false,
+  "triggers": {
+    "crons": ["0 11 * * *"]
+  },
+  "vars": {
+    "DRY_RUN": "true"
+  }
+}
