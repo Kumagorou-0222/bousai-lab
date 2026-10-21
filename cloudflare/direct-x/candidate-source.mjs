@@ -31,7 +31,9 @@ export async function loadNightApproval(slotDate, fetchImpl = fetch) {
   const matching = records.filter(r => r?.slotDate === slotDate)
   if (matching.length !== 1) throw new Error('当日夜枠の承認素材を一意に確認できません')
   const entry = matching[0]
-  if (!entry.imageId || !entry.text?.trim() || !entry.altText?.trim() || entry.altText.length > 1000 ||
+  if (!entry.imageId || !entry.libraryFileId?.startsWith('libfile_') || !entry.theme?.trim() ||
+      !entry.reviewer?.trim() || !/^\d{4}-\d{2}-\d{2}$/.test(entry.reviewedAt || '') ||
+      !entry.text?.trim() || !entry.altText?.trim() || entry.altText.length > 1000 ||
       !/^[a-f0-9]{64}$/.test(entry.imageSha256 || '') ||
       entry.imagePath !== `/manga/daily/${slotDate}.png` ||
       !Number.isInteger(entry.width) || !Number.isInteger(entry.height) ||
@@ -44,6 +46,11 @@ export async function loadNightApproval(slotDate, fetchImpl = fetch) {
 export async function getCandidateForEvent(event, history, fetchImpl = fetch, random = Math.random) {
   if (event.slot === 'night') {
     const approval = await loadNightApproval(event.slotDate, fetchImpl)
+    if (history.some(record => (record.success ||
+      (record.nightAttemptId && record.nightStatus !== 'failed_before_send')) &&
+      (record.nightImageId === approval.imageId || record.slug === `night-${event.slotDate}`))) {
+      throw new Error('夜枠の画像は投稿済み、または送信結果が未確定です')
+    }
     return { slug: `night-${event.slotDate}`, title: approval.theme || '今日の防災4コマ',
       text: approval.text, slotDate: event.slotDate, imagePath: approval.imagePath,
       imageSha256: approval.imageSha256, width: approval.width, height: approval.height,
