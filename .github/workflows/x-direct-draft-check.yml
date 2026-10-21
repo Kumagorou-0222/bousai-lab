@@ -21,4 +21,9 @@ jobs:
           node-version: '24'
       - run: npm ci
       - run: npx tsx scripts/buildXDayCandidates.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: x-day-candidates-draft
+          path: data/x-day-candidates.json
+          retention-days: 1
       - run: node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs tests/cloudflareDirectXCandidateSource.test.mjs
