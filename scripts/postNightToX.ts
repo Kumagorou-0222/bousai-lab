@@ -2,13 +2,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { TwitterApi } from 'twitter-api-v2'
 import { appendHistory, nowJST, type PostRecord, writeHistory } from '../lib/xAutoPost'
-import { jstDate, nightPostingWindow, selectNightPost, uploadNightImage } from '../lib/xNightPost'
+import { jstDate, nightPostingWindow, nightPostingWindowForDate, selectNightPost, uploadNightImage } from '../lib/xNightPost'
 
 const attemptId = process.env.GITHUB_RUN_ID
 const mode = process.argv[2]
 
 function assertWindow(date: string): void {
-  if (!nightPostingWindow() || jstDate() !== date) throw new Error('日本時間20:00〜22:00の夜枠外、または素材日付不一致です')
+  if (!nightPostingWindowForDate(date)) throw new Error('日本時間18:00〜22:00の夜枠外、または素材日付不一致です')
 }
 
 function readNightHistory(): PostRecord[] {
