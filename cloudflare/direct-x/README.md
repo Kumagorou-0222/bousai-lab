@@ -22,7 +22,7 @@
 
 ## 資格情報と本番化の保留
 
-本番Workerには既存のX認証情報4点をCloudflare Worker Secretsへ安全に入力する必要があります。GitHub Secretsから値は取得できず、指定保管元の資格情報ファイルは未確認です。さらに `Kumagorou-0222/bousai-lab` のみを対象にした期限付き `Contents: write` の認証情報をCloudflare Worker Secretsへ保存します。この権限は履歴ファイルだけには限定できません。秘密値はリポジトリやログへ記録しません。
+本番Workerには既存のX認証情報4点をCloudflare Worker Secretsへ安全に入力する必要があります。GitHub Secretsから値は取得できず、指定された単一 `.env` で `X_CONSUMER_KEY`、`X_CONSUMER_SECRET`、`X_ACCESS_TOKEN`、`X_ACCESS_TOKEN_SECRET` の非空存在のみ確認しました。Workerの想定名 `X_API_KEY`、`X_API_SECRET`、`X_ACCESS_TOKEN`、`X_ACCESS_SECRET` に順に対応します。値は読み出し・保存していません。さらに `Kumagorou-0222/bousai-lab` のみを対象にした期限付き `Contents: write` の認証情報をCloudflare Worker Secretsへ保存します。この権限は履歴ファイルだけには限定できません。秘密値はリポジトリやログへ記録しません。
 
 Cloudflare画面でWorkers Freeが有効、支払方法未登録と確認しました。無料枠のCPU上限で実際に動くかdry-runの性能試験後に判断し、有料化が必要なら停止します。実投稿をテストとして行いません。
 
