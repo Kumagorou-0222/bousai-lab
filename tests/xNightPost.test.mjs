@@ -27,9 +27,9 @@ test('夜枠はJST18:00以上22:00未満だけ許可し、翌朝に持ち越さ�
 
 test('workflowの初回18:00、再試行、最終21:55はすべて夜枠内', () => {
   const workflow = fs.readFileSync(fileURLToPath(new URL('../.github/workflows/x-auto-post.yml', import.meta.url)), 'utf8')
-  assert.match(workflow, /cron: "\\*\\/15 9-12 \\* \\* \\*"/)
-  assert.match(workflow, /cron: "55 12 \\* \\* \\*"/)
-  assert.match(workflow, /\\$SCHEDULE" = "\\*\\/15 9-12 \\* \\* \\*"/)
+  assert.ok(workflow.includes('cron: "*/15 9-12 * * *"'))
+  assert.ok(workflow.includes('cron: "55 12 * * *"'))
+  assert.ok(workflow.includes('"$SCHEDULE" = "*/15 9-12 * * *"'))
   const planned = []
   for (let utcHour = 9; utcHour <= 12; utcHour++) {
     for (let minute = 0; minute < 60; minute += 15) planned.push(new Date(Date.UTC(2026, 9, 13, utcHour, minute)))
