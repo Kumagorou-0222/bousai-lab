@@ -26,4 +26,4 @@ jobs:
           name: x-day-candidates-draft
           path: data/x-day-candidates.json
           retention-days: 1
-      - run: node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs tests/cloudflareDirectXCandidateSource.test.mjs
+      - run: node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs tests/cloudflareDirectXCandidateSource.test.mjs tests/cloudflareDirectXOAuth.test.mjs tests/cloudflareDirectXApi.test.mjs
