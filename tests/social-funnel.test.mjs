@@ -51,6 +51,10 @@ test('入口の媒体・キャンペーン・内容だけを検証して保持�
   })
   assert.equal(readSocialAttribution('?utm_source=external&utm_campaign=article'), null)
   assert.equal(readSocialAttribution('?utm_source=x&utm_campaign=bad%20value'), null)
+  assert.equal(readSocialAttribution('?utm_source=x&utm_campaign=private-name'), null)
+  assert.equal(readSocialAttribution('?utm_source=x&utm_campaign=article&utm_content=user-id'), null)
+  assert.equal(readSocialAttribution('?utm_source=x&utm_campaign=article&utm_medium=email'), null)
+  assert.throws(() => campaignUrl('typhoon-prep-goods', 'x', 'private-name'), /キャンペーンIDが不正/)
 })
 
 test('Instagram入口は全記事を掲載し古い投稿からも到達できる', () => {

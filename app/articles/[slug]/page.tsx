@@ -12,6 +12,7 @@ import ProductCard from '@/components/ProductCard'
 import CtaButton from '@/components/CtaButton'
 import ShareButton from '@/components/ShareButton'
 import AdSense from '@/components/AdSense'
+import AffiliateDisclosure from '@/components/AffiliateDisclosure'
 import Dialogue from '@/components/Dialogue'
 import MangaDialogue from '@/components/MangaDialogue'
 import MangaSection from '@/components/MangaSection'
@@ -179,6 +180,7 @@ export default async function ArticlePage({ params }: Props) {
           { label: cat.label, href: `/category/${article.category}` },
           { label: article.title },
         ]} />
+        <AffiliateDisclosure />
 
         {/* ① 記事ヘッダー */}
         <div style={{

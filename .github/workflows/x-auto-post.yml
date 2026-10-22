@@ -4,9 +4,8 @@ on:
   schedule:
     - cron: "0 22 * * *"   # 朝 07:00 JST  (UTC 22:00 前日)
     - cron: "0 3 * * *"    # 昼 12:00 JST  (UTC 03:00)
-    - cron: "0 11 * * *"   # 夜 20:00 JST  (UTC 11:00)
-    - cron: "35 11 * * *"  # 夜の再試行 20:35 JST  (UTC 11:35)
-    - cron: "35 12 * * *"  # 夜の再試行 21:35 JST  (UTC 12:35)
+    - cron: "*/15 9-12 * * *" # 夜 18:00 JST 開始、21:45 JST まで15分ごとに再試行
+    - cron: "55 12 * * *"    # 夜の最終再試行 21:55 JST
   workflow_dispatch:
     inputs:
       slot:
@@ -57,7 +56,7 @@ jobs:
 
           if   [ "$SCHEDULE" = "0 22 * * *" ]; then echo "slot=morning" >> "$GITHUB_OUTPUT"
           elif [ "$SCHEDULE" = "0 3 * * *"  ]; then echo "slot=noon"    >> "$GITHUB_OUTPUT"
-          elif [ "$SCHEDULE" = "0 11 * * *" ] || [ "$SCHEDULE" = "35 11 * * *" ] || [ "$SCHEDULE" = "35 12 * * *" ]; then echo "slot=night" >> "$GITHUB_OUTPUT"
+          elif [ "$SCHEDULE" = "*/15 9-12 * * *" ] || [ "$SCHEDULE" = "55 12 * * *" ]; then echo "slot=night" >> "$GITHUB_OUTPUT"
           elif [ -n "$MANUAL" ];               then echo "slot=$MANUAL"  >> "$GITHUB_OUTPUT"
           else                                      echo "slot=morning"  >> "$GITHUB_OUTPUT"
           fi

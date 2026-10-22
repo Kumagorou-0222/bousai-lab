@@ -23,6 +23,7 @@ export default function AdSense({ slot, format = 'auto', style }: Props) {
 
   return (
     <div style={{ textAlign: 'center', margin: '28px 0', ...style }}>
+      <p style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>広告</p>
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
