@@ -1,4 +1,5 @@
-import { campaignUrl } from './socialCampaign.ts'
+import { createHash } from 'node:crypto'
+import { inMetaWindow, jstDate } from './metaApprovedPosts.ts'
 import { GithubSocialPostLedger, type SocialPostLedger, type SocialPostKey, type SocialPostRecord } from './socialPostLedger.ts'
 
 type MetaChannel = 'threads' | 'instagram'
@@ -7,6 +8,11 @@ type PublishInput = {
   slug: string
   text: string
   imageUrl?: string
+  imageSha256?: string
+  accountId: string
+  classification: 'noncommercial-education' | 'commercial'
+  dateJst: string
+  expiresAt: string
   approved: boolean
   campaign: string
 }
@@ -111,14 +117,14 @@ export async function waitForContainerReady(
     const status = await checkStatus(channel, containerId, token, graphVersion)
     if (status === 'FINISHED') return
     if (status !== 'IN_PROGRESS') throw new Error(`Metaコンテナは公開可能な状態ではありません (${status})。再送は禁止です`)
-    if (attempt < 5) await wait(1000)
+    if (attempt < 5) await wait(60000)
   }
   throw new Error('Metaコンテナの準備が制限時間内に完了しませんでした。再送は禁止です')
 }
 
 export async function publishMetaPost(
   input: PublishInput,
-  options: { ledger?: SocialPostLedger; transport?: MetaPostTransport; checkStatus?: MetaStatusTransport; checkConnection?: (channel: MetaChannel) => Promise<boolean>; wait?: (ms: number) => Promise<void> } = {},
+  options: { ledger?: SocialPostLedger; transport?: MetaPostTransport; checkStatus?: MetaStatusTransport; checkConnection?: (channel: MetaChannel) => Promise<boolean>; wait?: (ms: number) => Promise<void>; now?: () => Date; fetchImage?: typeof fetch } = {},
 ): Promise<string> {
   if (process.env.META_DRY_RUN !== 'false') throw new Error('Meta投稿はドライランです')
   if (process.env.SOCIAL_PUBLISH_ENABLED !== 'true') throw new Error('Meta投稿は無効です')
@@ -131,15 +137,22 @@ export async function publishMetaPost(
     throw new Error('Metaトークンの期限が未設定または7日以内です。更新を確認するまで投稿しません')
   }
   if (!input.approved) throw new Error('投稿内容と画像の承認が必要です')
-  if (!input.text.includes(campaignUrl(input.slug, input.channel, input.campaign)) && input.channel === 'threads') {
-    throw new Error('記事への計測リンクがありません')
+  if (input.classification !== 'noncommercial-education' || /https?:\/\/|(?:amazon|a8\.net|affiliate)/i.test(input.text)) {
+    throw new Error('Metaの商業投稿は広告ラベル対応まで禁止です')
   }
+  const now = options.now ?? (() => new Date())
+  const withinWindow = () => {
+    const current = now()
+    return inMetaWindow(current) && jstDate(current) === input.dateJst && current.getTime() < Date.parse(input.expiresAt)
+  }
+  if (!withinWindow()) throw new Error('Metaの当日18時以上22時未満の枠外です')
   let validInstagramImage = false
-  try { validInstagramImage = Boolean(input.imageUrl && new URL(input.imageUrl).origin === 'https://bousai-lab.vercel.app') } catch { /* URL不正 */ }
+  try { validInstagramImage = Boolean(input.imageUrl && new URL(input.imageUrl).origin === 'https://bousai-lab.vercel.app' && /\.jpe?g$/i.test(new URL(input.imageUrl).pathname)) } catch { /* URL不正 */ }
   if (input.channel === 'instagram' && !validInstagramImage) {
     throw new Error('Instagram画像の公開URLが不正です')
   }
   const { accountId, token } = credentials(input.channel)
+  if (accountId !== input.accountId) throw new Error('承認アカウントIDが接続先と一致しません')
   const graphVersion = process.env.META_GRAPH_VERSION
   if (input.channel === 'instagram' && (!graphVersion || !/^v\d+\.\d+$/.test(graphVersion))) {
     throw new Error('Instagram Graph APIの確認済みバージョンが未設定です')
@@ -147,18 +160,38 @@ export async function publishMetaPost(
   const base = input.channel === 'threads' ? 'https://graph.threads.net/v1.0' : `https://graph.instagram.com/${graphVersion}`
   const ledger = options.ledger ?? new GithubSocialPostLedger()
   const transport = options.transport ?? postForm
-  const key = { channel: input.channel, slug: input.slug, campaign: input.campaign }
+  const key = { channel: input.channel, accountId, dateJst: input.dateJst, slug: input.slug, campaign: input.campaign }
   // 送信直前にトークンの所有者を照合し、別アカウントへの投稿を防ぐ。
   if (!await (options.checkConnection ?? checkMetaConnection)(input.channel)) {
     throw new Error('Meta認証のアカウントIDが一致しません')
   }
+  if (input.imageUrl) {
+    const image = new URL(input.imageUrl)
+    if (image.origin !== 'https://bousai-lab.vercel.app' || !/\.jpe?g$/i.test(image.pathname) ||
+        image.search || image.hash || !/^[a-f0-9]{64}$/.test(input.imageSha256 ?? '')) {
+      throw new Error('承認JPEG画像のURLまたはハッシュが不正です')
+    }
+    const response = await (options.fetchImage ?? fetch)(image, { cache: 'no-store', signal: AbortSignal.timeout(10000) })
+    if (!response.ok || !response.headers.get('content-type')?.toLowerCase().startsWith('image/jpeg')) {
+      throw new Error('公開画像のJPEG形式を確認できません')
+    }
+    const bytes = Buffer.from(await response.arrayBuffer())
+    if (bytes.length === 0 || bytes.length > 8 * 1024 * 1024 || bytes[0] !== 0xff || bytes[1] !== 0xd8 ||
+        createHash('sha256').update(bytes).digest('hex') !== input.imageSha256) {
+      throw new Error('承認JPEG画像の内容が一致しません')
+    }
+  }
+  if (!withinWindow()) throw new Error('Metaの投稿枠が終了しました')
   await ledger.reserve(key)
   const media: Record<string, string> = input.channel === 'threads'
-    ? { media_type: 'TEXT', text: input.text }
+    ? input.imageUrl
+      ? { media_type: 'IMAGE', image_url: input.imageUrl, text: input.text }
+      : { media_type: 'TEXT', text: input.text }
     : { image_url: input.imageUrl!, caption: input.text }
   const creationId = await transport(`${base}/${accountId}/${input.channel === 'threads' ? 'threads' : 'media'}`, media, token)
   await ledger.markContainer(key, creationId)
   await waitForContainerReady(input.channel, creationId, token, graphVersion ?? '', options.checkStatus, options.wait)
+  if (!withinWindow()) throw new Error('Metaの投稿枠が終了しました。予約は維持します')
   const postId = await transport(`${base}/${accountId}/${input.channel === 'threads' ? 'threads_publish' : 'media_publish'}`, { creation_id: creationId }, token)
   try {
     await ledger.markPublished(key, postId)

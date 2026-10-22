@@ -19,7 +19,9 @@ export async function runApprovedMetaPosts(
     if (flag !== 'true') continue
     await publish({
       channel: post.channel, slug: post.slug, campaign: post.campaign,
-      text: post.text, imageUrl: post.imageUrl, approved: true,
+      text: post.text, imageUrl: post.imageUrl, imageSha256: post.imageSha256,
+      accountId: post.accountId, classification: post.classification,
+      dateJst: post.dateJst, expiresAt: post.expiresAt, approved: true,
     })
     sentCount++
   }

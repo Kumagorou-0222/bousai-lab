@@ -1,4 +1,4 @@
-export type SocialPostKey = { channel: 'threads' | 'instagram'; slug: string; campaign: string }
+export type SocialPostKey = { channel: 'threads' | 'instagram'; accountId: string; dateJst: string; slug: string; campaign: string }
 
 export type SocialPostRecord = SocialPostKey & {
   status: 'reserved' | 'container_ready' | 'published'
@@ -15,10 +15,11 @@ export interface SocialPostLedger {
 }
 
 export function ledgerPath(key: SocialPostKey) {
-  if (!/^[a-z0-9-]+$/.test(key.slug) || !/^[a-z0-9-]+$/.test(key.campaign)) {
+  if (!/^[a-z0-9-]+$/.test(key.slug) || !/^[a-z0-9-]+$/.test(key.campaign) ||
+      !/^\d+$/.test(key.accountId) || !/^\d{4}-\d{2}-\d{2}$/.test(key.dateJst)) {
     throw new Error('投稿台帳のキーが不正です')
   }
-  return `.social-post-ledger/${key.channel}/${key.slug}/${key.campaign}.json`
+  return `.social-post-ledger/${key.channel}/${key.accountId}/${key.dateJst}.json`
 }
 
 type GithubFile = { sha: string; content: string; encoding: string }
@@ -80,7 +81,8 @@ export class GithubSocialPostLedger implements SocialPostLedger {
     const file = await response.json() as GithubFile
     if (file.encoding !== 'base64' || !file.sha) throw new Error('投稿台帳の予約形式が不正です。再送は禁止です')
     const record = JSON.parse(Buffer.from(file.content.replace(/\s/g, ''), 'base64').toString('utf8')) as SocialPostRecord
-    if (record.channel !== key.channel || record.slug !== key.slug || record.campaign !== key.campaign) {
+    if (record.channel !== key.channel || record.accountId !== key.accountId ||
+        record.dateJst !== key.dateJst || record.slug !== key.slug || record.campaign !== key.campaign) {
       throw new Error('投稿台帳の予約が一致しません。再送は禁止です')
     }
     return { record, sha: file.sha }

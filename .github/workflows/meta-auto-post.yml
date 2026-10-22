@@ -1,8 +1,6 @@
 name: Meta承認済み投稿
 
 on:
-  schedule:
-    - cron: "15 11 * * *"  # 20:15 JST。承認台帳が空、または設定が無効なら送信しない
   workflow_dispatch:
 
 permissions:

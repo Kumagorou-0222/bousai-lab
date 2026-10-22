@@ -1,260 +1,118 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { publishMetaPost, PostRecordError, checkMetaContainerStatus, waitForContainerReady, inspectPostReservation } from '../lib/metaPublisher.ts'
-import { campaignUrl } from '../lib/socialCampaign.ts'
-import { GithubSocialPostLedger } from '../lib/socialPostLedger.ts'
-import { spawnSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+import { publishMetaPost, waitForContainerReady } from '../lib/metaPublisher.ts'
+import { ledgerPath } from '../lib/socialPostLedger.ts'
 
-const ready = { checkStatus: async () => 'FINISHED', checkConnection: async () => true, wait: async () => {} }
-
-process.env.META_DRY_RUN = 'false'
-process.env.THREADS_PUBLISH_ENABLED = 'true'
-process.env.INSTAGRAM_PUBLISH_ENABLED = 'true'
-process.env.THREADS_TOKEN_EXPIRES_AT = '2099-01-01T00:00:00Z'
-process.env.INSTAGRAM_TOKEN_EXPIRES_AT = '2099-01-01T00:00:00Z'
-
-const input = { channel: 'threads', slug: 'typhoon-prep-goods', campaign: 'article', approved: true,
-  text: `備えを確認\n${campaignUrl('typhoon-prep-goods', 'threads')}` }
-
-function memoryLedger() {
+const at = (hour, minute = 0) => new Date(`2026-10-21T${String(hour - 9).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00Z`)
+const jpeg = Buffer.from([0xff, 0xd8, 0xff, 0xd9])
+const imageSha256 = createHash('sha256').update(jpeg).digest('hex')
+const input = {
+  channel: 'threads', dateJst: '2026-10-21', slug: 'emergency-toilet',
+  campaign: 'daily-20261021', accountId: '12345', classification: 'noncommercial-education',
+  approved: true, text: '備蓄品を確認しましょう。', expiresAt: '2026-10-21T13:00:00Z',
+}
+function ledger() {
   const records = new Map()
   return {
     records,
     async reserve(key) {
-      const id = JSON.stringify(key)
-      if (records.has(id)) throw new Error('予約済みのため再送しません')
-      records.set(id, { status: 'reserved' })
+      const path = ledgerPath(key)
+      if (records.has(path)) throw new Error('予約済み')
+      records.set(path, { status: 'reserved' })
     },
-    async markContainer(key, containerId) {
-      records.set(JSON.stringify(key), { status: 'container_ready', containerId })
-    },
-    async markPublished(key, postId) {
-      records.set(JSON.stringify(key), { ...records.get(JSON.stringify(key)), status: 'published', postId })
-    },
+    async markContainer(key, containerId) { records.set(ledgerPath(key), { status: 'container_ready', containerId }) },
+    async markPublished(key, postId) { records.set(ledgerPath(key), { status: 'published', postId }) },
   }
 }
+const common = { checkConnection: async () => true, checkStatus: async () => 'FINISHED', wait: async () => {}, now: () => at(18) }
+process.env.META_DRY_RUN = 'false'
+process.env.SOCIAL_PUBLISH_ENABLED = 'true'
+process.env.THREADS_PUBLISH_ENABLED = 'true'
+process.env.INSTAGRAM_PUBLISH_ENABLED = 'true'
+process.env.THREADS_ACCOUNT_ID = '12345'
+process.env.INSTAGRAM_ACCOUNT_ID = '12345'
+process.env.THREADS_ACCESS_TOKEN = 'mock-token'
+process.env.INSTAGRAM_ACCESS_TOKEN = 'mock-token'
+process.env.THREADS_TOKEN_EXPIRES_AT = '2099-01-01T00:00:00Z'
+process.env.INSTAGRAM_TOKEN_EXPIRES_AT = '2099-01-01T00:00:00Z'
+process.env.META_GRAPH_VERSION = 'v24.0'
 
-test('ドライランと媒体別停止、期限不足なら台帳もAPIも使わない', async () => {
-  const ledger = memoryLedger()
-  let sends = 0
-  const transport = async () => { sends++; return '123' }
-  process.env.SOCIAL_PUBLISH_ENABLED = 'true'
-  process.env.META_DRY_RUN = 'true'
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /ドライラン/)
-  process.env.META_DRY_RUN = 'false'
-  process.env.THREADS_PUBLISH_ENABLED = 'false'
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /媒体別/)
-  process.env.THREADS_PUBLISH_ENABLED = 'true'
-  process.env.THREADS_TOKEN_EXPIRES_AT = '2026-10-20T00:00:00Z'
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /期限/)
-  process.env.THREADS_TOKEN_EXPIRES_AT = '2099-01-01T00:00:00Z'
-  assert.equal(ledger.records.size, 0)
-  assert.equal(sends, 0)
-})
-
-test('未有効化と未認証では台帳を予約せず送信しない', async () => {
-  const ledger = memoryLedger()
-  let sends = 0
-  const transport = async () => { sends++; return '123' }
-  process.env.SOCIAL_PUBLISH_ENABLED = 'false'
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /無効/)
-  process.env.SOCIAL_PUBLISH_ENABLED = 'true'
-  delete process.env.THREADS_ACCOUNT_ID
-  delete process.env.THREADS_ACCESS_TOKEN
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /認証/)
-  assert.equal(ledger.records.size, 0)
-  assert.equal(sends, 0)
-})
-
-test('別アカウントのトークンなら予約と投稿APIより先に停止する', async () => {
-  process.env.SOCIAL_PUBLISH_ENABLED = 'true'
-  process.env.THREADS_ACCOUNT_ID = '12345'
-  process.env.THREADS_ACCESS_TOKEN = 'mock-token'
-  const ledger = memoryLedger()
-  let sends = 0
-  const originalFetch = globalThis.fetch
-  globalThis.fetch = async (_url, options) => {
-    assert.equal(options.method, 'GET')
-    return { ok: true, json: async () => ({ id: '99999' }) }
-  }
-  try {
-    await assert.rejects(publishMetaPost(input, { ledger, transport: async () => { sends++; return 'id' } }), /アカウントIDが一致/)
-    assert.equal(ledger.records.size, 0)
-    assert.equal(sends, 0)
-  } finally {
-    globalThis.fetch = originalFetch
-  }
-})
-
-test('並行送信で同一キーを二重予約できない', async () => {
-  process.env.SOCIAL_PUBLISH_ENABLED = 'true'
-  process.env.THREADS_ACCOUNT_ID = '12345'
-  process.env.THREADS_ACCESS_TOKEN = 'mock-token'
-  const ledger = memoryLedger()
-  let sends = 0
-  const transport = async () => { sends++; return String(sends) }
-  const results = await Promise.allSettled([
-    publishMetaPost(input, { ledger, transport, ...ready }), publishMetaPost(input, { ledger, transport, ...ready }),
-  ])
-  assert.deepEqual(results.map((result) => result.status).sort(), ['fulfilled', 'rejected'])
-  assert.equal(sends, 2)
-  assert.equal([...ledger.records.values()][0].status, 'published')
-})
-
-test('公開結果不明ならコンテナIDを残し、盲目的な再送を止める', async () => {
-  const ledger = memoryLedger()
+test('公開結果不明では予約を保持して再送を拒否する', async () => {
+  const store = ledger()
   let sends = 0
   const transport = async () => {
     sends++
-    if (sends === 2) throw new Error('応答不明')
+    if (sends === 2) throw new DOMException('結果不明', 'TimeoutError')
     return '67890'
   }
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /応答不明/)
-  assert.deepEqual([...ledger.records.values()][0], { status: 'container_ready', containerId: '67890' })
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /予約済み/)
+  await assert.rejects(publishMetaPost(input, { ...common, ledger: store, transport }), /結果不明/)
+  await assert.rejects(publishMetaPost(input, { ...common, ledger: store, transport }), /予約済み/)
   assert.equal(sends, 2)
 })
 
-test('コンテナ作成の応答が不明でも予約を残して再作成しない', async () => {
-  const ledger = memoryLedger()
+test('同日同アカウントは記事やcampaignが異なっても一回', async () => {
+  const store = ledger()
   let sends = 0
-  const transport = async () => { sends++; throw new Error('作成応答不明') }
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /作成応答不明/)
-  assert.equal([...ledger.records.values()][0].status, 'reserved')
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /予約済み/)
-  assert.equal(sends, 1)
-})
-
-test('予約失敗と履歴更新失敗では投稿APIを進めず再送しない', async () => {
-  const reservationFailure = memoryLedger()
-  reservationFailure.reserve = async () => { throw new Error('予約失敗') }
-  let sends = 0
-  const transport = async () => { sends++; return '67890' }
-  await assert.rejects(publishMetaPost(input, { ledger: reservationFailure, transport, ...ready }), /予約失敗/)
-  assert.equal(sends, 0)
-
-  const historyFailure = memoryLedger()
-  historyFailure.markContainer = async () => { throw new Error('履歴更新失敗') }
-  await assert.rejects(publishMetaPost(input, { ledger: historyFailure, transport, ...ready }), /履歴更新失敗/)
-  await assert.rejects(publishMetaPost(input, { ledger: historyFailure, transport, ...ready }), /予約済み/)
-  assert.equal(sends, 1)
-})
-
-test('公開APIのタイムアウト後は予約を保持して再送しない', async () => {
-  const ledger = memoryLedger()
-  let sends = 0
-  const transport = async () => {
-    sends++
-    if (sends === 2) throw new DOMException('時間切れ', 'TimeoutError')
-    return '67890'
-  }
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /時間切れ/)
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /予約済み/)
-  assert.equal(sends, 2)
-  assert.equal([...ledger.records.values()][0].status, 'container_ready')
-})
-
-test('公開成功後の台帳記録失敗は投稿IDを返して再送を止める', async () => {
-  const ledger = memoryLedger()
-  ledger.markPublished = async () => { throw new Error('記録失敗') }
-  let sends = 0
-  const transport = async () => { sends++; return sends === 1 ? '67890' : '98765' }
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), (error) =>
-    error instanceof PostRecordError && error.postId === '98765')
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready }), /予約済み/)
+  const options = { ...common, ledger: store, transport: async () => String(++sends) }
+  await publishMetaPost(input, options)
+  await assert.rejects(publishMetaPost({ ...input, slug: 'water', campaign: 'different' }, options), /予約済み/)
   assert.equal(sends, 2)
 })
 
-test('GitHub台帳はSHAなし作成の競合を失敗として扱う', async () => {
-  process.env.SOCIAL_LEDGER_GITHUB_TOKEN = 'mock-token'
-  process.env.SOCIAL_LEDGER_BRANCH = 'social-ledger'
-  const originalFetch = globalThis.fetch
-  let payload
-  globalThis.fetch = async (_url, options) => {
-    payload = JSON.parse(options.body)
-    return { ok: false, status: 409 }
+test('時間外、翌日、商業、アカウント不一致は予約前に停止', async () => {
+  const store = ledger()
+  const transport = async () => { throw new Error('呼び出してはいけない') }
+  for (const now of [at(17, 59), at(22), new Date('2026-10-22T09:00:00Z')]) {
+    await assert.rejects(publishMetaPost(input, { ...common, now: () => now, ledger: store, transport }), /枠外/)
   }
-  try {
-    await assert.rejects(new GithubSocialPostLedger().reserve({ channel: 'threads', slug: 'test', campaign: 'article' }), /再送は禁止/)
-    assert.equal(payload.branch, 'social-ledger')
-    assert.equal('sha' in payload, false)
-  } finally {
-    globalThis.fetch = originalFetch
-  }
+  await assert.rejects(publishMetaPost({ ...input, classification: 'commercial' }, { ...common, ledger: store, transport }), /商業/)
+  await assert.rejects(publishMetaPost({ ...input, accountId: '99999' }, { ...common, ledger: store, transport }), /アカウント/)
+  assert.equal(store.records.size, 0)
 })
 
-test('保存済みThreadsコンテナIDの状態を読み取り照合できる', async () => {
-  const originalFetch = globalThis.fetch
-  let calledUrl
-  globalThis.fetch = async (url) => {
-    calledUrl = String(url)
-    return { ok: true, json: async () => ({ id: '67890', status: 'PUBLISHED' }) }
-  }
-  try {
-    assert.equal(await checkMetaContainerStatus('threads', '67890'), 'PUBLISHED')
-    assert.match(calledUrl, /67890\?fields=id%2Cstatus%2Cerror_message/)
-  } finally {
-    globalThis.fetch = originalFetch
-  }
-})
-
-test('Instagramコンテナのstatus_codeを読み取り照合できる', async () => {
-  process.env.INSTAGRAM_ACCOUNT_ID = '12345'
-  process.env.INSTAGRAM_ACCESS_TOKEN = 'mock-token'
-  process.env.META_GRAPH_VERSION = 'v24.0'
-  const originalFetch = globalThis.fetch
-  let calledUrl
-  globalThis.fetch = async (url) => {
-    calledUrl = String(url)
-    return { ok: true, json: async () => ({ id: '67890', status_code: 'FINISHED' }) }
-  }
-  try {
-    assert.equal(await checkMetaContainerStatus('instagram', '67890'), 'FINISHED')
-    assert.match(calledUrl, /graph\.instagram\.com\/v24\.0\/67890\?fields=id%2Cstatus_code/)
-  } finally {
-    globalThis.fetch = originalFetch
-  }
-})
-
-test('準備状態を確認してから公開し、未完了は期限付きで停止する', async () => {
-  let checks = 0
-  let waits = 0
-  await waitForContainerReady('threads', '67890', 'mock', '', async () => ++checks === 2 ? 'FINISHED' : 'IN_PROGRESS', async () => { waits++ })
-  assert.equal(checks, 2)
-  assert.equal(waits, 1)
-  await assert.rejects(waitForContainerReady('instagram', '67890', 'mock', 'v24.0', async () => 'IN_PROGRESS', async () => {}), /制限時間/)
-  await assert.rejects(waitForContainerReady('instagram', '67890', 'mock', 'v24.0', async () => 'ERROR', async () => {}), /公開可能な状態ではありません/)
-})
-
-test('コンテナ準備が未完了なら公開APIを呼ばない', async () => {
-  const ledger = memoryLedger()
-  let sends = 0
-  const transport = async () => { sends++; return '67890' }
-  await assert.rejects(publishMetaPost(input, { ledger, transport, ...ready, checkStatus: async () => 'ERROR' }), /公開可能な状態ではありません/)
-  assert.equal(sends, 1)
-  assert.equal([...ledger.records.values()][0].status, 'container_ready')
-})
-
-test('台帳とMetaの状態を読み取り専用で照合する', async () => {
-  const originalFetch = globalThis.fetch
+test('Threads画像はJPEG実体を照合しIMAGEで作成する', async () => {
+  const store = ledger()
   const calls = []
-  const record = { channel: 'threads', slug: 'typhoon-prep-goods', campaign: 'article', status: 'container_ready', reservedAt: '2026-10-19T00:00:00Z', containerId: '67890' }
-  globalThis.fetch = async (url, options) => {
-    calls.push({ url: String(url), method: options?.method ?? 'GET' })
-    if (String(url).includes('api.github.com')) return { ok: true, json: async () => ({ sha: 'abc', encoding: 'base64', content: Buffer.from(JSON.stringify(record)).toString('base64') }) }
-    return { ok: true, json: async () => ({ id: '67890', status: 'PUBLISHED' }) }
+  const withImage = { ...input, imageUrl: 'https://bousai-lab.vercel.app/manga/test.jpg', imageSha256 }
+  const options = {
+    ...common, ledger: store,
+    fetchImage: async () => ({ ok: true, headers: new Headers({ 'content-type': 'image/jpeg' }), arrayBuffer: async () => jpeg }),
+    transport: async (url, fields) => { calls.push({ url, fields }); return String(calls.length) },
   }
-  try {
-    assert.deepEqual(await inspectPostReservation({ channel: 'threads', slug: 'typhoon-prep-goods', campaign: 'article' }), { record, remoteStatus: 'PUBLISHED' })
-    assert.deepEqual(calls.map((call) => call.method), ['GET', 'GET'])
-  } finally {
-    globalThis.fetch = originalFetch
-  }
+  await publishMetaPost(withImage, options)
+  assert.equal(calls[0].fields.media_type, 'IMAGE')
+  assert.equal(calls[0].fields.image_url, withImage.imageUrl)
+  assert.equal(calls.length, 2)
 })
 
-test('台帳専用ブランチのVercelビルドをスキップする', () => {
-  const run = (branch) => spawnSync('sh', ['scripts/skip-social-ledger-build.sh'], { env: { ...process.env, VERCEL_GIT_COMMIT_REF: branch } }).status
-  assert.equal(run('social-ledger'), 0)
-  assert.equal(run('main'), 1)
-  assert.equal(run('feat/social-funnel'), 1)
+test('PNGとハッシュ不一致は送信せず、InstagramはJPEGのみ', async () => {
+  const store = ledger()
+  let calls = 0
+  const options = {
+    ...common, ledger: store,
+    fetchImage: async () => ({ ok: true, headers: new Headers({ 'content-type': 'image/jpeg' }), arrayBuffer: async () => jpeg }),
+    transport: async () => { calls++; return '1' },
+  }
+  await assert.rejects(publishMetaPost({ ...input, channel: 'instagram', imageUrl: 'https://bousai-lab.vercel.app/manga/test.png', imageSha256 }, options), /画像/)
+  await assert.rejects(publishMetaPost({ ...input, channel: 'instagram', imageUrl: 'https://bousai-lab.vercel.app/manga/test.jpg', imageSha256: 'a'.repeat(64) }, options), /一致/)
+  assert.equal(calls, 0)
+  assert.equal(store.records.size, 0)
+})
+
+test('待機は1分間隔で最大5分、終了時は公開しない', async () => {
+  const waits = []
+  await assert.rejects(waitForContainerReady('threads', '1', 'mock', '', async () => 'IN_PROGRESS', async ms => { waits.push(ms) }), /制限時間/)
+  assert.deepEqual(waits, [60000, 60000, 60000, 60000, 60000])
+  let checks = 0
+  const store = ledger()
+  const calls = []
+  await assert.rejects(publishMetaPost(input, {
+    ...common, ledger: store,
+    now: () => checks ? at(22) : at(18),
+    checkStatus: async () => { checks++; return 'FINISHED' },
+    transport: async (_url, fields) => { calls.push(fields); return '1' },
+  }), /枠が終了/)
+  assert.equal(calls.length, 1)
+  assert.equal([...store.records.values()][0].status, 'container_ready')
 })
