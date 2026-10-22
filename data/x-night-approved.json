@@ -59,5 +59,24 @@
       "https://www.bousai.metro.tokyo.lg.jp/content/kb2023/pageindices/index43.html",
       "https://www.shouhiseikatu.metro.tokyo.lg.jp/kurashi/1903_04/wadai.html"
     ]
+  },
+  {
+    "imageId": "libfile_f1d317a1fc6c819184deb3e4b7f2d6be:v0",
+    "libraryFileId": "libfile_f1d317a1fc6c819184deb3e4b7f2d6be",
+    "slotDate": "2026-10-22",
+    "theme": "家具で出口をふさがない",
+    "text": "床を片づけるだけでなく、家具が倒れた先も確認。\n平時に、出入口をふさがない配置へ見直し、家具に合う器具で固定。引き出しが飛び出す向きも確認しましょう。\n揺れている間は、まず身を守る。\nhttps://www.bousai.metro.tokyo.lg.jp/bousai/1000027/1005737.html\n#防災 #地震への備え",
+    "imagePath": "/manga/daily/2026-10-22.png",
+    "imageSha256": "11b7445675db9549bb20d8da03790bc808e3355a1bfbd2aeeeb3890ba669c826",
+    "width": 1086,
+    "height": 1448,
+    "reviewedAt": "2026-10-22",
+    "reviewTimestamp": "2026-10-22T08:33:19+09:00",
+    "reviewer": "バトラー（制作担当と親の目視レビュー）",
+    "altText": "防災4コマ「家具で出口をふさがない」。副題は「平時に、置き場所から見直そう」。黄色い緑十字のヘルメットと反射ベストを着たオレンジ色のリス、白と青のロボットQが登場。左上から右上、左下、右下の順。\n1：床が片づいた部屋。出入口の近くに背の高い引き出し家具がある。リスが「床は片づけたよ！」、Qが「家具が倒れたら？」と問いかける。\n2：Qが「もしもの例」と書かれた説明ボードを指す。倒れた家具がドアをふさぐ図と赤いバツ印。「倒れた家具でドアが開かないことも」。実際の地震発生場面ではない。\n3：家具を出入口から離れた壁際へ配置し、開いたドアまでの通路を確保した部屋。「出入口を避けて配置。固定も忘れずに」「家具に合う器具を、正しく設置」。\n4：二人が開いたドアと通路を確認。「出口まで通れる配置にしよう！」。小さな図で引き出しが飛び出す方向を示し、「引き出しの向きも確認」。\n下部に「備えの一般解説｜揺れている間は、まず身を守る」。",
+    "sourceUrls": [
+      "https://www.bousai.metro.tokyo.lg.jp/bousai/1000027/1005737.html",
+      "https://www.shouhiseikatu.metro.tokyo.lg.jp/anzen/kigaikiken/2026/fixfurniture.html"
+    ]
   }
 ]
