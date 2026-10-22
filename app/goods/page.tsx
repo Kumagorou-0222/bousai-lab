@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import ProductCard from '@/components/ProductCard'
+import AffiliateDisclosure from '@/components/AffiliateDisclosure'
 
 export const metadata: Metadata = {
   title: '防災グッズおすすめ【在宅避難に必要なものリスト】｜防災Lab',
@@ -125,6 +126,7 @@ export default function GoodsPage() {
         { label: 'ホーム', href: '/' },
         { label: '防災グッズおすすめ' },
       ]} />
+      <AffiliateDisclosure />
 
       {/* ヘッダー */}
       <section style={{

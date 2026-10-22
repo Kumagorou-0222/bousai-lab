@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { COMPARE_DATA, amazonUrl, rakutenUrl } from '@/lib/compareData'
-import { affiliateDisclosureText } from '@/lib/affiliateDisclosure'
+import AffiliateDisclosure from '@/components/AffiliateDisclosure'
 
 type Props = { params: Promise<{ product: string }> }
 
@@ -39,6 +39,7 @@ export default async function ComparePage({ params }: Props) {
         <span>›</span>
         <span style={{ color: '#475569' }}>{data.name}の選び方・比較</span>
       </nav>
+      <AffiliateDisclosure />
 
       {/* ヘッダー */}
       <div style={{ marginBottom: 24 }}>
@@ -387,9 +388,6 @@ export default async function ComparePage({ params }: Props) {
         </Link>
       </div>
 
-      <p style={{ fontSize: 11, color: '#94A3B8', textAlign: 'center', lineHeight: 1.8 }}>
-        ※ {affiliateDisclosureText()}
-      </p>
     </main>
   )
 }
