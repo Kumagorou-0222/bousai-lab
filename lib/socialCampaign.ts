@@ -5,7 +5,7 @@ export const SITE_URL = 'https://bousai-lab.vercel.app'
 
 export function campaignUrl(slug: string, channel: SocialChannel, campaign = 'article') {
   if (!/^[a-z0-9-]+$/.test(slug)) throw new Error('記事IDが不正です')
-  if (!/^[a-z0-9-]+$/.test(campaign)) throw new Error('キャンペーンIDが不正です')
+  if (!['article', 'profile'].includes(campaign)) throw new Error('キャンペーンIDが不正です')
   const url = new URL(`/articles/${slug}`, SITE_URL)
   url.searchParams.set('utm_source', channel)
   url.searchParams.set('utm_medium', 'social')
