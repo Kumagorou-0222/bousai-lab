@@ -1,11 +1,24 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
-import { publishMetaPost, waitForContainerReady } from '../lib/metaPublisher.ts'
+import { execFileSync } from 'node:child_process'
+import { createCanvas, loadImage } from 'canvas'
+import { PostRecordError, publishMetaPost, waitForContainerReady } from '../lib/metaPublisher.ts'
 import { ledgerPath } from '../lib/socialPostLedger.ts'
 
 const at = (hour, minute = 0) => new Date(`2026-10-21T${String(hour - 9).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00Z`)
-const jpeg = Buffer.from([0xff, 0xd8, 0xff, 0xd9])
+const comic = await loadImage(execFileSync('git', ['show', 'HEAD:public/manga/blackout-basics/panel-01.png']))
+function makeJpeg(width, height) {
+  const canvas = createCanvas(width, height)
+  const context = canvas.getContext('2d')
+  context.fillStyle = 'white'
+  context.fillRect(0, 0, width, height)
+  const scale = Math.min(width / comic.width, height / comic.height)
+  context.drawImage(comic, (width - comic.width * scale) / 2, (height - comic.height * scale) / 2,
+    comic.width * scale, comic.height * scale)
+  return canvas.toBuffer('image/jpeg')
+}
+const jpeg = makeJpeg(1080, 1350)
 const imageSha256 = createHash('sha256').update(jpeg).digest('hex')
 const input = {
   channel: 'threads', dateJst: '2026-10-21', slug: 'emergency-toilet',
@@ -98,6 +111,37 @@ test('PNGとハッシュ不一致は送信せず、InstagramはJPEGのみ', asyn
   await assert.rejects(publishMetaPost({ ...input, channel: 'instagram', imageUrl: 'https://bousai-lab.vercel.app/manga/test.jpg', imageSha256: 'a'.repeat(64) }, options), /一致/)
   assert.equal(calls, 0)
   assert.equal(store.records.size, 0)
+})
+
+test('実漫画由来JPEGをデコードし、破損・幅・縦横比を予約前に拒否', async () => {
+  const store = ledger()
+  let sends = 0
+  const imageUrl = 'https://bousai-lab.vercel.app/manga/test.jpg'
+  const withBytes = async (bytes, channel = 'instagram') => publishMetaPost({
+    ...input, channel, imageUrl, imageSha256: createHash('sha256').update(bytes).digest('hex'),
+  }, {
+    ...common, ledger: store,
+    fetchImage: async () => ({ ok: true, headers: new Headers({ 'content-type': 'image/jpeg' }), arrayBuffer: async () => bytes }),
+    transport: async () => { sends++; return '1' },
+  })
+  await assert.rejects(withBytes(jpeg.subarray(0, 200)), /JPEG/)
+  await assert.rejects(withBytes(makeJpeg(300, 375)), /寸法/)
+  await assert.rejects(withBytes(makeJpeg(1080, 1800)), /縦横比/)
+  await assert.rejects(withBytes(makeJpeg(1080, 400)), /縦横比/)
+  assert.equal(sends, 0)
+  assert.equal(store.records.size, 0)
+  await withBytes(jpeg)
+  assert.equal(sends, 2)
+})
+
+test('公開後の台帳記録失敗は投稿IDを残し、再送しない', async () => {
+  const store = ledger()
+  store.markPublished = async () => { throw new Error('GitHub update failed') }
+  let sends = 0
+  const options = { ...common, ledger: store, transport: async () => String(++sends) }
+  await assert.rejects(publishMetaPost(input, options), error => error instanceof PostRecordError && error.postId === '2')
+  await assert.rejects(publishMetaPost(input, options), /予約済み/)
+  assert.equal(sends, 2)
 })
 
 test('待機は1分間隔で最大5分、終了時は公開しない', async () => {

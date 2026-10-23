@@ -6,7 +6,7 @@
 
 workflowは手動起動のみで、mainの空の承認台帳（version 2）を読みます。定期起動は接続と広告ラベルを検証するまで設定しません。台帳には媒体、当日のJST日付、記事slug、campaign、本文、対象アカウントID、非商業教育／商業の分類、レビュー担当と日時、承認日時、当日22:00 JSTまでの期限、内容のSHA-256、`approved: true` を記録します。画像を使うときは公開JPEG URLと画像SHA-256も含めます。本文・画像・分類・対象アカウント・期限を変更するとハッシュが一致せず停止します。18:00以上22:00未満の当日分だけ選び、期限切れや翌日への持越しは行いません。
 
-投稿時は `SOCIAL_PUBLISH_ENABLED=true`、`META_DRY_RUN=false` と、対象媒体の `THREADS_PUBLISH_ENABLED=true` または `INSTAGRAM_PUBLISH_ENABLED=true` がすべて必要です。アダプターも同じ条件を再確認します。商業分類または本文に外部URLを含む投稿は、広告ラベルのAPI対応が確認できるまで拒否します。サイト記事への誘導でも商業性が消えるとは扱いません。公開JPEGの実体、Content-Type、ハッシュを送信前に検証します。専用 `social-ledger` ブランチへの予約を送信前に作り、媒体・アカウント・JST日付ごとに二重送信を止めます。コンテナIDを保存し、公開結果が不明なら自動再送しません。Xの投稿台帳とworkflowは独立しています。
+投稿時は `SOCIAL_PUBLISH_ENABLED=true`、`META_DRY_RUN=false` と、対象媒体の `THREADS_PUBLISH_ENABLED=true` または `INSTAGRAM_PUBLISH_ENABLED=true` がすべて必要です。アダプターも同じ条件を再確認します。商業分類または本文に外部URLを含む投稿は、広告ラベルのAPI対応が確認できるまで拒否します。サイト記事への誘導でも商業性が消えるとは扱いません。公開JPEGの実体、Content-Type、ハッシュ、デコード、寸法、縦横比を送信前に検証します。Instagramは幅320〜1440px・縦横比4:5〜1.91:1、Threadsは幅320px以上・縦横比10:1以内、双方8MB以下とします。これはローカルの事前検査であり、Meta側での実画像受理は別途確認が必要です。専用 `social-ledger` ブランチへの予約を送信前に作り、媒体・アカウント・JST日付ごとに二重送信を止めます。コンテナIDを保存し、公開結果が不明なら自動再送しません。Xの投稿台帳とworkflowは独立しています。
 
 有効化後の各送信でも、予約と書き込みAPIより前に対象媒体の `/me` をGETし、トークンのアカウントIDとVariableのIDが一致することを確認します。不一致や読み取り失敗なら送信しません。
 
@@ -26,3 +26,5 @@ workflowは手動起動のみで、mainの空の承認台帳（version 2）を�
 [Threadsの長期トークン](https://developers.facebook.com/documentation/threads/get-started/long-lived-tokens)と[Instagram Loginの長期トークン](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-instagram-login/business-login)は通常60日で、24時間以上経過し失効前なら更新できます。コードは期限変数が欠落・不正、または期限まで7日以内なら投稿を停止します。自動更新は未実装です。運用担当が期限前に公式手順で更新し、GitHub SecretのトークンとVariableの期限を一組で置き換え、GET照合してから投稿を有効にします。失効や権限変更時は再認証が必要です。
 
 Meta APIとGitHub台帳の各通信は10秒で打ち切り、結果が不明な場合は自動再送しません。コンテナ状態は1分間隔で最大5分待ち、公開API直前にも当日18:00以上22:00未満を再確認します。本番送信前には、公開JPEGのMeta側受理、画像寸法などの仕様、専用台帳ブランチ、Instagramのユースケース・権限、各媒体のOAuth結果を別途確認します。商業投稿には媒体の広告ラベル設定を送信時に確実に指定する別実装が必要です。X投稿とFacebook投稿は変更しません。
+
+画像の事前検査基準: [Instagram IG User Media](https://developers.facebook.com/documentation/instagram-platform/instagram-graph-api/reference/ig-user/media)、[Threads API overview](https://developers.facebook.com/documentation/threads/overview)。

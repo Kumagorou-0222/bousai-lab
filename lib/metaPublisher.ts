@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import { loadImage } from 'canvas'
 import { inMetaWindow, jstDate } from './metaApprovedPosts.ts'
 import { GithubSocialPostLedger, type SocialPostLedger, type SocialPostKey, type SocialPostRecord } from './socialPostLedger.ts'
 
@@ -177,8 +178,25 @@ export async function publishMetaPost(
     }
     const bytes = Buffer.from(await response.arrayBuffer())
     if (bytes.length === 0 || bytes.length > 8 * 1024 * 1024 || bytes[0] !== 0xff || bytes[1] !== 0xd8 ||
+        bytes.at(-2) !== 0xff || bytes.at(-1) !== 0xd9 ||
         createHash('sha256').update(bytes).digest('hex') !== input.imageSha256) {
       throw new Error('承認JPEG画像の内容が一致しません')
+    }
+    let width: number
+    let height: number
+    try {
+      const decoded = await loadImage(bytes)
+      width = decoded.width
+      height = decoded.height
+    } catch {
+      throw new Error('承認JPEG画像をデコードできません')
+    }
+    const ratio = width / height
+    if (!Number.isFinite(ratio) || width < 320 || height < 1 ||
+        (input.channel === 'instagram'
+          ? width > 1440 || ratio < 4 / 5 || ratio > 1.91
+          : ratio < 0.1 || ratio > 10)) {
+      throw new Error('承認JPEG画像の寸法または縦横比が媒体仕様の範囲外です')
     }
   }
   if (!withinWindow()) throw new Error('Metaの投稿枠が終了しました')
