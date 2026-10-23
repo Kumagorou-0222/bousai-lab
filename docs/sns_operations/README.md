@@ -7,24 +7,24 @@
 - InstagramとThreadsを防災Labの投稿運用に加える方針です。**Facebookには投稿しません。**
 - InstagramとThreadsの自動投稿APIは現行mainに実装されておらず、運用に必要な認証の完了も確認できていません。アカウント作成やテスト準備を「連携完了」と扱いません。
 - Xの既存の朝・昼投稿と緊急投稿は維持します。レビュー済み新作のX夜枠は日本時間18:00を初回目標とし、再試行を含めて18:00以上22:00未満だけ送信します。前日分を翌朝へ繰り越しません。
-- InstagramとThreadsの投稿時刻・再試行方法は未確定です。X夜枠の時刻をそのまま適用しません。
+- InstagramとThreadsの定期投稿時刻・再試行方法は未確定です。下書きの安全ゲートは当日18:00以上22:00未満ですが、定期起動は無効です。
 
 ## 現在の実装と接続状況
 
 | 媒体 | リポジトリで確認できた実装 | 接続・投稿状況 |
 | --- | --- | --- |
 | X | `.github/workflows/x-auto-post.yml`、`lib/xNightPost.ts`、`scripts/postNightToX.ts` に朝・昼・夜の投稿処理があります。 | 既存運用。夜枠は当日の承認台帳と画像が必要です。 |
-| Threads | `app/threads-posts/page.tsx` はX履歴から投稿案を表示し、`lib/threadsPostUtils.ts` は手動投稿リンクを生成します。`data/threads-post-history.json` は空です。 | Threads APIによる自動投稿処理と稼働記録は、現行mainで確認できません。設定担当からは、Metaアプリの `threads_content_publish` がテスト準備完了、Threadsアカウントのテスター承認待ちと報告されています。OAuth、トークン発行・登録、実投稿は未実施です。 |
-| Instagram | 投稿APIの呼び出し、投稿workflow、稼働記録は現行mainで確認できません。 | アカウント作成はユーザーから報告されています。Instagram投稿APIの接続・自動投稿の稼働は未確認です。 |
+| Threads | `app/threads-posts/page.tsx` の投稿案に加え、`lib/metaPublisher.ts` とdry-run既定の `.github/workflows/meta-auto-post.yml` に接続準備があります。 | OAuth、トークン発行・登録、実投稿は未実施です。 |
+| Instagram | `lib/metaPublisher.ts` と同じdry-run既定のworkflowに接続準備があります。 | Business化はユーザー確認済み。ユースケース追加、OAuth、実投稿は未実施です。 |
 | Facebook | 投稿処理は現行mainで確認できません。 | 投稿対象外です。設定担当からは投稿権限を追加していないと報告されています。 |
 
-`chore/threads-history-no-rebuild` のコミット `99c125c` には、Threads投稿案ページの履歴更新と不要なサイト再ビルドを減らす修正があります。2026年10月19日時点で現行mainには入っていません。このブランチもThreads API投稿やInstagram投稿を実装するものではありません。
+Threads投稿案ページの履歴更新はmainに反映済みです。投稿接続の条件と未実施事項は `docs/meta_auto_post/README.md` を参照してください。
 
 ## 次に確認・実装すること
 
-1. Threadsアカウントのテスター承認、必要なOAuthとトークンの安全な登録が完了したか、設定担当と確認します。完了するまでは自動投稿を稼働済みと記録しません。
-2. Instagramの投稿APIに必要なアカウント状態・権限・接続可否を確認します。アカウント作成の報告だけでAPI連携完了と扱いません。
-3. 両媒体の投稿対象、承認手順、時刻、重複防止、失敗時の扱いを決め、テスト後に実装します。Facebook投稿権限やFacebook向け投稿処理は追加しません。
+1. 両媒体のOAuthと長期トークンの取得・安全な登録は未実施です。完了するまでは自動投稿を稼働済みと記録しません。
+2. Instagramのユースケース、投稿API権限、接続可否を確認します。Business化だけでAPI連携完了と扱いません。
+3. 両媒体の投稿対象と承認文・画像を個別のPRで確認し、dry-runと台帳の照合を経て有効化を判断します。Facebook投稿権限やFacebook向け投稿処理は追加しません。
 4. X用のレビュー済み画像の取得・登録は別件です。画像が当日夜枠の承認台帳とmainに存在しなければX夜投稿は見送られます。これをMeta側の認証未完了と混同しません。
 
 ## 確認元と注意

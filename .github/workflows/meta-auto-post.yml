@@ -1,0 +1,39 @@
+name: Meta承認済み投稿
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write  # 有効化後は専用social-ledgerブランチに投稿予約を保存する
+
+concurrency:
+  group: meta-auto-post-main
+  cancel-in-progress: false
+
+jobs:
+  post:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: 承認済み投稿の確認
+        env:
+          META_DRY_RUN: ${{ vars.META_DRY_RUN }}
+          SOCIAL_PUBLISH_ENABLED: ${{ vars.SOCIAL_PUBLISH_ENABLED }}
+          THREADS_PUBLISH_ENABLED: ${{ vars.THREADS_PUBLISH_ENABLED }}
+          INSTAGRAM_PUBLISH_ENABLED: ${{ vars.INSTAGRAM_PUBLISH_ENABLED }}
+          THREADS_ACCOUNT_ID: ${{ vars.THREADS_ACCOUNT_ID }}
+          INSTAGRAM_ACCOUNT_ID: ${{ vars.INSTAGRAM_ACCOUNT_ID }}
+          THREADS_TOKEN_EXPIRES_AT: ${{ vars.THREADS_TOKEN_EXPIRES_AT }}
+          INSTAGRAM_TOKEN_EXPIRES_AT: ${{ vars.INSTAGRAM_TOKEN_EXPIRES_AT }}
+          META_GRAPH_VERSION: ${{ vars.META_GRAPH_VERSION }}
+          SOCIAL_LEDGER_BRANCH: ${{ vars.SOCIAL_LEDGER_BRANCH }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          SOCIAL_LEDGER_GITHUB_TOKEN: ${{ github.token }}
+        run: node --experimental-strip-types scripts/postApprovedMeta.ts
