@@ -1,0 +1,29 @@
+name: X外部直接実行の下書きテスト
+
+on:
+  pull_request:
+    paths:
+      - 'cloudflare/direct-x/**'
+      - 'tests/cloudflareDirectX*.test.mjs'
+      - 'scripts/buildXDayCandidates.ts'
+      - '.github/workflows/x-direct-draft-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - run: npx tsx scripts/buildXDayCandidates.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: x-day-candidates-draft
+          path: data/x-day-candidates.json
+          retention-days: 1
+      - run: node --test tests/cloudflareDirectX.test.mjs tests/cloudflareDirectXGithubStore.test.mjs tests/cloudflareDirectXCandidateSource.test.mjs tests/cloudflareDirectXOAuth.test.mjs tests/cloudflareDirectXApi.test.mjs
