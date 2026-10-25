@@ -78,5 +78,25 @@
       "https://www.bousai.metro.tokyo.lg.jp/bousai/1000027/1005737.html",
       "https://www.shouhiseikatu.metro.tokyo.lg.jp/anzen/kigaikiken/2026/fixfurniture.html"
     ]
+  },
+  {
+    "imageId": "libfile_48bdf167b4888191901a2c285bc2c058:v0",
+    "libraryFileId": "libfile_48bdf167b4888191901a2c285bc2c058",
+    "slotDate": "2026-10-26",
+    "theme": "住宅用火災警報器の点検と交換",
+    "text": "その住宅用火災警報器、鳴りますか？\n説明書を確認し、ボタンかひもで定期的に作動確認。鳴らないときは電池切れや故障を疑い、説明書に従って対応を。本体は10年を目安に交換し、設置年月も記録。高所の作業は無理をせず、安全に。\n#防災 #火災予防",
+    "imagePath": "/manga/daily/2026-10-26.png",
+    "imageSha256": "f4253d8df70bf8f03559a222256c4a37f66a86722e0a270c3672b51bb042e8d2",
+    "width": 1086,
+    "height": 1448,
+    "reviewedAt": "2026-10-26",
+    "reviewTimestamp": "2026-10-26T08:12:32+09:00",
+    "reviewer": "バトラー（制作担当・親・登録担当の実物レビュー）",
+    "altText": "住宅用火災警報器の点検と交換を伝える、左上から右へ読む2×2の4コマ。黄色いヘルメットと反射ベストのオレンジ色のリス、白と青のロボットQが登場。題名「その警報器、鳴りますか？」。①床に立つリスが壁の警報器を見て「あれ…最後に点検したのは？」。Qは取扱説明書を持つ。②リスが床から届く付属のひもを引いて作動確認。「説明書を確認してボタンかひもで点検！」「音や音声を確かめよう」。③「鳴らない場合」。机上の警報器と説明書を確認し「鳴らないときは、電池や本体を確認」「取扱説明書に従って対応」。④Qが「本体は10年を目安に交換！」。リスは「設置年月もメモしよう」と警報器に「設置年月2026年10月」を記入。下部に「平時の点検の例｜高所の作業は無理をせず、安全を確保」。",
+    "sourceUrls": [
+      "https://www.fdma.go.jp/relocation/html/life/yobou_contents/qa/",
+      "https://www.fdma.go.jp/relocation/html/life/yobou_contents/materials/pdf/20_keihouki.pdf",
+      "https://www.tfd.metro.tokyo.lg.jp/content/000024153.pdf"
+    ]
   }
 ]
