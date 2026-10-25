@@ -11,7 +11,7 @@ const AMAZON_ASIN_BY_QUERY: Record<string, string> = {
   'bos 非常用トイレ 袋 凝固剤': 'B0FJ83NHRD',
   'bos 防臭袋 ll 200枚': 'B0BVR46WQT',
   'bos 防臭袋 s 防災': 'B0BVR46WQT',
-  'bos 防臭袋 防災 携帯トイレ用': 'B0FJ83NHRD',
+  'bos 防臭袋 防災 携帯トイレ用': 'B0BVR46WQT',
   'gentos ex-036d': 'B0078ZTWP4',
   'gentos ledランタン 防災': 'B0078ZTWP4',
   'jackery ポータブル電源 1000': 'B0DBQCN7HZ',
@@ -174,9 +174,8 @@ function findMappedValue(map: Record<string, string>, keywordOrUrl: string) {
   if (map[keyword]) return map[keyword]
 
   const sortedKeys = Object.keys(map).sort((a, b) => b.length - a.length)
-  return sortedKeys.find((key) => keyword.includes(key) || key.includes(keyword))
-    ? map[sortedKeys.find((key) => keyword.includes(key) || key.includes(keyword)) as string]
-    : undefined
+  const matchedKey = sortedKeys.find((key) => keyword.includes(key))
+  return matchedKey ? map[matchedKey] : undefined
 }
 
 export function amazonProductUrl(keywordOrUrl: string) {

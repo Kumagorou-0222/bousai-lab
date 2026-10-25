@@ -9,6 +9,7 @@ import { buildXPostFromArticle } from '@/lib/xpost'
 import Breadcrumb from '@/components/Breadcrumb'
 import ArticleCard from '@/components/ArticleCard'
 import ProductCard from '@/components/ProductCard'
+import AffiliateButtons from '@/components/AffiliateButtons'
 import CtaButton from '@/components/CtaButton'
 import ShareButton from '@/components/ShareButton'
 import AdSense from '@/components/AdSense'
@@ -332,7 +333,7 @@ export default async function ArticlePage({ params }: Props) {
         <article className="prose-bousai">
           <MDXRemote
             source={article.content}
-            components={{ a: ArticleLink, ProductCard, CtaButton, Dialogue, MangaDialogue }}
+            components={{ a: ArticleLink, ProductCard, AffiliateButtons, CtaButton, Dialogue, MangaDialogue }}
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           />
         </article>
