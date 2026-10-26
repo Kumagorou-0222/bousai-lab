@@ -3,15 +3,15 @@
     "dateJst": "2026-10-27",
     "slot": "morning",
     "scheduledForJst": "2026-10-27T07:00:00+09:00",
-    "status": "scheduled",
+    "status": "posted",
     "slug": "earthquake-elevator",
     "imageId": null,
     "text": "エレベーター内で地震を感じたら、すべての行先階ボタンを押す。停止した階の安全を確かめて降りましょう。\n閉じ込められたら非常ボタンで連絡し、扉を無理に開けず救助を待って。安全確認までは利用を控えましょう。\nhttps://www.n-elekyo.or.jp/safety/elevator.html\n#防災 #地震",
     "imagePath": null,
     "altText": null,
     "scheduleConfirmation": "2026-10-27T00:03:00+09:00 X予約一覧で日時・本文・リンク一致を確認（個別予約ID表示なし）",
-    "postUrl": null,
-    "postedAtJst": null
+    "postUrl": "https://x.com/zaitaku_bousai/status/2114839490573287850",
+    "postedAtJst": "2026-10-27T07:00:00+09:00"
   },
   {
     "dateJst": "2026-10-27",
