@@ -6,14 +6,14 @@
 
 - InstagramとThreadsを防災Labの投稿運用に加える方針です。**Facebookには投稿しません。**
 - InstagramとThreadsの自動投稿APIは現行mainに実装されておらず、運用に必要な認証の完了も確認できていません。アカウント作成やテスト準備を「連携完了」と扱いません。
-- Xの既存の朝・昼投稿と緊急投稿は維持します。レビュー済み新作のX夜枠は日本時間18:00を初回目標とし、再試行を含めて18:00以上22:00未満だけ送信します。前日分を翌朝へ繰り越しません。
+- Xの通常投稿は朝07:00、昼12:00、夜18:00にXの画面で直接予約します。緊急投稿は別workflowを維持します。夜のレビュー済み新作は18:00以上22:00未満だけ送信し、前日分を翌朝へ繰り越しません。予約と投稿確認の記録方法は `docs/sns_operations/x-native-schedule.md` を参照してください。
 - InstagramとThreadsの定期投稿時刻・再試行方法は未確定です。下書きの安全ゲートは当日18:00以上22:00未満ですが、定期起動は無効です。
 
 ## 現在の実装と接続状況
 
 | 媒体 | リポジトリで確認できた実装 | 接続・投稿状況 |
 | --- | --- | --- |
-| X | `.github/workflows/x-auto-post.yml`、`lib/xNightPost.ts`、`scripts/postNightToX.ts` に朝・昼・夜の投稿処理があります。 | 既存運用。夜枠は当日の承認台帳と画像が必要です。 |
+| X | `.github/workflows/x-auto-post.yml` の定時投稿を停止し、旧投稿スクリプトにも停止ガードを設けています。緊急投稿は `disaster-check.yml` で継続します。 | 通常投稿はXの画面で直接予約します。夜枠は当日の承認台帳と画像が必要です。 |
 | Threads | `app/threads-posts/page.tsx` の投稿案に加え、`lib/metaPublisher.ts` とdry-run既定の `.github/workflows/meta-auto-post.yml` に接続準備があります。 | OAuth、トークン発行・登録、実投稿は未実施です。 |
 | Instagram | `lib/metaPublisher.ts` と同じdry-run既定のworkflowに接続準備があります。 | Business化はユーザー確認済み。ユースケース追加、OAuth、実投稿は未実施です。 |
 | Facebook | 投稿処理は現行mainで確認できません。 | 投稿対象外です。設定担当からは投稿権限を追加していないと報告されています。 |
@@ -30,5 +30,5 @@ Threads投稿案ページの履歴更新はmainに反映済みです。投稿接
 ## 確認元と注意
 
 - 現行mainのコード・台帳・workflowを確認しました。夜枠の判定は `lib/xNightPost.ts` が規定します。
-- `docs/x_night_post/2026-10-13.md` の「21:00開始・21:00以上22:00未満」という記述は過去の状態です。現行の `.github/workflows/x-auto-post.yml` は18:00から21:45 JSTまで15分ごと、最後に21:55 JSTの起動を予定し、`lib/xNightPost.ts` は18:00以上22:00未満だけを許可します。GitHub Actionsの起動遅延があるため、18:00ちょうどの投稿を保証する設定ではありません。新しい担当は現行コードを優先してください。
+- `docs/x_night_post/2026-10-13.md` の「21:00開始」と旧workflowの再試行時刻は過去の状態です。通常投稿のGitHub定時送信は停止済みです。Xの予約画面で朝07:00、昼12:00、夜18:00 JSTを確認してください。
 - Meta側の接続状況とInstagramアカウント作成は担当・ユーザーからの報告です。このリポジトリだけでは認証済みか検証できません。

@@ -18,6 +18,7 @@ function readNightHistory(): PostRecord[] {
 }
 
 async function main(): Promise<void> {
+  assertRoutinePostingDisabled()
   if (!attemptId || !/^\d+$/.test(attemptId)) throw new Error('実行IDが不正です')
   if (mode !== 'prepare' && mode !== 'send') throw new Error('夜枠の実行モードが不正です')
   const date = jstDate()
@@ -71,6 +72,10 @@ async function main(): Promise<void> {
     writeHistory(history)
     throw error
   }
+}
+
+function assertRoutinePostingDisabled(): void {
+  throw new Error('通常の夜投稿はXの直接予約へ移行したため、このスクリプトから送信できません')
 }
 
 main().catch((error: unknown) => {

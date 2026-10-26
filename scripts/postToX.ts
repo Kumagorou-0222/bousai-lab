@@ -1,6 +1,5 @@
 /**
- * X自動投稿スクリプト
- * GitHub Actions から tsx で実行される。
+ * 旧X自動投稿スクリプト。通常投稿の直接予約への移行により送信を停止した。
  *
  * 必須環境変数:
  *   X_API_KEY          — Twitter/X API Key (Consumer Key)
@@ -13,8 +12,7 @@
  *   TELEGRAM_BOT_TOKEN — エラー通知用 Bot Token
  *   TELEGRAM_CHAT_ID   — エラー通知先 Chat ID
  *
- * 実行例:
- *   POST_SLOT=morning npx tsx scripts/postToX.ts
+ * 再稼働には投稿経路と重複防止の設計を改めて確認する。
  */
 
 import fs from 'fs'
@@ -78,6 +76,7 @@ function describePostError(err: unknown): string {
 // =====================================================
 
 async function main(): Promise<void> {
+  assertRoutinePostingDisabled()
   const slot = detectSlot()
   console.log(`\n=== [postToX] 開始 ${nowJST()} slot=${slot} ===`)
 
@@ -177,6 +176,10 @@ async function main(): Promise<void> {
   }
 
   console.log(`=== [postToX] 完了 ===\n`)
+}
+
+function assertRoutinePostingDisabled(): void {
+  throw new Error('通常の朝昼投稿はXの直接予約へ移行したため、このスクリプトから送信できません')
 }
 
 // =====================================================
