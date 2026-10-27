@@ -17,14 +17,14 @@
     "dateJst": "2026-10-27",
     "slot": "noon",
     "scheduledForJst": "2026-10-27T12:00:00+09:00",
-    "status": "scheduled",
+    "status": "posted",
     "slug": "blackout-smartphone",
     "imageId": null,
     "text": "停電時はスマホの電池を温存。画面は見やすい範囲で暗くし、動画など不要な利用を控えましょう。\niPhoneは低電力モードも活用。緊急情報や家族との連絡に必要な通信は確保を。\n設定はこちら（Apple公式）\nhttps://support.apple.com/ja-jp/101604\n#防災 #停電",
     "imagePath": null,
     "altText": null,
     "scheduleConfirmation": "2026-10-27T00:03:00+09:00 X予約一覧で日時・本文・リンク一致を確認（個別予約ID表示なし）",
-    "postUrl": null,
-    "postedAtJst": null
+    "postUrl": "https://x.com/zaitaku_bousai/status/2114915004050768207",
+    "postedAtJst": "2026-10-27T12:00:00+09:00"
   }
 ]
