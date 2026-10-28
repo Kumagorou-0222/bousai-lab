@@ -26,5 +26,33 @@
     "scheduleConfirmation": "2026-10-27T00:03:00+09:00 X予約一覧で日時・本文・リンク一致を確認（個別予約ID表示なし）",
     "postUrl": "https://x.com/zaitaku_bousai/status/2114915004050768207",
     "postedAtJst": "2026-10-27T12:00:00+09:00"
+  },
+  {
+    "dateJst": "2026-10-29",
+    "slot": "morning",
+    "scheduledForJst": "2026-10-29T07:00:00+09:00",
+    "status": "scheduled",
+    "slug": "food-rolling-stock",
+    "imageId": null,
+    "text": "非常食は、普段食べる食品を少し多めに買い置く方法から始められます。期限が近いものから食べ、使った分を補充する「ローリングストック」を。家族の好みや食事制限も考えて選びましょう。\n農林水産省の食品ストックガイド\nhttps://www.maff.go.jp/j/zyukyu/foodstock/guidebook.html\n#防災 #備蓄",
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "2026-10-28T23:37:00+09:00 X予約一覧で日時・本文・公式リンク一致を再確認",
+    "postUrl": null,
+    "postedAtJst": null
+  },
+  {
+    "dateJst": "2026-10-29",
+    "slot": "noon",
+    "scheduledForJst": "2026-10-29T12:00:00+09:00",
+    "status": "scheduled",
+    "slug": "cassette-stove-canister-safety",
+    "imageId": null,
+    "text": "カセットこんろを使う前に、ボンベの置き場所を確認。使用中のこんろのそばに予備ボンベを置かず、IH調理器の上でこんろを使わないでください。過熱による破裂事故が報告されています。\nNITEの事故例と注意点\nhttps://www.nite.go.jp/jiko/chuikanki/mailmagazin/2021fy/vol397_220125.html\n#防災 #カセットこんろ",
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "2026-10-28T23:37:00+09:00 X予約一覧で日時・本文・公式リンク一致を再確認",
+    "postUrl": null,
+    "postedAtJst": null
   }
 ]
