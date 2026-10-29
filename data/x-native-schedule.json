@@ -54,5 +54,33 @@
     "scheduleConfirmation": "2026-10-28T23:37:00+09:00 X予約一覧で日時・本文・公式リンク一致を再確認",
     "postUrl": "https://x.com/zaitaku_bousai/status/2115639764812513624",
     "postedAtJst": "2026-10-29T12:00:01+09:00"
+  },
+  {
+    "dateJst": "2026-10-30",
+    "slot": "morning",
+    "scheduledForJst": "2026-10-30T07:00:00+09:00",
+    "status": "scheduled",
+    "slug": "disaster-backpack",
+    "imageId": null,
+    "text": "非常用持ち出し袋は、家族ごとに必要な物を選び、実際に背負って歩ける重さか平時に確認。水・常用薬・携帯トイレ・灯りなどを見直し、すぐ持ち出せる場所へ。避難時は身の安全を最優先に。\n内閣府の備え：https://www.bousai.go.jp/kohou/kouhoubousai/h28/83/special_03.html\n#防災 #非常持ち出し袋",
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "2026-10-30T00:41:00+09:00 X公式予約一覧を開き直し、日本標準時の予約日時・本文・リンク一致を確認（個別予約ID表示なし）",
+    "postUrl": null,
+    "postedAtJst": null
+  },
+  {
+    "dateJst": "2026-10-30",
+    "slot": "noon",
+    "scheduledForJst": "2026-10-30T12:00:00+09:00",
+    "status": "scheduled",
+    "slug": "lantern",
+    "imageId": null,
+    "text": "停電に備え、懐中電灯や電池式ランタンを取り出しやすい場所へ。電池の残量と予備も平時に確認し、夜間の移動経路を照らせるようにしましょう。\n消防庁の防災教材：https://www.fdma.go.jp/mission/bousai/ikusei/items/r7/ikusei007_04_0115.pdf\n#防災 #停電",
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "2026-10-30T00:41:00+09:00 X公式予約一覧を開き直し、日本標準時の予約日時・本文・リンク一致を確認（個別予約ID表示なし）",
+    "postUrl": null,
+    "postedAtJst": null
   }
 ]
