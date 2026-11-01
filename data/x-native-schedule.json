@@ -68,5 +68,33 @@
     "scheduleConfirmation": "2026-11-01T08:16:00+09:00 公式予約一覧を開き直し、18:00・アカウント・本文・画像・ALTを確認。公開後にURL・時刻も確認",
     "postUrl": "https://x.com/zaitaku_bousai/status/2116817534527881322",
     "postedAtJst": "2026-11-01T18:00:03+09:00"
+  },
+  {
+    "dateJst": "2026-11-02",
+    "slot": "morning",
+    "scheduledForJst": "2026-11-02T07:00:00+09:00",
+    "status": "scheduled",
+    "slug": "blackout-refrigerator",
+    "imageId": null,
+    "text": "【今日の備え】停電中、冷蔵庫の開閉は最小限に。要冷蔵・要冷凍の食品で、適切な保存温度を保てなかったものは食べずに処分しましょう。完全に溶けた冷凍食品を再び凍らせるのも避けましょう。\n農林水産省\nhttps://www.maff.go.jp/j/fs/foodpois_flooding.html\n\n#防災 #停電 #冷蔵庫 #1分防災 #今日の備え",
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "2026-11-01T20:18:02+09:00 X公式予約一覧を開き直し、11月2日07:00 JST・アカウント・全文一致を確認。画像なし",
+    "postUrl": null,
+    "postedAtJst": null
+  },
+  {
+    "dateJst": "2026-11-02",
+    "slot": "noon",
+    "scheduledForJst": "2026-11-02T12:00:00+09:00",
+    "status": "scheduled",
+    "slug": "mansion-disaster-prep",
+    "imageId": null,
+    "text": "【保存版】マンションの避難経路を家族で確認。非常階段や、ベランダの避難ハッチがどこにあるか、平時に確かめておきましょう。隣戸へ避難するための「蹴破り戸」の前には物を置かないでください。\n東京都「東京防災」\nhttps://www.bousai.metro.tokyo.lg.jp/content/tb2023/pageindices/index68.html\n\n#防災 #備蓄 #防災グッズ #保存版 #1分防災",
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "2026-11-01T20:18:02+09:00 X公式予約一覧を開き直し、11月2日12:00 JST・アカウント・全文一致を確認。画像なし",
+    "postUrl": null,
+    "postedAtJst": null
   }
 ]
