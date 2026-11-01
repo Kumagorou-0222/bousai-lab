@@ -26,5 +26,47 @@
     "scheduleConfirmation": "2026-10-27T00:03:00+09:00 X予約一覧で日時・本文・リンク一致を確認（個別予約ID表示なし）",
     "postUrl": "https://x.com/zaitaku_bousai/status/2114915004050768207",
     "postedAtJst": "2026-10-27T12:00:00+09:00"
+  },
+  {
+    "dateJst": "2026-11-01",
+    "slot": "morning",
+    "scheduledForJst": "2026-11-01T07:00:00+09:00",
+    "status": "posted",
+    "slug": "family-elderly-disaster",
+    "imageId": null,
+    "text": "【今日の備え】高齢の家族の持ち出し品を一緒に確認。普段の薬・処方箋に加え、眼鏡、入れ歯、補聴器など、その人に必要な物を忘れずに。本人と家族で置き場所を共有しておきましょう。\n東京都の備え\nhttps://www.bousai.metro.tokyo.lg.jp/bousai/1000026/1000285.html\n\n#防災 #備蓄 #防災グッズ #家族で確認 #今日の備え",
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "X公式UIで本文・URL・公開時刻を確認。予約時刻07:00は現行運用方針の値で、個別予約画面は未照合",
+    "postUrl": "https://x.com/zaitaku_bousai/status/2116651427514716469",
+    "postedAtJst": "2026-11-01T07:00:00+09:00"
+  },
+  {
+    "dateJst": "2026-11-01",
+    "slot": "noon",
+    "scheduledForJst": "2026-11-01T12:00:00+09:00",
+    "status": "posted",
+    "slug": "earthquake-bath",
+    "imageId": null,
+    "text": "【1分防災】地震後、給湯器などのガス機器を使う前に、におい・機器の破損・給排気設備や接続具の外れを確認。異常があれば使わず、ガス事業者などへ点検を依頼しましょう。ガス臭いときは火や電気のスイッチに触らないで。\nhttps://www.tokyo-gas.co.jp/network/emergencies/jishin/index.html\n\n#防災 #地震 #地震対策 #1分防災",
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "X公式UIで本文・URL・公開時刻を確認。予約時刻12:00は現行運用方針の値で、個別予約画面は未照合",
+    "postUrl": "https://x.com/zaitaku_bousai/status/2116726933925036363",
+    "postedAtJst": "2026-11-01T12:00:02+09:00"
+  },
+  {
+    "dateJst": "2026-11-01",
+    "slot": "night",
+    "scheduledForJst": "2026-11-01T18:00:00+09:00",
+    "status": "posted",
+    "slug": "night-2026-11-01",
+    "imageId": "libfile_241389b1d81c8191b45998c229ba7bbd:v0",
+    "text": "雷が聞こえたら、雨が降る前でも避難を。木の下で雨宿りせず、鉄筋コンクリートの建物などの中へ。雷ナウキャストで状況を確認し、安全な場所で待ちましょう。\n気象庁：https://www.jma.go.jp/jma/kishou/know/toppuu/thunder4-3.html\n#防災 #雷",
+    "imagePath": null,
+    "altText": "縦長の日本語4コマ漫画。題名「雷が聞こえたら」、副題「雨が降る前でも避難」。緑十字の黄色いヘルメットと反射ベストを着たオレンジ色のリスと、白と青のロボットQが登場。1コマ目：公園に黒い雲が近づき「ゴロゴロ…」。リスは「まだ雨は降ってないけど…」、Qは「雷の音がしたら避難！」。2コマ目：木の幹に赤いバツ印。二人は木から離れる方向へ進み、Qが「木の下で雨宿りしない！」。下に「木の近くも危険」。3コマ目：二人がコンクリート造りの建物の扉から中へ入る。「建物の中へ！」、下に「鉄筋コンクリートの建物などへ」。4コマ目：建物内の椅子に座り、Qがスマホの雷の分布図を示して「雷ナウキャストで状況を確認」。リスは「安全な場所で待とう」。末尾に「防災学習用の架空の場面です」。",
+    "scheduleConfirmation": "2026-11-01T08:16:00+09:00 公式予約一覧を開き直し、18:00・アカウント・本文・画像・ALTを確認。公開後にURL・時刻も確認",
+    "postUrl": "https://x.com/zaitaku_bousai/status/2116817534527881322",
+    "postedAtJst": "2026-11-01T18:00:03+09:00"
   }
 ]
