@@ -98,5 +98,25 @@
       "https://www.fdma.go.jp/relocation/html/life/yobou_contents/materials/pdf/20_keihouki.pdf",
       "https://www.tfd.metro.tokyo.lg.jp/content/000024153.pdf"
     ]
+  },
+  {
+    "imageId": "libfile_b166824f92bc8191bca4cea6ab2d660b:v0",
+    "libraryFileId": "libfile_b166824f92bc8191bca4cea6ab2d660b",
+    "slotDate": "2026-11-04",
+    "theme": "消火器の備え",
+    "text": "消火器、どこにある？\n場所・使用期限・説明をふだんから確認し、使い方は防災訓練で。\n火事は周囲に知らせて119番。逃げ道を確保し、危険ならすぐ避難。炎が天井に届いたら消火をやめましょう。\nhttps://www.fdma.go.jp/mission/prevention/suisin/post2.html\n#防災",
+    "imagePath": "/manga/daily/2026-11-04.png",
+    "imageSha256": "240244bb75dcbc90319d93acf376ff6f68dc30839ce19cb6f521bc93365b7d2d",
+    "width": 1086,
+    "height": 1448,
+    "reviewedAt": "2026-11-04",
+    "reviewTimestamp": "2026-11-03T23:20:35Z",
+    "reviewer": "バトラー（制作担当・独立レビュー・親の全4コマ目視QA、登録担当の実物確認）",
+    "altText": "「消火器、使えるかな？」という題の縦長2×2の防災4コマ。副題は「ふだんの確認と訓練」。黄色のヘルメットと反射ベストを着たオレンジ色のリスと、白と青のロボットQが登場する。1コマ目：室内の壁に、ホースと安全ピンが付いた赤い消火器。リスが「消火器、どこにある？」。下に「すぐ使える場所を確認」。2コマ目：Qが消火器の使用期限のラベルを指して「使用期限と説明を確認！」。下に「傷みがあれば専門業者へ」。3コマ目：「防災訓練」の看板がある屋外。リスが青い「訓練用」消火器のレバーとノズルを持ち、的に水をかける。Qが「使い方は訓練で覚えよう！」。下に「ピン→ホース→レバー」。4コマ目：安全な教室で、Qが緑の避難口マークを指し、リスと学ぶ。台詞は「危険なら、すぐ避難！」。下に「火事は周囲に知らせて119番」「逃げ道も確保」。最下部に「炎が天井に届いたら消火をやめる。無理をしない。」「防災の一般解説｜製品の説明・消防の指導も確認」。実際の炎や煙は描かれていない。",
+    "sourceUrls": [
+      "https://www.fdma.go.jp/mission/prevention/suisin/post2.html",
+      "https://www.tfd.metro.tokyo.lg.jp/content/000022482.pdf",
+      "https://www.city.yokohama.lg.jp/bousai-kyukyu-bohan/shobo/kasaisonae/shoki/shoukaki/shoukaki.html"
+    ]
   }
 ]
