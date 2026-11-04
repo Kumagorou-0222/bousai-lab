@@ -118,5 +118,23 @@
       "https://www.tfd.metro.tokyo.lg.jp/content/000022482.pdf",
       "https://www.city.yokohama.lg.jp/bousai-kyukyu-bohan/shobo/kasaisonae/shoki/shoukaki/shoukaki.html"
     ]
+  },
+  {
+    "imageId": "libfile_1cf713f12c4c819184ccd64fa8fdb387:v0",
+    "libraryFileId": "libfile_1cf713f12c4c819184ccd64fa8fdb387",
+    "slotDate": "2026-11-05",
+    "theme": "災害ごみ",
+    "text": "【災害ごみ 出す前に確認】壊れた家具を、いつものごみ置場へ出す前に。自治体の最新案内で「出す場所・日時・分け方」を確認。生活ごみと片付けごみは混ぜず、それぞれ地域のルールで。道路や空き地に勝手に置かないようにしましょう。 #防災 #災害ごみ #在宅避難",
+    "imagePath": "/manga/daily/2026-11-05.png",
+    "imageSha256": "63be7af0f9c9e376f3330207ab49d277ee6763bccf7e6d1046dd4abb981f916b",
+    "width": 1086,
+    "height": 1448,
+    "reviewedAt": "2026-11-05",
+    "reviewer": "制作・レビュー済み、登録担当の実物確認",
+    "altText": "縦長4コマ「災害ごみ 出す前に確認」。リスとロボットQが、壊れた家具の出し方を相談。自治体の最新情報で出す場所・日時・分け方を確認し、生活ごみと片付けごみを自治体の分け方に従って分別。道路や空き地に勝手に置かず、地域の案内に従う。架空の防災学習場面。",
+    "sourceUrls": [
+      "https://www.env.go.jp/content/900536593.pdf",
+      "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/gomi-recycle/saigai/dw01.html"
+    ]
   }
 ]
