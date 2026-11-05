@@ -136,5 +136,24 @@
       "https://www.env.go.jp/content/900536593.pdf",
       "https://www.city.yokohama.lg.jp/kurashi/sumai-kurashi/gomi-recycle/saigai/dw01.html"
     ]
+  },
+  {
+    "imageId": "daily-comic-2026-11-06",
+    "libraryFileId": "libfile_e7818dd0113881918063629250eaa71e",
+    "slotDate": "2026-11-06",
+    "theme": "災害後の住宅修理",
+    "text": "災害後の「無料で屋根を点検します」にも慎重に。突然の点検に安易に応じず、その場で契約しない。修理は複数の見積もりで比較し、困ったら消費者ホットライン188へ。\nhttps://www.kokusen.go.jp/mimamori/mj_mailmag/mj-shinsen516.html\n#防災 #住宅修理",
+    "imagePath": "/manga/daily/2026-11-06.png",
+    "imageSha256": "243c863f89243ef519bae725f58c99d1c93251f02ceac0b7215d42f415f50f68",
+    "width": 1086,
+    "height": 1448,
+    "reviewedAt": "2026-11-06",
+    "reviewTimestamp": "2026-11-06T08:28:23+09:00",
+    "reviewer": "バトラー／独立目視レビュー",
+    "altText": "縦長3対4、2列2段の日本語防災4コマ。左上、右上、左下、右下の順。題名「災害後の住宅修理」、副題「急かされても、その場で契約しない」。緑十字の黄色いヘルメットと反射ベストを着たオレンジ色のリスと、白と青のロボットQが登場する。1コマ目：閉じた玄関ドアの内側。「突然の訪問」とあり、壁のインターホンから「屋根を無料で点検します」。リスが心配そうに「災害のあとで心配…」。Qが隣で聞いている。2コマ目：リスが片手を上げて「今日はお願いしません」と断る。ドアは閉じたまま。下部に「突然の点検に安易に応じない」。3コマ目：二人が室内のテーブルに並べた「見積書A」「見積書B」を見る。Qが片手で書類を指し「複数の見積もりで比べよう」。下部に「その場で契約しない」。4コマ目：リスが片手でスマートフォンを耳に当て「相談してみよう」。Qは「困ったら、ひとりで悩まず相談」。前面に青と白の大きな表示「消費者ホットライン 188」。最下部に「防災学習用の架空の場面です｜まず身の安全を確保」。",
+    "sourceUrls": [
+      "https://www.kokusen.go.jp/mimamori/mj_mailmag/mj-shinsen516.html",
+      "https://www.pref.kanagawa.jp/docs/r7b/cnt/f370214/20220615.html"
+    ]
   }
 ]
