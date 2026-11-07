@@ -117,5 +117,25 @@
       "https://www.gsi.go.jp/bousaichiri/hinanbasho.html",
       "https://www.bousai.go.jp/taisaku/hinanbasyo.html"
     ]
+  },
+  {
+    "imageId": "libfile_fdcee111ee3481918f7e38c48a4e97af:v0",
+    "libraryFileId": "libfile_fdcee111ee3481918f7e38c48a4e97af",
+    "slotDate": "2026-11-08",
+    "theme": "街なかで地震が起きたら",
+    "text": "街なかで地震が起きたら、かばんなどで頭を守り、ブロック塀から離れましょう。看板や窓ガラスの落下にも注意。周囲を確かめ、広く安全な場所へ。あわてて車道に飛び出さないでください。\n#防災 #防災4コマ\nhttps://www.bousai.metro.tokyo.lg.jp/kitaku_portal/1000047/1000541.html",
+    "imagePath": "/manga/daily/2026-11-08.png",
+    "imageSha256": "7bb8fcb4baf3c9abe0852817866389ab4395950557feb97976792e78f5cdb359",
+    "width": 1086,
+    "height": 1448,
+    "reviewedAt": "2026-11-08",
+    "reviewTimestamp": "2026-11-08T08:39:37+09:00",
+    "reviewer": "バトラー",
+    "altText": "「街なかで地震が起きたら」という防災4コマ。副題は「塀・看板・ガラスから身を守る」。左上、右上、左下、右下の1〜4の順に読む。オレンジ色のリスは緑十字の黄色いヘルメットと反射ベスト、ロボットQは白と青の体、黒い顔画面にシアンの目。1：商店街で地震に気づき、2人が両手でかばんを頭の上に持つ。「揺れた！まず頭を守ろう」。2：ひびの入ったブロック塀との間に十分な空間を取り、頭を守りながら右手前へ離れる。「ブロック塀から離れて！」。3：建物側には傾いた看板や割れた窓ガラスがあり、2人は落下物に注意して頭を守る。「看板や窓ガラスの落下にも注意！」。4：建物や塀から離れた広場に移動し、周囲を見渡す。「周囲を確かめ広く安全な場所へ」。注意書きは「あわてて車道に飛び出さない」。下端に「地震時の想定例｜落ち着いて、周囲の危険を確認」。実際に起きている地震の速報ではない。",
+    "sourceUrls": [
+      "https://www.bousai.metro.tokyo.lg.jp/kitaku_portal/1000047/1000541.html",
+      "https://www.fdma.go.jp/publication/hakusho/r5/report7/68437.html",
+      "https://www.pref.nara.lg.jp/documents/6208/139to154_1.pdf"
+    ]
   }
 ]
