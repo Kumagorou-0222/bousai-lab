@@ -98,5 +98,24 @@
       "https://www.fdma.go.jp/relocation/html/life/yobou_contents/materials/pdf/20_keihouki.pdf",
       "https://www.tfd.metro.tokyo.lg.jp/content/000024153.pdf"
     ]
+  },
+  {
+    "imageId": "libfile_fa2214c360ec8191bc83092e9218cc18:v0",
+    "libraryFileId": "libfile_fa2214c360ec8191bc83092e9218cc18",
+    "slotDate": "2026-11-07",
+    "theme": "避難所と緊急避難場所",
+    "text": "「避難所」と「指定緊急避難場所」、違いをご存じですか？\n津波の避難先は、津波に対応した指定緊急避難場所か、平時に自治体の情報で確認を。両方を兼ねる施設もあります。\n#防災 #防災4コマ\nhttps://www.gsi.go.jp/bousaichiri/hinanbasho.html",
+    "imagePath": "/manga/daily/2026-11-07.png",
+    "imageSha256": "27a9ac92ee68eaaaa098350cd1d8c148f836fe0737cd5a61872d8e9c22236781",
+    "width": 1086,
+    "height": 1448,
+    "reviewedAt": "2026-11-07",
+    "reviewTimestamp": "2026-11-07T08:38:23+09:00",
+    "reviewer": "バトラー",
+    "altText": "日本語の防災4コマ。タイトルは「避難所なら、どこでもいい？」、副題は「津波の避難先を、今のうちに確認」。黄色いヘルメットと反射ベストのオレンジ色のリスと、白と青のロボットQが登場。左上から右上、左下、右下の順に読む。1：平時の散歩中。「指定避難所」の看板がある学校をリスが指し、「津波のときもこの学校でいい？」と尋ねる。2：Qが自治体の防災マップを表示したタブレットを持ち、「津波に対応した『指定緊急避難場所』を確認しよう」と答える。3：比較カードに「指定緊急避難場所　命を守るために逃げる場所」「指定避難所　避難生活を送る施設」。リスが「役目が違うんだね」と納得する。4：室内で2人が地図を広げ、リスが「津波の避難先を家族で確認！」。下に「両方を兼ねる施設もあります」。最下部に「平時の備えの例｜避難先は自治体の最新情報で確認」。実際に災害が起きている場面ではなく、事前に避難先を確認する例。",
+    "sourceUrls": [
+      "https://www.gsi.go.jp/bousaichiri/hinanbasho.html",
+      "https://www.bousai.go.jp/taisaku/hinanbasyo.html"
+    ]
   }
 ]
