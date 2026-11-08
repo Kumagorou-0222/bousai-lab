@@ -5061,5 +5061,19 @@
     "hasImage": true,
     "imageLocalPath": "public/manga/earthquake-toilet/panel-01.png",
     "success": true
+  },
+  {
+    "postedAt": "2026-11-08T19:44:52+09:00",
+    "slug": "night-2026-11-08",
+    "title": "街なかで地震が起きたら",
+    "slot": "night",
+    "tweetId": "2119380626167980528",
+    "tweetUrl": "https://x.com/zaitaku_bousai/status/2119380626167980528",
+    "text": "街なかで地震が起きたら、かばんなどで頭を守り、ブロック塀から離れましょう。看板や窓ガラスの落下にも注意。周囲を確かめ、広く安全な場所へ。あわてて車道に飛び出さないでください。\n#防災 #防災4コマ\nhttps://www.bousai.metro.tokyo.lg.jp/kitaku_portal/1000047/1000541.html",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/daily/2026-11-08.png",
+    "success": true,
+    "nightImageId": "libfile_fdcee111ee3481918f7e38c48a4e97af:v0",
+    "nightStatus": "posted"
   }
 ]

@@ -26,5 +26,37 @@
     "scheduleConfirmation": "2026-10-27T00:03:00+09:00 X予約一覧で日時・本文・リンク一致を確認（個別予約ID表示なし）",
     "postUrl": "https://x.com/zaitaku_bousai/status/2114915004050768207",
     "postedAtJst": "2026-10-27T12:00:00+09:00"
+  },
+  {
+    "dateJst": "2026-11-09",
+    "slot": "morning",
+    "scheduledForJst": "2026-11-09T07:00:00+09:00",
+    "status": "scheduled",
+    "slug": "earthquake-cooking",
+    "imageId": "libfile_1e2b7d60a6048191898dd908683231c5",
+    "text": "【今日の備え】地震後の調理は、まず周囲の安全確認。カセットコンロは換気しながら使い、全体を覆う大きな鍋や2台並べての使用は避けましょう。加熱不要の食品も備えを。\nhttps://www.caa.go.jp/policies/policy/consumer_safety/caution/caution_075\n\n#防災 #地震 #地震対策 #今日の備え",
+    "imagePath": "/manga/earthquake-cooking/panel-01.png",
+    "altText": "防災漫画の1コマ目。緑十字の黄色いヘルメットと反射ベストを着たオレンジ色のリスが、火のついていないガスコンロの前で両手を頬に当て、困った表情をしている。吹き出しには「地震でガスが止まった！ ご飯はどうするの？」と書かれている。右上に数字の1。地震後にガスが使えなくなった場合を想定した場面。",
+    "scheduleConfirmation": "2026-11-08T21:04:09+09:00 @zaitaku_bousaiのX公式予約一覧を再表示・再読込し、朝07:00と昼12:00の2件を確認。各予約の日時・本文・画像・ALTを確認。",
+    "postUrl": null,
+    "postedAtJst": null,
+    "libraryFileId": "libfile_1e2b7d60a6048191898dd908683231c5",
+    "imageSha256": "a7196ca3a2a2e1827f5df5238c1d3e9e0dfa63b10f529dc3327b8e56e435bf44"
+  },
+  {
+    "dateJst": "2026-11-09",
+    "slot": "noon",
+    "scheduledForJst": "2026-11-09T12:00:00+09:00",
+    "status": "scheduled",
+    "slug": "blackout-refrigerator",
+    "imageId": "libfile_a7d226d5ea748191902e1d0ceee38721",
+    "text": "【1分防災】停電中、冷蔵庫の開閉は最小限に。要冷蔵・要冷凍の食品で、適切な保存温度を保てなかったものは食べずに処分しましょう。完全に溶けた冷凍食品を再び凍らせるのも避けましょう。\nhttps://www.maff.go.jp/j/fs/foodpois_flooding.html\n\n#防災 #停電 #冷蔵庫 #1分防災",
+    "imagePath": "/manga/blackout-refrigerator/panel-01.png",
+    "altText": "防災漫画の1コマ目。緑十字の黄色いヘルメットと反射ベストを着たオレンジ色のリスが、閉まった白い冷蔵庫の横で、汗を浮かべて心配そうに頬へ手を当てている。吹き出しには「停電したら 冷蔵庫の食べ物 だいじょうぶ？」と書かれている。右上に数字の1。停電時の食品保存を考える想定場面。",
+    "scheduleConfirmation": "2026-11-08T21:04:09+09:00 @zaitaku_bousaiのX公式予約一覧を再表示・再読込し、朝07:00と昼12:00の2件を確認。各予約の日時・本文・画像・ALTを確認。",
+    "postUrl": null,
+    "postedAtJst": null,
+    "libraryFileId": "libfile_a7d226d5ea748191902e1d0ceee38721",
+    "imageSha256": "6e749a70435792966ecc8d224eb6e1df6854487808c9c435b5ab3163f7a93041"
   }
 ]
