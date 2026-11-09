@@ -74,5 +74,37 @@
     "scheduleConfirmation": "2026-11-09T08:26:35+09:00 @zaitaku_bousaiのX公式予約一覧を再表示し、当日18:00の夜枠1件、本文・画像・ALTを確認。",
     "postUrl": "https://x.com/zaitaku_bousai/status/2119716637540790385",
     "postedAtJst": "2026-11-09T18:00:03+09:00"
+  },
+  {
+    "dateJst": "2026-11-10",
+    "slot": "morning",
+    "scheduledForJst": "2026-11-10T07:00:00+09:00",
+    "status": "scheduled",
+    "slug": "family-children-disaster",
+    "text": "【今日の備え】子どもに合ったミルク・おむつ・食料などを備え、学校や園の連絡・引き渡し方法も確認。家族の集合場所は安全な場所を選び、連絡が取れない場合も話し合っておきましょう。\nhttps://www.bousai.metro.tokyo.lg.jp/content/tb2023/pageindices/index205.html\n\n#防災 #子育て #今日の備え",
+    "imagePath": "/manga/family_children_checklist.png",
+    "altText": "子どもがいる家庭の防災を説明する既存の4コマ。左上から右上、左下、右下の順。1：室内で揺れを感じた親子とリスに「まずは身の安全！」。2：ロボットとリスの横に液体ミルク、おむつ、おしりふき、アレルギー対応ごはん、子ども用の薬、ぬいぐるみが並び「子ども専用の備蓄を準備！」。3：引き渡しカードを持つ大人たちに「迎えに行ける人を確認！」。4：親子とリス、ロボットが公園の描かれた地図を囲み「集合場所を家族で確認！」。下部に身の安全、子ども用備蓄、引き渡し確認、集合場所のまとめ。防災の備えを説明する想定場面。",
+    "libraryFileId": "libfile_81ef657db31c8191987b5ccb88206bb1",
+    "imageSha256": "9dfaf19fe05b4c6b43a19ae282d05f9954694da9abd5094630f06b83bf5fc3dd",
+    "imageId": "libfile_81ef657db31c8191987b5ccb88206bb1",
+    "scheduleConfirmation": "2026-11-09T21:02:37+09:00 @zaitaku_bousaiのX公式予約一覧を再表示し、11月10日朝07:00と昼12:00の2件のみ、日時・本文・画像・ALT一致を確認。",
+    "postUrl": null,
+    "postedAtJst": null
+  },
+  {
+    "dateJst": "2026-11-10",
+    "slot": "noon",
+    "scheduledForJst": "2026-11-10T12:00:00+09:00",
+    "status": "scheduled",
+    "slug": "emergency-toilet",
+    "text": "【保存版】携帯トイレは1人1日5回を目安に、人数と備える日数で計算。4人家族の7日分なら140回分です。袋・凝固剤の数、使い方、使用後の保管方法も確認しましょう。\nhttps://www.bousai.go.jp/kohou/kouhoubousai/r05/108/news_09.html\n\n#防災 #携帯トイレ #備蓄 #1分防災",
+    "imagePath": "/manga/emergency-toilet/panel-01.png",
+    "altText": "防災漫画の1コマ目。緑十字の黄色いヘルメットと反射ベストを着たオレンジ色のリスが、「携帯トイレ」と書かれた袋を両手で持ち、困った表情をしている。吹き出しは「携帯トイレって何個準備すればいいの？」。右上に数字の1。携帯トイレの備蓄量を考える想定場面。",
+    "libraryFileId": "libfile_c53703ecd80c8191804ab25ec4cf85b2",
+    "imageSha256": "bb9c8234b3405229192bafd0c3e2960cc2cfe17209dda62cc5f149ff5cc477e8",
+    "imageId": "libfile_c53703ecd80c8191804ab25ec4cf85b2",
+    "scheduleConfirmation": "2026-11-09T21:02:37+09:00 @zaitaku_bousaiのX公式予約一覧を再表示し、11月10日朝07:00と昼12:00の2件のみ、日時・本文・画像・ALT一致を確認。",
+    "postUrl": null,
+    "postedAtJst": null
   }
 ]
