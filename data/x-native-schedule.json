@@ -58,5 +58,21 @@
     "postedAtJst": null,
     "libraryFileId": "libfile_a7d226d5ea748191902e1d0ceee38721",
     "imageSha256": "6e749a70435792966ecc8d224eb6e1df6854487808c9c435b5ab3163f7a93041"
+  },
+  {
+    "dateJst": "2026-11-09",
+    "slot": "night",
+    "scheduledForJst": "2026-11-09T18:00:00+09:00",
+    "status": "scheduled",
+    "slug": "night-2026-11-09",
+    "imageId": "libfile_4b673fce36c8819195968ac5c5accae9:v0",
+    "libraryFileId": "libfile_4b673fce36c8819195968ac5c5accae9",
+    "text": "いつもの薬と、薬の情報をセットで備えましょう。お薬手帳のコピーも持ち出し袋へ。備える薬の量や保管は医師・薬剤師に相談し、量や飲み方を自己判断で変えないでください。\n#防災 #防災4コマ\nhttps://www.city.mizunami.lg.jp/kenkou_fukushi/otonakenkou/1011938/1011939.html",
+    "imagePath": "/manga/daily/2026-11-09.png",
+    "imageSha256": "5f95903c6fc7eeb6dfcd436ee97dac3c2d0fd88b455cd23b7eddcb86f1c27f43",
+    "altText": "「お薬手帳も、持ち出す備え」という防災4コマ。副題は「いつもの薬と情報をセットに」。左上、右上、左下、右下の1〜4の順に読む。黄色いヘルメットと反射ベストのオレンジ色のリスと、白と青のロボットQが登場。1：家の机でリスが薬袋を持ち、Qが「薬の情報も一緒に備えよう」と伝える。2：お薬手帳を開いて二人で確認。「今の薬がわかる記録に」。3：リスが「お薬手帳のコピー」と書かれた紙を持ち出し袋へ入れる。「手帳のコピーを持ち出し袋へ」。4：薬局の前で「薬の備えは医師・薬剤師に相談」。下部に「平時の備えの例。薬の量や飲み方は自己判断で変えない。」と記載。",
+    "scheduleConfirmation": "2026-11-09T08:26:35+09:00 @zaitaku_bousaiのX公式予約一覧を再表示し、当日18:00の夜枠1件、本文・画像・ALTを確認。",
+    "postUrl": null,
+    "postedAtJst": null
   }
 ]
