@@ -5075,5 +5075,43 @@
     "success": true,
     "nightImageId": "libfile_fdcee111ee3481918f7e38c48a4e97af:v0",
     "nightStatus": "posted"
+  },
+  {
+    "postedAt": "2026-11-09T07:00:00+09:00",
+    "slug": "earthquake-cooking",
+    "title": "地震後の調理",
+    "slot": "morning",
+    "tweetId": "2119550530208903456",
+    "tweetUrl": "https://x.com/zaitaku_bousai/status/2119550530208903456",
+    "text": "【今日の備え】地震後の調理は、まず周囲の安全確認。カセットコンロは換気しながら使い、全体を覆う大きな鍋や2台並べての使用は避けましょう。加熱不要の食品も備えを。\nhttps://www.caa.go.jp/policies/policy/consumer_safety/caution/caution_075\n\n#防災 #地震 #地震対策 #今日の備え",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/earthquake-cooking/panel-01.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-11-09T12:00:01+09:00",
+    "slug": "blackout-refrigerator",
+    "title": "停電時の冷蔵庫",
+    "slot": "noon",
+    "tweetId": "2119626031254340003",
+    "tweetUrl": "https://x.com/zaitaku_bousai/status/2119626031254340003",
+    "text": "【1分防災】停電中、冷蔵庫の開閉は最小限に。要冷蔵・要冷凍の食品で、適切な保存温度を保てなかったものは食べずに処分しましょう。完全に溶けた冷凍食品を再び凍らせるのも避けましょう。\nhttps://www.maff.go.jp/j/fs/foodpois_flooding.html\n\n#防災 #停電 #冷蔵庫 #1分防災",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/blackout-refrigerator/panel-01.png",
+    "success": true
+  },
+  {
+    "postedAt": "2026-11-09T18:00:03+09:00",
+    "slug": "night-2026-11-09",
+    "title": "お薬手帳も、持ち出す備え",
+    "slot": "night",
+    "tweetId": "2119716637540790385",
+    "tweetUrl": "https://x.com/zaitaku_bousai/status/2119716637540790385",
+    "text": "いつもの薬と、薬の情報をセットで備えましょう。お薬手帳のコピーも持ち出し袋へ。備える薬の量や保管は医師・薬剤師に相談し、量や飲み方を自己判断で変えないでください。\n#防災 #防災4コマ\nhttps://www.city.mizunami.lg.jp/kenkou_fukushi/otonakenkou/1011938/1011939.html",
+    "hasImage": true,
+    "imageLocalPath": "public/manga/daily/2026-11-09.png",
+    "success": true,
+    "nightImageId": "libfile_4b673fce36c8819195968ac5c5accae9:v0",
+    "nightStatus": "posted"
   }
 ]
