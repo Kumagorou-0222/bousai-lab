@@ -156,5 +156,36 @@
       "https://www.city.mizunami.lg.jp/kenkou_fukushi/otonakenkou/1011938/1011939.html",
       "https://www.pref.kyoto.jp/nantan/ho-kikaku/201802saigai-mannseishikkan.html"
     ]
+  },
+  {
+    "libraryFileId": "libfile_687b5f6def948191ad6123ff8605976d",
+    "theme": "ベランダの避難経路",
+    "text": "ベランダも、いざというときの避難経路です。隔て板の前や避難ハッチの周りに物を置かず、通り道を確保。避難器具の場所と使い方は、平時に管理者の案内で確認しましょう。\n#防災 #防災4コマ\nhttps://www.bousai.metro.tokyo.lg.jp/content/tb2023/pageindices/index68.html",
+    "imageSha256": "905ba5082d71b460b503121405ffbc5cb59161cb9dcc9bcfef842046454b3a78",
+    "width": 1086,
+    "height": 1448,
+    "altText": "日本語4コマ漫画「ベランダも、避難の通り道」。黄色いヘルメットに緑十字と反射ベスト姿のリスと、白と青のロボットQ。左上1、リスが段ボール箱を持ちベランダで「ここに置こうかな」、Qが「避難の通り道だよ」。右上2、閉じた隔て板と避難ハッチの周りが空いたベランダを見て「隔て板や避難ハッチの周りは空けよう」。左下3、リスが室内の低い収納へ箱をしまい、Qが「通り道をふさがない場所へ」。右下4、二人が机上の「建物の避難案内」を読み「場所と使い方も、平時に確認！」。末尾に「平時の備えの例｜避難器具の確認は管理者の案内に従って」。",
+    "sources": [
+      {
+        "name": "東京都「東京防災」68頁",
+        "url": "https://www.bousai.metro.tokyo.lg.jp/content/tb2023/pageindices/index68.html",
+        "checkedAt": "2026-11-12"
+      },
+      {
+        "name": "武蔵野市「集合住宅での安全対策」",
+        "url": "https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/1044377/1044379.html",
+        "checkedAt": "2026-11-12"
+      }
+    ],
+    "imageId": "daily-2026-11-12-balcony-escape-route",
+    "slotDate": "2026-11-12",
+    "imagePath": "/manga/daily/2026-11-12.png",
+    "reviewedAt": "2026-11-12",
+    "reviewTimestamp": "2026-11-12T08:12:00+09:00",
+    "reviewer": "バトラー",
+    "sourceUrls": [
+      "https://www.bousai.metro.tokyo.lg.jp/content/tb2023/pageindices/index68.html",
+      "https://www.city.musashino.lg.jp/kurashi_tetsuzuki/bosai_anzen/bosai_anzen_center_web/1044377/1044379.html"
+    ]
   }
 ]
