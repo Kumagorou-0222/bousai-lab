@@ -1,0 +1,339 @@
+{
+  "version": 1,
+  "purpose": "archive-only",
+  "items": [
+    {
+      "id": "A01",
+      "title": "地震のあと 家の中で",
+      "emergencyOnly": true,
+      "disasterType": "地震",
+      "phase": "A",
+      "imagePath": "images/A01_home-earthquake_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2487226,
+      "sha256": "38254251999d084da029fa2b7bf1fc6f41e49dd9802940b981f15fd36f494a43",
+      "sources": [
+        "https://www.bousai.metro.tokyo.lg.jp/bousai/1000026/1005642.html",
+        "https://www.bousai.metro.tokyo.lg.jp/content/kb2023/pageindices/index94.html",
+        "https://www.bousai.metro.tokyo.lg.jp/content/kb2023/pageindices/index95.html"
+      ],
+      "documentPath": "text/災害時4コマ_A01-A03_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "A02",
+      "title": "外出先で地震 その直後",
+      "emergencyOnly": true,
+      "disasterType": "地震",
+      "phase": "A",
+      "imagePath": "images/A02_outside-earthquake_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2808265,
+      "sha256": "30097733889f0f1ff126e2e173a04d52ff50d53ce6f88e8229b40e521d774208",
+      "sources": [
+        "https://www.keishicho.metro.tokyo.lg.jp/kurashi/saigai/jishin/hassei.html",
+        "https://www.bousai.metro.tokyo.lg.jp/bousai/1000026/1005954.html"
+      ],
+      "documentPath": "text/災害時4コマ_A01-A03_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "A03",
+      "title": "海辺で揺れたら すぐ避難",
+      "emergencyOnly": true,
+      "disasterType": "津波",
+      "phase": "A",
+      "imagePath": "images/A03_tsunami_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2981231,
+      "sha256": "45569c408154e733e259eca8ac40788f0a6e06902265ae5efb39d9854c8567d8",
+      "sources": [
+        "https://www.jma.go.jp/jma/kishou/know/jishin/tsunami_bosai/index.html"
+      ],
+      "documentPath": "text/災害時4コマ_A01-A03_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "A04",
+      "title": "大雨 洪水 避難の判断",
+      "emergencyOnly": true,
+      "disasterType": "大雨・洪水",
+      "phase": "A",
+      "imagePath": "images/A04_flood_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2736351,
+      "sha256": "6b6ab79f2e38bc0b8c548e17e39895139945dcd13b3261c68aa0e91ee14b41fa",
+      "sources": [
+        "https://www.bousai.metro.tokyo.lg.jp/bousai/1000026/1006462.html",
+        "https://www.city.yokohama.lg.jp/bousai-kyukyu-bohan/bousai-saigai/iza/kodo/fusuigai/taifu/taifu-sonae.html",
+        "https://www.jma.go.jp/jma/kishou/know/bosai/riskmap_inundation.html",
+        "https://www.keishicho.metro.tokyo.lg.jp/kurashi/saigai/suigai_taisaku.html"
+      ],
+      "documentPath": "text/災害時4コマ_A04-A08_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "A05",
+      "title": "土砂災害 前兆を待たず避難",
+      "emergencyOnly": true,
+      "disasterType": "土砂災害",
+      "phase": "A",
+      "imagePath": "images/A05_landslide_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2470243,
+      "sha256": "168c2a6b155aa283191cfc68985fa739660e8d0b36b3e1b9786d5342c945225e",
+      "sources": [
+        "https://www.jma.go.jp/jma/kishou/know/ame_chuui/ame_chuui_p8-1.html",
+        "https://www.city.yokohama.lg.jp/bousai-kyukyu-bohan/bousai-saigai/iza/kodo/fusuigai/taifu/taifu-sonae.html"
+      ],
+      "documentPath": "text/災害時4コマ_A04-A08_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "A06",
+      "title": "暴風の間は外の作業をしない",
+      "emergencyOnly": true,
+      "disasterType": "台風・暴風",
+      "phase": "A",
+      "imagePath": "images/A06_wind_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2497252,
+      "sha256": "91b78ae284dbeb2de5795d5579cb1b0add641850b79f5a757083b995b1894228",
+      "sources": [
+        "https://fdhp.choseikouiki.jp/04_03_01_typhoon.html",
+        "https://www.jma-net.go.jp/fukuoka/yoho/kisyousaigai_sonae_typhoon.html",
+        "https://www.jma.go.jp/jma/press/2209/17b/houdouhappyou_202209172240.html"
+      ],
+      "documentPath": "text/災害時4コマ_A04-A08_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "A07",
+      "title": "火事だ 命を守る行動",
+      "emergencyOnly": true,
+      "disasterType": "火災",
+      "phase": "A",
+      "imagePath": "images/A07_fire_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2444081,
+      "sha256": "2acfe6f4640ae250cda58e584f4cb69a4248472338a7a86778f8bf4ce590a237",
+      "sources": [
+        "https://www.city.fukuoka.lg.jp/syobo/yobo/anzen-anshin/shodoutaiou.html",
+        "https://nrifd.fdma.go.jp/news/20140304/handkerchief.pdf",
+        "https://www.city.mito.lg.jp/site/shobo/1888.html"
+      ],
+      "documentPath": "text/災害時4コマ_A04-A08_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "A08",
+      "title": "大雪 吹雪で身を守る",
+      "emergencyOnly": true,
+      "disasterType": "大雪・吹雪",
+      "phase": "A",
+      "imagePath": "images/A08_snow_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2525331,
+      "sha256": "9bd1aa7cbd8ce2b62c34c481b32a446e2fc2b0e91baaeca3e1160d9f2c74bc95",
+      "sources": [
+        "https://www.pref.hokkaido.lg.jp/sm/ktk/bsb/boufusetu.html",
+        "https://town.biei.hokkaido.jp/emergency/bohusetsu.html",
+        "https://www.thr.mlit.go.jp/Bumon/J72101/homepage/road/topic/winter_drive/index.html"
+      ],
+      "documentPath": "text/災害時4コマ_A04-A08_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "B01",
+      "title": "安否を短く伝える",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "B",
+      "imagePath": "images/B01_safety-message_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2825321,
+      "sha256": "302dda8773cf957ca570996d507d2a5474e4973d99ba4b01b0e62fb8b9f7ca24",
+      "sources": [
+        "https://www.ntt-east.co.jp/saigai/voice171/index.html",
+        "https://www.ntt-east.co.jp/saigai/voice171s/rec.html",
+        "https://group.ntt/jp/disaster/service/171.html",
+        "https://www.ntt-east.co.jp/saigai/web171s/etsuran.html"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "B02",
+      "title": "二次災害を避ける",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "B",
+      "imagePath": "images/B02_secondary-hazards_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2833175,
+      "sha256": "1805f51a41b1de295c2f38226c4d0f637b3636481415f45c4d65de53d56dd320",
+      "sources": [
+        "https://www.tokyo-gas.co.jp/network/emergencies/kusai/index.html",
+        "https://www.keishicho.metro.tokyo.lg.jp/kurashi/saigai/jishin/hassei.html"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "B03",
+      "title": "帰宅を急がず安全確認",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "B",
+      "imagePath": "images/B03_safe-stay_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2485421,
+      "sha256": "d5d8b0e5ad230223a693259a7409b30a673e104a6aad055075844ff8459c4fac",
+      "sources": [
+        "https://www.bousai.metro.tokyo.lg.jp/bousai/1000026/1005954.html"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "C01",
+      "title": "トイレを我慢しない",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "C",
+      "imagePath": "images/C01_toilet_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2327477,
+      "sha256": "f62297155c7327eff9f7c4b3118a4651dec0fe0ecc4a36e7b18cd5f1b179f9f3",
+      "sources": [
+        "https://www.city.taito.lg.jp/bosai/taisaku/katei/toire.html",
+        "https://www.bousai.go.jp/kohou/kouhoubousai/r06/111/news_08.html",
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000212521_00003.html"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "C02",
+      "title": "体調と薬の困り事を伝える",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "C",
+      "imagePath": "images/C02_health_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2307085,
+      "sha256": "17dc5b06afcb25a0c4b93212811270d8f9b5f84816286476dfddcd9e0d66334f",
+      "sources": [
+        "https://kakarikata.mhlw.go.jp/kakaritsuke/urgency.html",
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000122530.html",
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000212521_00003.html"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "C03",
+      "title": "家族の困り事を相談しよう",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "C",
+      "imagePath": "images/C03_family_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2412254,
+      "sha256": "9cda6165d4072b95cedfda64413583c436c052c807a07a8ac99fa195d20dfc3f",
+      "sources": [
+        "https://www.env.go.jp/nature/dobutsu/aigo/1_law/disaster.html",
+        "https://www.mhlw.go.jp/stf/houdou/2r98520000015or4.html",
+        "https://www.bousai.go.jp/taisaku/shien/index.html",
+        "https://www.env.go.jp/nature/dobutsu/aigo/1_law/files/poster09_2.pdf",
+        "https://www.city.chiba.jp/sogoseisaku/kikikanri/bosai/hinansya-card.html"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "D01",
+      "title": "住まいの被害と相談先",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "D",
+      "imagePath": "images/D01_housing-damage_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2776496,
+      "sha256": "33b608382caf3abdf48993c4f18f3e8f0050a74c9d4f9f013d0e6f63a7195b39",
+      "sources": [
+        "https://www.pref.aomori.lg.jp/koho/sumaino_higai.html"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "D02",
+      "title": "修理の契約を急がない",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "D",
+      "imagePath": "images/D02_repair-contract_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2504735,
+      "sha256": "c69ed345179fefb4a2b9efd31dd951f15413eb10560275611303d81e12eb60d1",
+      "sources": [
+        "https://www.caa.go.jp/disaster/earthquake20160414/advice/"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    },
+    {
+      "id": "D03",
+      "title": "つらさを一人で抱えない",
+      "emergencyOnly": true,
+      "disasterType": "災害共通",
+      "phase": "D",
+      "imagePath": "images/D03_emotional-support_v1.png",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 2575486,
+      "sha256": "47d992bae37a67215e6fbf88ee39decef7090eb9cf149eb337273e67f5fe1bf1",
+      "sources": [
+        "https://www.mhlw.go.jp/stf/houdou/2r98520000015or4.html",
+        "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000122530.html",
+        "https://kakarikata.mhlw.go.jp/kakaritsuke/urgency.html"
+      ],
+      "documentPath": "text/災害時4コマ_共通B-D_投稿文_ALT_出典_使用条件.txt",
+      "nonAdvertising": true,
+      "manualPublicationRequired": true
+    }
+  ]
+}
