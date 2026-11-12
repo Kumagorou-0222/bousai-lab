@@ -150,5 +150,33 @@
     "postedAtJst": "2026-11-12T18:00:00+09:00",
     "libraryFileId": "libfile_687b5f6def948191ad6123ff8605976d",
     "imageSha256": "905ba5082d71b460b503121405ffbc5cb59161cb9dcc9bcfef842046454b3a78"
+  },
+  {
+    "dateJst": "2026-11-13",
+    "status": "scheduled",
+    "imageId": null,
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "2026-11-12 X公式UIの@zaitaku_bousai予約一覧を保存後に開き直し、11月13日07:00と12:00（Japan Standard Time）の各1件、本文・出典リンク一致を確認。画像なし。",
+    "postUrl": null,
+    "postedAtJst": null,
+    "slot": "morning",
+    "scheduledForJst": "2026-11-13T07:00:00+09:00",
+    "slug": "disaster-backpack",
+    "text": "【今日の備え】非常用持ち出し袋は、実際に背負って重さを確認。水・食料・薬など、自分と家族に必要な物を選び、無理なく持ち歩ける量に調整しましょう。すぐ取り出せる場所に置くことも大切です。\nhttps://www.shouhiseikatu.metro.tokyo.lg.jp/kurashi/1903_04/wadai.html\n#防災 #備蓄 #防災グッズ #家族で確認 #今日の備え"
+  },
+  {
+    "dateJst": "2026-11-13",
+    "status": "scheduled",
+    "imageId": null,
+    "imagePath": null,
+    "altText": null,
+    "scheduleConfirmation": "2026-11-12 X公式UIの@zaitaku_bousai予約一覧を保存後に開き直し、11月13日07:00と12:00（Japan Standard Time）の各1件、本文・出典リンク一致を確認。画像なし。",
+    "postUrl": null,
+    "postedAtJst": null,
+    "slot": "noon",
+    "scheduledForJst": "2026-11-13T12:00:00+09:00",
+    "slug": "evacuation-illness",
+    "text": "【1分防災】避難所でも、食事前やトイレ後は手洗いを。咳やくしゃみはマスクやティッシュなどで口と鼻を覆いましょう。発熱・咳・下痢など体調の変化があれば、早めに避難所の担当者へ伝えてください。\nhttps://www.mhlw.go.jp/stf/newpage_00346.html\n#防災 #避難所 #感染症対策 #1分防災"
   }
 ]
