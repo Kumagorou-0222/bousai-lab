@@ -206,5 +206,21 @@
     "scheduleConfirmation": "2026-11-13 @zaitaku_bousaiのX公式予約一覧を保存後に開き直し、2026年11月14日07:00と12:00（日本標準時）の2件、日時・本文・公式出典リンク一致を確認。画像添付なし。",
     "postUrl": null,
     "postedAtJst": null
+  },
+  {
+    "dateJst": "2026-11-13",
+    "slot": "night",
+    "scheduledForJst": "2026-11-13T18:00:00+09:00",
+    "status": "scheduled",
+    "slug": "night-2026-11-13",
+    "imageId": "libfile_cb033b1951948191aba54d84181c36ff",
+    "libraryFileId": "libfile_cb033b1951948191aba54d84181c36ff",
+    "imageSha256": "e07576c58cb1b58c5cd51764105b560d8b700bfb6316644441922abffeae9e94",
+    "text": "予備の乾電池、むき出しで金属と一緒に入れていませんか？\n使う直前まで包装のまま、開封後は電池用ケースへ。鍵や硬貨と分け、直射日光・高温多湿を避けて保管しましょう。\n#防災 #防災4コマ\nhttps://www.shouhiseikatu.metro.tokyo.lg.jp/attention/kigai_denchi.html",
+    "imagePath": null,
+    "altText": "『予備電池は分けて保管』という、左上から右上、左下、右下へ読む4コマ。1、自宅でソナエが乾電池を持ち、鍵と硬貨の入ったポーチの前にいる。Qが手を上げ「金属と一緒に入れないで！」と止める。2、乾電池・鍵・硬貨の絵に赤い×を重ねたボードをQが指し、「端子が金属に触れると発熱することも」と説明。3、ソナエが未開封の電池パックを棚に置く。「使う直前まで包装のまま」。机には仕切りのある電池用ケースがあり、「開封後は電池用ケースへ」と案内。4、パックを持つソナエとQが収納棚の前に立つ。「高温多湿・直射日光を避けて保管」「使用推奨期限も確認！」。平時に備蓄を整理する場面で、災害や発火は起きていない。",
+    "scheduleConfirmation": "2026-11-13 @zaitaku_bousaiのX公式UIで18:00（日本標準時）の予約を保存後、画像・本文・ALTを再読戻し確認。題名「予備電池は分けて保管」。",
+    "postUrl": null,
+    "postedAtJst": null
   }
 ]
