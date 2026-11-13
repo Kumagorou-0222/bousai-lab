@@ -5151,5 +5151,43 @@
     "success": true,
     "nightImageId": "daily-2026-11-12-balcony-escape-route",
     "nightStatus": "posted"
+  },
+  {
+    "postedAt": "2026-11-13T07:00:00+09:00",
+    "slug": "disaster-backpack",
+    "title": "非常用持ち出し袋は背負って確認",
+    "slot": "morning",
+    "tweetId": "2121000087782347019",
+    "tweetUrl": "https://x.com/zaitaku_bousai/status/2121000087782347019",
+    "text": "【今日の備え】非常用持ち出し袋は、実際に背負って重さを確認。水・食料・薬など、自分と家族に必要な物を選び、無理なく持ち歩ける量に調整しましょう。すぐ取り出せる場所に置くことも大切です。\nhttps://www.shouhiseikatu.metro.tokyo.lg.jp/kurashi/1903_04/wadai.html\n#防災 #備蓄 #防災グッズ #家族で確認 #今日の備え",
+    "hasImage": false,
+    "imageLocalPath": null,
+    "success": true
+  },
+  {
+    "postedAt": "2026-11-13T12:00:00+09:00",
+    "slug": "evacuation-illness",
+    "title": "避難所の手洗い・咳エチケット・体調申告",
+    "slot": "noon",
+    "tweetId": "2121075583308247268",
+    "tweetUrl": "https://x.com/zaitaku_bousai/status/2121075583308247268",
+    "text": "【1分防災】避難所でも、食事前やトイレ後は手洗いを。咳やくしゃみはマスクやティッシュなどで口と鼻を覆いましょう。発熱・咳・下痢など体調の変化があれば、早めに避難所の担当者へ伝えてください。\nhttps://www.mhlw.go.jp/stf/newpage_00346.html\n#防災 #避難所 #感染症対策 #1分防災",
+    "hasImage": false,
+    "imageLocalPath": null,
+    "success": true
+  },
+  {
+    "postedAt": "2026-11-13T18:00:00+09:00",
+    "slug": "night-2026-11-13",
+    "title": "予備電池は分けて保管",
+    "slot": "night",
+    "tweetId": "2121166182522704221",
+    "tweetUrl": "https://x.com/zaitaku_bousai/status/2121166182522704221",
+    "text": "予備の乾電池、むき出しで金属と一緒に入れていませんか？\n使う直前まで包装のまま、開封後は電池用ケースへ。鍵や硬貨と分け、直射日光・高温多湿を避けて保管しましょう。\n#防災 #防災4コマ\nhttps://www.shouhiseikatu.metro.tokyo.lg.jp/attention/kigai_denchi.html",
+    "hasImage": true,
+    "imageLocalPath": null,
+    "success": true,
+    "nightImageId": "libfile_cb033b1951948191aba54d84181c36ff",
+    "nightStatus": "posted"
   }
 ]
