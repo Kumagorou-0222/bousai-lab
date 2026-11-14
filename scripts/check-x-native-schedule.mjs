@@ -19,9 +19,14 @@ for (const entry of entries) {
   if (!expected) {
     throw new Error(`X直接予約の時刻が違います: ${key}`)
   }
-  if (!['scheduled', 'posted', 'unknown'].includes(entry.status) ||
+  if (!['scheduled', 'posted', 'unknown', 'cancelled'].includes(entry.status) ||
       !entry.slug?.trim() || !entry.text?.trim() || !entry.scheduleConfirmation?.trim()) {
     throw new Error(`X直接予約の確認情報が不足しています: ${key}`)
+  }
+  if (entry.status === 'cancelled' &&
+      (!/^\d{4}-\d{2}-\d{2}$/.test(entry.cancelledOnJst ?? '') ||
+       !entry.cancellationReason?.trim() || !entry.cancellationConfirmation?.trim())) {
+    throw new Error(`X直接予約の取消確認情報が不足しています: ${key}`)
   }
   if (entry.slot === 'night' && !entry.imageId?.trim()) {
     throw new Error(`夜枠の画像IDがありません: ${key}`)
