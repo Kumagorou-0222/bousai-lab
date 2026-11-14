@@ -189,17 +189,17 @@
     ]
   },
   {
-    "imageId": "libfile_fde3_f-45b65636fd9c81918b8d6e6a5ae1087e_e24288e35bc4819186efea5d6b27e74a:v0",
-    "libraryFileId": "libfile_fde3_f-45b65636fd9c81918b8d6e6a5ae1087e_e24288e35bc4819186efea5d6b27e74a",
+    "imageId": "libfile_fde3_f-ca1a3b2601a081918a90c32905119fdd_e24288e35bc4819186efea5d6b27e74a:v0",
+    "libraryFileId": "libfile_fde3_f-ca1a3b2601a081918a90c32905119fdd_e24288e35bc4819186efea5d6b27e74a",
     "slotDate": "2026-11-14",
     "theme": "会えないときの約束",
     "text": "電話がつながらないとき、どこで会う？ 家族で集合場所・経路・連絡方法を決めてメモに。会うための無理な移動はせず、身の安全と必要な避難を優先しましょう。\n東京都「東京防災」\nhttps://www.bousai.metro.tokyo.lg.jp/content/tb2023/pageindices/index54.html\n#防災",
     "imagePath": "/manga/daily/2026-11-14.png",
-    "imageSha256": "541e36e646913d0e271366032992058c1e66828eb2d33b75864d66160a481b8c",
-    "width": 1086,
-    "height": 1448,
+    "imageSha256": "24dc32f836265cf0073ebbd90fcc78e77d476eb202056eb3c0ff291bf75e18e2",
+    "width": 2400,
+    "height": 3200,
     "reviewedAt": "2026-11-14",
-    "reviewTimestamp": "2026-11-13T23:56:37.186Z",
+    "reviewTimestamp": "2026-11-14T05:39:09Z",
     "reviewer": "バトラー（制作・登録担当が実画像確認）",
     "altText": "防災4コマ「会えないときの約束」。家族で決めておこう、という平時の備えの話。読み順は左上1、右上2、左下3、右下4。ソナエは黄色いヘルメットと上着、緑のリュックを着たリス。キュー（Q）は白と青の装甲、青いマントのロボット。帽子と胸には青い盾と緑十字。1：自宅のテーブルでスマホを持つソナエが「電話がつながらないとき、どこで会う？」と質問。2：Qが地図を指し「集合場所と道を、家族で確認しよう」。3：平穏な街を二人で確認。ソナエは「家族の約束／集合場所／連絡方法」と書いた紙を持ち、「場所だけでなく、連絡方法もメモ！」。4：自宅でQが真剣な表情で「でも、会うために無理な移動はしないよ」。下部に「まず身の安全。危険があれば避難を優先」と大きく記載。",
     "sources": [
@@ -220,7 +220,7 @@
     ],
     "styleReview": {
       "reviewer": "バトラー",
-      "reviewedAt": "2026-11-13T23:56:37.186Z",
+      "reviewedAt": "2026-11-14T05:39:09Z",
       "textClipping": false,
       "backgroundDetail": "pass",
       "characterConsistency": "pass v3確定版",
@@ -229,8 +229,58 @@
       "safety": "現在発災と見せない平時。集合のため危険な移動を促さず避難優先を明示。",
       "weightedLength": 198,
       "twitterTextValid": true,
-      "resolutionTargetMet": false,
-      "resolutionNote": "画像生成へ1800x2400以上を指定したが実出力1086x1448。長辺2400目標未達。"
+      "resolutionTargetMet": true,
+      "resolutionNote": "各コマを1086×1448で個別実生成、倍率1で2×2合成。絵の縦画素は1448×2=2896。全体2400×3200。補間拡大なし。",
+      "independentReview": "台詞・ALT・四肢・安全性PASS。タイトル副題間隔狭めだが切れなし。"
+    },
+    "resolutionRevision": {
+      "method": "native-panel-composition",
+      "scale": 1,
+      "artHeightAcrossRows": 2896,
+      "panels": [
+        {
+          "file": "panel1.png",
+          "nativeWidth": 1086,
+          "nativeHeight": 1448,
+          "placedWidth": 1086,
+          "placedHeight": 1448,
+          "scale": 1,
+          "sha256": "9282e4cc3eaf10a2350928199cbb59addc1da0412384c90402596a6bc2f34bfc",
+          "dialogue": "電話がつながらないとき、どこで会う？"
+        },
+        {
+          "file": "panel2.png",
+          "nativeWidth": 1086,
+          "nativeHeight": 1448,
+          "placedWidth": 1086,
+          "placedHeight": 1448,
+          "scale": 1,
+          "sha256": "d28c72fb4611686f1e9cd08969dd3e9f2cf14a3b60f36786b46c0b74a67e4346",
+          "dialogue": "集合場所と道を、家族で確認しよう"
+        },
+        {
+          "file": "panel3.png",
+          "nativeWidth": 1086,
+          "nativeHeight": 1448,
+          "placedWidth": 1086,
+          "placedHeight": 1448,
+          "scale": 1,
+          "sha256": "600532d4db07eb7bbd661949f7d2e47a79749d2b7f9aac85b8dd4b1402b3b058",
+          "dialogue": "場所だけでなく、連絡方法もメモ！"
+        },
+        {
+          "file": "panel4.png",
+          "nativeWidth": 1086,
+          "nativeHeight": 1448,
+          "placedWidth": 1086,
+          "placedHeight": 1448,
+          "scale": 1,
+          "sha256": "dad9f286b7650daaf6ca980f6d908a583d2a06b381e0d89d73164dc00f37239b",
+          "dialogue": "でも、会うために無理な移動はしないよ"
+        }
+      ],
+      "sourceImageSha256": "541e36e646913d0e271366032992058c1e66828eb2d33b75864d66160a481b8c",
+      "externalSchedulesModified": false
     }
   }
 ]
