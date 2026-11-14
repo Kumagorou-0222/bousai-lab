@@ -10,6 +10,8 @@ on:
       - 'tests/xNightPost.test.mjs'
       - 'data/x-night-approved.json'
       - 'public/manga/daily/**'
+      - 'scripts/check-native-comic-resolution.mjs'
+      - 'docs/daily_native_resolution/**'
   workflow_dispatch:
 
 permissions:
@@ -26,3 +28,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node --test tests/xNightPost.test.mjs
+      - name: 個別実生成版の解像度・非拡大ゲート
+        run: |
+          for manifest in docs/daily_native_resolution/*-manifest.json; do
+            slot=$(basename "$manifest" -manifest.json)
+            node scripts/check-native-comic-resolution.mjs "$slot"
+          done
