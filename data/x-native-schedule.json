@@ -183,29 +183,29 @@
     "dateJst": "2026-11-14",
     "slot": "morning",
     "scheduledForJst": "2026-11-14T07:00:00+09:00",
-    "status": "scheduled",
+    "status": "posted",
     "slug": "emergency-food",
     "imageId": null,
     "text": "【今日の備え】食品の備蓄は、普段食べるものを少し多めに。期限の近いものから食べ、減った分を補充する「ローリングストック」で続けましょう。できれば1週間分を目標に。\nhttps://www.maff.go.jp/j/zyukyu/foodstock/chapter02.html\n\n#防災 #備蓄 #防災グッズ #今日の備え",
     "imagePath": null,
     "altText": null,
     "scheduleConfirmation": "2026-11-13 @zaitaku_bousaiのX公式予約一覧を保存後に開き直し、2026年11月14日07:00と12:00（日本標準時）の2件、日時・本文・公式出典リンク一致を確認。画像添付なし。",
-    "postUrl": null,
-    "postedAtJst": null
+    "postUrl": "https://x.com/zaitaku_bousai/status/2121362477069864961",
+    "postedAtJst": "2026-11-14T07:00:00+09:00"
   },
   {
     "dateJst": "2026-11-14",
     "slot": "noon",
     "scheduledForJst": "2026-11-14T12:00:00+09:00",
-    "status": "scheduled",
+    "status": "posted",
     "slug": "earthquake-bath",
     "imageId": null,
     "text": "【1分防災】地震後、お風呂でガスを使う前に、におい・機器の破損・給排気設備などを確認。異常があれば使わず、ガス事業者などへ相談を。ガス臭いときは火気厳禁。換気扇や電気のスイッチに触れないでください。\nhttps://www.tokyo-gas.co.jp/network/emergencies/jishin/index.html\n\n#防災 #地震 #地震対策 #1分防災",
     "imagePath": null,
     "altText": null,
     "scheduleConfirmation": "2026-11-13 @zaitaku_bousaiのX公式予約一覧を保存後に開き直し、2026年11月14日07:00と12:00（日本標準時）の2件、日時・本文・公式出典リンク一致を確認。画像添付なし。",
-    "postUrl": null,
-    "postedAtJst": null
+    "postUrl": "https://x.com/zaitaku_bousai/status/2121437977176130047",
+    "postedAtJst": "2026-11-14T12:00:00+09:00"
   },
   {
     "dateJst": "2026-11-13",
@@ -227,7 +227,7 @@
     "dateJst": "2026-11-14",
     "slot": "night",
     "scheduledForJst": "2026-11-14T18:00:00+09:00",
-    "status": "scheduled",
+    "status": "posted",
     "slug": "night-2026-11-14",
     "imageId": "libfile_fde3_f-ca1a3b2601a081918a90c32905119fdd_e24288e35bc4819186efea5d6b27e74a",
     "libraryFileId": "libfile_fde3_f-ca1a3b2601a081918a90c32905119fdd_e24288e35bc4819186efea5d6b27e74a",
@@ -236,8 +236,8 @@
     "imagePath": "/manga/daily/2026-11-14.png",
     "altText": "防災4コマ「会えないときの約束」。家族で決めておこう、という平時の備えの話。読み順は左上1、右上2、左下3、右下4。ソナエは黄色いヘルメットと上着、緑のリュックを着たリス。キュー（Q）は白と青の装甲、青いマントのロボット。帽子と胸には青い盾と緑十字。1：自宅のテーブルでスマホを持つソナエが「電話がつながらないとき、どこで会う？」と質問。2：Qが地図を指し「集合場所と道を、家族で確認しよう」。3：平穏な街を二人で確認。ソナエは「家族の約束／集合場所／連絡方法」と書いた紙を持ち、「場所だけでなく、連絡方法もメモ！」。4：自宅でQが真剣な表情で「でも、会うために無理な移動はしないよ」。下部に「まず身の安全。危険があれば避難を優先」と大きく記載。",
     "scheduleConfirmation": "2026-11-14 Lenovoの@zaitaku_bousai公式UIで新画像（2400×3200）を18:00日本標準時に予約。保存後に予約一覧を開き直し、当日夜枠1件のみ、日時・本文・画像・ALT全文一致を確認。実公開は未確認。",
-    "postUrl": null,
-    "postedAtJst": null,
+    "postUrl": "https://x.com/zaitaku_bousai/status/2121528570594168973",
+    "postedAtJst": "2026-11-14T18:00:00+09:00",
     "previousReservations": [
       {
         "dateJst": "2026-11-14",
