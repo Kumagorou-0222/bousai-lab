@@ -189,17 +189,17 @@
     ]
   },
   {
-    "imageId": "libfile_fde3_f-45b65636fd9c81918b8d6e6a5ae1087e_e24288e35bc4819186efea5d6b27e74a:v0",
+    "imageId": "libfile_fde3_f-45b65636fd9c81918b8d6e6a5ae1087e_e24288e35bc4819186efea5d6b27e74a:v1",
     "libraryFileId": "libfile_fde3_f-45b65636fd9c81918b8d6e6a5ae1087e_e24288e35bc4819186efea5d6b27e74a",
     "slotDate": "2026-11-14",
     "theme": "会えないときの約束",
     "text": "電話がつながらないとき、どこで会う？ 家族で集合場所・経路・連絡方法を決めてメモに。会うための無理な移動はせず、身の安全と必要な避難を優先しましょう。\n東京都「東京防災」\nhttps://www.bousai.metro.tokyo.lg.jp/content/tb2023/pageindices/index54.html\n#防災",
     "imagePath": "/manga/daily/2026-11-14.png",
-    "imageSha256": "541e36e646913d0e271366032992058c1e66828eb2d33b75864d66160a481b8c",
-    "width": 1086,
-    "height": 1448,
+    "imageSha256": "6df6fc3bdcecf6807ac64f0c9fc2687c7ddb352b440422fe3aa4a9a39094a629",
+    "width": 2172,
+    "height": 2896,
     "reviewedAt": "2026-11-14",
-    "reviewTimestamp": "2026-11-13T23:56:37.186Z",
+    "reviewTimestamp": "2026-11-14T05:23:02.370447+00:00",
     "reviewer": "バトラー（制作・登録担当が実画像確認）",
     "altText": "防災4コマ「会えないときの約束」。家族で決めておこう、という平時の備えの話。読み順は左上1、右上2、左下3、右下4。ソナエは黄色いヘルメットと上着、緑のリュックを着たリス。キュー（Q）は白と青の装甲、青いマントのロボット。帽子と胸には青い盾と緑十字。1：自宅のテーブルでスマホを持つソナエが「電話がつながらないとき、どこで会う？」と質問。2：Qが地図を指し「集合場所と道を、家族で確認しよう」。3：平穏な街を二人で確認。ソナエは「家族の約束／集合場所／連絡方法」と書いた紙を持ち、「場所だけでなく、連絡方法もメモ！」。4：自宅でQが真剣な表情で「でも、会うために無理な移動はしないよ」。下部に「まず身の安全。危険があれば避難を優先」と大きく記載。",
     "sources": [
@@ -220,7 +220,7 @@
     ],
     "styleReview": {
       "reviewer": "バトラー",
-      "reviewedAt": "2026-11-13T23:56:37.186Z",
+      "reviewedAt": "2026-11-14T05:23:02.370447+00:00",
       "textClipping": false,
       "backgroundDetail": "pass",
       "characterConsistency": "pass v3確定版",
@@ -229,8 +229,19 @@
       "safety": "現在発災と見せない平時。集合のため危険な移動を促さず避難優先を明示。",
       "weightedLength": 198,
       "twitterTextValid": true,
-      "resolutionTargetMet": false,
-      "resolutionNote": "画像生成へ1800x2400以上を指定したが実出力1086x1448。長辺2400目標未達。"
+      "resolutionTargetMet": true,
+      "resolutionNote": "原画像1086×1448をImageMagick Lanczos補間で2倍の2172×2896へ再出力。内容・台詞・構図を変更せず、画素数要件のみ達成。新たな描画細部は追加しておらず、真の高精細再生成ではない。"
+    },
+    "resolutionRevision": {
+      "method": "Lanczos 2x resampling",
+      "sourceSha256": "541e36e646913d0e271366032992058c1e66828eb2d33b75864d66160a481b8c",
+      "sourceWidth": 1086,
+      "sourceHeight": 1448,
+      "libraryVersion": 1,
+      "reviewedAt": "2026-11-14T05:23:02.370447+00:00",
+      "reviewer": "バトラー",
+      "contentUnchanged": true,
+      "externalSchedulesModified": false
     }
   }
 ]
