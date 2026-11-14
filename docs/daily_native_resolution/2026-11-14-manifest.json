@@ -1,0 +1,50 @@
+{
+  "method": "native per-panel generation + unscaled composition + high-resolution typesetting",
+  "width": 2400,
+  "height": 3200,
+  "upscale": false,
+  "panels": [
+    {
+      "file": "panel1.png",
+      "nativeWidth": 1086,
+      "nativeHeight": 1448,
+      "placedWidth": 1086,
+      "placedHeight": 1448,
+      "scale": 1,
+      "sha256": "9282e4cc3eaf10a2350928199cbb59addc1da0412384c90402596a6bc2f34bfc",
+      "dialogue": "電話がつながらないとき、どこで会う？"
+    },
+    {
+      "file": "panel2.png",
+      "nativeWidth": 1086,
+      "nativeHeight": 1448,
+      "placedWidth": 1086,
+      "placedHeight": 1448,
+      "scale": 1,
+      "sha256": "d28c72fb4611686f1e9cd08969dd3e9f2cf14a3b60f36786b46c0b74a67e4346",
+      "dialogue": "集合場所と道を、家族で確認しよう"
+    },
+    {
+      "file": "panel3.png",
+      "nativeWidth": 1086,
+      "nativeHeight": 1448,
+      "placedWidth": 1086,
+      "placedHeight": 1448,
+      "scale": 1,
+      "sha256": "600532d4db07eb7bbd661949f7d2e47a79749d2b7f9aac85b8dd4b1402b3b058",
+      "dialogue": "場所だけでなく、連絡方法もメモ！"
+    },
+    {
+      "file": "panel4.png",
+      "nativeWidth": 1086,
+      "nativeHeight": 1448,
+      "placedWidth": 1086,
+      "placedHeight": 1448,
+      "scale": 1,
+      "sha256": "dad9f286b7650daaf6ca980f6d908a583d2a06b381e0d89d73164dc00f37239b",
+      "dialogue": "でも、会うために無理な移動はしないよ"
+    }
+  ],
+  "sha256": "24dc32f836265cf0073ebbd90fcc78e77d476eb202056eb3c0ff291bf75e18e2",
+  "output": "防災4コマ_2026-11-14_会えないときの約束_個別生成2400x3200.png"
+}
