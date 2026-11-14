@@ -11,6 +11,8 @@ on:
       - 'data/x-night-approved.json'
       - 'public/manga/daily/**'
       - 'scripts/check-native-comic-resolution.mjs'
+      - 'scripts/require-native-comic-manifests.mjs'
+      - 'tests/nativeManifestRequirement.test.mjs'
       - 'docs/daily_native_resolution/**'
   workflow_dispatch:
 
@@ -28,9 +30,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node --test tests/xNightPost.test.mjs
+      - run: node --test tests/nativeManifestRequirement.test.mjs
       - name: 個別実生成版の解像度・非拡大ゲート
         run: |
-          for manifest in docs/daily_native_resolution/*-manifest.json; do
-            slot=$(basename "$manifest" -manifest.json)
+          dates=$(node scripts/require-native-comic-manifests.mjs)
+          for slot in $dates; do
             node scripts/check-native-comic-resolution.mjs "$slot"
           done
